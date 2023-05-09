@@ -1,6 +1,7 @@
 const UserServices = require('../services/UserServices');
+const userSchema = require("../models/User");
 
-exports.register = async (req, res, next) => {
+const register = async (req, res, next) => {
     try {
         console.log("---req body---", req.body);
         const { email, password } = req.body;
@@ -19,7 +20,7 @@ exports.register = async (req, res, next) => {
     }
 }
 
-exports.login = async (req, res, next) => {
+const login = async (req, res, next) => {
     try {
 
         const { email, password } = req.body;
@@ -51,4 +52,28 @@ exports.login = async (req, res, next) => {
         console.log(error, 'err---->');
         next(error);
     }
+}
+
+const getUsers = async (req, res) => {
+    try {
+      const { email } = req.query;
+      const users = await userSchema.find();
+  
+      if (email) {
+        let userEmail = users.filter((user) => user.email === email);
+        userEmail.length
+          ? res.status(200).json(userEmail)
+          : res.status(201).json("Not found");
+      } else {
+        res.status(200).json(users);
+      }
+    } catch (error) {
+      res.status(500).json(`Error ${error}`);
+    }
+  };
+
+module.exports ={
+    getUsers,
+    register,
+    login
 }
