@@ -1,11 +1,8 @@
 const app = require('./app')
+const db = require('./config/db')
 
-const port = 3001;
-
-app.get('/', (req,res) => {
-    res.send('Welcome to edeal app')
-})
+const port = 3001
 
 app.listen(port, () => {
-    console.log(`Listening at http://localhost:${port}`)
+  console.log(`Server Listening on http://localhost:${port}`);
 })
