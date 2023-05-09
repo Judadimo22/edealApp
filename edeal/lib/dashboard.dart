@@ -33,121 +33,130 @@ class _DashboardState extends State<Dashboard> {
 
   }
 
+  int _selectedTab = 0;
+
+  List _pages = [
+    Container(
+    margin: EdgeInsets.only(top: 120),
+    child: Column(children: [
+      Container(
+        margin: EdgeInsets.only(bottom: 20),
+        child:Text(
+          'Saldo total',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 20
+          ),
+          ),
+      ),
+    Text(
+      '600.00 COP',
+      style: TextStyle(
+        color: Colors.white,
+        fontSize: 40
+      ),
+      ),
+    Container(
+      margin: EdgeInsets.only(top: 20),
+      child:Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              color:Color(0XFFE8E112),
+              borderRadius: BorderRadius.circular(10)
+            ),
+            padding: EdgeInsets.only(top:10, bottom: 10, left: 20, right: 20 ),
+            margin: EdgeInsets.only(left: 10, right: 10),
+            child:Text(
+              'RECARGAR',
+              style: TextStyle(
+              color: Color(0XFF524898)
+              ),
+              ),
+          ),
+          Container(
+            decoration: BoxDecoration(
+              color:Colors.white,
+              borderRadius: BorderRadius.circular(10)
+            ),
+            padding: EdgeInsets.only(top:10, bottom: 10, left: 20, right: 20 ),
+            margin: EdgeInsets.only(left: 10, right: 10),
+            child:Text(
+              'ENVIAR',
+              style: TextStyle(
+                color: Color(0XFF524898)
+              ),
+              ),
+          ),
 
 
+      ],)
+    ),
+    ]),
+    ),
+    Center(
+      child: Text(
+        "Planeación",
+        style: TextStyle(
+          fontSize: 30,
+          color: Colors.white
+        ),
+        ),
+    ),
+    Center(
+      child: Text(
+        "Ahorro",
+        style: TextStyle(
+        fontSize: 30,
+        color: Colors.white
+        ),
+        ),
+    ),
+    Center(
+      child: Text(
+        "Crédito",
+        style: TextStyle(
+        fontSize: 30,
+        color: Colors.white
+        ),
+        ),
+    ),
+  ];
 
+  _changeTab(int index) {
+    setState(() {
+      _selectedTab = index;
+    });
+  }
 
 
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
     return Scaffold(
-      backgroundColor: Colors.blue[900],
-       body: Column(
-         children: [
-           Container(
-             padding: EdgeInsets.only(top: 60.0, right: 10, left: 10),
-             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-               children: [
-                Container(
-                  padding:EdgeInsets.only(bottom: 5) ,
-                  child: Align(
-                    alignment: Alignment.center,
-                    child:ElevatedButton(onPressed: () =>{}, 
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.blue[500],
-                    minimumSize: const Size.fromHeight(50)
-                  ),
-                  child: Text(
-                    textAlign:(TextAlign.left),
-                    'Planeación financiera',
-                    style: TextStyle(
-                    fontSize: 30,
-                    color: Colors.white
-                  ))),)
-                ),
-                Container(
-                  padding:EdgeInsets.only(bottom: 5) ,
-                  child: Align(
-                    alignment: Alignment.center,
-                    child:ElevatedButton(onPressed: () =>{
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>Planeacion()))
-                    }, 
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.blue[500],
-                    minimumSize: const Size.fromHeight(50)
-                  ),
-                  child: Text(
-                    textAlign:(TextAlign.left),
-                    'Ahorro',
-                    style: TextStyle(
-                    fontSize: 30,
-                    color: Colors.white
-                  ))),)
-                ),
-                Container(
-                  padding:EdgeInsets.only(bottom: 5) ,
-                  child: Align(
-                    alignment: Alignment.center,
-                    child:ElevatedButton(onPressed: () =>{}, 
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.blue[500],
-                    minimumSize: const Size.fromHeight(50)
-                  ),
-                  child: Text(
-                    textAlign:(TextAlign.left),
-                    'Crédito',
-                    style: TextStyle(
-                    fontSize: 30,
-                    color: Colors.white
-                  ))),)
-                ),
-               ],
-               crossAxisAlignment: CrossAxisAlignment.center,
-             ),
-           ),
-         ],
-       ),
+      backgroundColor: Color(0XFF524898),
+      body: Center(
+        child: _pages[_selectedTab],
+      ),
+    bottomNavigationBar:
+    BottomNavigationBar(
+      currentIndex: _selectedTab,
+      onTap: (index) => _changeTab(index),
+      unselectedItemColor: Colors.black,
+      selectedItemColor: Colors.blue,
+      items:[
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Inicio"),
+          BottomNavigationBarItem(icon: Icon(Icons.stacked_line_chart_sharp), label: "Planeación"),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.monetization_on), label: "Ahorro"),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.credit_score_sharp), label: "Crédito"),
+      ]
+      
+    ),
     );
   }
 
-  Future<void> _displayTextInputDialog(BuildContext context) async {
-    return showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text('Add To-Do'),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                TextField(
-                  controller: _todoTitle,
-                  keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Colors.white,
-                      hintText: "Title",
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10.0)))),
-                ).p4().px8(),
-                TextField(
-                  controller: _todoDesc,
-                  keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Colors.white,
-                      hintText: "Description",
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10.0)))),
-                ).p4().px8(),
-                ElevatedButton(onPressed: (){
-                  }, child: Text("Add"))
-                  
-              ],
-            ),
-            
-          );
-        });
-  }
 }
+
