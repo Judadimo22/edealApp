@@ -47,11 +47,41 @@ void fetchUserData() async {
     void Confirm() {
       String codeUser = codecontroller.text;
       if(userData['code'] == codeUser){
-        Navigator.push(  context,
-        MaterialPageRoute(builder: (context) => Dashboard(token: widget.token)));
+        showDialog(
+          context: context,
+          builder: (BuildContext context){
+            return AlertDialog(
+              title: Text('Cuenta verificada'),
+              content: (Text('Tu cuenta ha sido verificada de manera correcta')),
+              actions: [
+                TextButton(
+                  onPressed: (){
+                    Navigator.push( context, MaterialPageRoute(builder: (context) => Dashboard(token: widget.token)));
+                  },
+                  child: Text('Aceptar'))
+              ],
+            );
+          }
+        );
       }
       else{
-        print('Error en el código');
+        showDialog(
+          context: context,
+          builder: (BuildContext context){
+            return AlertDialog(
+              title: Text('Error en el código'),
+              content: (Text('El código ingresado no coincide')),
+              actions: [
+                TextButton(
+                  onPressed: (){
+                    Navigator.pop(context);
+                  },
+                  child: Text('Aceptar'))
+              ],
+            );
+          }
+
+        );
       }
     }
 

@@ -48,9 +48,40 @@ class _RegistrationState extends State<Registration> {
       if(jsonResponse['status']){
         var myToken = jsonResponse['token'];
         prefs.setString('token', myToken);
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>Confirm(token: myToken)));
+        showDialog(
+          context: context,
+          builder: (BuildContext context){
+            return AlertDialog(
+              title: Text('Usuario creado correctamente'),
+              content: (Text('Tu usuario se creó correctamente')),
+              actions: [
+                TextButton(
+                  onPressed: (){
+                   Navigator.push(context, MaterialPageRoute(builder: (context)=>Confirm(token: myToken)));
+                  },
+                  child: Text('Aceptar'))
+              ],
+            );
+          }
+        );
       }else{
-        print("SomeThing Went Wrong");
+        showDialog(
+          context: context,
+          builder: (BuildContext context){
+            return AlertDialog(
+              title: Text('Error al registrarse'),
+              content: (Text('Hubo un error al registrate, por favor intentálo de nuevo')),
+              actions: [
+                TextButton(
+                  onPressed: (){
+                    Navigator.pop(context);
+                  },
+                  child: Text('Aceptar'))
+              ],
+            );
+          }
+
+        );
       }
     }else{
       setState(() {
