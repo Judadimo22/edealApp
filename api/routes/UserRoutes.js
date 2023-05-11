@@ -2,8 +2,8 @@ const router = require("express").Router();
 const UserController = require('../controllers/UserController');
 const {getUsers, register, login, getUserById} = require('../controllers/UserController')
 
-router.post("/register", (req,res) => {
-    register(req,res)
+router.post("/register", (req,res,next) => {
+    register(req,res,next)
 });
 
 router.post("/login", (req,res) => {
