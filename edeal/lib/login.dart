@@ -51,73 +51,63 @@ class _SignInPageState extends State<SignInPage> {
         body: Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-                colors: [const Color(0XFF524898),const Color.fromRGBO(82, 72, 152, 1)],
-                begin: FractionalOffset.topLeft,
-                end: FractionalOffset.bottomCenter,
-                stops: [0.0,0.8],
-                tileMode: TileMode.mirror
-            ),
-          ),
+          color: Colors.white,
           child: Center(
             child: SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  HeightBox(10),
-                  "Email Sign-In".text.size(22).yellow100.make(),
-                  TextField(
+                  Image.asset(
+                    'assets/logo_edeal.png'
+                  ),
+                  Container(
+                    margin: EdgeInsets.symmetric(vertical: 20),
+                    child: TextField(
                     controller: emailController,
                     keyboardType: TextInputType.text,
                     decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
                         hintText: "Email",
-                        errorText: _isNotValidate ? "Enter Proper Info" : null,
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(10.0)))),
+                        errorText: _isNotValidate ? "Enter Proper Info" : null,),
                   ).p4().px24(),
-                  TextField(
+                  ),
+                  Container(
+                    margin: EdgeInsets.symmetric(vertical: 20),
+                    child: TextField(
                     controller: passwordController,
                     keyboardType: TextInputType.text,
                     decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
                         hintText: "Password",
-                        errorText: _isNotValidate ? "Enter Proper Info" : null,
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(10.0)))),
+                        errorText: _isNotValidate ? "Enter Proper Info" : null,),
                   ).p4().px24(),
-                  GestureDetector(
-                    onTap: (){
-                        loginUser();
-                    },
-                    child: HStack([
-                      VxBox(child: "LogIn".text.white.makeCentered().p16()).blue600.make(),
-                    ]),
                   ),
+                  SizedBox(height: 30),
+                  ElevatedButton(onPressed: () => {
+                    loginUser()
+                  },
+                  style: ElevatedButton.styleFrom(
+                   primary:Colors.grey[400] , // Background color
+                    ), 
+                   child: Text('INGRESAR')),
+                   Container(
+                    margin: EdgeInsets.only(top: 40),
+                    child: Text('Olvidé mi contraseña'),
+                   ),
+                  SizedBox(height: 50),
+                  ElevatedButton(onPressed: () => {
+                   Navigator.push(context, MaterialPageRoute(builder: (context)=>Registration()))
+                  },
+                  style: ElevatedButton.styleFrom(
+                   primary:Color(0XFF524898) , // Background color
+                    ), 
+                  child: Text('REGISTRARSE'))
                 ],
               ),
             ),
           ),
-        ),
-        bottomNavigationBar: GestureDetector(
-          onTap: (){
-            Navigator.push(context, MaterialPageRoute(builder: (context)=>Registration()));
-          },
-          child: Container(
-              height: 45,
-              color: Colors.lightBlue,
-              child:Center(
-                child:  Text(
-                'Create an Account',
-                textAlign: TextAlign.center, 
-                style: TextStyle(
-                  color: Colors.white
-                ),
-              )),
-              )
         ),
       ),
     );
