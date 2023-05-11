@@ -92,7 +92,7 @@ const eMail = async (email, code) => {
   let msj = {
     from: 'Edeal" <diazmorenodavid16@gmail.com>',
     to: email,
-    subject: 'Verification code'+ code ,
+    subject: 'Verification code' + code ,
     text: "Verify Your account",
     html: html,
   };
