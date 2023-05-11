@@ -72,8 +72,20 @@ const getUsers = async (req, res) => {
     }
   };
 
+  const getUserById = async (req, res) => {
+    try {
+      const { id } = req.params;
+      let user = await userSchema.findById(id);
+  
+      return res.status(200).json(user);
+    } catch (error) {
+      res.status(500).json(`Error ${error}`);
+    }
+  };
+
 module.exports ={
     getUsers,
     register,
-    login
+    login,
+    getUserById
 }
