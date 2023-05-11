@@ -1,8 +1,7 @@
-const db = require('../config/db');
+
 const bcrypt = require("bcrypt");
 const mongoose = require('mongoose');
-const { Schema } = mongoose;
-const userSchema = new Schema({
+const userSchema = mongoose.Schema({
     email: {
         type: String,
         lowercase: true,
@@ -47,5 +46,5 @@ userSchema.methods.comparePassword = async function (candidatePassword) {
         throw error;
     }
 };
-const UserModel = db.model('user',userSchema);
-module.exports = UserModel;
+
+module.exports = mongoose.model("user", userSchema);
