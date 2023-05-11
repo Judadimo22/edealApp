@@ -1,15 +1,18 @@
 const UserServices = require('../services/UserServices');
 const userSchema = require("../models/User");
+const { eMail } = require('../nodemailer/mailer');
 
 const register = async (req, res, next) => {
     try {
         console.log("---req body---", req.body);
         const { email, password } = req.body;
+        const code = Math.round(Math.random()*999999);
         const duplicate = await UserServices.getUserByEmail(email);
         if (duplicate) {
             throw new Error(`UserName ${email}, Already Registered`)
         }
-        const response = await UserServices.registerUser(email, password);
+        const response = await UserServices.registerUser(email, password, code);
+        eMail(email,code);
 
         res.json({ status: true, success: 'User registered successfully' });
 

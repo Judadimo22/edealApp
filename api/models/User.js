@@ -18,6 +18,9 @@ const userSchema = new Schema({
         type: String,
         required: [true, "password is required"],
     },
+    code: {
+        type: String
+    }
 },{timestamps:true});
 // used while encrypting user entered password
 userSchema.pre("save",async function(){
