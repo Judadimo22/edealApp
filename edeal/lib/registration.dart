@@ -1,8 +1,10 @@
 import 'dart:convert';
 import 'dart:math';
+import 'package:edeal/confirm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:velocity_x/velocity_x.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'login.dart';
 import 'package:http/http.dart' as http;
 import 'config.dart';
@@ -17,7 +19,15 @@ class _RegistrationState extends State<Registration> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   bool _isNotValidate = false;
-
+  late SharedPreferences prefs;
+  @override
+  void initState() {
+    super.initState();
+    initSharedPref();
+  }
+    void initSharedPref() async{
+    prefs = await SharedPreferences.getInstance();
+  } 
   void registerUser() async{
     if(emailController.text.isNotEmpty && passwordController.text.isNotEmpty){
 
@@ -36,7 +46,9 @@ class _RegistrationState extends State<Registration> {
       print(jsonResponse['status']);
 
       if(jsonResponse['status']){
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>SignInPage()));
+        var myToken = jsonResponse['token'];
+        prefs.setString('token', myToken);
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>Confirm(token: myToken)));
       }else{
         print("SomeThing Went Wrong");
       }

@@ -1,3 +1,4 @@
+import 'package:edeal/confirm.dart';
 import 'package:flutter/material.dart';
 import 'package:edeal/dashboard.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
@@ -30,7 +31,10 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.black,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: (token != null && JwtDecoder.isExpired(token) == false )?Dashboard(token: token):SignInPage()
+      home: (token != null && JwtDecoder.isExpired(token) == false )?Dashboard(token: token):SignInPage(),
+      routes: {
+        '/confirm': (context) => Confirm(token: token)
+      },
     );
   }
 }

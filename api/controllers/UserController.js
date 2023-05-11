@@ -3,25 +3,30 @@ const userSchema = require("../models/User");
 const { eMail } = require('../nodemailer/mailer');
 
 const register = async (req, res, next) => {
-    try {
-        console.log("---req body---", req.body);
-        const { email, password } = req.body;
-        const code = Math.round(Math.random()*999999);
-        const duplicate = await UserServices.getUserByEmail(email);
-        if (duplicate) {
-            throw new Error(`UserName ${email}, Already Registered`)
-        }
-        const response = await UserServices.registerUser(email, password, code);
-        eMail(email,code);
-
-        res.json({ status: true, success: 'User registered successfully' });
-
-
-    } catch (err) {
-        console.log("---> err -->", err);
-        next(err);
+  try {
+    console.log("---req body---", req.body);
+    const { email, password } = req.body;
+    const code = Math.round(Math.random() * 999999);
+    const duplicate = await UserServices.getUserByEmail(email);
+    if (duplicate) {
+      throw new Error(`UserName ${email}, Already Registered`);
     }
-}
+    const user = await UserServices.registerUser(email, password, code);
+    eMail(email, code);
+
+    const tokenData = { _id: user._id, email: user.email };
+    const token = await UserServices.generateAccessToken(
+      tokenData,
+      "secret",
+      "1h"
+    );
+
+    res.status(200).json({ status: true, success: "sendData", token: token });
+  } catch (err) {
+    console.log("---> err -->", err);
+    next(err);
+  }
+};
 
 const login = async (req, res, next) => {
     try {
@@ -41,8 +46,6 @@ const login = async (req, res, next) => {
         if (isPasswordCorrect === false) {
             throw new Error(`Username or Password does not match`);
         }
-
-        // Creating Token
 
         let tokenData;
         tokenData = { _id: user._id, email: user.email };

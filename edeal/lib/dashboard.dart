@@ -31,33 +31,139 @@ class _DashboardState extends State<Dashboard> {
       setState(() {
         userData = jsonDecode(response.body);
       });
+
+      var code = userData['code'];
+      print(code);
     } else {
       print('Error: ${response.statusCode}');
     }
   }
 
+
+
   @override
+  int _selectedTab = 0;
+  List _pages = [
+    Container(
+    margin: EdgeInsets.only(top: 120),
+    child: Column(children: [
+      Container(
+        margin: EdgeInsets.only(bottom: 20),
+        child:Text(
+          'Saldo total',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 20
+          ),
+          ),
+      ),
+    Text(
+      '600.00 COP',
+      style: TextStyle(
+        color: Colors.white,
+        fontSize: 40
+      ),
+      ),
+    Container(
+      margin: EdgeInsets.only(top: 20),
+      child:Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              color:Color(0XFFE8E112),
+              borderRadius: BorderRadius.circular(10)
+            ),
+            padding: EdgeInsets.only(top:10, bottom: 10, left: 20, right: 20 ),
+            margin: EdgeInsets.only(left: 10, right: 10),
+            child:Text(
+              'RECARGAR',
+              style: TextStyle(
+              color: Color(0XFF524898)
+              ),
+              ),
+          ),
+          Container(
+            decoration: BoxDecoration(
+              color:Colors.white,
+              borderRadius: BorderRadius.circular(10)
+            ),
+            padding: EdgeInsets.only(top:10, bottom: 10, left: 20, right: 20 ),
+            margin: EdgeInsets.only(left: 10, right: 10),
+            child:Text(
+              'ENVIAR',
+              style: TextStyle(
+                color: Color(0XFF524898)
+              ),
+              ),
+          ),
+
+
+      ],)
+    ),
+    ]),
+    ),
+    Center(
+      child: Text(
+        "Planeación",
+        style: TextStyle(
+          fontSize: 30,
+          color: Colors.white
+        ),
+        ),
+    ),
+    Center(
+      child: Text(
+        "Ahorro",
+        style: TextStyle(
+        fontSize: 30,
+        color: Colors.white
+        ),
+        ),
+    ),
+    Center(
+      child: Text(
+        "Crédito",
+        style: TextStyle(
+        fontSize: 30,
+        color: Colors.white
+        ),
+        ),
+    ),
+  ];
+
+  _changeTab(int index) {
+    setState(() {
+      _selectedTab = index;
+    });
+  }
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Dashboard'),
-      ),
+      backgroundColor: Color(0XFF524898),
       body: Center(
-        child: userData.isNotEmpty
-            ? Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text('ID: ${userData['_id']}'),
-                  Text('Nombre: ${userData['name']}'),
-                  Text('Correo electrónico: ${userData['email']}'),
-                  // Mostrar más información del usuario si es necesario
-                ],
-              )
-            : CircularProgressIndicator(),
+        child: _pages[_selectedTab],
       ),
+    bottomNavigationBar:
+    BottomNavigationBar(
+      currentIndex: _selectedTab,
+      onTap: (index) => _changeTab(index),
+      unselectedItemColor: Colors.black,
+      selectedItemColor: Colors.blue,
+      items:[
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Inicio"),
+          BottomNavigationBarItem(icon: Icon(Icons.stacked_line_chart_sharp), label: "Planeación"),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.monetization_on), label: "Ahorro"),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.credit_score_sharp), label: "Crédito"),
+      ]
+
+    ),
     );
   }
-}
+
+  }
+
 
 
 // import 'dart:convert';
