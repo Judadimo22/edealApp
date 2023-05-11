@@ -18,6 +18,13 @@ class _RegistrationState extends State<Registration> {
 
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController lastNameController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController tipoCedulaController = TextEditingController();
+  TextEditingController cedulaController = TextEditingController();
+  TextEditingController emisionCedulaController = TextEditingController();
+  TextEditingController fechaNacimientoController = TextEditingController();
   bool _isNotValidate = false;
   late SharedPreferences prefs;
   @override
@@ -29,11 +36,27 @@ class _RegistrationState extends State<Registration> {
     prefs = await SharedPreferences.getInstance();
   } 
   void registerUser() async{
-    if(emailController.text.isNotEmpty && passwordController.text.isNotEmpty){
+    if(emailController.text.isNotEmpty && 
+    passwordController.text.isNotEmpty &&
+    nameController.text.isNotEmpty &&
+    lastNameController.text.isNotEmpty &&
+    phoneController.text.isNotEmpty &&
+    tipoCedulaController.text.isNotEmpty &&
+    cedulaController.text.isNotEmpty &&
+    emisionCedulaController.text.isNotEmpty &&
+    fechaNacimientoController.text.isNotEmpty
+    ){
 
       var regBody = {
         "email":emailController.text,
-        "password":passwordController.text
+        "password":passwordController.text,
+        "name": nameController.text,
+        "lastName": lastNameController.text,
+        "phone": phoneController.text,
+        "tipoCedula": tipoCedulaController.text,
+        "cedula": cedulaController.text,
+        "emisionCedula": emisionCedulaController.text,
+        "fechaNacimiento": fechaNacimientoController.text
       };
 
       var response = await http.post(Uri.parse(registration),
@@ -94,71 +117,143 @@ class _RegistrationState extends State<Registration> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          title: Text('Registro'),
+          centerTitle: true,
+          backgroundColor: Color(0XFF524898),
+          toolbarHeight: 70,
+        ),
         body: Container(
+          margin: EdgeInsets.only(top: 10, bottom: 10),
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-                colors: [const Color(0XFF524898),const Color.fromRGBO(82, 72, 152, 1)],
-                begin: FractionalOffset.topLeft,
-                end: FractionalOffset.bottomCenter,
-                stops: [0.0,0.8],
-                tileMode: TileMode.mirror
-            ),
-          ),
+          color: Colors.white,
           child: Center(
             child: SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   HeightBox(10),
-                  "CREATE YOUR ACCOUNT".text.size(22).yellow100.make(),
-                  TextField(
+                  Container(
+                    margin: EdgeInsets.only(bottom: 20),
+                    child:TextField(
+                    controller: nameController,
+                    keyboardType: TextInputType.text,
+                    decoration: InputDecoration(
+                        errorStyle: TextStyle(color: Colors.white),
+                        errorText: _isNotValidate ? "Enter Proper Info" : null,
+                        hintText: "Nombre",),
+                  ).p4().px24(),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(bottom: 20),
+                    child:TextField(
+                    controller: lastNameController,
+                    keyboardType: TextInputType.text,
+                    decoration: InputDecoration(
+                        errorStyle: TextStyle(color: Colors.white),
+                        errorText: _isNotValidate ? "Enter Proper Info" : null,
+                        hintText: "Apellido",),
+                  ).p4().px24(),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(bottom: 20),
+                    child:TextField(
                     controller: emailController,
                     keyboardType: TextInputType.text,
                     decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.white,
                         errorStyle: TextStyle(color: Colors.white),
                         errorText: _isNotValidate ? "Enter Proper Info" : null,
-                        hintText: "Email",
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(10.0)))),
+                        hintText: "Email",),
                   ).p4().px24(),
-                  TextField(
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(bottom: 20),
+                    child:TextField(
+                    controller: phoneController,
+                    keyboardType: TextInputType.text,
+                    decoration: InputDecoration(
+                        errorStyle: TextStyle(color: Colors.white),
+                        errorText: _isNotValidate ? "Enter Proper Info" : null,
+                        hintText: "Teléfono",),
+                  ).p4().px24(),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(bottom: 20),
+                    child:TextField(
+                    controller: tipoCedulaController,
+                    keyboardType: TextInputType.text,
+                    decoration: InputDecoration(
+                        errorStyle: TextStyle(color: Colors.white),
+                        errorText: _isNotValidate ? "Enter Proper Info" : null,
+                        hintText: "Tipo de cédula",),
+                  ).p4().px24(),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(bottom: 20),
+                    child:TextField(
+                    controller: cedulaController,
+                    keyboardType: TextInputType.text,
+                    decoration: InputDecoration(
+                        errorStyle: TextStyle(color: Colors.white),
+                        errorText: _isNotValidate ? "Enter Proper Info" : null,
+                        hintText: "Número de cédula",),
+                  ).p4().px24(),
+                  ),
+                   Container(
+                    margin: EdgeInsets.only(bottom: 20),
+                    child:TextField(
+                    controller: emisionCedulaController,
+                    keyboardType: TextInputType.text,
+                    decoration: InputDecoration(
+                        errorStyle: TextStyle(color: Colors.white),
+                        errorText: _isNotValidate ? "Enter Proper Info" : null,
+                        hintText: "Fecha de emisión de la cédula",),
+                  ).p4().px24(),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(bottom: 20),
+                    child:TextField(
+                    controller: fechaNacimientoController,
+                    keyboardType: TextInputType.text,
+                    decoration: InputDecoration(
+                        errorStyle: TextStyle(color: Colors.white),
+                        errorText: _isNotValidate ? "Enter Proper Info" : null,
+                        hintText: "Fecha de nacimiento",),
+                  ).p4().px24(),
+                  ),
+                   Container(
+                    margin: EdgeInsets.only(bottom: 20),
+                    child:TextField(
                     controller: passwordController,
                     keyboardType: TextInputType.text,
                     decoration: InputDecoration(
-                        suffixIcon: IconButton(icon: Icon(Icons.copy),onPressed: (){
-                          final data = ClipboardData(text: passwordController.text);
-                          Clipboard.setData(data);
-                        },),
-                        filled: true,
-                        fillColor: Colors.white,
                         errorStyle: TextStyle(color: Colors.white),
                         errorText: _isNotValidate ? "Enter Proper Info" : null,
-                        hintText: "Password",
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(10.0)))),
+                        hintText: "Contraseña",),
                   ).p4().px24(),
-                  HStack([
-                    GestureDetector(
-                      onTap: ()=>{
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(bottom: 20),
+                    child:TextField(
+                    controller: passwordController,
+                    keyboardType: TextInputType.text,
+                    decoration: InputDecoration(
+                        errorStyle: TextStyle(color: Colors.white),
+                        errorText: _isNotValidate ? "Enter Proper Info" : null,
+                        hintText: "Confirmar contraseña",),
+                  ).p4().px24(),
+                  ),
+                  Container(
+                    child: ElevatedButton(
+                      onPressed: () =>{
                         registerUser()
                       },
-                        child: VxBox(
-                          child: "Register".text.white.makeCentered().p16()).blue500.make().px8().py16(),
+                      style: ElevatedButton.styleFrom(
+                        primary: Color(0XFFE8E112) , // Background color
+                        ),
+                      child: Text('REGISTRARSE'),
                     ),
-                  ]),
-                  GestureDetector(
-                    onTap: (){
-                      print("Sign In");
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>SignInPage()));
-                    },
-                    child: HStack([
-                      "Already Registered?".text.make(),
-                      " Sign In".text.white.make()
-                    ]).centered(),
                   )
                 ],
               ),

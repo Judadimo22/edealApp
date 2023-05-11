@@ -91,13 +91,27 @@ void fetchUserData() async {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Ingresar código'),
+        centerTitle: true,
+        backgroundColor: Color(0XFF524898),
+        toolbarHeight: 70,
+        ),
       body: Center(
         child: userData.isNotEmpty
             ? Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('Confirm your account'),
-                    TextField(
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                    child:Text(
+                      textAlign:(TextAlign.center),
+                      'Verifica tu correo (${userData['email']}) e ingresa un código válido.'
+                      ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                    child:TextField(
                     controller: codecontroller,
                     keyboardType: TextInputType.text,
                     decoration: InputDecoration(
@@ -108,9 +122,17 @@ void fetchUserData() async {
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(10.0)))),
                   ),
-                  ElevatedButton(onPressed: () => {
+                  ),
+                  Container(
+                    margin: EdgeInsets.symmetric(vertical: 10),
+                    child: ElevatedButton(onPressed: () => {
                     Confirm()
-                  }, child: Text('Confirmar Código'))
+                  },
+                  style: ElevatedButton.styleFrom(
+                   primary: Color(0XFFE8E112) , // Background color
+                    ), 
+                  child: Text('Confirmar Cuenta')),
+                  )
                 ],
               )
             : CircularProgressIndicator(),
