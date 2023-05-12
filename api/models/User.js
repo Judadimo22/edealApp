@@ -48,8 +48,14 @@ const userSchema = mongoose.Schema({
         type: String,
         required: [true, "Fecha nacimiento is required"],
     },
-    credit: {
+    credito: {
         type: String,
+    },
+    tarjetaDeCredito:{
+        type: String
+    },
+    bancoCredito: {
+        type: String
     }
 },{timestamps:true});
 // used while encrypting user entered password

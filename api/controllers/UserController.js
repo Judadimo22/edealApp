@@ -92,7 +92,7 @@ const getUsers = async (req, res) => {
   const putUser = async (req, res) => {
     const { id } = req.params;
   
-    const { credit } =
+    const { credito, tarjetaDeCredito, bancoCredito } =
       req.body;
   
     userSchema
@@ -100,7 +100,9 @@ const getUsers = async (req, res) => {
         { _id: id },
         {
           $set: {
-            credit
+            credito,
+            tarjetaDeCredito,
+            bancoCredito
           },
         }
       )

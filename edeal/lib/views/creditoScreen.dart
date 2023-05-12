@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:edeal/views/homeScreen.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,10 @@ class _CreditoScreenState extends State<CreditoScreen> {
 
   final _formKey = GlobalKey<FormState>();
   TextEditingController _newDataController = TextEditingController();
+  String _creditoPara = 'Me gustaría un crédito para:';
+  String _tarjetaCredito = 'Tengo tarjeta de crédito:';
+  String _banco = 'Con cual banco:';
+
 
   @override
   void initState() {
@@ -35,9 +40,6 @@ class _CreditoScreenState extends State<CreditoScreen> {
       setState(() {
         userData = jsonDecode(response.body);
       });
-
-      var code = userData['code'];
-      print(code);
     } else {
       print('Error: ${response.statusCode}');
     }
@@ -45,60 +47,155 @@ class _CreditoScreenState extends State<CreditoScreen> {
 
   void saveUserData() async {
     if (_formKey.currentState!.validate()) {
-      // Realizar la solicitud HTTP para enviar los datos del formulario y actualizar la información del usuario
       var newData = _newDataController.text;
 
       var response = await http.put(
         Uri.parse('http://192.168.1.108:3001/credit/$userId'),
-        body: {'credit': newData},
+        body: {
+          'credito': _creditoPara,
+          'tarjetaDeCredito': _tarjetaCredito,
+          'bancoCredito': _banco
+          },
       );
 
       if (response.statusCode == 200) {
-        // Actualizar la información del usuario localmente
         setState(() {
-          userData['credit'] = newData;
+          userData['credit'] = _creditoPara;
+          userData['tarjetaDeCredito'] = _tarjetaCredito;
+          userData['bancoCredito'] = _banco;
         });
 
         print('Información actualizada correctamente');
+        setState(() {
+         _creditoPara = 'Me gustaría un crédito para:';
+         _tarjetaCredito = 'Tengo tarjeta de crédito:';
+         _banco = 'Con cual banco:';
+      });
       } else {
         print('Error al actualizar la información: ${response.statusCode}');
       }
     }
   }
 
+  void updateSelectedOption(String? newValue) {
+    setState(() {
+      _creditoPara = newValue!;
+    });
+  }
+
+  void updateTarjetaOption(String? newTarjeta){
+    setState(() {
+    _tarjetaCredito = newTarjeta!;
+    });
+  }
+
+  void updateBancoOption(String? newBanco){
+    setState(() {
+    _banco = newBanco!;
+    });
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0XFF524898),
+      backgroundColor: Colors.white,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('${userData['code']}'),
             SizedBox(height: 20),
             Form(
               key: _formKey,
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30),
-                child: TextFormField(
-                  controller: _newDataController,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Por favor, ingresa la nueva información';
-                    }
-                    return null;
-                  },
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.white,
-                    hintText: "Nueva información",
-                  ),
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Container(
+                  color: Colors.white,
+                  padding: EdgeInsets.symmetric(vertical: 50),
+                  child: Column(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(bottom: 50),
+                      child:
+                      Text(
+                        'Crédito',
+                        style: TextStyle(
+                          fontSize: 30
+                        ),
+                        ),),
+                    SizedBox(height: 20),
+                    Container(
+                      width: 374,
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      color: Colors.white,
+                      child: DropdownButton<String>(
+                      value: _creditoPara,
+                      onChanged: updateSelectedOption,
+                      items: <String>[
+                        'Me gustaría un crédito para:',
+                        'Gastos Personales',
+                        'Celular',
+                        'Bajar la tase de interés de mi trajeta de crédito',
+                        'Hacer mercado',
+                        'Pagar deudas'
+                      ].map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                    ),
+                    ),
+                    SizedBox(height: 20),
+                    Container(
+                      width: 374,
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      color: Colors.white,
+                      child: Expanded(
+                        child: DropdownButton<String>(
+                      value: _tarjetaCredito,
+                      onChanged: updateTarjetaOption,
+                      items: <String>[
+                        'Tengo tarjeta de crédito:',
+                        'Si',
+                        'No'
+                      ].map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                    ),)
+                    ),
+                    SizedBox(height: 20),
+                    Container(
+                      width: 374,
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      child: DropdownButton<String>(
+                      value: _banco,
+                      onChanged: updateBancoOption,
+                      items: <String>[
+                        'Con cual banco:',
+                        'Davivienda',
+                        'Bancolombia',
+                        'Colpatria'
+                      ].map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                    ),
+                    ),
+                    SizedBox(height: 20),
+                    ElevatedButton(
+                      onPressed: saveUserData,
+                      child: Text('Guardar'),
+                    ),
+                  ],
+                ),)
               ),
-            ),
-            ElevatedButton(
-              onPressed: saveUserData,
-              child: Text('Guardar'),
             ),
           ],
         ),
@@ -106,3 +203,6 @@ class _CreditoScreenState extends State<CreditoScreen> {
     );
   }
 }
+
+
+
