@@ -56,6 +56,18 @@ const userSchema = mongoose.Schema({
     },
     bancoCredito: {
         type: String
+    },
+    ahorroPara: {
+        type: String
+    },
+    valorAhorro: {
+        type: String
+    },
+    plazoAhorro: {
+        type: String
+    },
+    metaAhorro: {
+        type: String
     }
 },{timestamps:true});
 // used while encrypting user entered password

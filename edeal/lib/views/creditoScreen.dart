@@ -191,7 +191,7 @@ class _CreditoScreenState extends State<CreditoScreen> {
                     SizedBox(height: 20),
                     ElevatedButton(
                       onPressed: saveUserData,
-                      child: Text('Guardar'),
+                      child: Text('Solicitar crédito'),
                     ),
                   ],
                 ),)
