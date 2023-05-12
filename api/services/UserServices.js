@@ -33,6 +33,21 @@ class UserServices{
     static async generateAccessToken(tokenData,JWTSecret_Key,JWT_EXPIRE){
         return jwt.sign(tokenData, JWTSecret_Key, { expiresIn: JWT_EXPIRE });
     }
+
+    // static async updateUserCredit(userId, credit) {
+    //     try {
+    //       const user = await UserModel.findById(userId);
+      
+    //       if (!user) {
+    //         throw new Error("Usuario no encontrado");
+    //       }
+    //       user.credit = credit;
+    
+    //       await user.save();
+    //     } catch (err) {
+    //       throw err;
+    //     }
+    //   }
 }
 
 module.exports = UserServices;
