@@ -182,10 +182,10 @@ class _AhorroScreenState extends State<AhorroScreen> {
                       onChanged: updatePlazoOption,
                       items: <String>[
                         'Plazo(meses):',
-                        '1 mes',
-                        '6 meses',
-                        '12 meses',
-                        '24 meses'
+                        '1 millones',
+                        '6 millones',
+                        '12 millones',
+                        '24 millones'
                       ].map<DropdownMenuItem<String>>((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
