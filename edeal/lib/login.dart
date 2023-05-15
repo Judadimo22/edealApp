@@ -51,7 +51,7 @@ class _SignInPageState extends State<SignInPage> {
         body: Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
-          color: Colors.white,
+          color: Color(0XFF524898),
           child: Center(
             child: SingleChildScrollView(
               child: Column(
@@ -89,19 +89,24 @@ class _SignInPageState extends State<SignInPage> {
                     loginUser()
                   },
                   style: ElevatedButton.styleFrom(
-                   primary:Colors.grey[400] , // Background color
+                   primary:Color(0XFFE8E112)  , // Background color
                     ), 
                    child: Text('INGRESAR')),
                    Container(
                     margin: EdgeInsets.only(top: 40),
-                    child: Text('Olvidé mi contraseña'),
+                    child: Text(
+                      'Olvidé mi contraseña',
+                      style: TextStyle(
+                        color: Colors.white
+                      ),
+                      ),
                    ),
                   SizedBox(height: 50),
                   ElevatedButton(onPressed: () => {
                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Registration()))
                   },
                   style: ElevatedButton.styleFrom(
-                   primary:Color(0XFF524898) , // Background color
+                   primary:Color(0XFFE8E112)  , // Background color
                     ), 
                   child: Text('REGISTRARSE'))
                 ],

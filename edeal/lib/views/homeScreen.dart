@@ -49,13 +49,13 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0XFF524898),
-      body:     Container(
+      body:Container(
     margin: EdgeInsets.only(top: 120),
     child: Column(children: [
       Container(
         margin: EdgeInsets.only(bottom: 20),
         child:Text(
-          'Saldo total',
+          'Hola ${userData['name']}',
           style: TextStyle(
             color: Colors.white,
             fontSize: 20

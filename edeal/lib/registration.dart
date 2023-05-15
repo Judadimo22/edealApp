@@ -8,6 +8,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'login.dart';
 import 'package:http/http.dart' as http;
 import 'config.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+
 
 class Registration extends StatefulWidget {
   @override
@@ -25,6 +27,27 @@ class _RegistrationState extends State<Registration> {
   TextEditingController cedulaController = TextEditingController();
   TextEditingController emisionCedulaController = TextEditingController();
   TextEditingController fechaNacimientoController = TextEditingController();
+  DateTime ? selectedDate;
+
+    Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await DatePicker.showDatePicker(
+      context,
+      showTitleActions: true,
+      minTime: DateTime(1900),
+      maxTime: DateTime.now(),
+      locale: LocaleType.es,
+    );
+
+    if (picked != null && picked != selectedDate) {
+      setState(() {
+        selectedDate = picked;
+        fechaNacimientoController.text =
+            "${picked.day}/${picked.month}/${picked.year}";
+      });
+    }
+  }
+
+  String _tipoDocumento = 'Tipo de documento';
   bool _isNotValidate = false;
   late SharedPreferences prefs;
   @override
@@ -41,7 +64,6 @@ class _RegistrationState extends State<Registration> {
     nameController.text.isNotEmpty &&
     lastNameController.text.isNotEmpty &&
     phoneController.text.isNotEmpty &&
-    tipoCedulaController.text.isNotEmpty &&
     cedulaController.text.isNotEmpty &&
     emisionCedulaController.text.isNotEmpty &&
     fechaNacimientoController.text.isNotEmpty
@@ -53,7 +75,7 @@ class _RegistrationState extends State<Registration> {
         "name": nameController.text,
         "lastName": lastNameController.text,
         "phone": phoneController.text,
-        "tipoCedula": tipoCedulaController.text,
+        "tipoCedula": _tipoDocumento,
         "cedula": cedulaController.text,
         "emisionCedula": emisionCedulaController.text,
         "fechaNacimiento": fechaNacimientoController.text
@@ -109,9 +131,17 @@ class _RegistrationState extends State<Registration> {
     }else{
       setState(() {
         _isNotValidate = true;
+        _tipoDocumento ='Tipo de documento';
       });
     }
   }
+
+    void updateTipoDocumento(String? newTipoDocumento){
+    setState(() {
+    _tipoDocumento = newTipoDocumento!;
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -180,14 +210,22 @@ class _RegistrationState extends State<Registration> {
                   ),
                   Container(
                     margin: EdgeInsets.only(bottom: 20),
-                    child:TextField(
-                    controller: tipoCedulaController,
-                    keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                        errorStyle: TextStyle(color: Colors.white),
-                        errorText: _isNotValidate ? "Enter Proper Info" : null,
-                        hintText: "Tipo de cédula",),
-                  ).p4().px24(),
+                    width: 360,
+                    child:DropdownButton<String>(
+                      value: _tipoDocumento,
+                      onChanged: updateTipoDocumento,
+                      items: <String>[
+                        'Tipo de documento',
+                        'Cédula',
+                        'Pasaporte',
+                        'Cédula extranjería',
+                      ].map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                    ),
                   ),
                   Container(
                     margin: EdgeInsets.only(bottom: 20),
@@ -211,17 +249,23 @@ class _RegistrationState extends State<Registration> {
                         hintText: "Fecha de emisión de la cédula",),
                   ).p4().px24(),
                   ),
-                  Container(
-                    margin: EdgeInsets.only(bottom: 20),
-                    child:TextField(
-                    controller: fechaNacimientoController,
-                    keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                        errorStyle: TextStyle(color: Colors.white),
-                        errorText: _isNotValidate ? "Enter Proper Info" : null,
-                        hintText: "Fecha de nacimiento",),
-                  ).p4().px24(),
-                  ),
+Container(
+  margin: EdgeInsets.only(bottom: 20, left: 27, right: 27),
+  child:             TextField(
+              controller: fechaNacimientoController,
+              readOnly: true,
+              decoration: InputDecoration(
+                hintText: 'Fecha de Nacimiento',
+                suffixIcon: IconButton(
+                  icon: Icon(Icons.calendar_today),
+                  onPressed: () {
+                    _selectDate(context);
+                  },
+                ),
+),
+  )
+),
+
                    Container(
                     margin: EdgeInsets.only(bottom: 20),
                     child:TextField(
