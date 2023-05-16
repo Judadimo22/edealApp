@@ -1,5 +1,7 @@
 const UserModel = require("../models/User");
 const jwt = require("jsonwebtoken");
+const bcrypt = require('bcrypt');
+
 
 class UserServices{
  
@@ -22,12 +24,13 @@ class UserServices{
         }
     }
 
-    static async checkUser(email){
-        try {
-            return await UserModel.findOne({email});
-        } catch (error) {
-            throw error;
-        }
+    static async checkUser(email) {
+      try {
+        const user = await UserModel.findOne({ email });
+        return user;
+      } catch (error) {
+        throw new Error('Error retrieving user');
+      }
     }
 
     static async generateAccessToken(tokenData,JWTSecret_Key,JWT_EXPIRE){
@@ -43,16 +46,25 @@ class UserServices{
         }
       };
 
+      static async comparePassword(password, hashedPassword) {
+        try {
+          const isMatch = await bcrypt.compare(password, hashedPassword);
+          return isMatch;
+        } catch (error) {
+          throw new Error('Error comparing passwords');
+        }
+      }
+  
+
       static async updateUser (userId, updateData) {
         try {
             const updateData = {
-              $unset: { code: 1 }, // Establece el campo 'code' como indefinido (undefined)
+              $unset: { code: 1 }, 
             };
         
             await UserModel.updateOne({ _id: userId }, updateData);
             console.log("Campo 'code' eliminado");
         
-            // Opcionalmente, puedes devolver el usuario actualizado si lo necesitas
             const user = await UserModel.findById(userId);
             return user;
           } catch (err) {

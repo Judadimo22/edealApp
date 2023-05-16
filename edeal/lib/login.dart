@@ -3,47 +3,62 @@ import 'package:flutter/material.dart';
 import 'package:edeal/dashboard.dart';
 import 'package:edeal/registration.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:velocity_x/velocity_x.dart';
-import 'package:http/http.dart' as http;
 import 'config.dart';
+import 'package:http/http.dart' as http;
+import 'package:velocity_x/velocity_x.dart';
+
+
+
+
 class SignInPage extends StatefulWidget {
   @override
   _SignInPageState createState() => _SignInPageState();
 }
+
 class _SignInPageState extends State<SignInPage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   bool _isNotValidate = false;
   late SharedPreferences prefs;
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     initSharedPref();
   }
-  void initSharedPref() async{
+
+  void initSharedPref() async {
     prefs = await SharedPreferences.getInstance();
   }
-  void loginUser() async{
-    if(emailController.text.isNotEmpty && passwordController.text.isNotEmpty){
+
+  void loginUser() async {
+    if (emailController.text.isNotEmpty && passwordController.text.isNotEmpty) {
       var reqBody = {
-        "email":emailController.text,
-        "password":passwordController.text
+        "email": emailController.text,
+        "password": passwordController.text
       };
-      var response = await http.post(Uri.parse(login),
-          headers: {"Content-Type":"application/json"},
-          body: jsonEncode(reqBody)
+
+      var response = await http.post(
+        Uri.parse(login),
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode(reqBody),
       );
+
       var jsonResponse = jsonDecode(response.body);
-      if(jsonResponse['status']){
-          var myToken = jsonResponse['token'];
-          prefs.setString('token', myToken);
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>Dashboard(token: myToken)));
-      }else{
+
+      if (jsonResponse['status']) {
+        var myToken = jsonResponse['token'];
+        prefs.setString('token', myToken);
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => Dashboard(token: myToken)),
+        );
+      } else {
         print('Something went wrong');
       }
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -57,58 +72,63 @@ class _SignInPageState extends State<SignInPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Image.asset(
-                    'assets/logo_edeal.png'
-                  ),
+                  Image.asset('assets/logo_edeal.png'),
                   Container(
                     margin: EdgeInsets.symmetric(vertical: 20),
                     child: TextField(
-                    controller: emailController,
-                    keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
+                      controller: emailController,
+                      keyboardType: TextInputType.text,
+                      decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
                         hintText: "Email",
-                        errorText: _isNotValidate ? "Enter Proper Info" : null,),
-                  ).p4().px24(),
+                        errorText: _isNotValidate ? "Enter Proper Info" : null,
+                      ),
+                    ).p4().px24(),
                   ),
                   Container(
                     margin: EdgeInsets.symmetric(vertical: 20),
                     child: TextField(
-                    controller: passwordController,
-                    keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
+                      controller: passwordController,
+                      keyboardType: TextInputType.text,
+                      decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
                         hintText: "Password",
-                        errorText: _isNotValidate ? "Enter Proper Info" : null,),
-                  ).p4().px24(),
+                        errorText: _isNotValidate ? "Enter Proper Info" : null,
+                      ),
+                    ).p4().px24(),
                   ),
                   SizedBox(height: 30),
-                  ElevatedButton(onPressed: () => {
-                    loginUser()
-                  },
-                  style: ElevatedButton.styleFrom(
-                   primary:Color(0XFFE8E112)  , // Background color
-                    ), 
-                   child: Text('INGRESAR')),
-                   Container(
+                  ElevatedButton(
+                    onPressed: loginUser,
+                    style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(Color(0XFFE8E112)),
+                    ),
+                    child: Text('INGRESAR'),
+                  ),
+                  Container(
                     margin: EdgeInsets.only(top: 40),
                     child: Text(
                       'Olvidé mi contraseña',
-                      style: TextStyle(
-                        color: Colors.white
-                      ),
-                      ),
-                   ),
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
                   SizedBox(height: 50),
-                  ElevatedButton(onPressed: () => {
-                   Navigator.push(context, MaterialPageRoute(builder: (context)=>Registration()))
-                  },
-                  style: ElevatedButton.styleFrom(
-                   primary:Color(0XFFE8E112)  , // Background color
-                    ), 
-                  child: Text('REGISTRARSE'))
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Registration()),
+                      );
+                    },
+                    style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(Color(0XFFE8E112)),
+                    ),
+                    child: Text('REGISTRARSE'),
+                  ),
                 ],
               ),
             ),

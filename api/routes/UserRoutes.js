@@ -7,8 +7,8 @@ router.post("/register", (req,res,next) => {
     register(req,res,next)
 });
 
-router.post("/login", (req,res) => {
-    login(req,res)
+router.post("/login", (req,res, next) => {
+    login(req,res,next)
 });
 
 
