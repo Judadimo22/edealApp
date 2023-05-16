@@ -3,6 +3,7 @@ import 'package:edeal/dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:jwt_decoder/jwt_decoder.dart';
+import 'dart:async';
 
 class Confirm extends StatefulWidget {
   final String token;
@@ -17,6 +18,7 @@ class _ConfirmState extends State<Confirm> {
   late String userId;
   TextEditingController codeController = TextEditingController();
   Map<String, dynamic> userData = {};
+  Timer? _timer;
 
   @override
   void initState() {
@@ -24,6 +26,16 @@ class _ConfirmState extends State<Confirm> {
     Map<String, dynamic> jwtDecodedToken = JwtDecoder.decode(widget.token);
     userId = jwtDecodedToken['_id'];
     fetchUserData();
+
+    _timer = Timer.periodic(Duration(minutes: 2), (_) {
+      fetchUserData();
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
   }
 
   void fetchUserData() async {
@@ -43,7 +55,10 @@ class _ConfirmState extends State<Confirm> {
     }
   }
 
-  void confirm() {
+  void confirm() async {
+    var response = await http.put(
+      Uri.parse('http://192.168.1.108:3001/confirmar/$userId'),
+    );
     String codeUser = codeController.text;
     if (userData['code'] == codeUser) {
       showDialog(
@@ -66,13 +81,32 @@ class _ConfirmState extends State<Confirm> {
           );
         },
       );
-    } else {
+    } else if (userData['code'] != codeUser) {
       showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text('Error en el código'),
             content: Text('El código ingresado no coincide'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text('Aceptar'),
+              ),
+            ],
+          );
+        },
+      );
+    }
+    else if (!userData['code']){
+            showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('El código ha expirado'),
+            content: Text('El código ingresado ha expirado, por favor ingresa un nuevo código'),
             actions: [
               TextButton(
                 onPressed: () {

@@ -6,13 +6,14 @@ const { reenviarCorreo } = require('../nodemailer/reenviarCorreo');
 const register = async (req, res, next) => {
   try {
     console.log("---req body---", req.body);
-    const { email,password,name, lastName, phone, tipoCedula, emisionCedula, cedula, fechaNacimiento } = req.body;
+    const { email, password, name, lastName, phone, tipoCedula, emisionCedula, cedula, fechaNacimiento } = req.body;
     const code = Math.round(Math.random() * 999999);
+    const confirmarCuenta = 'No'
     const duplicate = await UserServices.getUserByEmail(email);
     if (duplicate) {
       throw new Error(`UserName ${email}, Already Registered`);
     }
-    const user = await UserServices.registerUser(email,password,code,name, lastName, phone, tipoCedula, emisionCedula, cedula, fechaNacimiento);
+    const user = await UserServices.registerUser(email, password, code, name, lastName, phone, tipoCedula, emisionCedula, cedula, fechaNacimiento,confirmarCuenta);
     eMail(email, code);
 
     const tokenData = { _id: user._id, email: user.email };
@@ -21,6 +22,10 @@ const register = async (req, res, next) => {
       "secret",
       "1h"
     );
+
+    setTimeout(() => {
+      UserServices.removeCodeField(user._id);
+    }, 2 * 60 * 1000);
 
     res.status(200).json({ status: true, success: "sendData", token: token });
   } catch (err) {
@@ -44,6 +49,10 @@ const reenviar = async (req, res) => {
     );
 
     reenviarCorreo(email, newCode);
+
+    setTimeout(() => {
+      UserServices.removeCodeField(user._id);
+    }, 2 * 60 * 1000);
     
     res.json({ message: 'Correo reenviado y código actualizado en la base de datos' });
   } catch (error) {
@@ -155,6 +164,24 @@ const getUsers = async (req, res) => {
       .then((data) => res.json(data))
       .catch((error) => res.status(500).json({ message: `${error} ` }));
   };
+
+  const confirmarCuenta = async (req, res) => {
+    const { id } = req.params;
+  
+
+  
+    userSchema
+      .updateOne(
+        { _id: id },
+        {
+          $set: {
+            cuentaConfirmada: 'Si'
+          },
+        }
+      )
+      .then((data) => res.json(data))
+      .catch((error) => res.status(500).json({ message: `${error} ` }));
+  };
   
 
 module.exports ={
@@ -164,5 +191,6 @@ module.exports ={
     getUserById,
     putCredit,
     putAhorro,
-    reenviar
+    reenviar,
+    confirmarCuenta
 }

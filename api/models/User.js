@@ -68,6 +68,10 @@ const userSchema = mongoose.Schema({
     },
     metaAhorro: {
         type: String
+    },
+    cuentaConfirmada: {
+        type: String,
+        default: 'No'
     }
 },{timestamps:true});
 // used while encrypting user entered password
