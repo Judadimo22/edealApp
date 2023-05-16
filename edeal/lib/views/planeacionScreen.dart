@@ -50,7 +50,7 @@ class _PlaneacionScreenState extends State<PlaneacionScreen> {
     return Scaffold(
       backgroundColor: Color(0XFF524898),
       body: Center(
-        child: Text('${userData['phone']}'),
+        child: Text('Planeación'),
       ),
 
     );

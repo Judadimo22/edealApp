@@ -47,6 +47,24 @@ class _RegistrationState extends State<Registration> {
     }
   }
 
+      Future<void> _selectDateEmisionCedula(BuildContext context) async {
+    final DateTime? picked = await DatePicker.showDatePicker(
+      context,
+      showTitleActions: true,
+      minTime: DateTime(1900),
+      maxTime: DateTime.now(),
+      locale: LocaleType.es,
+    );
+
+    if (picked != null && picked != selectedDate) {
+      setState(() {
+        selectedDate = picked;
+        emisionCedulaController.text =
+            "${picked.day}/${picked.month}/${picked.year}";
+      });
+    }
+  }
+
   String _tipoDocumento = 'Tipo de documento';
   bool _isNotValidate = false;
   late SharedPreferences prefs;
@@ -141,6 +159,8 @@ class _RegistrationState extends State<Registration> {
     _tipoDocumento = newTipoDocumento!;
     });
   }
+
+  bool _isPasswordVisible = false;
 
 
   @override
@@ -238,56 +258,83 @@ class _RegistrationState extends State<Registration> {
                         hintText: "Número de cédula",),
                   ).p4().px24(),
                   ),
-                   Container(
-                    margin: EdgeInsets.only(bottom: 20),
+                  Container(
+                    margin: EdgeInsets.only(bottom: 20, left: 27, right: 27),
                     child:TextField(
                     controller: emisionCedulaController,
-                    keyboardType: TextInputType.text,
+                    readOnly: true,
                     decoration: InputDecoration(
-                        errorStyle: TextStyle(color: Colors.white),
-                        errorText: _isNotValidate ? "Enter Proper Info" : null,
-                        hintText: "Fecha de emisión de la cédula",),
-                  ).p4().px24(),
+                        hintText: 'Fecha de Emisión de la cédula',
+                        suffixIcon: IconButton(
+                    icon: Icon(Icons.calendar_today),
+                        onPressed: () {
+                        _selectDateEmisionCedula(context);
+                   },
                   ),
-Container(
-  margin: EdgeInsets.only(bottom: 20, left: 27, right: 27),
-  child:             TextField(
-              controller: fechaNacimientoController,
-              readOnly: true,
-              decoration: InputDecoration(
-                hintText: 'Fecha de Nacimiento',
-                suffixIcon: IconButton(
-                  icon: Icon(Icons.calendar_today),
-                  onPressed: () {
-                    _selectDate(context);
-                  },
-                ),
-),
-  )
-),
-
-                   Container(
-                    margin: EdgeInsets.only(bottom: 20),
-                    child:TextField(
-                    controller: passwordController,
-                    keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                        errorStyle: TextStyle(color: Colors.white),
-                        errorText: _isNotValidate ? "Enter Proper Info" : null,
-                        hintText: "Contraseña",),
-                  ).p4().px24(),
+                  ),
+                  )
                   ),
                   Container(
+                    margin:EdgeInsets.only(bottom: 20, left: 27, right: 27),
+                    child:             TextField(
+                    controller: fechaNacimientoController,
+                    readOnly: true,
+                    decoration: InputDecoration(
+                        hintText: 'Fecha de Nacimiento',
+                        suffixIcon: IconButton(
+                    icon: Icon(Icons.calendar_today),
+                        onPressed: () {
+                        _selectDate(context);
+                    },
+                  ),
+                  ),
+                  )
+                  ),
+                Container(
                     margin: EdgeInsets.only(bottom: 20),
-                    child:TextField(
+                    child: TextFormField(
                     controller: passwordController,
                     keyboardType: TextInputType.text,
+                    obscureText: !_isPasswordVisible,
                     decoration: InputDecoration(
                         errorStyle: TextStyle(color: Colors.white),
                         errorText: _isNotValidate ? "Enter Proper Info" : null,
-                        hintText: "Confirmar contraseña",),
-                  ).p4().px24(),
-                  ),
+                        hintText: "Contraseña",
+                    suffixIcon: GestureDetector(
+                    onTap: () {
+                  setState(() {
+                      _isPasswordVisible = !_isPasswordVisible;
+                    });
+                  },
+                child: Icon(
+                _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                ),
+                ),
+                ),
+                ).p4().px24(),
+                ),
+                Container(
+                    margin: EdgeInsets.only(bottom: 20),
+                    child: TextFormField(
+                    controller: passwordController,
+                    keyboardType: TextInputType.text,
+                    obscureText: !_isPasswordVisible,
+                    decoration: InputDecoration(
+                        errorStyle: TextStyle(color: Colors.white),
+                        errorText: _isNotValidate ? "Enter Proper Info" : null,
+                        hintText: "Confirmar contraseña",
+                    suffixIcon: GestureDetector(
+                    onTap: () {
+                  setState(() {
+                      _isPasswordVisible = !_isPasswordVisible;
+                    });
+                  },
+                child: Icon(
+                _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                ),),
+                ),
+                ).p4().px24(),
+                ),
                   Container(
                     child: ElevatedButton(
                       onPressed: () =>{
