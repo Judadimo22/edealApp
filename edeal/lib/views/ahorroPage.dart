@@ -117,7 +117,7 @@ class _AhorroScreenState extends State<AhorroScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color(0XFF524898),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -128,7 +128,7 @@ class _AhorroScreenState extends State<AhorroScreen> {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Container(
-                  color: Colors.white,
+                  color: Color(0XFF524898),
                   padding: EdgeInsets.symmetric(vertical: 50),
                   child: Column(
                   children: [
@@ -138,15 +138,17 @@ class _AhorroScreenState extends State<AhorroScreen> {
                       Text(
                         'Ahorro',
                         style: TextStyle(
-                          fontSize: 30
+                          fontSize: 30,
+                          color: Colors.white
                         ),
                         ),),
                     SizedBox(height: 20),
                     Container(
                       width: 374,
                       padding: EdgeInsets.symmetric(horizontal: 10),
-                      color: Colors.white,
+                      color: Color(0XFF524898),
                       child: DropdownButton<String>(
+                      dropdownColor: Color(0XFF524898) ,
                       value: _ahorroPara,
                       onChanged: updateSelectedOption,
                       items: <String>[
@@ -160,18 +162,28 @@ class _AhorroScreenState extends State<AhorroScreen> {
                       ].map<DropdownMenuItem<String>>((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
-                          child: Text(value),
+                          child: Text(
+                            value,
+                            style: TextStyle(
+                              color: Colors.white
+                            ),
+                            ),
                         );
                       }).toList(),
+                        icon:  Icon(
+                        Icons.arrow_drop_down,
+                        color: Colors.white,
+                      ),
                     ),
                     ),
                     SizedBox(height: 20),
                     Container(
                       width: 374,
                       padding: EdgeInsets.symmetric(horizontal: 10),
-                      color: Colors.white,
+                      color: Color(0XFF524898),
                       child: Expanded(
                         child: DropdownButton<String>(
+                      dropdownColor: Color(0XFF524898) ,
                       value: _valorAhorro,
                       onChanged: updateValorAhorroOption,
                       items: <String>[
@@ -200,9 +212,18 @@ class _AhorroScreenState extends State<AhorroScreen> {
                       ].map<DropdownMenuItem<String>>((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
-                          child: Text(value),
+                          child: Text(
+                            value,
+                            style: TextStyle(
+                              color: Colors.white
+                            ),
+                            ),
                         );
                       }).toList(),
+                       icon:  Icon(
+                        Icons.arrow_drop_down,
+                        color: Colors.white,
+                      ),
                     ),)
                     ),
                     SizedBox(height: 20),
@@ -210,6 +231,7 @@ class _AhorroScreenState extends State<AhorroScreen> {
                       width: 374,
                       padding: EdgeInsets.symmetric(horizontal: 10),
                       child: DropdownButton<String>(
+                      dropdownColor: Color(0XFF524898) ,
                       value: _plazo,
                       onChanged: updatePlazoOption,
                       items: <String>[
@@ -241,13 +263,26 @@ class _AhorroScreenState extends State<AhorroScreen> {
                       ].map<DropdownMenuItem<String>>((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
-                          child: Text(value),
+                          child: Text(
+                            value,
+                            style: TextStyle(
+                              color: Colors.white
+                            ),
+                            ),
                         );
                       }).toList(),
+                       icon:  Icon(
+                        Icons.arrow_drop_down,
+                        color: Colors.white,
+                      ),
                     ),
                     ),
                     SizedBox(height: 20),
                     ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(Color(0XFFE8E112)),
+                    ),
                       onPressed: saveUserData,
                       child: Text('Crear mi meta de ahorro'),
                     ),

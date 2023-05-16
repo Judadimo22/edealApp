@@ -1,5 +1,8 @@
 import 'dart:convert';
+import 'package:edeal/views/ahorroPage.dart';
+import 'package:edeal/views/creditoScreen.dart';
 import 'package:edeal/views/homeScreen.dart';
+import 'package:edeal/views/planeacionScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:jwt_decoder/jwt_decoder.dart';
@@ -69,43 +72,104 @@ class _HomeState extends State<Home> {
         fontSize: 40
       ),
       ),
-    Container(
-      margin: EdgeInsets.only(top: 20),
-      child:Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              color:Color(0XFFE8E112),
-              borderRadius: BorderRadius.circular(10)
+    // Container(
+    //   margin: EdgeInsets.only(top: 20),
+    //   child:Row(
+    //     mainAxisAlignment: MainAxisAlignment.center,
+    //     children: [
+    //       Container(
+    //         decoration: BoxDecoration(
+    //           color:Color(0XFFE8E112),
+    //           borderRadius: BorderRadius.circular(10)
+    //         ),
+    //         padding: EdgeInsets.only(top:10, bottom: 10, left: 20, right: 20 ),
+    //         margin: EdgeInsets.only(left: 10, right: 10),
+    //         child:Text(
+    //           'RECARGAR',
+    //           style: TextStyle(
+    //           color: Color(0XFF524898)
+    //           ),
+    //           ),
+    //       ),
+    //       Container(
+    //         decoration: BoxDecoration(
+    //           color:Colors.white,
+    //           borderRadius: BorderRadius.circular(10)
+    //         ),
+    //         padding: EdgeInsets.only(top:10, bottom: 10, left: 20, right: 20 ),
+    //         margin: EdgeInsets.only(left: 10, right: 10),
+    //         child:Text(
+    //           'ENVIAR',
+    //           style: TextStyle(
+    //             color: Color(0XFF524898)
+    //           ),
+    //           ),
+    //       ),
+    //   ],),
+    // ),
+Container(
+  margin: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+  child: Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      Expanded(
+        child: Container(
+          margin: EdgeInsets.symmetric(horizontal: 10),
+          child: ElevatedButton(
+          style: ButtonStyle(
+            backgroundColor:
+            MaterialStateProperty.all<Color>(Color(0XFFE8E112)),
             ),
-            padding: EdgeInsets.only(top:10, bottom: 10, left: 20, right: 20 ),
-            margin: EdgeInsets.only(left: 10, right: 10),
-            child:Text(
-              'RECARGAR',
-              style: TextStyle(
-              color: Color(0XFF524898)
-              ),
-              ),
+            onPressed: () => {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => PlaneacionScreen(token: widget.token)),
+            )
+            },
+            child: Text('Planeación'),
           ),
-          Container(
-            decoration: BoxDecoration(
-              color:Colors.white,
-              borderRadius: BorderRadius.circular(10)
+        ),
+      ),
+      Expanded(
+        child: Container(
+          margin: EdgeInsets.symmetric(horizontal: 10),
+          child: ElevatedButton(
+          style: ButtonStyle(
+            backgroundColor:
+            MaterialStateProperty.all<Color>(Color(0XFFE8E112)),
             ),
-            padding: EdgeInsets.only(top:10, bottom: 10, left: 20, right: 20 ),
-            margin: EdgeInsets.only(left: 10, right: 10),
-            child:Text(
-              'ENVIAR',
-              style: TextStyle(
-                color: Color(0XFF524898)
-              ),
-              ),
+            onPressed: () => {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => AhorroScreen(token: widget.token)),
+            )
+            },
+            child: Text('Ahorro'),
           ),
+        ),
+      ),
+      Expanded(
+        child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 10),
+          child: ElevatedButton(
+            style: ButtonStyle(
+            backgroundColor:
+            MaterialStateProperty.all<Color>(Color(0XFFE8E112)),
+            ),
+            onPressed: () => {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => CreditoScreen(token: widget.token)),
+            )
+            },
+            child: Text('Crédito'),
+          ),
+        ),
+      ),
+    ],
+  ),
+),
 
-
-      ],)
-    ),
     ]),
     ),
 

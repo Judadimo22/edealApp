@@ -117,7 +117,7 @@ class _CreditoScreenState extends State<CreditoScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color(0XFF524898),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -128,7 +128,7 @@ class _CreditoScreenState extends State<CreditoScreen> {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Container(
-                  color: Colors.white,
+                  color: Color(0XFF524898),
                   padding: EdgeInsets.symmetric(vertical: 50),
                   child: Column(
                   children: [
@@ -138,15 +138,17 @@ class _CreditoScreenState extends State<CreditoScreen> {
                       Text(
                         'Crédito',
                         style: TextStyle(
-                          fontSize: 30
+                          fontSize: 30,
+                          color: Colors.white
                         ),
                         ),),
                     SizedBox(height: 20),
                     Container(
                       width: 374,
                       padding: EdgeInsets.symmetric(horizontal: 10),
-                      color: Colors.white,
+                      color: Color(0XFF524898),
                       child: DropdownButton<String>(
+                      dropdownColor: Color(0XFF524898) ,
                       value: _creditoPara,
                       onChanged: updateSelectedOption,
                       items: <String>[
@@ -159,18 +161,28 @@ class _CreditoScreenState extends State<CreditoScreen> {
                       ].map<DropdownMenuItem<String>>((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
-                          child: Text(value),
+                          child: Text(
+                            value,
+                            style: TextStyle(
+                              color: Colors.white,
+                          ),
+                          ),
                         );
                       }).toList(),
+                      icon:  Icon(
+                        Icons.arrow_drop_down,
+                        color: Colors.white,
+                      ),
                     ),
                     ),
                     SizedBox(height: 20),
                     Container(
                       width: 374,
                       padding: EdgeInsets.symmetric(horizontal: 10),
-                      color: Colors.white,
+                      color: Color(0XFF524898),
                       child: Expanded(
                         child: DropdownButton<String>(
+                      dropdownColor: Color(0XFF524898) ,
                       value: _tarjetaCredito,
                       onChanged: updateTarjetaOption,
                       items: <String>[
@@ -180,9 +192,18 @@ class _CreditoScreenState extends State<CreditoScreen> {
                       ].map<DropdownMenuItem<String>>((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
-                          child: Text(value),
+                          child: Text(
+                            value,
+                            style: TextStyle(
+                              color: Colors.white
+                            ),
+                            ),
                         );
                       }).toList(),
+                      icon:  Icon(
+                        Icons.arrow_drop_down,
+                        color: Colors.white,
+                      ),
                     ),)
                     ),
                     SizedBox(height: 20),
@@ -190,23 +211,55 @@ class _CreditoScreenState extends State<CreditoScreen> {
                       width: 374,
                       padding: EdgeInsets.symmetric(horizontal: 10),
                       child: DropdownButton<String>(
+                      dropdownColor: Color(0XFF524898) ,
                       value: _banco,
                       onChanged: updateBancoOption,
                       items: <String>[
                         'Con cual banco:',
-                        'Davivienda',
+                        'Banco de Bogotá',
+                        'Banco Popular',
+                        'Coorbanca',
                         'Bancolombia',
-                        'Colpatria'
+                        'Banco CITIBANK',
+                        'HSBC Colombia',
+                        'Banco GNB Sudameris',
+                        'BBVA Colombia ',
+                        'Helm Bank',
+                        'MULTIBANCA COLPATRIA',
+                        'Banco de Occidente',
+                        'Banco Caja Social ',
+                        'Banco Davivienda',
+                        'Banco AV Villas',
+                        'Fiduciaria Skandia',
+                        'Banco Pichincha S.A',
+                        'Banco Coomeva S.A.',
+                        'Banco Procredit',
+                        'Banco Falabella',
+                        'Coltefinanciera',
+                        'Coopcentral'
                       ].map<DropdownMenuItem<String>>((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
-                          child: Text(value),
+                          child: Text(
+                            value,
+                            style: TextStyle(
+                              color: Colors.white
+                            ),
+                            ),
                         );
                       }).toList(),
+                      icon:  Icon(
+                        Icons.arrow_drop_down,
+                        color: Colors.white,
+                      ),
                     ),
                     ),
                     SizedBox(height: 20),
                     ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(Color(0XFFE8E112)),
+                    ),
                       onPressed: saveUserData,
                       child: Text('Solicitar crédito'),
                     ),
