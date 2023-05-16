@@ -50,9 +50,6 @@ const reenviar = async (req, res) => {
 
     reenviarCorreo(email, newCode);
 
-    setTimeout(() => {
-      UserServices.removeCodeField(user._id);
-    }, 2 * 60 * 1000);
     
     res.json({ message: 'Correo reenviado y código actualizado en la base de datos' });
   } catch (error) {

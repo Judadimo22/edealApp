@@ -64,6 +64,23 @@ class _CreditoScreenState extends State<CreditoScreen> {
           userData['tarjetaDeCredito'] = _tarjetaCredito;
           userData['bancoCredito'] = _banco;
         });
+                showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('Información actualizada'),
+              content: Text('Tu información se almacenó correctamente.'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('Aceptar'),
+                ),
+              ],
+            );
+          },
+        );
 
         print('Información actualizada correctamente');
         setState(() {

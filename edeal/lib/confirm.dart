@@ -56,11 +56,11 @@ class _ConfirmState extends State<Confirm> {
   }
 
   void confirm() async {
-    var response = await http.put(
-      Uri.parse('http://192.168.1.108:3001/confirmar/$userId'),
-    );
     String codeUser = codeController.text;
     if (userData['code'] == codeUser) {
+      var response = await http.put(
+      Uri.parse('http://192.168.1.108:3001/confirmar/$userId'),
+    );
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -87,7 +87,7 @@ class _ConfirmState extends State<Confirm> {
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text('Error en el código'),
-            content: Text('El código ingresado no coincide'),
+            content: Text('El código ingresado no coincide o ha expirado'),
             actions: [
               TextButton(
                 onPressed: () {
@@ -205,7 +205,7 @@ class _ConfirmState extends State<Confirm> {
      style: ElevatedButton.styleFrom(
      primary: Color(0XFFE8E112), // Background color
     ),
-    child: Text('Reenviar Correo'),
+    child: Text('Reenviar Código'),
     ), 
    ),
    ],

@@ -64,6 +64,23 @@ class _AhorroScreenState extends State<AhorroScreen> {
           userData['valorAhorro'] = _valorAhorro;
           userData['plazoAhorro'] = _plazo;
         });
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('Información actualizada'),
+              content: Text('Tu información se almacenó correctamente.'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('Aceptar'),
+                ),
+              ],
+            );
+          },
+        );
 
         print('Información actualizada correctamente');
         setState(() {
@@ -159,11 +176,26 @@ class _AhorroScreenState extends State<AhorroScreen> {
                       onChanged: updateValorAhorroOption,
                       items: <String>[
                         'Valor del ahorro:',
-                        '1 mes',
-                        '3 meses',
-                        '6 meses',
-                        '9 meses',
-                        '12 meses',
+                        '1 millón',
+                        '2 millones',
+                        '3 millones',
+                        '4 millones',
+                        '5 millones',
+                        '6 millones',
+                        '7 millones',
+                        '8 millones',
+                        '9 millones',
+                        '10 millones',
+                        '11 milllones',
+                        '12 milllones',
+                        '13 millones',
+                        '14 millones',
+                        '15 millones',
+                        '16 millones',
+                        '17 millones',
+                        '18 millones',
+                        '19 millones',
+                        '20 millones'
 
                       ].map<DropdownMenuItem<String>>((String value) {
                         return DropdownMenuItem<String>(
@@ -182,10 +214,30 @@ class _AhorroScreenState extends State<AhorroScreen> {
                       onChanged: updatePlazoOption,
                       items: <String>[
                         'Plazo(meses):',
-                        '1 millones',
-                        '6 millones',
-                        '12 millones',
-                        '24 millones'
+                        '1 mes',
+                        '2 meses',
+                        '3 meses',
+                        '4 meses',
+                        '5 meses',
+                        '6 meses',
+                        '7 meses',
+                        '8 meses',
+                        '9 meses',
+                        '10 meses',
+                        '11 meses',
+                        '12 meses',
+                        '13 meses',
+                        '14 meses',
+                        '15 meses',
+                        '16 meses',
+                        '17 meses',
+                        '18 meses',
+                        '19 meses',
+                        '20 meses',
+                        '21 meses',
+                        '22 meses',
+                        '23 meses',
+                        '24 meses'
                       ].map<DropdownMenuItem<String>>((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
