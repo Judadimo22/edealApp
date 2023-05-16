@@ -1,6 +1,7 @@
 const UserServices = require('../services/UserServices');
 const userSchema = require("../models/User");
 const { eMail } = require('../nodemailer/mailer');
+const { reenviarCorreo } = require('../nodemailer/reenviarCorreo');
 
 const register = async (req, res, next) => {
   try {
@@ -27,6 +28,30 @@ const register = async (req, res, next) => {
     next(err);
   }
 };
+
+const reenviar = async (req, res) => {
+  try {
+    const { email, id } = req.params;
+    const newCode = Math.round(Math.random() * 999999);
+    
+    await userSchema.updateOne(
+      { _id: id },
+      {
+        $set: {
+          code: newCode
+        }
+      }
+    );
+
+    reenviarCorreo(email, newCode);
+    
+    res.json({ message: 'Correo reenviado y código actualizado en la base de datos' });
+  } catch (error) {
+    res.status(500).json({ message: 'Error al reenviar el correo y actualizar el código en la base de datos' });
+  }
+};
+
+
 
 const login = async (req, res, next) => {
     try {
@@ -138,5 +163,6 @@ module.exports ={
     login,
     getUserById,
     putCredit,
-    putAhorro
+    putAhorro,
+    reenviar
 }
