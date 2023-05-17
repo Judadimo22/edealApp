@@ -23,7 +23,7 @@ class _AhorroScreenState extends State<AhorroScreen> {
   String _ahorroPara = 'Quiero ahorrar para:';
   String _valorAhorro = 'Valor del ahorro:';
   String _plazo= 'Plazo(meses):';
-
+  bool _showTextField = false;
 
   @override
   void initState() {
@@ -45,77 +45,94 @@ class _AhorroScreenState extends State<AhorroScreen> {
     }
   }
 
-  void saveUserData() async {
-    if (_formKey.currentState!.validate()) {
-      var newData = _newDataController.text;
+void saveUserData() async {
+  if (_formKey.currentState!.validate()) {
+    var newData = _newDataController.text;
 
-      var response = await http.put(
-        Uri.parse('http://192.168.1.108:3001/ahorro/$userId'),
-        body: {
-          'ahorroPara': _ahorroPara,
-          'valorAhorro': _valorAhorro,
-          'plazoAhorro': _plazo
-          },
+    var response = await http.put(
+      Uri.parse('http://192.168.1.108:3001/ahorro/$userId'),
+      body: {
+        'ahorroPara': _ahorroPara == 'Otros' ? newData : _ahorroPara,
+        'valorAhorro': _valorAhorro,
+        'plazoAhorro': _plazo,
+      },
+    );
+
+    if (response.statusCode == 200) {
+      setState(() {
+        userData['ahorroPara'] = _ahorroPara == 'Otros' ? newData : _ahorroPara;
+        userData['valorAhorro'] = _valorAhorro;
+        userData['plazoAhorro'] = _plazo;
+      });
+
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Información actualizada'),
+            content: Text('Tu información se almacenó correctamente.'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('Aceptar'),
+              ),
+            ],
+          );
+        },
       );
 
-      if (response.statusCode == 200) {
-        setState(() {
-          userData['ahorroPara'] = _ahorroPara;
-          userData['valorAhorro'] = _valorAhorro;
-          userData['plazoAhorro'] = _plazo;
-        });
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: Text('Información actualizada'),
-              content: Text('Tu información se almacenó correctamente.'),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Text('Aceptar'),
-                ),
-              ],
-            );
-          },
-        );
-
-        print('Información actualizada correctamente');
-        setState(() {
-         _ahorroPara = 'Quiero ahorrar para:';
-         _valorAhorro = 'Valor del ahorro:';
-         _plazo = 'Plazo(meses):';
+      setState(() {
+        _ahorroPara = 'Quiero ahorrar para:';
+        _valorAhorro = 'Valor del ahorro:';
+        _plazo = 'Plazo(meses):';
       });
-      } else {
-        print('Error al actualizar la información: ${response.statusCode}');
-      }
+    } else {
+      print('Error al actualizar la información: ${response.statusCode}');
     }
   }
+}
+
 
   void updateSelectedOption(String? newValue) {
     setState(() {
       _ahorroPara = newValue!;
+      if (newValue == 'Otros') {
+        _showTextField = true;
+      } else {
+        _showTextField = false;
+      }
     });
   }
 
   void updateValorAhorroOption(String? newValorAhorro){
     setState(() {
-    _valorAhorro = newValorAhorro!;
+      _valorAhorro = newValorAhorro!;
     });
   }
 
   void updatePlazoOption(String? newPlazo){
     setState(() {
-    _plazo = newPlazo!;
+      _plazo = newPlazo!;
     });
   }
 
-
-
   @override
   Widget build(BuildContext context) {
+      if (userData['ahorroPara'] != null &&
+      userData['valorAhorro'] != null &&
+      userData['plazoAhorro'] != null) {
+    return Scaffold(
+      backgroundColor: Color(0XFF524898),
+      body: Center(
+        child: Text(
+          'Gracias por llenar el formulario',
+          style: TextStyle(fontSize: 24, color: Colors.white),
+        ),
+      ),
+    );
+  } else {
     return Scaffold(
       backgroundColor: Color(0XFF524898),
       body: Center(
@@ -134,160 +151,188 @@ class _AhorroScreenState extends State<AhorroScreen> {
                   children: [
                     Container(
                       margin: EdgeInsets.only(bottom: 50),
-                      child:
-                      Text(
+                      child: Text(
                         'Ahorro',
                         style: TextStyle(
                           fontSize: 30,
                           color: Colors.white
                         ),
-                        ),),
+                      ),
+                    ),
                     SizedBox(height: 20),
                     Container(
                       width: 374,
                       padding: EdgeInsets.symmetric(horizontal: 10),
                       color: Color(0XFF524898),
                       child: DropdownButton<String>(
-                      dropdownColor: Color(0XFF524898) ,
-                      value: _ahorroPara,
-                      onChanged: updateSelectedOption,
-                      items: <String>[
-                        'Quiero ahorrar para:',
-                        'Viaje',
-                        'Celular',
-                        'Evento',
-                        'Estudios',
-                        'Carro',
-                        'Otros'
-                      ].map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(
-                            value,
-                            style: TextStyle(
-                              color: Colors.white
+                        dropdownColor: Color(0XFF524898),
+                        value: _ahorroPara,
+                        onChanged: updateSelectedOption,
+                        items: <String>[
+                          'Quiero ahorrar para:',
+                          'Viaje',
+                          'Celular',
+                          'Evento',
+                          'Estudios',
+                          'Carro',
+                          'Otros'
+                        ].map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(
+                              value,
+                              style: TextStyle(
+                                color: Colors.white
+                              ),
                             ),
-                            ),
-                        );
-                      }).toList(),
-                        icon:  Icon(
-                        Icons.arrow_drop_down,
-                        color: Colors.white,
+                          );
+                        }).toList(),
+                        icon: Icon(
+                          Icons.arrow_drop_down,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
-                    ),
+                    if (_showTextField)
+                      Container(
+                        width: 374,
+                        padding: EdgeInsets.symmetric(horizontal: 10),
+                        child: TextFormField(
+                          controller: _newDataController,
+                          decoration: InputDecoration(
+                            hintText: 'Ingrese el objetivo de ahorro',
+                            hintStyle: TextStyle(color: Colors.white),
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.white),
+                            ),
+                          ),
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Por favor, ingrese el objetivo de ahorro';
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
                     SizedBox(height: 20),
                     Container(
                       width: 374,
                       padding: EdgeInsets.symmetric(horizontal: 10),
                       color: Color(0XFF524898),
-                      child: Expanded(
-                        child: DropdownButton<String>(
-                      dropdownColor: Color(0XFF524898) ,
-                      value: _valorAhorro,
-                      onChanged: updateValorAhorroOption,
-                      items: <String>[
-                        'Valor del ahorro:',
-                        '1 millón',
-                        '2 millones',
-                        '3 millones',
-                        '4 millones',
-                        '5 millones',
-                        '6 millones',
-                        '7 millones',
-                        '8 millones',
-                        '9 millones',
-                        '10 millones',
-                        '11 milllones',
-                        '12 milllones',
-                        '13 millones',
-                        '14 millones',
-                        '15 millones',
-                        '16 millones',
-                        '17 millones',
-                        '18 millones',
-                        '19 millones',
-                        '20 millones'
-
-                      ].map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(
-                            value,
-                            style: TextStyle(
-                              color: Colors.white
+                      child: DropdownButton<String>(
+                        dropdownColor: Color(0XFF524898),
+                        value: _valorAhorro,
+                        onChanged: updateValorAhorroOption,
+                        items: <String>[
+                          'Valor del ahorro:',
+                          '1 millón',
+                          '2 millones',
+                          '3 millones',
+                          '4 millones',
+                          '5 millones',
+                          '6 millones',
+                          '7 millones',
+                          '8 millones',
+                          '9 millones',
+                          '10 millones',
+                          '11 millones',
+                          '12 millones',
+                          '13 millones',
+                          '14 millones',
+                          '15 millones',
+                          '16 millones',
+                          '17 millones',
+                          '18 millones',
+                          '19 millones',
+                          '20 millones'
+                        ].map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(
+                              value,
+                              style: TextStyle(
+                                color: Colors.white
+                              ),
                             ),
-                            ),
-                        );
-                      }).toList(),
-                       icon:  Icon(
-                        Icons.arrow_drop_down,
-                        color: Colors.white,
+                          );
+                        }).toList(),
+                        icon: Icon(
+                          Icons.arrow_drop_down,
+                          color: Colors.white,
+                        ),
                       ),
-                    ),)
                     ),
                     SizedBox(height: 20),
                     Container(
                       width: 374,
                       padding: EdgeInsets.symmetric(horizontal: 10),
                       child: DropdownButton<String>(
-                      dropdownColor: Color(0XFF524898) ,
-                      value: _plazo,
-                      onChanged: updatePlazoOption,
-                      items: <String>[
-                        'Plazo(meses):',
-                        '1 mes',
-                        '2 meses',
-                        '3 meses',
-                        '4 meses',
-                        '5 meses',
-                        '6 meses',
-                        '7 meses',
-                        '8 meses',
-                        '9 meses',
-                        '10 meses',
-                        '11 meses',
-                        '12 meses',
-                        '13 meses',
-                        '14 meses',
-                        '15 meses',
-                        '16 meses',
-                        '17 meses',
-                        '18 meses',
-                        '19 meses',
-                        '20 meses',
-                        '21 meses',
-                        '22 meses',
-                        '23 meses',
-                        '24 meses'
-                      ].map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(
-                            value,
-                            style: TextStyle(
-                              color: Colors.white
+                        dropdownColor: Color(0XFF524898),
+                        value: _plazo,
+                        onChanged: updatePlazoOption,
+                        items: <String>[
+                          'Plazo(meses):',
+                          '1 mes',
+                          '2 meses',
+                          '3 meses',
+                          '4 meses',
+                          '5 meses',
+                          '6 meses',
+                          '7 meses',
+                          '8 meses',
+                          '9 meses',
+                          '10 meses',
+                          '11 meses',
+                          '12 meses',
+                          '13 meses',
+                          '14 meses',
+                          '15 meses',
+                          '16 meses',
+                          '17 meses',
+                          '18 meses',
+                          '19 meses',
+                          '20 meses'
+                        ].map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(
+                              value,
+                              style: TextStyle(
+                                color: Colors.white
+                              ),
                             ),
-                            ),
-                        );
-                      }).toList(),
-                       icon:  Icon(
-                        Icons.arrow_drop_down,
-                        color: Colors.white,
+                          );
+                        }).toList(),
+                        icon: Icon(
+                          Icons.arrow_drop_down,
+                          color: Colors.white,
+                        ),
                       ),
-                    ),
                     ),
                     SizedBox(height: 20),
                     ElevatedButton(
-                    style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all<Color>(Color(0XFFE8E112)),
-                    ),
                       onPressed: saveUserData,
-                      child: Text('Crear mi meta de ahorro'),
+                      child: Text('Crear mi meta de ahorro', style: TextStyle(fontSize: 18)),
+                      style: ElevatedButton.styleFrom(
+                        primary: Color(0XFFE8E112),
+                        padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
                     ),
                   ],
-                ),)
+                ),
+                ),
               ),
             ),
           ],
@@ -296,3 +341,10 @@ class _AhorroScreenState extends State<AhorroScreen> {
     );
   }
 }
+}
+
+
+
+
+
+
