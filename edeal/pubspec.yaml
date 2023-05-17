@@ -35,7 +35,8 @@ dependencies:
   shared_preferences:
   jwt_decoder:
   flutter_slidable:
-  flutter_datetime_picker: 
+  flutter_datetime_picker:
+  flutter_countdown_timer:  
 
 
   # The following adds the Cupertino Icons font to your application.

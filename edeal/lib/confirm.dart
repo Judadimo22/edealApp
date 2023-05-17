@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'dart:async';
+import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 
 class Confirm extends StatefulWidget {
   final String token;
@@ -19,6 +20,8 @@ class _ConfirmState extends State<Confirm> {
   TextEditingController codeController = TextEditingController();
   Map<String, dynamic> userData = {};
   Timer? _timer;
+  int endTime = DateTime.now().millisecondsSinceEpoch + 60000; // 1 minuto en milisegundos
+  bool showResendButton = false; // Variable para controlar la visibilidad del botón de reenvío
 
   @override
   void initState() {
@@ -27,7 +30,7 @@ class _ConfirmState extends State<Confirm> {
     userId = jwtDecodedToken['_id'];
     fetchUserData();
 
-    _timer = Timer.periodic(Duration(minutes: 2), (_) {
+    _timer = Timer.periodic(Duration(minutes: 1), (_) {
       fetchUserData();
     });
   }
@@ -49,6 +52,9 @@ class _ConfirmState extends State<Confirm> {
     if (response.statusCode == 200) {
       setState(() {
         userData = jsonDecode(response.body);
+        if (!userData.containsKey('code')) {
+          showResendButton = true; // Mostrar el botón de reenvío si el código no está presente
+        }
       });
     } else {
       print('Error: ${response.statusCode}');
@@ -59,8 +65,8 @@ class _ConfirmState extends State<Confirm> {
     String codeUser = codeController.text;
     if (userData['code'] == codeUser) {
       var response = await http.put(
-      Uri.parse('http://192.168.1.108:3001/confirmar/$userId'),
-    );
+        Uri.parse('http://192.168.1.108:3001/confirmar/$userId'),
+      );
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -99,9 +105,8 @@ class _ConfirmState extends State<Confirm> {
           );
         },
       );
-    }
-    else if (!userData['code']){
-            showDialog(
+    } else if (!userData['code']) {
+      showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
@@ -139,6 +144,10 @@ class _ConfirmState extends State<Confirm> {
                 onPressed: () {
                   Navigator.pop(context);
                   fetchUserData(); // Obtener los datos actualizados después de reenviar el correo
+                  setState(() {
+                    endTime = DateTime.now().millisecondsSinceEpoch + 60000; // Reiniciar el contador
+                    showResendButton = false; // Ocultar el botón de reenvío después de hacer clic en él
+                  });
                 },
                 child: Text('Aceptar'),
               ),
@@ -160,58 +169,77 @@ class _ConfirmState extends State<Confirm> {
         backgroundColor: Color(0XFF524898),
         toolbarHeight: 70,
       ),
-        body: Center(
+      body: Center(
         child: userData.isNotEmpty
-        ? Column(
-         mainAxisAlignment: MainAxisAlignment.center,
-         children: [
-         Container(
-         margin: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-         child: Text(
-         'Verifica tu correo (${userData['email']}) e ingresa un código válido.',
-         textAlign: TextAlign.center,
-        ),
-     ),
-      Container(
-        margin: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-        child: TextField(
-        controller: codeController,
-        keyboardType: TextInputType.text,
-        decoration: InputDecoration(
-        filled: true,
-        fillColor: Colors.white,
-        errorStyle: TextStyle(color: Colors.white),
-        hintText: "Code",
-        border: OutlineInputBorder(
-        borderRadius: BorderRadius.all(Radius.circular(10.0)),
-    ),
-    ),
-    ),
-    ),
-     Container(
-      margin: EdgeInsets.symmetric(vertical: 10),
-      child: ElevatedButton(
-      onPressed: () => confirm(),
-      style: ElevatedButton.styleFrom(
-       primary: Color(0XFFE8E112), // Background color
-     ),
-     child: Text('Confirmar Cuenta'),
-    ),
-    ),
-    Container(
-     margin: EdgeInsets.symmetric(vertical: 10),
-     child: ElevatedButton(
-     onPressed: () => reenviarEmail(),
-     style: ElevatedButton.styleFrom(
-     primary: Color(0XFFE8E112), // Background color
-    ),
-    child: Text('Reenviar Código'),
-    ), 
-   ),
-   ],
-   )
-    : CircularProgressIndicator(),
-    ),
-   );
-   }
-   }
+            ? Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                    child: Text(
+                      'Verifica tu correo (${userData['email']}) e ingresa un código válido.',
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  Text(
+                    'Tu código expira en:',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  CountdownTimer(
+                    endTime: endTime,
+                    textStyle: TextStyle(
+                      color: Colors.black,
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                    child: TextField(
+                      controller: codeController,
+                      keyboardType: TextInputType.text,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        errorStyle: TextStyle(color: Colors.white),
+                        hintText: "Code",
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.symmetric(vertical: 10),
+                    child: ElevatedButton(
+                      onPressed: () => confirm(),
+                      style: ElevatedButton.styleFrom(
+                        primary: Color(0XFFE8E112), // Background color
+                      ),
+                      child: Text('Confirmar Cuenta'),
+                    ),
+                  ),
+                  if (showResendButton) // Mostrar el botón de reenvío solo si la variable showResendButton es verdadera
+                    Container(
+                      margin: EdgeInsets.symmetric(vertical: 10),
+                      child: ElevatedButton(
+                        onPressed: () => reenviarEmail(),
+                        style: ElevatedButton.styleFrom(
+                          primary: Color(0XFFEE8E112), // Background color
+                        ),
+                        child: Text('Reenviar Código'),
+                      ),
+                    ),
+                ],
+              )
+            : CircularProgressIndicator(),
+      ),
+    );
+  }
+}
+
+

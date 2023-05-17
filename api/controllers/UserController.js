@@ -25,7 +25,7 @@ const register = async (req, res, next) => {
 
     setTimeout(() => {
       UserServices.removeCodeField(user._id);
-    }, 2 * 60 * 1000);
+    },  60 * 1000);
 
     res.status(200).json({ status: true, success: "sendData", token: token });
   } catch (err) {
@@ -49,6 +49,10 @@ const reenviar = async (req, res) => {
     );
 
     reenviarCorreo(email, newCode);
+    let user = await UserServices.checkUser(email);
+    setTimeout(() => {
+      UserServices.removeCodeField(user._id);
+    },  60 * 1000);
 
     
     res.json({ message: 'Correo reenviado y código actualizado en la base de datos' });
