@@ -4,6 +4,7 @@ import 'package:edeal/views/homeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:jwt_decoder/jwt_decoder.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class AhorroScreen extends StatefulWidget {
   final String token;
@@ -20,8 +21,9 @@ class _AhorroScreenState extends State<AhorroScreen> {
 
   final _formKey = GlobalKey<FormState>();
   TextEditingController _newDataController = TextEditingController();
+  TextEditingController _valorAhorroController = TextEditingController();
   String _ahorroPara = 'Quiero ahorrar para:';
-  String _valorAhorro = 'Valor del ahorro:';
+  // String _valorAhorro = 'Valor del ahorro(millones):';
   String _plazo= 'Plazo(meses):';
   bool _showTextField = false;
 
@@ -53,7 +55,7 @@ void saveUserData() async {
       Uri.parse('http://192.168.1.108:3001/ahorro/$userId'),
       body: {
         'ahorroPara': _ahorroPara == 'Otros' ? newData : _ahorroPara,
-        'valorAhorro': _valorAhorro,
+        'valorAhorro': _valorAhorroController.text,
         'plazoAhorro': _plazo,
       },
     );
@@ -61,7 +63,7 @@ void saveUserData() async {
     if (response.statusCode == 200) {
       setState(() {
         userData['ahorroPara'] = _ahorroPara == 'Otros' ? newData : _ahorroPara;
-        userData['valorAhorro'] = _valorAhorro;
+        userData['valorAhorro'] = _valorAhorroController.text;
         userData['plazoAhorro'] = _plazo;
       });
 
@@ -85,7 +87,7 @@ void saveUserData() async {
 
       setState(() {
         _ahorroPara = 'Quiero ahorrar para:';
-        _valorAhorro = 'Valor del ahorro:';
+        // _valorAhorroController = '';
         _plazo = 'Plazo(meses):';
       });
     } else {
@@ -106,28 +108,33 @@ void saveUserData() async {
     });
   }
 
-  void updateValorAhorroOption(String? newValorAhorro){
-    setState(() {
-      _valorAhorro = newValorAhorro!;
-    });
-  }
+  // void updateValorAhorroOption(String? newValorAhorro){
+  //   setState(() {
+  //     _valorAhorro = newValorAhorro!;
+  //   });
+  // }
 
-  void updatePlazoOption(String? newPlazo){
+void updatePlazoOption(String? newValue) {
+  if (newValue != null && newValue != 'Plazo(meses):') {
     setState(() {
-      _plazo = newPlazo!;
+      _plazo = newValue;
     });
   }
+}
 
   @override
   Widget build(BuildContext context) {
       if (userData['ahorroPara'] != null &&
       userData['valorAhorro'] != null &&
       userData['plazoAhorro'] != null) {
+      double valorAhorro = double.parse(userData['valorAhorro']);
+      int plazoAhorro = int.parse(userData['plazoAhorro']);
+      double metaAhorroMes = (valorAhorro / plazoAhorro);
     return Scaffold(
       backgroundColor: Color(0XFF524898),
       body: Center(
         child: Text(
-          'Gracias por llenar el formulario',
+      'La meta de ahorro es de : \$${metaAhorroMes.toStringAsFixed(2)}',
           style: TextStyle(fontSize: 24, color: Colors.white),
         ),
       ),
@@ -224,53 +231,22 @@ void saveUserData() async {
                         ),
                       ),
                     SizedBox(height: 20),
-                    Container(
-                      width: 374,
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      color: Color(0XFF524898),
-                      child: DropdownButton<String>(
-                        dropdownColor: Color(0XFF524898),
-                        value: _valorAhorro,
-                        onChanged: updateValorAhorroOption,
-                        items: <String>[
-                          'Valor del ahorro:',
-                          '1 millón',
-                          '2 millones',
-                          '3 millones',
-                          '4 millones',
-                          '5 millones',
-                          '6 millones',
-                          '7 millones',
-                          '8 millones',
-                          '9 millones',
-                          '10 millones',
-                          '11 millones',
-                          '12 millones',
-                          '13 millones',
-                          '14 millones',
-                          '15 millones',
-                          '16 millones',
-                          '17 millones',
-                          '18 millones',
-                          '19 millones',
-                          '20 millones'
-                        ].map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(
-                              value,
-                              style: TextStyle(
-                                color: Colors.white
-                              ),
-                            ),
-                          );
-                        }).toList(),
-                        icon: Icon(
-                          Icons.arrow_drop_down,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
+Container(
+  margin: EdgeInsets.only(bottom: 20),
+  child: TextField(
+    controller: _valorAhorroController,
+    keyboardType: TextInputType.text,
+    style: TextStyle(color: Colors.white), // Cambiar el color del texto que se ingresa
+    decoration: InputDecoration(
+      errorStyle: TextStyle(color: Colors.white),
+      hintText: "Monto del ahorro",
+      hintStyle: TextStyle(color: Colors.white),
+      border: UnderlineInputBorder(
+        borderSide: BorderSide(color: Colors.red), // Cambiar el color del borde inferior
+      ),
+    ),
+  ).p4().px12(),
+),
                     SizedBox(height: 20),
                     Container(
                       width: 374,
@@ -281,26 +257,26 @@ void saveUserData() async {
                         onChanged: updatePlazoOption,
                         items: <String>[
                           'Plazo(meses):',
-                          '1 mes',
-                          '2 meses',
-                          '3 meses',
-                          '4 meses',
-                          '5 meses',
-                          '6 meses',
-                          '7 meses',
-                          '8 meses',
-                          '9 meses',
-                          '10 meses',
-                          '11 meses',
-                          '12 meses',
-                          '13 meses',
-                          '14 meses',
-                          '15 meses',
-                          '16 meses',
-                          '17 meses',
-                          '18 meses',
-                          '19 meses',
-                          '20 meses'
+                          '1',
+                          '2',
+                          '3',
+                          '4',
+                          '5',
+                          '6',
+                          '7',
+                          '8',
+                          '9',
+                          '10',
+                          '11',
+                          '12',
+                          '13',
+                          '14',
+                          '15',
+                          '16',
+                          '17',
+                          '18',
+                          '19',
+                          '20'
                         ].map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,

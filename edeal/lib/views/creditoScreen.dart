@@ -27,7 +27,7 @@ class _CreditoScreenState extends State<CreditoScreen> {
   String _creditoPara = 'Me gustaría un crédito para:';
   String _tarjetaCredito = 'Tengo tarjeta de crédito:';
   String _banco = 'Con cual banco:';
-  String _plazoCredito = 'Plazo del crédito';
+  String _plazoCredito = 'Plazo del crédito en meses';
   bool _mostrarCampoBanco = false;
 
 
@@ -97,7 +97,7 @@ class _CreditoScreenState extends State<CreditoScreen> {
          _creditoPara = 'Me gustaría un crédito para:';
          _tarjetaCredito = 'Tengo tarjeta de crédito:';
          _banco = 'Con cual banco:';
-         _plazoCredito = 'Plazo del crédito';
+         _plazoCredito = 'Plazo del crédito en meses';
          _montoCreditoController.text = '';
       });
       } else {
@@ -309,27 +309,27 @@ class _CreditoScreenState extends State<CreditoScreen> {
                       value: _plazoCredito,
                       onChanged: updateplazoCreditoOption,
                       items: <String>[
-                        'Plazo del crédito',
-                          '1 mes',
-                          '2 meses',
-                          '3 meses',
+                        'Plazo del crédito en meses',
+                          '1 ',
+                          '2',
+                          '3',
                           '4',
-                          '5 meses',
-                          '6 meses',
-                          '7 meses',
-                          '8 meses',
-                          '9 meses',
-                          '10 meses',
-                          '11 meses',
-                          '12 meses',
-                          '13 meses',
-                          '14 meses',
-                          '15 meses',
-                          '16 meses',
-                          '17 meses',
-                          '18 meses',
-                          '19 meses',
-                          '20 meses'
+                          '5',
+                          '6',
+                          '7',
+                          '8',
+                          '9',
+                          '10',
+                          '11',
+                          '12',
+                          '13',
+                          '14',
+                          '15',
+                          '16',
+                          '17',
+                          '18',
+                          '19',
+                          '20'
                       ].map<DropdownMenuItem<String>>((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
