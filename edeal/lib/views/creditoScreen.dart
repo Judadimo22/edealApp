@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:velocity_x/velocity_x.dart';
+import 'dart:math';
+
 
 class CreditoScreen extends StatefulWidget {
   final String token;
@@ -137,7 +139,29 @@ class _CreditoScreenState extends State<CreditoScreen> {
 
   @override
   Widget build(BuildContext context) {
+    if(userData['credito'] != null
+    || userData['bancoCredito']  != null
+    || userData['montoCredito'] != null
+    || userData['plazoCredito'] != null
+    || userData['tarjetaDeCredito'] != null
+    ){
+    double montoCredito = double.parse(userData['montoCredito']);
+    int plazoCredito = int.parse(userData['plazoCredito']);
+
+    double valorCuota = (montoCredito * (0.018 * pow(1 + 0.018, plazoCredito))) /
+    (pow(1 + 0.018, plazoCredito) - 1);
     return Scaffold(
+      backgroundColor: Color(0XFF524898),
+      body: Center(
+    child: Text(
+      'El valor de la cuota es: \$${valorCuota.toStringAsFixed(2)}',
+      style: TextStyle(fontSize: 24, color: Colors.white),
+    ),
+      ),
+    );
+    }
+    else {
+          return Scaffold(
       backgroundColor: Color(0XFF524898),
       body: Center(
         child: SingleChildScrollView(
@@ -289,7 +313,7 @@ class _CreditoScreenState extends State<CreditoScreen> {
                           '1 mes',
                           '2 meses',
                           '3 meses',
-                          '4 meses',
+                          '4',
                           '5 meses',
                           '6 meses',
                           '7 meses',
@@ -359,6 +383,8 @@ Container(
         )
       ),
     );
+    }
+
   }
 }
 
