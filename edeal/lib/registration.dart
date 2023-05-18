@@ -29,6 +29,7 @@ class _RegistrationState extends State<Registration> {
   TextEditingController fechaNacimientoController = TextEditingController();
   DateTime ? selectedDate;
 
+
     Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await DatePicker.showDatePicker(
       context,

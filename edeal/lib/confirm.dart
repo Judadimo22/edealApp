@@ -20,8 +20,8 @@ class _ConfirmState extends State<Confirm> {
   TextEditingController codeController = TextEditingController();
   Map<String, dynamic> userData = {};
   Timer? _timer;
-  int endTime = DateTime.now().millisecondsSinceEpoch + 60000; // 1 minuto en milisegundos
-  bool showResendButton = false; // Variable para controlar la visibilidad del botón de reenvío
+  int endTime = DateTime.now().millisecondsSinceEpoch + 60000;
+  bool showResendButton = false;
 
   @override
   void initState() {
@@ -53,7 +53,7 @@ class _ConfirmState extends State<Confirm> {
       setState(() {
         userData = jsonDecode(response.body);
         if (!userData.containsKey('code')) {
-          showResendButton = true; // Mostrar el botón de reenvío si el código no está presente
+          showResendButton = true;
         }
       });
     } else {
@@ -143,10 +143,10 @@ class _ConfirmState extends State<Confirm> {
               TextButton(
                 onPressed: () {
                   Navigator.pop(context);
-                  fetchUserData(); // Obtener los datos actualizados después de reenviar el correo
+                  fetchUserData(); 
                   setState(() {
-                    endTime = DateTime.now().millisecondsSinceEpoch + 60000; // Reiniciar el contador
-                    showResendButton = false; // Ocultar el botón de reenvío después de hacer clic en él
+                    endTime = DateTime.now().millisecondsSinceEpoch + 60000;
+                    showResendButton = false;
                   });
                 },
                 child: Text('Aceptar'),
@@ -218,18 +218,18 @@ class _ConfirmState extends State<Confirm> {
                     child: ElevatedButton(
                       onPressed: () => confirm(),
                       style: ElevatedButton.styleFrom(
-                        primary: Color(0XFFE8E112), // Background color
+                        primary: Color(0XFFE8E112),
                       ),
                       child: Text('Confirmar Cuenta'),
                     ),
                   ),
-                  if (showResendButton) // Mostrar el botón de reenvío solo si la variable showResendButton es verdadera
+                  if (showResendButton)
                     Container(
                       margin: EdgeInsets.symmetric(vertical: 10),
                       child: ElevatedButton(
                         onPressed: () => reenviarEmail(),
                         style: ElevatedButton.styleFrom(
-                          primary: Color(0XFFEE8E112), // Background color
+                          primary: Color(0XFFEE8E112),
                         ),
                         child: Text('Reenviar Código'),
                       ),

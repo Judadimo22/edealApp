@@ -72,6 +72,12 @@ const userSchema = mongoose.Schema({
     cuentaConfirmada: {
         type: String,
         default: 'No'
+    },
+    montoCredito: {
+        type: String
+    },
+    plazoCredito: {
+        type: String
     }
 },{timestamps:true});
 // used while encrypting user entered password

@@ -4,6 +4,7 @@ import 'package:edeal/views/homeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:jwt_decoder/jwt_decoder.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class CreditoScreen extends StatefulWidget {
   final String token;
@@ -20,9 +21,12 @@ class _CreditoScreenState extends State<CreditoScreen> {
 
   final _formKey = GlobalKey<FormState>();
   TextEditingController _newDataController = TextEditingController();
+  TextEditingController _montoCreditoController = TextEditingController();
   String _creditoPara = 'Me gustaría un crédito para:';
   String _tarjetaCredito = 'Tengo tarjeta de crédito:';
   String _banco = 'Con cual banco:';
+  String _plazoCredito = 'Plazo del crédito';
+  bool _mostrarCampoBanco = false;
 
 
   @override
@@ -54,7 +58,9 @@ class _CreditoScreenState extends State<CreditoScreen> {
         body: {
           'credito': _creditoPara,
           'tarjetaDeCredito': _tarjetaCredito,
-          'bancoCredito': _banco
+          'bancoCredito': _banco,
+          'montoCredito': _montoCreditoController.text,
+          'plazoCredito': _plazoCredito
           },
       );
 
@@ -63,8 +69,10 @@ class _CreditoScreenState extends State<CreditoScreen> {
           userData['credit'] = _creditoPara;
           userData['tarjetaDeCredito'] = _tarjetaCredito;
           userData['bancoCredito'] = _banco;
+          userData['montoCredito'] = _montoCreditoController.text;
+          userData['plazoCredito'] = _plazoCredito;
         });
-                showDialog(
+          showDialog(
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
@@ -87,6 +95,8 @@ class _CreditoScreenState extends State<CreditoScreen> {
          _creditoPara = 'Me gustaría un crédito para:';
          _tarjetaCredito = 'Tengo tarjeta de crédito:';
          _banco = 'Con cual banco:';
+         _plazoCredito = 'Plazo del crédito';
+         _montoCreditoController.text = '';
       });
       } else {
         print('Error al actualizar la información: ${response.statusCode}');
@@ -103,12 +113,23 @@ class _CreditoScreenState extends State<CreditoScreen> {
   void updateTarjetaOption(String? newTarjeta){
     setState(() {
     _tarjetaCredito = newTarjeta!;
+      if (newTarjeta == 'Si') {
+        _mostrarCampoBanco = true;
+      } else {
+        _mostrarCampoBanco = false;
+      }
     });
   }
 
   void updateBancoOption(String? newBanco){
     setState(() {
     _banco = newBanco!;
+    });
+  }
+
+    void updateplazoCreditoOption(String? newPlazoCredito){
+    setState(() {
+    _plazoCredito = newPlazoCredito!;
     });
   }
 
@@ -119,7 +140,8 @@ class _CreditoScreenState extends State<CreditoScreen> {
     return Scaffold(
       backgroundColor: Color(0XFF524898),
       body: Center(
-        child: Column(
+        child: SingleChildScrollView(
+          child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(height: 20),
@@ -207,7 +229,8 @@ class _CreditoScreenState extends State<CreditoScreen> {
                     ),)
                     ),
                     SizedBox(height: 20),
-                    Container(
+                    if(_mostrarCampoBanco)
+                                        Container(
                       width: 374,
                       padding: EdgeInsets.symmetric(horizontal: 10),
                       child: DropdownButton<String>(
@@ -254,6 +277,70 @@ class _CreditoScreenState extends State<CreditoScreen> {
                       ),
                     ),
                     ),
+                   Container(
+                      width: 374,
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      child: DropdownButton<String>(
+                      dropdownColor: Color(0XFF524898) ,
+                      value: _plazoCredito,
+                      onChanged: updateplazoCreditoOption,
+                      items: <String>[
+                        'Plazo del crédito',
+                          '1 mes',
+                          '2 meses',
+                          '3 meses',
+                          '4 meses',
+                          '5 meses',
+                          '6 meses',
+                          '7 meses',
+                          '8 meses',
+                          '9 meses',
+                          '10 meses',
+                          '11 meses',
+                          '12 meses',
+                          '13 meses',
+                          '14 meses',
+                          '15 meses',
+                          '16 meses',
+                          '17 meses',
+                          '18 meses',
+                          '19 meses',
+                          '20 meses'
+                      ].map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(
+                            value,
+                            style: TextStyle(
+                              color: Colors.white
+                            ),
+                            ),
+                        );
+                      }).toList(),
+                      icon:  Icon(
+                        Icons.arrow_drop_down,
+                        color: Colors.white,
+                      ),
+                    ),
+                    ),
+                SizedBox(height: 20),
+Container(
+  margin: EdgeInsets.only(bottom: 20),
+  child: TextField(
+    controller: _montoCreditoController,
+    keyboardType: TextInputType.text,
+    style: TextStyle(color: Colors.white), // Cambiar el color del texto que se ingresa
+    decoration: InputDecoration(
+      errorStyle: TextStyle(color: Colors.white),
+      hintText: "Monto del ahorro",
+      hintStyle: TextStyle(color: Colors.white),
+      border: UnderlineInputBorder(
+        borderSide: BorderSide(color: Colors.red), // Cambiar el color del borde inferior
+      ),
+    ),
+  ).p4().px12(),
+),
+
                     SizedBox(height: 20),
                     ElevatedButton(
                     style: ButtonStyle(
@@ -269,6 +356,7 @@ class _CreditoScreenState extends State<CreditoScreen> {
             ),
           ],
         ),
+        )
       ),
     );
   }

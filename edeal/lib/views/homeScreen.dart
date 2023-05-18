@@ -65,48 +65,6 @@ class _HomeState extends State<Home> {
           ),
           ),
       ),
-    Text(
-      '600.00 COP',
-      style: TextStyle(
-        color: Colors.white,
-        fontSize: 40
-      ),
-      ),
-    // Container(
-    //   margin: EdgeInsets.only(top: 20),
-    //   child:Row(
-    //     mainAxisAlignment: MainAxisAlignment.center,
-    //     children: [
-    //       Container(
-    //         decoration: BoxDecoration(
-    //           color:Color(0XFFE8E112),
-    //           borderRadius: BorderRadius.circular(10)
-    //         ),
-    //         padding: EdgeInsets.only(top:10, bottom: 10, left: 20, right: 20 ),
-    //         margin: EdgeInsets.only(left: 10, right: 10),
-    //         child:Text(
-    //           'RECARGAR',
-    //           style: TextStyle(
-    //           color: Color(0XFF524898)
-    //           ),
-    //           ),
-    //       ),
-    //       Container(
-    //         decoration: BoxDecoration(
-    //           color:Colors.white,
-    //           borderRadius: BorderRadius.circular(10)
-    //         ),
-    //         padding: EdgeInsets.only(top:10, bottom: 10, left: 20, right: 20 ),
-    //         margin: EdgeInsets.only(left: 10, right: 10),
-    //         child:Text(
-    //           'ENVIAR',
-    //           style: TextStyle(
-    //             color: Color(0XFF524898)
-    //           ),
-    //           ),
-    //       ),
-    //   ],),
-    // ),
 Container(
   margin: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
   child: Row(
