@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:edeal/formularioPlanFinanciero/gastos/entretenimiento.dart';
 import 'package:edeal/formularioPlanFinanciero/gastos/hogar.dart';
 import 'package:edeal/formularioPlanFinanciero/gastos/transporte.dart';
 import 'package:edeal/formularioPlanFinanciero/informacionPersonal.dart';
@@ -82,10 +83,10 @@ class _GastosState extends State<Gastos> {
           onPressed: () => {
           Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => Transporte(token: widget.token,),
+          MaterialPageRoute(builder: (context) => Entretenimiento(token: widget.token,),
         )),
           }, 
-          child: Text('Hogar')),
+          child: Text('Entretenimiento y ocio')),
           ],
         ),
         )
