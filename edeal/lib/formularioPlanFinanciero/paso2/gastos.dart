@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:edeal/formularioPlanFinanciero/gastos/hogar.dart';
+import 'package:edeal/formularioPlanFinanciero/gastos/transporte.dart';
 import 'package:edeal/formularioPlanFinanciero/informacionPersonal.dart';
 import 'package:edeal/formularioPlanFinanciero/paso2/ahorros.dart';
 import 'package:edeal/formularioPlanFinanciero/paso2/gastos.dart';
@@ -7,16 +9,16 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:jwt_decoder/jwt_decoder.dart';
 
-class ControlFinanzas extends StatefulWidget {
+class Gastos extends StatefulWidget {
   final String token;
 
-  ControlFinanzas({required this.token, Key? key}) : super(key: key);
+  Gastos({required this.token, Key? key}) : super(key: key);
 
   @override
-  State<ControlFinanzas> createState() => _ControlFinanzasState();
+  State<Gastos> createState() => _GastosState();
 }
 
-class _ControlFinanzasState extends State<ControlFinanzas> {
+class _GastosState extends State<Gastos> {
   late String userId;
   Map<String, dynamic> userData = {};
 
@@ -57,30 +59,33 @@ class _ControlFinanzasState extends State<ControlFinanzas> {
           margin: EdgeInsets.only(top: 200),
           child: Column(
           children: [
+          Text(
+            'Gastos'
+          ),
           ElevatedButton(
           onPressed: () => {
           Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => Ingresos(token: widget.token)),
+          MaterialPageRoute(builder: (context) => Hogar(token: widget.token)),
         ),
           }, 
-          child: Text('Ingresos')),
+          child: Text('Hogar')),
           ElevatedButton(
           onPressed: () => {
           Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => Ahorros(token: widget.token)),
+          MaterialPageRoute(builder: (context) => Transporte(token: widget.token)),
         ),
           }, 
-          child: Text('Ahorros')),
+          child: Text('Transporte')),
           ElevatedButton(
           onPressed: () => {
           Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => Gastos(token: widget.token,),
+          MaterialPageRoute(builder: (context) => Transporte(token: widget.token,),
         )),
           }, 
-          child: Text('Gastos')),
+          child: Text('Hogar')),
           ],
         ),
         )
