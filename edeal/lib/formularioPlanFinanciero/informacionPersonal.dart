@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:edeal/formularioPlanFinanciero/controlFinanzas.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:http/http.dart' as http;
@@ -21,6 +22,7 @@ class _InformacionPersonalState extends State<InformacionPersonal> {
   final TextEditingController _lugarResidencia = TextEditingController();
   final TextEditingController _nombreDependiente = TextEditingController();
   final TextEditingController _fechaNacimientoDependienteController = TextEditingController();
+  final TextEditingController _relacionDependienteController = TextEditingController();
   DateTime ? selectedDate;
 
 
@@ -290,6 +292,21 @@ class _InformacionPersonalState extends State<InformacionPersonal> {
             Container(
               margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
               child: TextField(
+                controller: _relacionDependienteController,
+                decoration: const InputDecoration(
+                  hintText: 'Relación',
+                  hintStyle: TextStyle(
+                    color: Colors.white
+                  )
+                ),
+                style: const TextStyle(
+                  color: Colors.white
+                ),
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
+              child: TextField(
                 controller: _fechaNacimientoDependienteController,
                 readOnly: true,
                 decoration: InputDecoration(
@@ -315,6 +332,9 @@ class _InformacionPersonalState extends State<InformacionPersonal> {
               margin: const EdgeInsets.only(top: 30, bottom: 30, left: 20, right: 20),
               child: ElevatedButton(
                 onPressed: () =>{
+                 Navigator.push(
+                  context,
+                   MaterialPageRoute(builder: (context) => ControlFinanzas(token: widget.token,))),
                 },
                 child: const Text('Continuar')),
             )
