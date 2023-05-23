@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:edeal/formularioPlanFinanciero/informacionPersonal.dart';
 import 'package:edeal/views/homeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -50,7 +51,14 @@ class _PlaneacionScreenState extends State<PlaneacionScreen> {
     return Scaffold(
       backgroundColor: Color(0XFF524898),
       body: Center(
-        child: Text('Planeación'),
+        child: ElevatedButton(
+          onPressed: () => {
+          Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => InformacionPersonal(token: widget.token)),
+        ),
+          }, 
+          child: Text('Diligenciar formulario'))
       ),
 
     );
