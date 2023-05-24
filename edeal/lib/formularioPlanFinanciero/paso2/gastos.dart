@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:edeal/formularioPlanFinanciero/gastos/entretenimiento.dart';
 import 'package:edeal/formularioPlanFinanciero/gastos/financieros.dart';
 import 'package:edeal/formularioPlanFinanciero/gastos/hogar.dart';
+import 'package:edeal/formularioPlanFinanciero/gastos/impuestos.dart';
 import 'package:edeal/formularioPlanFinanciero/gastos/transporte.dart';
 import 'package:edeal/formularioPlanFinanciero/gastos/vacaciones.dart';
 import 'package:edeal/formularioPlanFinanciero/informacionPersonal.dart';
@@ -105,6 +106,14 @@ class _GastosState extends State<Gastos> {
         )),
           }, 
           child: Text('Vacaciones')),
+          ElevatedButton(
+          onPressed: () => {
+          Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => Impuestos(token: widget.token,),
+        )),
+          }, 
+          child: Text('Impuestos')),
           ],
         ),
         )
