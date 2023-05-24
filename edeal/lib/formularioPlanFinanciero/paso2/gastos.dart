@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:edeal/formularioPlanFinanciero/gastos/creditos.dart';
 import 'package:edeal/formularioPlanFinanciero/gastos/entretenimiento.dart';
 import 'package:edeal/formularioPlanFinanciero/gastos/financieros.dart';
 import 'package:edeal/formularioPlanFinanciero/gastos/hogar.dart';
@@ -114,6 +115,14 @@ class _GastosState extends State<Gastos> {
         )),
           }, 
           child: Text('Impuestos')),
+          ElevatedButton(
+          onPressed: () => {
+          Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => Creditos(token: widget.token,),
+        )),
+          }, 
+          child: Text('Mis créditos')),
           ],
         ),
         )
