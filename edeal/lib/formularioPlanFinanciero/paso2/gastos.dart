@@ -3,6 +3,7 @@ import 'package:edeal/formularioPlanFinanciero/gastos/entretenimiento.dart';
 import 'package:edeal/formularioPlanFinanciero/gastos/financieros.dart';
 import 'package:edeal/formularioPlanFinanciero/gastos/hogar.dart';
 import 'package:edeal/formularioPlanFinanciero/gastos/transporte.dart';
+import 'package:edeal/formularioPlanFinanciero/gastos/vacaciones.dart';
 import 'package:edeal/formularioPlanFinanciero/informacionPersonal.dart';
 import 'package:edeal/formularioPlanFinanciero/paso2/ahorros.dart';
 import 'package:edeal/formularioPlanFinanciero/paso2/gastos.dart';
@@ -96,6 +97,14 @@ class _GastosState extends State<Gastos> {
         )),
           }, 
           child: Text('Financieros')),
+          ElevatedButton(
+          onPressed: () => {
+          Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => Vacaciones(token: widget.token,),
+        )),
+          }, 
+          child: Text('Vacaciones')),
           ],
         ),
         )
