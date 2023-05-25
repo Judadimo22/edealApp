@@ -62,6 +62,16 @@ class _DefinirObjetivoState extends State<DefinirObjetivo> {
           margin: EdgeInsets.only(top: 200),
           child: Column(
           children: [
+                      Container(
+              margin: const EdgeInsets.only(top: 20, bottom: 40, right: 20, left: 20),
+              child: const Text(
+                'Paso 3: Definir mis objetivos de largo plazo ',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 25
+                ),
+              )
+            ),
           ElevatedButton(
           onPressed: () => {
           Navigator.push(

@@ -115,6 +115,16 @@ class _InformacionPersonalState extends State<InformacionPersonal> {
             Container(
               margin: const EdgeInsets.only(top: 80),
               child: const Text(
+                'Paso1 : Mi perfil',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 30
+                ),
+              )
+            ),
+            Container(
+              margin: const EdgeInsets.only(top: 50),
+              child: const Text(
                 'Información personal',
                 style: TextStyle(
                   color: Colors.white,

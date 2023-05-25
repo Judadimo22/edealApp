@@ -264,7 +264,7 @@ class _SaludState extends State<Salud> {
 
                     ElevatedButton(
                       onPressed: (){},
-                      child: Text('Crear mi meta de ahorro', style: TextStyle(fontSize: 18)),
+                      child: Text('Continuar', style: TextStyle(fontSize: 18)),
                       style: ElevatedButton.styleFrom(
                         primary: Color(0XFFE8E112),
                         padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),

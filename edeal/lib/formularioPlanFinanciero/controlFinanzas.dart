@@ -58,6 +58,26 @@ class _ControlFinanzasState extends State<ControlFinanzas> {
           margin: EdgeInsets.only(top: 200),
           child: Column(
           children: [
+          Container(
+              margin: const EdgeInsets.only(top: 20, bottom: 40),
+              child: const Text(
+                'Paso 2: Control de mis finanzas',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 25
+                ),
+              )
+            ),
+                    Container(
+              margin: const EdgeInsets.only(top: 20, bottom: 40, left: 20, right: 20),
+              child: const Text(
+                'Por favor llena los formularios de ingresos, ahorros y gastos',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20
+                ),
+              )
+            ),
           ElevatedButton(
           onPressed: () => {
           Navigator.push(

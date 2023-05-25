@@ -58,15 +58,25 @@ class _GastosState extends State<Gastos> {
 
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color(0XFF524898) ,
+      ) ,
       backgroundColor: Color(0XFF524898),
       body: Center(
         child: Container(
           margin: EdgeInsets.only(top: 200),
           child: Column(
           children: [
-          Text(
-            'Gastos'
-          ),
+          Container(
+              margin: const EdgeInsets.only(top: 20, bottom: 40),
+              child: const Text(
+                'Mis gastos',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 25
+                ),
+              )
+            ),
           ElevatedButton(
           onPressed: () => {
           Navigator.push(
