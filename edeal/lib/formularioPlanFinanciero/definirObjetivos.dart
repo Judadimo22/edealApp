@@ -4,6 +4,7 @@ import 'package:edeal/formularioPlanFinanciero/paso2/ahorros.dart';
 import 'package:edeal/formularioPlanFinanciero/paso2/gastos.dart';
 import 'package:edeal/formularioPlanFinanciero/paso2/ingresos.dart';
 import 'package:edeal/formularioPlanFinanciero/paso3/metasFinancieras.dart';
+import 'package:edeal/formularioPlanFinanciero/paso3/salud.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:jwt_decoder/jwt_decoder.dart';
@@ -70,7 +71,7 @@ class _DefinirObjetivoState extends State<DefinirObjetivo> {
           onPressed: () => {
           Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => Ahorros(token: widget.token)),
+          MaterialPageRoute(builder: (context) => Salud(token: widget.token)),
         ),
           }, 
           child: Text('Salud')),

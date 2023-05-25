@@ -259,6 +259,9 @@ class _MetasFinancierasState extends State<MetasFinancieras> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor:Color(0XFF524898) ,
+      ),
       backgroundColor: Color(0XFF524898),
       body:SingleChildScrollView(
         child:  Center(
@@ -1575,7 +1578,7 @@ class _MetasFinancierasState extends State<MetasFinancieras> {
                     SizedBox(height: 40),
 
 
-                    
+
                     ElevatedButton(
                       onPressed: (){},
                       child: Text('Crear mi meta de ahorro', style: TextStyle(fontSize: 18)),
