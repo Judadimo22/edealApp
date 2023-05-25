@@ -1,36 +1,35 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:edeal/formularioPlanFinanciero/fuentesAdicionales.dart';
 import 'package:edeal/views/homeScreen.dart';
+import 'package:edeal/views/planeacionScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-class PerfilRiesgo extends StatefulWidget {
+class FuentesAdicionales extends StatefulWidget {
   final String token;
 
-  PerfilRiesgo({required this.token, Key? key}) : super(key: key);
+  FuentesAdicionales({required this.token, Key? key}) : super(key: key);
 
   @override
-  State<PerfilRiesgo> createState() => _PerfilRiesgoState();
+  State<FuentesAdicionales> createState() => _FuentesAdicionalesState();
 }
 
-class _PerfilRiesgoState extends State<PerfilRiesgo> {
+class _FuentesAdicionalesState extends State<FuentesAdicionales> {
   late String userId;
   Map<String, dynamic> userData = {};
 
   final _formKey = GlobalKey<FormState>();
 
-  String _experienciaInversiones= 'Cual es su nivel de experiencia en inversiones';
-  String _poseo = 'He invertido o actualmente poseo algun activo';
+  String _habilidadEspecial = 'Habilidad para generar ingresos';
+  String _desarrollarHabilidades = 'Desarrollar habilidades';
   String _generarIngresos = 'Enumere la opcion';
-  String _perfil = 'Seleccione perfil';
-  String _prioridades = 'Seleccione prioridades';
-  String _anosRetiros = 'Seleccione años retiros';
-  String _tiempoRetiros = 'Seleccione tiempo retiros';
-  // String _valorAhorro = 'Valor del ahorro(millones):';
-  String _plazo= 'Plazo(meses):';
+  String _viviendaPropia = 'Tiene vivienda propia';
+  String _productosGustaria= 'Productos que me gustaria tener';
+  String _analisisAsegurabilidad = 'Analisis de asegurabilidad';
+  String _migracion = 'Migracion (estoy pensando migrar)';
+  String _planHerencia = 'Plan de herencia';
 
 
   @override
@@ -103,15 +102,15 @@ class _PerfilRiesgoState extends State<PerfilRiesgo> {
 // }
 
 
-  void updateExperienciaInversiones(String? newExperienciaInversiones) {
+  void updateHabilidadEspecial(String? newHabilidadEspecial) {
     setState(() {
-      _experienciaInversiones = newExperienciaInversiones!;
+      _habilidadEspecial = newHabilidadEspecial!;
     });
   }
 
-  void updatePoseo(String? newPoseo) {
+  void updateDesarrollarHabilidades(String? newDesarrollarHabilidades) {
     setState(() {
-      _poseo = newPoseo!;
+      _desarrollarHabilidades = newDesarrollarHabilidades!;
     });
   }
 
@@ -121,29 +120,36 @@ class _PerfilRiesgoState extends State<PerfilRiesgo> {
     });
   }
 
-  void updatePerfil(String? newPerfil) {
+  void updateViviendaPropia(String? newViviendaPropia) {
     setState(() {
-      _perfil = newPerfil!;
+      _viviendaPropia = newViviendaPropia!;
     });
   }
 
-  void updatePrioridades(String? newPrioridades) {
+  void updateProductosGustaria(String? newProductosGustaria) {
     setState(() {
-      _prioridades = newPrioridades!;
+      _productosGustaria = newProductosGustaria!;
     });
   }
 
-  void updateAnosRetiros(String? newAnosRetiros) {
+  void updateAnalisisAsegurabilidad(String? newAnalisiAsegurabilidad) {
     setState(() {
-      _anosRetiros = newAnosRetiros!;
+      _analisisAsegurabilidad = newAnalisiAsegurabilidad!;
     });
   }
 
-  void updateTiempoRetiros(String? newTiempoRetiros) {
+  void updateMigracion(String? newMigracion) {
     setState(() {
-      _tiempoRetiros = newTiempoRetiros!;
+      _migracion = newMigracion!;
     });
   }
+
+  void updatePlanHerencia(String? newPlanHerencia) {
+    setState(() {
+      _planHerencia = newPlanHerencia!;
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -165,85 +171,33 @@ class _PerfilRiesgoState extends State<PerfilRiesgo> {
                   child: Column(
                   children: [
                     Container(
-                      margin: EdgeInsets.only(bottom: 50),
+                      margin: EdgeInsets.only(bottom: 50, left: 20, right: 20),
                       child: Text(
-                        'Paso 4: perfil de riesgo',
+                        'Paso 5: Fuentes adicionales de ingresos',
                         style: TextStyle(
                           fontSize: 30,
                           color: Colors.white
                         ),
                       ),
                     ),
-                    SizedBox(height: 20),
-                    Container(
-                      width: 374,
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      color: Color(0XFF524898),
-                      child: DropdownButton<String>(
-                        dropdownColor: Color(0XFF524898),
-                        value: _experienciaInversiones,
-                        onChanged: updateExperienciaInversiones,
-                        items: <String>[
-                          'Cual es su nivel de experiencia en inversiones',
-                          'Alta',
-                          'Media',
-                          'Baja',
-                        ].map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(
-                              value,
-                              style: TextStyle(
-                                color: Colors.white
-                              ),
-                            ),
-                          );
-                        }).toList(),
-                        icon: Icon(
-                          Icons.arrow_drop_down,
-                          color: Colors.white,
+                     Container(
+                      margin: EdgeInsets.only(bottom: 50, left: 10, right: 10),
+                      child: Text(
+                        'Si sus activos actuales y sus fuentes de ingresos no alcanzan sus objetivos, exploremos algunas formas en las que podría compensar la diferencia.',
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.white
                         ),
                       ),
                     ),
-                    SizedBox(height: 20),
-                    Container(
-                      width: 374,
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      color: Color(0XFF524898),
-                      child: DropdownButton<String>(
-                        dropdownColor: Color(0XFF524898),
-                        value: _poseo,
-                        onChanged: updatePoseo,
-                        items: <String>[
-                          'He invertido o actualmente poseo algun activo',
-                          'CDT',
-                          'Bonos',
-                          'Acciones',
-                          'Inmuebles'
-                        ].map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(
-                              value,
-                              style: TextStyle(
-                                color: Colors.white
-                              ),
-                            ),
-                          );
-                        }).toList(),
-                        icon: Icon(
-                          Icons.arrow_drop_down,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
+                    SizedBox(height: 50),
                    Container(
               margin: const EdgeInsets.only(top: 30, left: 20, right: 20),
               child: const Text(
-                'Pregunta 1: Enumere de 1 al 4 las siguientes objeticos de inversión desde el mas importante (1) al menos improtante (4) para usted',
+                'Por favor enumere (1 al 3)  cual de las siguientes opciones  para aumentar ingresos.  1 la opcion mas viable al 3 la menos viable',
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 20
+                  fontSize: 18
                 ),
               ),
             ),
@@ -252,7 +206,7 @@ class _PerfilRiesgoState extends State<PerfilRiesgo> {
                    Container(
               margin: const EdgeInsets.only(top: 30, left: 20, right: 20),
               child: const Text(
-                'Generar ingresos',
+                'Trabajar más',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 15
@@ -271,7 +225,6 @@ class _PerfilRiesgoState extends State<PerfilRiesgo> {
                           '1',
                           '2',
                           '3',
-                          '4'
                         ].map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
@@ -298,7 +251,7 @@ class _PerfilRiesgoState extends State<PerfilRiesgo> {
                     width: 180,
               margin: const EdgeInsets.only(top: 30, left: 20, right: 20),
               child: const Text(
-                'Arriesgar mi capital para tener posibiliades de altas ganancias',
+                'Ahorrar más',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 15
@@ -317,7 +270,6 @@ class _PerfilRiesgoState extends State<PerfilRiesgo> {
                           '1',
                           '2',
                           '3',
-                          '4'
                         ].map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
@@ -343,7 +295,7 @@ class _PerfilRiesgoState extends State<PerfilRiesgo> {
                    Container(
               margin: const EdgeInsets.only(top: 30, left: 20, right: 20),
               child: const Text(
-                'Incrementar patrimonio',
+                'Gastar menos',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 15
@@ -362,7 +314,6 @@ class _PerfilRiesgoState extends State<PerfilRiesgo> {
                           '1',
                           '2',
                           '3',
-                          '4'
                         ].map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
@@ -383,76 +334,19 @@ class _PerfilRiesgoState extends State<PerfilRiesgo> {
 
               ],
             ),
-                        Row(
-              children: [
-                   Container(
-              margin: const EdgeInsets.only(top: 30, left: 20, right: 20),
-              child: const Text(
-                'Proteger mi patrimonio',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 15
-                ),
-              ),
-            ),
-               Container(
-                      padding: EdgeInsets.only(top: 30),
-                      color: Color(0XFF524898),
-                      child: DropdownButton<String>(
-                        dropdownColor: Color(0XFF524898),
-                        value: _generarIngresos,
-                        onChanged: updateGenrarIngresos,
-                        items: <String>[
-                          'Enumere la opcion',
-                          '1',
-                          '2',
-                          '3',
-                          '4'
-                        ].map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(
-                              value,
-                              style: TextStyle(
-                                color: Colors.white
-                              ),
-                            ),
-                          );
-                        }).toList(),
-                        icon: Icon(
-                          Icons.arrow_drop_down,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-
-              ],
-            ),
-                    SizedBox(height: 20),
-                                       Container(
-              margin: const EdgeInsets.only(top: 30, left: 20, right: 20),
-              child: const Text(
-                'Pregunta 2. Seleccione cual perfil considera usted que describe si actitud como inversionista',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20
-                ),
-              ),
-            ),
+                    SizedBox(height: 150),
                 Container(
                       width: 374,
                       padding: EdgeInsets.symmetric(horizontal: 10),
                       color: Color(0XFF524898),
                       child: DropdownButton<String>(
                         dropdownColor: Color(0XFF524898),
-                        value: _perfil,
-                        onChanged: updatePerfil,
+                        value: _habilidadEspecial,
+                        onChanged: updateHabilidadEspecial,
                         items: <String>[
-                          'Seleccione perfil',
-                          'Especulacion',
-                          'Conservador',
-                          'Moderado',
-                          'Agresivo'
+                          'Habilidad para generar ingresos',
+                          'Si',
+                          'No',
                         ].map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
@@ -471,31 +365,18 @@ class _PerfilRiesgoState extends State<PerfilRiesgo> {
                       ),
                     ),
                                         SizedBox(height: 20),
-                                       Container(
-              margin: const EdgeInsets.only(top: 30, left: 20, right: 20),
-              child: const Text(
-                'Pregunta 3. Selecciones cuales son las prioridades financieras que desearia revisar con este analisis',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20
-                ),
-              ),
-            ),
-                Container(
+                    Container(
                       width: 374,
                       padding: EdgeInsets.symmetric(horizontal: 10),
                       color: Color(0XFF524898),
                       child: DropdownButton<String>(
                         dropdownColor: Color(0XFF524898),
-                        value: _prioridades,
-                        onChanged: updatePrioridades,
+                        value: _desarrollarHabilidades,
+                        onChanged: updateDesarrollarHabilidades,
                         items: <String>[
-                          'Seleccione prioridades',
-                          'Como aumentar mi patrimonio',
-                          'Como crear un Plan de ahorro para mi retiro',
-                          'Como cubrir necesidades de familia',
-                          'Como invertir en bienes raices en USD',
-                          'Filantropia'
+                          'Desarrollar habilidades',
+                          'Si',
+                          'No'
                         ].map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
@@ -514,31 +395,18 @@ class _PerfilRiesgoState extends State<PerfilRiesgo> {
                       ),
                     ),
             SizedBox(height: 20),
-                                       Container(
-              margin: const EdgeInsets.only(top: 30, left: 20, right: 20),
-              child: const Text(
-                'Pregunta 4. En aproximadamente cuantos años espera que iniciara retiros para sus principal necesidad financiera a cubrir',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20
-                ),
-              ),
-            ),
                 Container(
                       width: 374,
                       padding: EdgeInsets.symmetric(horizontal: 10),
                       color: Color(0XFF524898),
                       child: DropdownButton<String>(
                         dropdownColor: Color(0XFF524898),
-                        value: _anosRetiros,
-                        onChanged: updateAnosRetiros,
+                        value: _viviendaPropia,
+                        onChanged: updateViviendaPropia,
                         items: <String>[
-                          'Seleccione años retiros',
-                          'Menos de 2 años',
-                          '2–5 Años',
-                          '6–10 Años',
-                          '11–20 Años',
-                          'Más de 20 años'
+                          'Tiene vivienda propia',
+                          'Si',
+                          'No',
                         ].map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
@@ -558,30 +426,122 @@ class _PerfilRiesgoState extends State<PerfilRiesgo> {
                     ),
                                 SizedBox(height: 20),
                                        Container(
-              margin: const EdgeInsets.only(top: 30, left: 20, right: 20),
+              margin: const EdgeInsets.only(top: 10, left: 20, right: 20),
               child: const Text(
-                'Preguntas 5. Una vez que comience a retirar fondos para su necesidad financiera principal, ¿durante cuánto tiempo planea que continuarán los retiros?',
+                'Consideraciones especiales',
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 20
+                  fontSize: 18
                 ),
               ),
             ),
                 Container(
                       width: 374,
                       padding: EdgeInsets.symmetric(horizontal: 10),
+                      margin: EdgeInsets.only(top: 10),
                       color: Color(0XFF524898),
                       child: DropdownButton<String>(
                         dropdownColor: Color(0XFF524898),
-                        value: _tiempoRetiros,
-                        onChanged: updateTiempoRetiros,
+                        value: _productosGustaria,
+                        onChanged: updateProductosGustaria,
                         items: <String>[
-                          'Seleccione tiempo retiros',
-                          'Menos de 2 años',
-                          '2–5 Años',
-                          '6–10 Años',
-                          '11–20 Años',
-                          'Más de 20 años'
+                          'Productos que me gustaria tener',
+                          'Cuenta en USD',
+                          'Plan de ahorros en USD',
+                          'Tarjeta de credito en USD',
+                        ].map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(
+                              value,
+                              style: TextStyle(
+                                color: Colors.white
+                              ),
+                            ),
+                          );
+                        }).toList(),
+                        icon: Icon(
+                          Icons.arrow_drop_down,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                     Container(
+                      width: 374,
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      margin: EdgeInsets.only(top: 10),
+                      color: Color(0XFF524898),
+                      child: DropdownButton<String>(
+                        dropdownColor: Color(0XFF524898),
+                        value: _analisisAsegurabilidad,
+                        onChanged: updateAnalisisAsegurabilidad,
+                        items: <String>[
+                          'Analisis de asegurabilidad',
+                          'Seguro de vida',
+                          'Seguro medico',
+                          'Long Term Care Analysis',
+                        ].map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(
+                              value,
+                              style: TextStyle(
+                                color: Colors.white
+                              ),
+                            ),
+                          );
+                        }).toList(),
+                        icon: Icon(
+                          Icons.arrow_drop_down,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                     Container(
+                      width: 374,
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      margin: EdgeInsets.only(top: 10),
+                      color: Color(0XFF524898),
+                      child: DropdownButton<String>(
+                        dropdownColor: Color(0XFF524898),
+                        value: _migracion,
+                        onChanged: updateMigracion,
+                        items: <String>[
+                          'Migracion (estoy pensando migrar)',
+                          'Estados Unidos',
+                          'Panama',
+                          'Europa',
+                          'Canada'
+                        ].map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(
+                              value,
+                              style: TextStyle(
+                                color: Colors.white
+                              ),
+                            ),
+                          );
+                        }).toList(),
+                        icon: Icon(
+                          Icons.arrow_drop_down,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      width: 374,
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      margin: EdgeInsets.only(top: 10),
+                      color: Color(0XFF524898),
+                      child: DropdownButton<String>(
+                        dropdownColor: Color(0XFF524898),
+                        value: _planHerencia,
+                        onChanged: updatePlanHerencia,
+                        items: <String>[
+                          'Plan de herencia',
+                          'Formas de heredar mi patrimonio',
+                          'Estrategia para heredar mi patrimonio',
                         ].map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
@@ -606,10 +566,10 @@ class _PerfilRiesgoState extends State<PerfilRiesgo> {
                       onPressed: (){
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => FuentesAdicionales(token: widget.token,),
+                    MaterialPageRoute(builder: (context) => PlaneacionScreen(token: widget.token,),
         ));
                       },
-                      child: Text('Continuar', style: TextStyle(fontSize: 18)),
+                      child: Text('Crear mi meta de ahorro', style: TextStyle(fontSize: 18)),
                       style: ElevatedButton.styleFrom(
                         primary: Color(0XFFE8E112),
                         padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
