@@ -1,23 +1,23 @@
 import 'dart:convert';
-import 'package:edeal/formularioPlanFinanciero/definirObjetivos.dart';
 import 'package:edeal/formularioPlanFinanciero/informacionPersonal.dart';
 import 'package:edeal/formularioPlanFinanciero/paso2/ahorros.dart';
 import 'package:edeal/formularioPlanFinanciero/paso2/gastos.dart';
 import 'package:edeal/formularioPlanFinanciero/paso2/ingresos.dart';
+import 'package:edeal/formularioPlanFinanciero/paso3/metasFinancieras.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:jwt_decoder/jwt_decoder.dart';
 
-class ControlFinanzas extends StatefulWidget {
+class DefinirObjetivo extends StatefulWidget {
   final String token;
 
-  ControlFinanzas({required this.token, Key? key}) : super(key: key);
+  DefinirObjetivo({required this.token, Key? key}) : super(key: key);
 
   @override
-  State<ControlFinanzas> createState() => _ControlFinanzasState();
+  State<DefinirObjetivo> createState() => _DefinirObjetivoState();
 }
 
-class _ControlFinanzasState extends State<ControlFinanzas> {
+class _DefinirObjetivoState extends State<DefinirObjetivo> {
   late String userId;
   Map<String, dynamic> userData = {};
 
@@ -62,10 +62,10 @@ class _ControlFinanzasState extends State<ControlFinanzas> {
           onPressed: () => {
           Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => Ingresos(token: widget.token)),
+          MaterialPageRoute(builder: (context) => MetasFinancieras(token: widget.token)),
         ),
           }, 
-          child: Text('Ingresos')),
+          child: Text('Mis metas financieras')),
           ElevatedButton(
           onPressed: () => {
           Navigator.push(
@@ -73,7 +73,7 @@ class _ControlFinanzasState extends State<ControlFinanzas> {
           MaterialPageRoute(builder: (context) => Ahorros(token: widget.token)),
         ),
           }, 
-          child: Text('Ahorros')),
+          child: Text('Salud')),
           ElevatedButton(
           onPressed: () => {
           Navigator.push(
@@ -81,14 +81,22 @@ class _ControlFinanzasState extends State<ControlFinanzas> {
           MaterialPageRoute(builder: (context) => Gastos(token: widget.token,),
         )),
           }, 
-          child: Text('Gastos')),
+          child: Text('Educacion')),
+          ElevatedButton(
+          onPressed: () => {
+          Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => Gastos(token: widget.token,),
+        )),
+          }, 
+          child: Text('Gastos para mi retiro')),
         Container(
           margin: const EdgeInsets.only(top: 40),
           child: ElevatedButton(
           onPressed: () => {
           Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => DefinirObjetivo(token: widget.token,),
+          MaterialPageRoute(builder: (context) => Gastos(token: widget.token,),
         )),
           }, 
           child: Text('Continuar')),
