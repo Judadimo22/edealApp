@@ -96,7 +96,7 @@ class _ControlFinanzasState extends State<ControlFinanzas> {
         ),
           }, 
           child: Text('Ahorros')),
-         if(userData['aportesRetiro']) 
+         if(userData['aportesRetiro'] != null)
          Text('Ya has completado el formulario de Ahorros'),
           ElevatedButton(
           onPressed: () => {
@@ -110,7 +110,7 @@ class _ControlFinanzasState extends State<ControlFinanzas> {
           margin: const EdgeInsets.only(top: 40),
           child: ElevatedButton(
           onPressed: () => {
-      if (userData['salario'] == null || userData['aportesRetiro'] == null) {
+      if (userData['salario'] == null) {
         showDialog(
           context: context,
           builder: (BuildContext context) {

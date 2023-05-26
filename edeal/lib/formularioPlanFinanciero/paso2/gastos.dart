@@ -85,6 +85,8 @@ class _GastosState extends State<Gastos> {
         ),
           }, 
           child: Text('Hogar')),
+         if(userData['mantenimientoHogar'] != null) 
+         Text('Ya has completado el formulario de gastos del hogar'),
           ElevatedButton(
           onPressed: () => {
           Navigator.push(

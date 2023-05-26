@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:edeal/formularioPlanFinanciero/controlFinanzas.dart';
 import 'package:edeal/formularioPlanFinanciero/informacionPersonal.dart';
+import 'package:edeal/formularioPlanFinanciero/paso2/gastos.dart';
 import 'package:edeal/views/homeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -117,6 +118,63 @@ class _HogarState extends State<Hogar> {
     }
   }
 
+  void saveGastosHogar() async {
+    // var newData = _newDataController.text;
+
+    var response = await http.put(
+      Uri.parse('http://192.168.1.108:3001/gastosHogar/$userId'),
+      body: {
+        'creditoHipotecario': _creditoHipotecarioController.text,
+        'arriendo': _arriendoController.text,
+        'serviciosPublicos': _serviciosPublicosController.text,
+        'internet': _internetController.text,
+        'planCelular': _planCelularController.text,
+        'mantenimientoHogar': _mantenimientoHogarController.text,
+        'segurosHogar': _segurosHogarController.text,
+        'mercado': _mercadoController.text,
+        'otrosGastosHogar': _otrosGastosHogar.text
+      },
+    );
+
+    if (response.statusCode == 200) {
+      setState(() {
+        userData['creditoHipotecario'] = _creditoHipotecarioController.text;
+        userData['arriendo'] = _arriendoController.text;
+        userData['serviciosPublicos'] = _serviciosPublicosController.text;
+        userData['internet'] = _internetController.text;
+        userData['mantenimientoHogar'] = _mantenimientoHogarController.text;
+        userData['segurosHogar'] = _segurosHogarController.text;
+        userData['mercado'] = _mercadoController.text;
+        userData['planCelular'] = _planCelularController.text;
+        userData['otrosGastosHogar'] = _otrosGastosHogar.text;
+      });
+
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Gastos del hogar actualizados'),
+            content: Text('Tus gastos del hogar han sido actualizados'),
+            actions: [
+              TextButton(
+                  onPressed: (){
+                   Navigator.push(context, MaterialPageRoute(builder: (context)=>Gastos(token: widget.token)));
+                  },
+                child: Text('Aceptar'),
+              ),
+            ],
+          );
+        },
+      );
+
+      // setState(() {
+      //   _ahorroPara = 'Quiero ahorrar para:';
+      //   // _valorAhorroController = '';
+      //   _plazo = 'Plazo(meses):';
+      // });
+}
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -168,7 +226,7 @@ class _HogarState extends State<Hogar> {
                   controller: _serviciosPublicosController,
                   keyboardType: TextInputType.number,
                   decoration: const InputDecoration(
-                    hintText: 'Aportes a mi fondo e retiro',
+                    hintText: 'Servicios publicos',
                     hintStyle: TextStyle(color: Colors.white),
                   ),
                   style: const TextStyle(color: Colors.white),
@@ -260,10 +318,7 @@ class _HogarState extends State<Hogar> {
                 margin: const EdgeInsets.only(top: 30, bottom: 30, left: 20, right: 20),
                 child: ElevatedButton(
                   onPressed: () => {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => ControlFinanzas(token: widget.token)),
-                    ),
+                    saveGastosHogar()
                   },
                   child: const Text('Continuar'),
                 ),

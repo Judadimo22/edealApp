@@ -135,6 +135,33 @@ const userSchema = mongoose.Schema({
     },
     otrosAhorros: {
         type: String
+    },
+    creditoHipotecario: {
+        type: String
+    },
+    arriendo: {
+        type:String
+    },
+    serviciosPublicos: {
+        type: String
+    },
+    internet: {
+        type: String
+    },
+    planCelular: {
+        type: String
+    },
+    mantenimientoHogar: {
+        type: String
+    },
+    segurosHogar: {
+        type: String
+    },
+    mercado: {
+        type: String
+    },
+    otrosGastosHogar: {
+        type: String
     }
     
 

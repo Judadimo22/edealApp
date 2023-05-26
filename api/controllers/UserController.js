@@ -241,6 +241,33 @@ const getUsers = async (req, res) => {
       .catch((error) => res.status(500).json({ message: `${error} ` }));
   };
 
+  const putGastosHogar= async (req, res) => {
+    const { id } = req.params;
+  
+    const { creditoHipotecario, arriendo, serviciosPublicos,internet,planCelular,mantenimientoHogar,segurosHogar,mercado,otrosGastosHogar} =
+      req.body;
+  
+    userSchema
+      .updateOne(
+        { _id: id },
+        {
+          $set: {
+            creditoHipotecario,
+            arriendo,
+            serviciosPublicos,
+            internet,
+            planCelular,
+            mantenimientoHogar,
+            segurosHogar,
+            mercado,
+            otrosGastosHogar
+          },
+        }
+      )
+      .then((data) => res.json(data))
+      .catch((error) => res.status(500).json({ message: `${error} ` }));
+  };
+
 
 
   const confirmarCuenta = async (req, res) => {
@@ -273,5 +300,6 @@ module.exports ={
     confirmarCuenta,
     putInfoPersonal,
     putIngresos,
-    putAhorros
+    putAhorros,
+    putGastosHogar
 }
