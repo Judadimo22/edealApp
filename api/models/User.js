@@ -121,6 +121,21 @@ const userSchema = mongoose.Schema({
     totalIngresos: {
         type: String
     },
+    aportesEmergencia: {
+        type: String
+    },
+    aportesAhorro: {
+        type: String
+    },
+    aportesRetiro: {
+        type: String
+    },
+    inversiones: {
+        type: String
+    },
+    otrosAhorros: {
+        type: String
+    }
     
 
 },{timestamps:true});

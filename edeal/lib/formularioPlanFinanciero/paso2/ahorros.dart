@@ -86,6 +86,56 @@ class _AhorrosState extends State<Ahorros> {
     }
   }
 
+  void saveAhorros() async {
+    // var newData = _newDataController.text;
+
+    var response = await http.put(
+      Uri.parse('http://192.168.1.108:3001/ahorros/$userId'),
+      body: {
+        'aportesEmergencia': _aportesEmergenciaController.text,
+        'aportesAhorro': _aportesAhorroController.text,
+        'aportesRetiro': _aportesRetiroController.text,
+        'inversiones': _inversionesController.text,
+        'otrosAhorros': _otrosAhorrosController.text,
+      },
+    );
+
+    if (response.statusCode == 200) {
+      setState(() {
+        userData['aportesEmergencia'] = _aportesEmergenciaController.text;
+        userData['aportesAhorro'] = _aportesAhorroController.text;
+        userData['aportesRetiro'] = _aportesRetiroController.text;
+        userData['inversiones'] = _inversionesController.text;
+        userData['otrosAhorros'] = _otrosAhorrosController.text;
+      });
+
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Ahorros actualizados'),
+            content: Text('Tus ahorros han sido actualizados'),
+            actions: [
+              TextButton(
+                  onPressed: (){
+                   Navigator.push(context, MaterialPageRoute(builder: (context)=>ControlFinanzas(token: widget.token)));
+                  },
+                child: Text('Aceptar'),
+              ),
+            ],
+          );
+        },
+      );
+
+      // setState(() {
+      //   _ahorroPara = 'Quiero ahorrar para:';
+      //   // _valorAhorroController = '';
+      //   _plazo = 'Plazo(meses):';
+      // });
+}
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -181,10 +231,7 @@ class _AhorrosState extends State<Ahorros> {
                 margin: const EdgeInsets.only(top: 30, bottom: 30, left: 20, right: 20),
                 child: ElevatedButton(
                   onPressed: () => {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => ControlFinanzas(token: widget.token)),
-                    ),
+                    saveAhorros()
                   },
                   child: const Text('Continuar'),
                 ),
