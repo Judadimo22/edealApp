@@ -102,6 +102,61 @@ class _IngresosState extends State<Ingresos> {
     }
   }
 
+  void saveIngresos() async {
+    // var newData = _newDataController.text;
+
+    var response = await http.put(
+      Uri.parse('http://192.168.1.108:3001/ingresos/$userId'),
+      body: {
+        'salario': _salarioController.text,
+        'inversionesPesos': _inversionesPesosController.text,
+        'inversionesUsd': _inversionesDolarController.text,
+        'alquileresInmobiliarios': _alquilerInmobiliarioController.text,
+        'dividendos': _dividendosController.text,
+        'pensiones': _pensionesController.text,
+        'otrosIngresos': _otrosIngresosController.text,
+        // 'totalIngresos': ({(valorSalario + valorInversionesPesos + valorInversionesDolar + valorAlquileres + valorDividendos + valorPensiones + valorOtrosIngresos).toStringAsFixed(2)})
+      },
+    );
+
+    if (response.statusCode == 200) {
+      setState(() {
+        userData['salario'] = _salarioController.text;
+        userData['inversionesPesos'] = _inversionesPesosController.text;
+        userData['inversionesUsd'] = _inversionesDolarController.text;
+        userData['alquileresInmobiliarios'] = _alquilerInmobiliarioController.text;
+        userData['dividendos'] = _dividendosController.text;
+        userData['pensiones'] = _pensionesController.text;
+        userData['otrosIngresos'] = _otrosIngresosController.text;
+        // userData['totalIngresos'] = ({(valorSalario + valorInversionesPesos + valorInversionesDolar + valorAlquileres + valorDividendos + valorPensiones + valorOtrosIngresos).toStringAsFixed(2)});
+      });
+
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Ingresos actualizados'),
+            content: Text('Tus ingresos han sido actualizados'),
+            actions: [
+              TextButton(
+                  onPressed: (){
+                   Navigator.push(context, MaterialPageRoute(builder: (context)=>ControlFinanzas(token: widget.token)));
+                  },
+                child: Text('Aceptar'),
+              ),
+            ],
+          );
+        },
+      );
+
+      // setState(() {
+      //   _ahorroPara = 'Quiero ahorrar para:';
+      //   // _valorAhorroController = '';
+      //   _plazo = 'Plazo(meses):';
+      // });
+}
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -221,10 +276,7 @@ class _IngresosState extends State<Ingresos> {
                 margin: const EdgeInsets.only(top: 30, bottom: 30, left: 20, right: 20),
                 child: ElevatedButton(
                   onPressed: () => {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => ControlFinanzas(token: widget.token)),
-                    ),
+                    saveIngresos()
                   },
                   child: const Text('Continuar'),
                 ),

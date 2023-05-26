@@ -106,10 +106,31 @@ class _ControlFinanzasState extends State<ControlFinanzas> {
           margin: const EdgeInsets.only(top: 40),
           child: ElevatedButton(
           onPressed: () => {
+      if (userData['salario'] == null) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('Completa todos los campos antes de continuar'),
+              content: Text('Tu información se almacenó correctamente.'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('Aceptar'),
+                ),
+              ],
+            );
+          },
+        )
+      }
+        else {
           Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => DefinirObjetivo(token: widget.token,),
         )),
+            }
           }, 
           child: Text('Continuar')),
         )
