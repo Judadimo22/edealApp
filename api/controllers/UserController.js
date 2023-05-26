@@ -167,6 +167,58 @@ const getUsers = async (req, res) => {
       .catch((error) => res.status(500).json({ message: `${error} ` }));
   };
 
+
+  const putInfoPersonal= async (req, res) => {
+    const { id } = req.params;
+  
+    const { estadoCivilCliente1, situacionLaboralCliente1, lugarResidenciaCLiente1,nombreDependiente,relacionDependiente, fechaNacimientoDependiente} =
+      req.body;
+  
+    userSchema
+      .updateOne(
+        { _id: id },
+        {
+          $set: {
+            estadoCivilCliente1,
+            situacionLaboralCliente1,
+            lugarResidenciaCLiente1,
+            nombreDependiente,
+            relacionDependiente,
+            fechaNacimientoDependiente
+          },
+        }
+      )
+      .then((data) => res.json(data))
+      .catch((error) => res.status(500).json({ message: `${error} ` }));
+  };
+
+  const putIngresos = async (req, res) => {
+    const { id } = req.params;
+  
+    const { salario, inversionesPesos, inversionesUsd,alquileresInmobiliarios,dividendos,pensiones,otrosIngresos,totalIngresos} =
+      req.body;
+  
+    userSchema
+      .updateOne(
+        { _id: id },
+        {
+          $set: {
+            salario,
+            inversionesPesos,
+            inversionesUsd,
+            alquileresInmobiliarios,
+            dividendos,
+            pensiones,
+            otrosIngresos,
+            totalIngresos
+          },
+        }
+      )
+      .then((data) => res.json(data))
+      .catch((error) => res.status(500).json({ message: `${error} ` }));
+  };
+
+
   const confirmarCuenta = async (req, res) => {
     const { id } = req.params;
   
@@ -194,5 +246,7 @@ module.exports ={
     putCredit,
     putAhorro,
     reenviar,
-    confirmarCuenta
+    confirmarCuenta,
+    putInfoPersonal,
+    putIngresos
 }

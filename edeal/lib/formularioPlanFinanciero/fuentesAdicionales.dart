@@ -566,7 +566,7 @@ class _FuentesAdicionalesState extends State<FuentesAdicionales> {
                       onPressed: (){
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => PlaneacionScreen(token: widget.token,),
+                    MaterialPageRoute(builder: (context) => Home(token: widget.token,),
         ));
                       },
                       child: Text('Finalizar', style: TextStyle(fontSize: 18)),

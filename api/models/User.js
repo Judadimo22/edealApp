@@ -78,7 +78,51 @@ const userSchema = mongoose.Schema({
     },
     plazoCredito: {
         type: String
-    }
+    },
+    estadoCivilCliente1:{
+        type: String
+    },
+    situacionLaboralCliente1: {
+        type: String
+    },
+    lugarResidenciaCLiente1: {
+        type: String
+    },
+    nombreDependiente: {
+        type: String
+    },
+    relacionDependiente: {
+        type: String
+    },
+    fechaNacimientoDependiente: {
+        type: String
+    },
+    salario: {
+        type: String
+    },
+    inversionesPesos: {
+        type: String
+    },
+    inversionesUsd : {
+        type: String
+    },
+    alquileresInmobiliarios: {
+        type: String
+    },
+    dividendos: {
+        type: String
+    },
+    pensiones: {
+        type: String
+    },
+    otrosIngresos: {
+        type: String
+    },
+    totalIngresos: {
+        type: String
+    },
+    
+
 },{timestamps:true});
 // used while encrypting user entered password
 userSchema.pre("save",async function(){

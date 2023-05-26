@@ -100,6 +100,57 @@ class _InformacionPersonalState extends State<InformacionPersonal> {
     }
   }
 
+  void saveInfoPersonal() async {
+    // var newData = _newDataController.text;
+
+    var response = await http.put(
+      Uri.parse('http://192.168.1.108:3001/infoPersonal/$userId'),
+      body: {
+        'estadoCivilCliente1': _estatusCivil,
+        'situacionLaboralCliente1': _situacionLaboral,
+        'lugarResidenciaCLiente1': _lugarResidencia.text,
+        'nombreDependiente': _nombreDependiente.text,
+        'relacionDependiente': _relacionDependienteController.text,
+        'fechaNacimientoDependiente': _fechaNacimientoDependienteController.text
+      },
+    );
+
+    if (response.statusCode == 200) {
+      setState(() {
+        userData['estadoCivilCliente1'] = _estatusCivil;
+        userData['situacionLaboralCliente1'] = _situacionLaboral;
+        userData['lugarResidenciaCLiente1'] = _lugarResidencia.text;
+        userData['nombreDependiente'] = _nombreDependiente.text;
+        userData['relacionDependient'] = _relacionDependienteController.text;
+        userData['fechaNacimientoDependiente'] = _fechaNacimientoDependienteController.text;
+      });
+
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Información personal actualizada'),
+            content: Text('Gracias por completar el paso núnero 1.'),
+            actions: [
+              TextButton(
+                  onPressed: (){
+                   Navigator.push(context, MaterialPageRoute(builder: (context)=>ControlFinanzas(token: widget.token)));
+                  },
+                child: Text('Aceptar'),
+              ),
+            ],
+          );
+        },
+      );
+
+      // setState(() {
+      //   _ahorroPara = 'Quiero ahorrar para:';
+      //   // _valorAhorroController = '';
+      //   _plazo = 'Plazo(meses):';
+      // });
+}
+  }
+
 
 
 
@@ -342,9 +393,7 @@ class _InformacionPersonalState extends State<InformacionPersonal> {
               margin: const EdgeInsets.only(top: 30, bottom: 30, left: 20, right: 20),
               child: ElevatedButton(
                 onPressed: () =>{
-                 Navigator.push(
-                  context,
-                   MaterialPageRoute(builder: (context) => ControlFinanzas(token: widget.token,))),
+                  saveInfoPersonal()
                 },
                 child: const Text('Continuar')),
             )
@@ -357,3 +406,4 @@ class _InformacionPersonalState extends State<InformacionPersonal> {
   }
 
   }
+
