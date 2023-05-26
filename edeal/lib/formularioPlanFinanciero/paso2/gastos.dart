@@ -95,6 +95,8 @@ class _GastosState extends State<Gastos> {
         ),
           }, 
           child: Text('Transporte')),
+         if(userData['mantenimientoCarro'] != null) 
+         Text('Ya has completado el formulario de gastos de transporte'),
           ElevatedButton(
           onPressed: () => {
           Navigator.push(

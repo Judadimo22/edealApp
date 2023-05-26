@@ -268,6 +268,30 @@ const getUsers = async (req, res) => {
       .catch((error) => res.status(500).json({ message: `${error} ` }));
   };
 
+  const putGastosTransporte= async (req, res) => {
+    const { id } = req.params;
+  
+    const { cuotaCarro, seguroCarro, gasolina,transportePublico,mantenimientoCarro} =
+      req.body;
+  
+    userSchema
+      .updateOne(
+        { _id: id },
+        {
+          $set: {
+            cuotaCarro,
+            seguroCarro,
+            gasolina,
+            transportePublico,
+            mantenimientoCarro,
+          },
+        }
+      )
+      .then((data) => res.json(data))
+      .catch((error) => res.status(500).json({ message: `${error} ` }));
+  };
+
+
 
 
   const confirmarCuenta = async (req, res) => {
@@ -301,5 +325,6 @@ module.exports ={
     putInfoPersonal,
     putIngresos,
     putAhorros,
-    putGastosHogar
+    putGastosHogar,
+    putGastosTransporte
 }

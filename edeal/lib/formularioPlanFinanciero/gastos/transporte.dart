@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:edeal/formularioPlanFinanciero/controlFinanzas.dart';
 import 'package:edeal/formularioPlanFinanciero/informacionPersonal.dart';
+import 'package:edeal/formularioPlanFinanciero/paso2/gastos.dart';
 import 'package:edeal/views/homeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -82,6 +83,56 @@ class _TransporteState extends State<Transporte> {
       print('Error: ${response.statusCode}');
     }
   }
+
+  void saveGastosTransporte() async {
+    // var newData = _newDataController.text;
+
+    var response = await http.put(
+      Uri.parse('http://192.168.1.108:3001/gastosTransporte/$userId'),
+      body: {
+        'cuotaCarro': _cuotaCarroController.text,
+        'seguroCarro': _seguroCarroController.text,
+        'gasolina': _gasolinaController.text,
+        'transportePublico': _transportePublicoController.text,
+        'mantenimientoCarro': _mantenimientoCarroController.text,
+      },
+    );
+
+    if (response.statusCode == 200) {
+      setState(() {
+        userData['cuotaCarro'] = _cuotaCarroController.text;
+        userData['seguroCarro'] = _seguroCarroController.text;
+        userData['gasolina'] = _gasolinaController.text;
+        userData['transportePublico'] = _transportePublicoController.text;
+        userData['mantenimientoCarro'] = _mantenimientoCarroController.text;
+      });
+
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Gastos de transporte actualizados'),
+            content: Text('Tus gastos de transporte han sido actualizados'),
+            actions: [
+              TextButton(
+                  onPressed: (){
+                   Navigator.push(context, MaterialPageRoute(builder: (context)=>Gastos(token: widget.token)));
+                  },
+                child: Text('Aceptar'),
+              ),
+            ],
+          );
+        },
+      );
+
+      // setState(() {
+      //   _ahorroPara = 'Quiero ahorrar para:';
+      //   // _valorAhorroController = '';
+      //   _plazo = 'Plazo(meses):';
+      // });
+}
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -178,10 +229,7 @@ class _TransporteState extends State<Transporte> {
                 margin: const EdgeInsets.only(top: 30, bottom: 30, left: 20, right: 20),
                 child: ElevatedButton(
                   onPressed: () => {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => ControlFinanzas(token: widget.token)),
-                    ),
+                    saveGastosTransporte()
                   },
                   child: const Text('Continuar'),
                 ),

@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const UserController = require('../controllers/UserController');
-const {getUsers, register, login, getUserById, putCredit, putAhorro, reenviar, confirmarCuenta,putInfoPersonal,putIngresos,putAhorros,putGastosHogar} = require('../controllers/UserController');
+const {getUsers, register, login, getUserById, putCredit, putAhorro, reenviar, confirmarCuenta,putInfoPersonal,putIngresos,putAhorros,putGastosHogar,putGastosTransporte} = require('../controllers/UserController');
 const { updateUserCredit } = require("../services/UserServices");
 
 router.post("/register", (req,res,next) => {
@@ -50,6 +50,10 @@ router.put('/ahorros/:id', (req, res, next) => {
 
 router.put('/gastosHogar/:id', (req, res, next) => {
   putGastosHogar(req,res,next)
+})
+
+router.put('/gastosTransporte/:id', (req, res, next) => {
+  putGastosTransporte(req,res,next)
 })
 
 

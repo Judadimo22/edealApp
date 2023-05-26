@@ -162,6 +162,21 @@ const userSchema = mongoose.Schema({
     },
     otrosGastosHogar: {
         type: String
+    },
+    cuotaCarro: {
+        type: String
+    },
+    seguroCarro: {
+        type: String
+    },
+    gasolina: {
+        type: String
+    },
+    transportePublico: {
+        type: String
+    },
+    mantenimientoCarro: {
+        type: String
     }
     
 
