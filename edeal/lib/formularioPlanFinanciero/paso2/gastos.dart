@@ -145,6 +145,8 @@ class _GastosState extends State<Gastos> {
         )),
           }, 
           child: Text('Mis créditos')),
+         if(userData['tipoDeudaGastosCredito'] != null) 
+         Text('Ya has completado el formulario de gastos en creditos'),
           ],
         ),
         )

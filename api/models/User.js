@@ -225,6 +225,30 @@ const userSchema = mongoose.Schema({
     },
     impuestoVehiculos: {
         type: String
+    },
+    tipoDeudaGastosCredito: {
+        type: String
+    },
+    institucionGastosCredito: {
+        type: String
+    },
+    montoInicialGastosCredito: {
+        type: String
+    },
+    fechaAdquisicionGastosCredito: {
+        type: String
+    },
+    plazoCreditoGastosCredito: {
+        type: String
+    },
+    saldoActualGastosCredito: {
+        type: String
+    },
+    interesAnualGastosCredito: {
+        type: String
+    },
+    pagoMensualGastosCredito: {
+        type: String
     }
 
 },{timestamps:true});

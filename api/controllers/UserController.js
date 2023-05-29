@@ -379,6 +379,33 @@ const getUsers = async (req, res) => {
       .catch((error) => res.status(500).json({ message: `${error} ` }));
   };
 
+  const putGastosCredito= async (req, res) => {
+    const { id } = req.params;
+  
+    const { tipoDeudaGastosCredito, institucionGastosCredito, montoInicialGastosCredito,fechaAdquisicionGastosCredito,plazoCreditoGastosCredito, saldoActualGastosCredito, interesAnualGastosCredito, pagoMensualGastosCredito} =
+      req.body;
+  
+    userSchema
+      .updateOne(
+        { _id: id },
+        {
+          $set: {
+            tipoDeudaGastosCredito,
+            institucionGastosCredito,
+            montoInicialGastosCredito,
+            fechaAdquisicionGastosCredito,
+            plazoCreditoGastosCredito,
+            saldoActualGastosCredito,
+            interesAnualGastosCredito,
+            pagoMensualGastosCredito
+          },
+        }
+      )
+      .then((data) => res.json(data))
+      .catch((error) => res.status(500).json({ message: `${error} ` }));
+  };
+
+
 
 
 
@@ -419,5 +446,6 @@ module.exports ={
     putGastosEntretenimiento,
     putGastosFinancieros,
     putGastosVacaciones,
-    putGastosImpuestos
+    putGastosImpuestos,
+    putGastosCredito
 }
