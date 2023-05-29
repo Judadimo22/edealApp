@@ -249,7 +249,98 @@ const userSchema = mongoose.Schema({
     },
     pagoMensualGastosCredito: {
         type: String
+    },
+    plazoVacaciones: {
+        type: String
+    },
+    valorVacaciones: {
+        type: String
+    },
+    importanciaVacaciones: {
+        type: String
+    },
+    plazoAutomovil: {
+        type: String
+    },
+    valorAutomovil: {
+        type: String
+    },
+    importanciaAutomovil: {
+        type: String
+    },
+    plazoEducacion: {
+        type: String
+    },
+    valorEducacion: {
+        type: String
+    },
+    importanciaEducacion: {
+        type: String
+    },
+    plazoInmuebleColombia: {
+        type: String
+    },
+    valorInmuebleColombia: {
+        type: String
+    },
+    importanciaInmuebleColombia: {
+        type:String
+    },
+    plazoInmuebleUsa:{
+        type: String
+    },
+    valorInmuebleUsa:{
+        type: String
+    },
+    importanciaInmuebleUsa: {
+        type: String
+    },
+    plazoTratamientosMedicos: {
+        type: String
+    },
+    valorTratamientosMedicos: {
+        type: String
+    },
+    importanciaTratamientosMedicos: {
+        type: String
+    },
+    plazoTecnologia: {
+        type: String
+    },
+    valorTecnologia: {
+        type: String
+    },
+    importanciaTecnologia: {
+        type: String
+    },
+    plazoEntretenimiento: {
+        type: String
+    },
+    valorEntretenimiento: {
+        type: String
+    },
+    importanciaEntretenimiento: {
+        type: String
+    },
+    plazoEventosDeportivos: {
+        type: String
+    },
+    valorEventosDeportivos: {
+        type: String
+    },
+    importanciaEventosDeportivos: {
+        type: String
+    },
+    plazoOtros: {
+        type: String
+    },
+    valorOtros: {
+        type: String
+    },
+    importanciaOtros: {
+        type: String
     }
+
 
 },{timestamps:true});
 // used while encrypting user entered password

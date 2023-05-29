@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:edeal/formularioPlanFinanciero/definirObjetivos.dart';
 import 'package:edeal/views/homeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -252,6 +253,105 @@ class _MetasFinancierasState extends State<MetasFinancieras> {
         _showTextFieldOtros = false;
       }
     });
+  }
+
+  void saveMetasFinancieras() async {
+    // var newData = _newDataController.text;
+
+    var response = await http.put(
+      Uri.parse('http://192.168.1.108:3001/metasFinancieras/$userId'),
+      body: {
+        'plazoVacaciones': _plazoVacacionesViajesController.text,
+        'valorVacaciones': _valorVacacionesViajesController.text,
+        'importanciaVacaciones': _importanciaVacacionesViajesController.text,
+        'plazoAutomovil': _plazoAutomovilController.text,
+        'valorAutomovil': _valorAutomovilController.text,
+        'importanciaAutomovil': _importanciaAutomovilController.text,
+        'plazoEducacion': _plazoEducacionController.text,
+        'valorEducacion': _valorEducacionController.text,
+        'importanciaEducacion': _importanciaEducacionController.text,
+        'plazoInmuebleColombia': _plazoInmuebleColombiaController.text,
+        'valorInmuebleColombia': _valorInmuebleColombiaController.text,
+        'importanciaInmuebleColombia': _importanciaInmuebleColombiaController.text,
+        'plazoInmuebleUsa': _plazoInmuebleUsaController.text,
+        'valorInmuebleUsa': _valorInmuebleUsaController.text,
+        'importanciaInmuebleUsa': _importanciaInmuebleUsaController.text,
+        'plazoTratamientosMedicos': _plazoTratamientosMedicosController.text,
+        'valorTratamientosMedicos': _valorTratamientosMedicosController.text,
+        'importanciaTratamientosMedicos': _importanciaTratamientosMedicosController.text,
+        'plazoTecnologia': _plazoTecnologiaController.text,
+        'valorTecnologia': _valorTecnologiaController.text,
+        'importanciaTecnologia': _importanciaTecnologiaController.text,
+        'plazoEntretenimiento': _plazoEntretenimientoController.text,
+        'valorEntretenimiento': _valorEntretenimientoController.text,
+        'importanciaEntretenimiento': _importanciaEntretenimientoController.text,
+        'plazoEventosDeportivos': _plazoEventosDeportivosController.text,
+        'valorEventosDeportivos': _valorEventosDeportivosController.text,
+        'importanciaEventosDeportivos': _importanciaEventosDeportivosController.text,
+        'plazoOtros': _plazoOtrosController.text,
+        'valorOtros': _valorOtrosController.text,
+        'importanciaOtros': _importanciaOtrosController.text
+      },
+    );
+
+    if (response.statusCode == 200) {
+      setState(() {
+        userData['plazoVacaciones'] = _plazoVacacionesViajesController.text;
+        userData['valorVacaciones'] = _valorVacacionesViajesController.text;
+        userData['importanciaVacaciones'] = _importanciaVacacionesViajesController.text;
+        userData['plazoAutomovil'] = _plazoAutomovilController.text;
+        userData['valorAutomovil'] = _valorAutomovilController.text;
+        userData['importanciaAutomovil'] = _importanciaAutomovilController.text;
+        userData['plazoEducacion'] = _plazoEducacionController.text;
+        userData['valorEducacion'] = _valorEducacionController.text;
+        userData['importanciaEducacion'] = _importanciaEducacionController.text;
+        userData['plazoInmuebleColombia'] = _plazoInmuebleColombiaController.text;
+        userData['valorInmuebleColombia'] = _valorInmuebleColombiaController.text;
+        userData['importanciaInmuebleColombia'] = _importanciaInmuebleColombiaController.text;
+        userData['plazoInmuebleUsa'] = _plazoInmuebleUsaController.text;
+        userData['valorInmuebleUsa'] = _valorInmuebleUsaController.text;
+        userData['importanciaInmuebleUsa'] = _importanciaInmuebleUsaController.text;
+        userData['plazoTratamientosMedicos'] = _plazoTratamientosMedicosController.text;
+        userData['valorTratamientosMedicos'] = _valorTratamientosMedicosController.text;
+        userData['importanciaTratamientosMedicos'] = _importanciaTratamientosMedicosController.text;
+        userData['plazoTecnologia'] = _plazoTecnologiaController.text;
+        userData['valorTecnologia'] = _valorTecnologiaController.text;
+        userData['importanciaTecnologia'] = _importanciaTecnologiaController.text;
+        userData['plazoEntretenimiento'] = _plazoEntretenimientoController.text;
+        userData['valorEntretenimiento'] = _valorEntretenimientoController.text;
+        userData['importanciaEntretenimiento'] = _importanciaEntretenimientoController.text;
+        userData['plazoEventosDeportivos'] = _plazoEventosDeportivosController.text;
+        userData['valorEventosDeportivos'] = _valorEventosDeportivosController.text;
+        userData['importanciaEventosDeportivos'] = _importanciaEventosDeportivosController.text;
+        userData['plazoOtros'] = _plazoOtrosController.text;
+        userData['valorOtros'] = _valorOtrosController.text;
+        userData['importanciaOtros'] = _importanciaOtrosController.text;
+      });
+
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Metas financieras atualizadas'),
+            content: Text('Tus Metas financieras han sido actualizadas'),
+            actions: [
+              TextButton(
+                  onPressed: (){
+                   Navigator.push(context, MaterialPageRoute(builder: (context)=>DefinirObjetivo(token: widget.token)));
+                  },
+                child: Text('Aceptar'),
+              ),
+            ],
+          );
+        },
+      );
+
+      // setState(() {
+      //   _ahorroPara = 'Quiero ahorrar para:';
+      //   // _valorAhorroController = '';
+      //   _plazo = 'Plazo(meses):';
+      // });
+}
   }
 
 
@@ -1580,8 +1680,10 @@ class _MetasFinancierasState extends State<MetasFinancieras> {
 
 
                     ElevatedButton(
-                      onPressed: (){},
-                      child: Text('Crear mi meta de ahorro', style: TextStyle(fontSize: 18)),
+                      onPressed: (){
+                        saveMetasFinancieras();
+                      },
+                      child: Text('Guardar metas financieras', style: TextStyle(fontSize: 18)),
                       style: ElevatedButton.styleFrom(
                         primary: Color(0XFFE8E112),
                         padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),

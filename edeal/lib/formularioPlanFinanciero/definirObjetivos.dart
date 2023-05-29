@@ -80,6 +80,8 @@ class _DefinirObjetivoState extends State<DefinirObjetivo> {
         ),
           }, 
           child: Text('Mis metas financieras')),
+          if(userData['importanciaOtros'] != null && userData['importanciaVacaciones'] != null && userData['plazoAutomovil'] != null)
+          const Text('Ya has terminado el formulario de metas financieras'),
           ElevatedButton(
           onPressed: () => {
           Navigator.push(

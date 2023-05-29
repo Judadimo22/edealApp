@@ -427,6 +427,55 @@ const getUsers = async (req, res) => {
       .then((data) => res.json(data))
       .catch((error) => res.status(500).json({ message: `${error} ` }));
   };
+
+  const putMetasFinancieras= async (req, res) => {
+    const { id } = req.params;
+  
+    const { plazoVacaciones, valorVacaciones, importanciaVacaciones, plazoAutomovil, valorAutomovil, importanciaAutomovil, plazoEducacion, valorEducacion, importanciaEducacion, plazoInmuebleColombia, valorInmuebleColombia, importanciaInmuebleColombia, plazoInmuebleUsa, valorInmuebleUsa, importanciaInmuebleUsa, plazoTratamientosMedicos, valorTratamientosMedicos, importanciaTratamientosMedicos, plazoTecnologia, valorTecnologia, importanciaTecnologia, plazoEntretenimiento, valorEntretenimiento, importanciaEntretenimiento, plazoEventosDeportivos, valorEventosDeportivos, importanciaEventosDeportivos, plazoOtros, valorOtros, importanciaOtros } =
+      req.body;
+  
+    userSchema
+      .updateOne(
+        { _id: id },
+        {
+          $set: {
+            plazoVacaciones,
+            valorVacaciones,
+            importanciaVacaciones,
+            plazoAutomovil,
+            valorAutomovil,
+            importanciaAutomovil,
+            plazoEducacion,
+            valorEducacion,
+            importanciaEducacion,
+            plazoInmuebleColombia,
+            valorInmuebleColombia,
+            importanciaInmuebleColombia,
+            plazoInmuebleUsa,
+            valorInmuebleUsa,
+            importanciaInmuebleUsa,
+            plazoTratamientosMedicos,
+            valorTratamientosMedicos,
+            importanciaTratamientosMedicos,
+            plazoTecnologia,
+            valorTecnologia,
+            importanciaTecnologia,
+            plazoEntretenimiento,
+            valorEntretenimiento,
+            importanciaEntretenimiento,
+            plazoEventosDeportivos,
+            valorEventosDeportivos,
+            importanciaEventosDeportivos,
+            plazoOtros,
+            valorOtros,
+            importanciaOtros
+          },
+        }
+      )
+      .then((data) => res.json(data))
+      .catch((error) => res.status(500).json({ message: `${error} ` }));
+  };
+
   
 
 module.exports ={
@@ -447,5 +496,6 @@ module.exports ={
     putGastosFinancieros,
     putGastosVacaciones,
     putGastosImpuestos,
-    putGastosCredito
+    putGastosCredito,
+    putMetasFinancieras
 }
