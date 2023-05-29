@@ -177,6 +177,21 @@ const userSchema = mongoose.Schema({
     },
     mantenimientoCarro: {
         type: String
+    },
+    restaurantes: {
+        type: String
+    },
+    cine: {
+        type: String
+    },
+    conciertos: {
+        type: String
+    },
+    eventosDeportivos: {
+        type: String
+    },
+    salidasFiestas: {
+        type: String
     }
     
 

@@ -105,6 +105,8 @@ class _GastosState extends State<Gastos> {
         )),
           }, 
           child: Text('Entretenimiento y ocio')),
+         if(userData['salidasFiestas'] != null) 
+         Text('Ya has completado el formulario de gastos de entretenimiento'),
           ElevatedButton(
           onPressed: () => {
           Navigator.push(
