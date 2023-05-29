@@ -135,6 +135,8 @@ class _GastosState extends State<Gastos> {
         )),
           }, 
           child: Text('Impuestos')),
+         if(userData['predial'] != null) 
+         Text('Ya has completado el formulario de gastos en impuestos'),
           ElevatedButton(
           onPressed: () => {
           Navigator.push(

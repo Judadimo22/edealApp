@@ -358,6 +358,28 @@ const getUsers = async (req, res) => {
       .catch((error) => res.status(500).json({ message: `${error} ` }));
   };
 
+  const putGastosImpuestos= async (req, res) => {
+    const { id } = req.params;
+  
+    const { renta, predial, impuestoVehiculos} =
+      req.body;
+  
+    userSchema
+      .updateOne(
+        { _id: id },
+        {
+          $set: {
+            renta,
+            predial,
+            impuestoVehiculos,
+          },
+        }
+      )
+      .then((data) => res.json(data))
+      .catch((error) => res.status(500).json({ message: `${error} ` }));
+  };
+
+
 
 
 
@@ -396,5 +418,6 @@ module.exports ={
     putGastosTransporte,
     putGastosEntretenimiento,
     putGastosFinancieros,
-    putGastosVacaciones
+    putGastosVacaciones,
+    putGastosImpuestos
 }

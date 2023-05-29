@@ -216,6 +216,15 @@ const userSchema = mongoose.Schema({
     },
     gastosViaje: {
         type: String
+    },
+    renta: {
+        type: String
+    },
+    predial: {
+        type: String
+    },
+    impuestoVehiculos: {
+        type: String
     }
 
 },{timestamps:true});
