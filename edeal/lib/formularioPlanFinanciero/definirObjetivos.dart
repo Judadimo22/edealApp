@@ -90,6 +90,8 @@ class _DefinirObjetivoState extends State<DefinirObjetivo> {
         ),
           }, 
           child: Text('Salud')),
+          if(userData['cuentaConPlanSalud'] != null )
+          const Text('Ya has terminado el formulario de objetivos de salud'),
           ElevatedButton(
           onPressed: () => {
           Navigator.push(

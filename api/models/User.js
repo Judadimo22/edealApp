@@ -339,6 +339,15 @@ const userSchema = mongoose.Schema({
     },
     importanciaOtros: {
         type: String
+    },
+    cuentaConPlanSalud: {
+        type: String
+    },
+    tipoPlanSalud: {
+        type: String
+    },
+    porcentajeCoberturaPlan: {
+        type: String
     }
 
 

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:edeal/formularioPlanFinanciero/definirObjetivos.dart';
 import 'package:edeal/views/homeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -124,6 +125,51 @@ class _SaludState extends State<Salud> {
     setState(() {
       _porcentajeCobertura = newPorcentajeCobertura!;
     });
+  }
+
+  void saveObjetivosSalud() async {
+    // var newData = _newDataController.text;
+
+    var response = await http.put(
+      Uri.parse('http://192.168.1.108:3001/objetivosSalud/$userId'),
+      body: {
+        'cuentaConPlanSalud': _planCobertura,
+        'tipoPlanSalud': _tipoPlan,
+        'porcentajeCoberturaPlan': _porcentajeCobertura,
+      },
+    );
+
+    if (response.statusCode == 200) {
+      setState(() {
+        userData['cuentaConPlanSalud'] = _planCobertura;
+        userData['tipoPlanSalud'] = _tipoPlan;
+        userData['porcentajeCoberturaPlan'] = _porcentajeCobertura;
+      });
+
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Objetivos de salud actualizados'),
+            content: Text('Tus objetivos de salud han sido actualizados'),
+            actions: [
+              TextButton(
+                  onPressed: (){
+                   Navigator.push(context, MaterialPageRoute(builder: (context)=>DefinirObjetivo(token: widget.token)));
+                  },
+                child: Text('Aceptar'),
+              ),
+            ],
+          );
+        },
+      );
+
+      // setState(() {
+      //   _ahorroPara = 'Quiero ahorrar para:';
+      //   // _valorAhorroController = '';
+      //   _plazo = 'Plazo(meses):';
+      // });
+}
   }
 
 
@@ -263,7 +309,9 @@ class _SaludState extends State<Salud> {
 
 
                     ElevatedButton(
-                      onPressed: (){},
+                      onPressed: (){
+                        saveObjetivosSalud();
+                      },
                       child: Text('Continuar', style: TextStyle(fontSize: 18)),
                       style: ElevatedButton.styleFrom(
                         primary: Color(0XFFE8E112),
