@@ -64,7 +64,7 @@ class _GastosState extends State<Gastos> {
       backgroundColor: Color(0XFF524898),
       body: Center(
         child: Container(
-          margin: EdgeInsets.only(top: 200),
+          margin: EdgeInsets.only(top: 100),
           child: Column(
           children: [
           Container(
@@ -125,6 +125,8 @@ class _GastosState extends State<Gastos> {
         )),
           }, 
           child: Text('Vacaciones')),
+         if(userData['gastosViaje'] != null) 
+         Text('Ya has completado el formulario de gastos de vacaciones'),
           ElevatedButton(
           onPressed: () => {
           Navigator.push(

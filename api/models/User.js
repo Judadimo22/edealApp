@@ -207,6 +207,15 @@ const userSchema = mongoose.Schema({
     },
     creditoUsd: {
         type: String
+    },
+    tiquetesAereos: {
+        type: String
+    },
+    hoteles: {
+        type: String
+    },
+    gastosViaje: {
+        type: String
     }
 
 },{timestamps:true});

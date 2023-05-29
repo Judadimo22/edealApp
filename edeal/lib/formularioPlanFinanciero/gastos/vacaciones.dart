@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:edeal/formularioPlanFinanciero/controlFinanzas.dart';
 import 'package:edeal/formularioPlanFinanciero/informacionPersonal.dart';
+import 'package:edeal/formularioPlanFinanciero/paso2/gastos.dart';
 import 'package:edeal/views/homeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -67,6 +68,51 @@ class _VacacionesState extends State<Vacaciones> {
     } else {
       print('Error: ${response.statusCode}');
     }
+  }
+
+  void saveGastosVacaciones() async {
+    // var newData = _newDataController.text;
+
+    var response = await http.put(
+      Uri.parse('http://192.168.1.108:3001/gastosVacaciones/$userId'),
+      body: {
+        'tiquetesAereos': _tiquetesAereosController.text,
+        'hoteles': _hotelesController.text,
+        'gastosViaje': _gastosViajeController.text,
+      },
+    );
+
+    if (response.statusCode == 200) {
+      setState(() {
+        userData['tiquetesAereos'] = _tiquetesAereosController.text;
+        userData['hoteles'] = _hotelesController.text;
+        userData['gastosViaje'] = _gastosViajeController.text;
+      });
+
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Gastos de vacaciones actualizados'),
+            content: Text('Tus gastos de vacaciones han sido actualizados'),
+            actions: [
+              TextButton(
+                  onPressed: (){
+                   Navigator.push(context, MaterialPageRoute(builder: (context)=>Gastos(token: widget.token)));
+                  },
+                child: Text('Aceptar'),
+              ),
+            ],
+          );
+        },
+      );
+
+      // setState(() {
+      //   _ahorroPara = 'Quiero ahorrar para:';
+      //   // _valorAhorroController = '';
+      //   _plazo = 'Plazo(meses):';
+      // });
+}
   }
 
   @override
@@ -140,10 +186,7 @@ class _VacacionesState extends State<Vacaciones> {
                 margin: const EdgeInsets.only(top: 30, bottom: 30, left: 20, right: 20),
                 child: ElevatedButton(
                   onPressed: () => {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => ControlFinanzas(token: widget.token)),
-                    ),
+                    saveGastosVacaciones()
                   },
                   child: const Text('Continuar'),
                 ),
