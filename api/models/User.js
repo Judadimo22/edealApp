@@ -192,8 +192,22 @@ const userSchema = mongoose.Schema({
     },
     salidasFiestas: {
         type: String
+    },
+    seguroSalud: {
+        type: String
+    },
+    seguroVida: {
+        type: String
+    },
+    gastoTarjetaCredito: {
+        type: String
+    },
+    creditoLibreInversion: {
+        type:String
+    },
+    creditoUsd: {
+        type: String
     }
-    
 
 },{timestamps:true});
 // used while encrypting user entered password

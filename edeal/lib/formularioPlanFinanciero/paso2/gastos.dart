@@ -115,6 +115,8 @@ class _GastosState extends State<Gastos> {
         )),
           }, 
           child: Text('Financieros')),
+         if(userData['creditoLibreInversion'] != null) 
+         Text('Ya has completado el formulario de gastos financieros'),
           ElevatedButton(
           onPressed: () => {
           Navigator.push(
