@@ -48,7 +48,25 @@ class _PlaneacionScreenState extends State<PlaneacionScreen> {
 
 
   Widget build(BuildContext context) {
-    return Scaffold(
+    if(userData['estadoCivilCliente1'] != null && userData['salario'] != null && userData['inversiones'] != null && userData['arriendo'] != null && userData['cuotaCarro'] != null && userData['cine'] != null && userData['seguroSalud'] != null && userData['hoteles'] != null && userData['predial'] != null && userData['tipoDeudaGastosCredito'] != null && userData['plazoAutomovil'] != null && userData['cuentaConPlanSalud'] != null && userData['nombreEstudiante1'] != null && userData['valorViviendaRetiro'] != null && userData['experienciaInversiones'] != null && userData['ahorrarMas'] != null){
+      return Scaffold(
+       backgroundColor: const Color(0XFF524898),
+        body: Center(
+          child: Container(
+            margin: EdgeInsets.symmetric(horizontal: 50),
+            child: Text(
+              'Gracias por completar el formulario de plan financiero, estamos revisando tus datos',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 30
+              ),
+              ),
+          ),
+        ),
+      );
+    }
+    else {
+          return Scaffold(
       backgroundColor: Color(0XFF524898),
       body: Center(
         child: ElevatedButton(
@@ -62,6 +80,7 @@ class _PlaneacionScreenState extends State<PlaneacionScreen> {
       ),
 
     );
+    }
   }
 
   }
