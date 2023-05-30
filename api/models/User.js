@@ -405,6 +405,36 @@ const userSchema = mongoose.Schema({
     },
     importanciaOtrosRetiro: {
         type: String
+    },
+    experienciaInversiones: {
+        type: String
+    },
+    poseoAlgunActivo: {
+        type: String
+    },
+    generarIngresos: {
+        type: String
+    },
+    arriesgarMiCapital: {
+        type: String
+    },
+    incrementarPatrimonio: {
+        type: String
+    },
+    protegerPatrimonio: {
+        type: String
+    },
+    perfilActitudInversionista: {
+        type: String
+    },
+    prioridadesFinancieras: {
+        type: String
+    },
+    iniciarRetiros: {
+        type: String
+    },
+    continuarRetiros: {
+        type: String
     }
 
 

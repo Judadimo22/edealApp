@@ -552,6 +552,34 @@ const getUsers = async (req, res) => {
       .catch((error) => res.status(500).json({ message: `${error} ` }));
   };
 
+  const putPerfilRiesgo= async (req, res) => {
+    const { id } = req.params;
+  
+    const {experienciaInversiones, poseoAlgunActivo, generarIngresos, arriesgarMiCapital, incrementarPatrimonio, protegerPatrimonio, perfilActitudInversionista, prioridadesFinancieras, iniciarRetiros, continuarRetiros } =
+      req.body;
+  
+    userSchema
+      .updateOne(
+        { _id: id },
+        {
+          $set: {
+            experienciaInversiones,
+            poseoAlgunActivo,
+            generarIngresos,
+            arriesgarMiCapital,
+            incrementarPatrimonio,
+            protegerPatrimonio,
+            perfilActitudInversionista,
+            prioridadesFinancieras,
+            iniciarRetiros,
+            continuarRetiros
+          },
+        }
+      )
+      .then((data) => res.json(data))
+      .catch((error) => res.status(500).json({ message: `${error} ` }));
+  };
+
 
   
 
@@ -577,5 +605,6 @@ module.exports ={
     putMetasFinancieras,
     putObjetivosSalud,
     putObjetivosEducacion,
-    putObjetivosRetiro
+    putObjetivosRetiro,
+    putPerfilRiesgo
 }

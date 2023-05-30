@@ -25,6 +25,9 @@ class _PerfilRiesgoState extends State<PerfilRiesgo> {
   String _experienciaInversiones= 'Cual es su nivel de experiencia en inversiones';
   String _poseo = 'He invertido o actualmente poseo algun activo';
   String _generarIngresos = 'Enumere la opcion';
+  String _arriesgarCapital = 'Enumere la opcion';
+  String _incrementarPatrimonio = 'Enumere la opcion';
+  String _protegerPatrimonio = 'Enumere la opcion';
   String _perfil = 'Seleccione perfil';
   String _prioridades = 'Seleccione prioridades';
   String _anosRetiros = 'Seleccione años retiros';
@@ -53,56 +56,6 @@ class _PerfilRiesgoState extends State<PerfilRiesgo> {
     }
   }
 
-// void saveUserData() async {
-//   if (_formKey.currentState!.validate()) {
-//     var newData = _newDataController.text;
-
-//     var response = await http.put(
-//       Uri.parse('http://192.168.1.108:3001/ahorro/$userId'),
-//       body: {
-//         'ahorroPara': _ahorroPara == 'Otros' ? newData : _ahorroPara,
-//         'valorAhorro': _valorAhorroController.text,
-//         'plazoAhorro': _plazo,
-//       },
-//     );
-
-//     if (response.statusCode == 200) {
-//       setState(() {
-//         userData['ahorroPara'] = _ahorroPara == 'Otros' ? newData : _ahorroPara;
-//         userData['valorAhorro'] = _valorAhorroController.text;
-//         userData['plazoAhorro'] = _plazo;
-//       });
-
-//       showDialog(
-//         context: context,
-//         builder: (BuildContext context) {
-//           return AlertDialog(
-//             title: Text('Información actualizada'),
-//             content: Text('Tu información se almacenó correctamente.'),
-//             actions: [
-//               TextButton(
-//                 onPressed: () {
-//                   Navigator.of(context).pop();
-//                 },
-//                 child: Text('Aceptar'),
-//               ),
-//             ],
-//           );
-//         },
-//       );
-
-//       setState(() {
-//         _ahorroPara = 'Quiero ahorrar para:';
-//         // _valorAhorroController = '';
-//         _plazo = 'Plazo(meses):';
-//       });
-//     } else {
-//       print('Error al actualizar la información: ${response.statusCode}');
-//     }
-//   }
-// }
-
-
   void updateExperienciaInversiones(String? newExperienciaInversiones) {
     setState(() {
       _experienciaInversiones = newExperienciaInversiones!;
@@ -118,6 +71,24 @@ class _PerfilRiesgoState extends State<PerfilRiesgo> {
   void updateGenrarIngresos(String? newGenerarIngresos) {
     setState(() {
       _generarIngresos = newGenerarIngresos!;
+    });
+  }
+
+  void updateArriesgarCapital(String? newArriegarCapital) {
+    setState(() {
+      _arriesgarCapital = newArriegarCapital!;
+    });
+  }
+
+  void updateIncrementarPatrimonio(String? newIncrementarPatrimonio) {
+    setState(() {
+      _incrementarPatrimonio = newIncrementarPatrimonio!;
+    });
+  }
+
+  void updateProtegerPatrimonio(String? newProtegerPatrimonio) {
+    setState(() {
+      _protegerPatrimonio = newProtegerPatrimonio!;
     });
   }
 
@@ -145,8 +116,91 @@ class _PerfilRiesgoState extends State<PerfilRiesgo> {
     });
   }
 
+  void savePerfilRiesgo() async {
+    // var newData = _newDataController.text;
+
+    var response = await http.put(
+      Uri.parse('http://192.168.1.108:3001/perfilRiesgo/$userId'),
+      body: {
+        'experienciaInversiones': _experienciaInversiones,
+        'poseoAlgunActivo': _poseo,
+        'generarIngresos': _generarIngresos,
+        'arriesgarMiCapital': _arriesgarCapital,
+        'incrementarPatrimonio': _incrementarPatrimonio,
+        'protegerPatrimonio': _protegerPatrimonio,
+        'perfilActitudInversionista': _perfil,
+        'prioridadesFinancieras': _prioridades,
+        'iniciarRetiros': _anosRetiros,
+        'continuarRetiros': _tiempoRetiros
+      },
+    );
+
+    if (response.statusCode == 200) {
+      setState(() {
+        userData['experienciaInversiones'] = _experienciaInversiones;
+        userData['poseoAlgunActivo'] = _poseo;
+        userData['generarIngresos'] = _generarIngresos;
+        userData['arriesgarMiCapital'] = _arriesgarCapital;
+        userData['incrementarPatrimonio'] = _incrementarPatrimonio;
+        userData['protegerPatrimonio'] = _protegerPatrimonio;
+        userData['perfilActitudInversionista'] = _perfil;
+        userData['prioridadesFinancieras'] = _prioridades;
+        userData['iniciarRetiros'] = _anosRetiros;      
+        userData['continuarRetiros'] = _tiempoRetiros;       
+      });
+
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Perfil de riesgo actualizado'),
+            content: Text('Gracias por completar el paso núnero 5.'),
+            actions: [
+              TextButton(
+                  onPressed: (){
+                    if (userData['experienciaInversiones'] == null){
+                              showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('Completa todos los campos antes de continuar'),
+              content: Text('Por favor completa todos los campos antes de continuar'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('Aceptar'),
+                ),
+              ],
+            );
+          },
+        );
+                    }
+            else {
+             Navigator.push(context, MaterialPageRoute(builder: (context)=>FuentesAdicionales(token: widget.token)));
+            }
+
+                  },
+                child: Text('Aceptar'),
+              ),
+            ],
+          );
+        },
+      );
+
+      // setState(() {
+      //   _ahorroPara = 'Quiero ahorrar para:';
+      //   // _valorAhorroController = '';
+      //   _plazo = 'Plazo(meses):';
+      // });
+}
+  }
+
+
   @override
   Widget build(BuildContext context) {
+     double porcentajeAvance = 50; // Porcentaje de avance deseado
     return Scaffold(
       backgroundColor: Color(0XFF524898),
       body: Center(
@@ -155,6 +209,16 @@ class _PerfilRiesgoState extends State<PerfilRiesgo> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(height: 20),
+            Container(
+              margin: EdgeInsets.only(top: 40),
+              child:LinearProgressIndicator(
+          value: porcentajeAvance / 100, // Valor de progreso entre 0.0 y 1.0
+        ),
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 20),
+              child:Text('Has completado el ${porcentajeAvance.toStringAsFixed(1)}% del formulario'),
+            ),
             Form(
               key: _formKey,
               child: Padding(
@@ -310,8 +374,8 @@ class _PerfilRiesgoState extends State<PerfilRiesgo> {
                       color: Color(0XFF524898),
                       child: DropdownButton<String>(
                         dropdownColor: Color(0XFF524898),
-                        value: _generarIngresos,
-                        onChanged: updateGenrarIngresos,
+                        value: _arriesgarCapital,
+                        onChanged: updateArriesgarCapital,
                         items: <String>[
                           'Enumere la opcion',
                           '1',
@@ -355,8 +419,8 @@ class _PerfilRiesgoState extends State<PerfilRiesgo> {
                       color: Color(0XFF524898),
                       child: DropdownButton<String>(
                         dropdownColor: Color(0XFF524898),
-                        value: _generarIngresos,
-                        onChanged: updateGenrarIngresos,
+                        value: _incrementarPatrimonio,
+                        onChanged: updateIncrementarPatrimonio,
                         items: <String>[
                           'Enumere la opcion',
                           '1',
@@ -400,8 +464,8 @@ class _PerfilRiesgoState extends State<PerfilRiesgo> {
                       color: Color(0XFF524898),
                       child: DropdownButton<String>(
                         dropdownColor: Color(0XFF524898),
-                        value: _generarIngresos,
-                        onChanged: updateGenrarIngresos,
+                        value: _protegerPatrimonio,
+                        onChanged: updateProtegerPatrimonio,
                         items: <String>[
                           'Enumere la opcion',
                           '1',
@@ -604,10 +668,7 @@ class _PerfilRiesgoState extends State<PerfilRiesgo> {
                     SizedBox(height: 20),
                     ElevatedButton(
                       onPressed: (){
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => FuentesAdicionales(token: widget.token,),
-        ));
+                        savePerfilRiesgo();
                       },
                       child: Text('Continuar', style: TextStyle(fontSize: 18)),
                       style: ElevatedButton.styleFrom(
