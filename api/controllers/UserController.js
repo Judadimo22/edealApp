@@ -497,6 +497,33 @@ const getUsers = async (req, res) => {
       .catch((error) => res.status(500).json({ message: `${error} ` }));
   };
 
+  const putObjetivosEducacion= async (req, res) => {
+    const { id } = req.params;
+  
+    const { numeroHijos, nombreEstudiante1, añoIniciara, añosEstudiaria, importanciaEducacionEstudiante1, montoEstimadoEducacion, tipoInstitucionEducativa, ubicacionEstudiante1, nombreInstitucionEducativa } =
+      req.body;
+  
+    userSchema
+      .updateOne(
+        { _id: id },
+        {
+          $set: {
+            numeroHijos,
+            nombreEstudiante1,
+            añoIniciara,
+            añosEstudiaria,
+            importanciaEducacionEstudiante1,
+            montoEstimadoEducacion,
+            tipoInstitucionEducativa,
+            ubicacionEstudiante1,
+            nombreInstitucionEducativa
+          },
+        }
+      )
+      .then((data) => res.json(data))
+      .catch((error) => res.status(500).json({ message: `${error} ` }));
+  };
+
 
   
 
@@ -520,5 +547,6 @@ module.exports ={
     putGastosImpuestos,
     putGastosCredito,
     putMetasFinancieras,
-    putObjetivosSalud
+    putObjetivosSalud,
+    putObjetivosEducacion
 }

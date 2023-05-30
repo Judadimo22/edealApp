@@ -348,6 +348,33 @@ const userSchema = mongoose.Schema({
     },
     porcentajeCoberturaPlan: {
         type: String
+    },
+    numeroHijos: {
+        type: String
+    },
+    nombreEstudiante1: {
+        type: String
+    },
+    añoIniciara: {
+        type: String
+    },
+    añosEstudiaria: {
+        type: String
+    },
+    importanciaEducacionEstudiante1: {
+        type: String
+    },
+    montoEstimadoEducacion: {
+        type: String
+    },
+    tipoInstitucionEducativa: {
+        type: String
+    },
+    ubicacionEstudiante1: {
+        type: String
+    },
+    nombreInstitucionEducativa: {
+        type: String
     }
 
 

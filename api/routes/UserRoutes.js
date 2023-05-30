@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const UserController = require('../controllers/UserController');
-const {getUsers, register, login, getUserById, putCredit, putAhorro, reenviar, confirmarCuenta,putInfoPersonal,putIngresos,putAhorros,putGastosHogar,putGastosTransporte,putGastosEntretenimiento, putGastosFinancieros,putGastosVacaciones,putGastosImpuestos,putGastosCredito, putMetasFinancieras,putObjetivosSalud} = require('../controllers/UserController');
+const {getUsers, register, login, getUserById, putCredit, putAhorro, reenviar, confirmarCuenta,putInfoPersonal,putIngresos,putAhorros,putGastosHogar,putGastosTransporte,putGastosEntretenimiento, putGastosFinancieros,putGastosVacaciones,putGastosImpuestos,putGastosCredito, putMetasFinancieras,putObjetivosSalud, putObjetivosEducacion} = require('../controllers/UserController');
 const { updateUserCredit } = require("../services/UserServices");
 
 router.post("/register", (req,res,next) => {
@@ -82,6 +82,10 @@ router.put('/metasFinancieras/:id', (req, res, next) => {
 
 router.put('/objetivosSalud/:id', (req, res, next) => {
   putObjetivosSalud(req,res,next)
+})
+
+router.put('/objetivosEducacion/:id', (req, res, next) => {
+  putObjetivosEducacion(req,res,next)
 })
 
 

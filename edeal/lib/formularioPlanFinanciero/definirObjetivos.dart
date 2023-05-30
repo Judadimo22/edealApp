@@ -100,6 +100,8 @@ class _DefinirObjetivoState extends State<DefinirObjetivo> {
         )),
           }, 
           child: Text('Educacion')),
+          if(userData['tipoInstitucionEducativa'] != null )
+          const Text('Ya has terminado el formulario de objetivos de educacion'),
           ElevatedButton(
           onPressed: () => {
           Navigator.push(

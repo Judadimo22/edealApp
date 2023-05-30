@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:edeal/formularioPlanFinanciero/controlFinanzas.dart';
+import 'package:edeal/formularioPlanFinanciero/definirObjetivos.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:http/http.dart' as http;
@@ -65,6 +66,63 @@ class _EducacionState extends State<Educacion> {
     } else {
       print('Error: ${response.statusCode}');
     }
+  }
+
+  void saveObjetivosEducacion() async {
+    // var newData = _newDataController.text;
+
+    var response = await http.put(
+      Uri.parse('http://192.168.1.108:3001/objetivosEducacion/$userId'),
+      body: {
+        'numeroHijos': _numeroHijosController.text,
+        'nombreEstudiante1': _nameController.text,
+        'añoIniciara': _anoInicioController.text,
+        'añosEstudiaria': _numeroAnosController.text,
+        'importanciaEducacionEstudiante1': _importanciaController.text,
+        'montoEstimadoEducacion': _montoAnualController.text,
+        'tipoInstitucionEducativa': _tipoInstitucion,
+        'ubicacionEstudiante1': _ubicacion,
+        'nombreInstitucionEducativa': _nombreInstitucionController.text
+      },
+    );
+
+    if (response.statusCode == 200) {
+      setState(() {
+        userData['numeroHijos'] = _numeroHijosController.text;
+        userData['nombreEstudiante1'] = _nameController.text;
+        userData['añoIniciara'] = _anoInicioController.text;
+        userData['añosEstudiaria'] = _numeroAnosController.text;
+        userData['importanciaEducacionEstudiante1'] = _importanciaController.text;
+        userData['montoEstimadoEducacion'] = _montoAnualController.text;
+        userData['tipoInstitucionEducativa'] = _tipoInstitucion;
+        userData['ubicacionEstudiante1'] = _ubicacion;
+        userData['nombreInstitucionEducativa'] = _nombreInstitucionController.text;       
+      });
+
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Objetivos de educacion actualizados'),
+            content: Text('Tus objetivos de educacion han sido actualizados'),
+            actions: [
+              TextButton(
+                  onPressed: (){
+                   Navigator.push(context, MaterialPageRoute(builder: (context)=>DefinirObjetivo(token: widget.token)));
+                  },
+                child: Text('Aceptar'),
+              ),
+            ],
+          );
+        },
+      );
+
+      // setState(() {
+      //   _ahorroPara = 'Quiero ahorrar para:';
+      //   // _valorAhorroController = '';
+      //   _plazo = 'Plazo(meses):';
+      // });
+}
   }
 
 
@@ -284,6 +342,7 @@ class _EducacionState extends State<Educacion> {
               margin: const EdgeInsets.only(top: 30, bottom: 30, left: 20, right: 20),
               child: ElevatedButton(
                 onPressed: () =>{
+                  saveObjetivosEducacion()
                 },
                 child: const Text('Continuar')),
             )
