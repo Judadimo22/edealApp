@@ -116,10 +116,31 @@ class _DefinirObjetivoState extends State<DefinirObjetivo> {
           margin: const EdgeInsets.only(top: 40),
           child: ElevatedButton(
           onPressed: () => {
-          Navigator.push(
+            if(userData['plazoVacaciones'] == null || userData['cuentaConPlanSalud'] == null || userData['numeroHijos'] == null || userData['valorViviendaRetiro'] == null){
+                      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('Completa todos los campos antes de continuar'),
+              content: Text('Tu información se almacenó correctamente.'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('Aceptar'),
+                ),
+              ],
+            );
+          },
+        )
+            }
+          else {
+           Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => PerfilRiesgo(token: widget.token,),
         )),
+          }
           }, 
           child: Text('Continuar')),
         )
