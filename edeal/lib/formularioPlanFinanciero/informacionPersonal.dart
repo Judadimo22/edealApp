@@ -134,7 +134,29 @@ class _InformacionPersonalState extends State<InformacionPersonal> {
             actions: [
               TextButton(
                   onPressed: (){
-                   Navigator.push(context, MaterialPageRoute(builder: (context)=>ControlFinanzas(token: widget.token)));
+                    if (userData['estadoCivilCliente1'] == null){
+                              showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('Completa todos los campos antes de continuar'),
+              content: Text('Tu información se almacenó correctamente.'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('Aceptar'),
+                ),
+              ],
+            );
+          },
+        );
+                    }
+            else {
+             Navigator.push(context, MaterialPageRoute(builder: (context)=>ControlFinanzas(token: widget.token)));
+            }
+
                   },
                 child: Text('Aceptar'),
               ),
@@ -203,48 +225,30 @@ class _InformacionPersonalState extends State<InformacionPersonal> {
               ),
             ),
             Container(
+              width: 370,
               margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
-              child: TextField(
-                controller: _nameController,
-                keyboardType: TextInputType.text,
-                decoration: const InputDecoration(
-                  hintText: 'Nombre',
-                  hintStyle: TextStyle(
-                    color: Colors.white
-                  )
-                ),
+              child: Text(
+                'Nombre: ${userData['name']}',
                 style: const TextStyle(
-                  color: Colors.white
-                ),
-              ),
+                  color: Colors.white,
+                  fontSize: 16
+                )
+                )
             ),
             Container(
-              margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
-              child: TextField(
-                controller: _fechaNacimientoController,
-                readOnly: true,
-                decoration: InputDecoration(
-                  hintText: 'Fecha de nacimiento',
-                  hintStyle: const TextStyle(
-                    color: Colors.white
-                  ),
-                  suffixIcon: IconButton(
-                    onPressed: (){
-                      _selectDateFechaNacimiento(context);
-                    }, 
-                    icon: const Icon(
-                      color: Colors.white,
-                      Icons.calendar_today
-                    ))
-                ),
+              width: 370,
+              margin: const EdgeInsets.only(top: 25, left: 20, right: 20),
+              child: Text(
+                'Fecha de nacimiento: ${userData['fechaNacimiento']}',
                 style: const TextStyle(
-                  color: Colors.white
-                )
-              ) ,
+                  color: Colors.white,
+                  fontSize: 16
+                ),
+                ) ,
             ),
             Container(
               width: 374,
-              margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
+              margin: const EdgeInsets.only(top: 10, left: 20, right: 20),
               child: DropdownButton<String>(
                 dropdownColor: const Color(0XFF524898),
                 value: _estatusCivil,
