@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:edeal/dashboard.dart';
 import 'package:edeal/views/homeScreen.dart';
 import 'package:edeal/views/planeacionScreen.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,9 @@ class _FuentesAdicionalesState extends State<FuentesAdicionales> {
 
   String _habilidadEspecial = 'Habilidad para generar ingresos';
   String _desarrollarHabilidades = 'Desarrollar habilidades';
-  String _generarIngresos = 'Enumere la opcion';
+  String _trabajarMas = 'Enumere la opcion';
+  String _ahorrarMas = 'Enumere la opcion';
+  String _gastarMenos = 'Enumere la opcion';
   String _viviendaPropia = 'Tiene vivienda propia';
   String _productosGustaria= 'Productos que me gustaria tener';
   String _analisisAsegurabilidad = 'Analisis de asegurabilidad';
@@ -114,11 +117,24 @@ class _FuentesAdicionalesState extends State<FuentesAdicionales> {
     });
   }
 
-  void updateGenrarIngresos(String? newGenerarIngresos) {
+  void updateTrabajarMas(String? newTrabajarMas) {
     setState(() {
-      _generarIngresos = newGenerarIngresos!;
+      _trabajarMas = newTrabajarMas!;
     });
   }
+
+  void updateAhorrarMas(String? newAhorrarMas) {
+    setState(() {
+      _ahorrarMas = newAhorrarMas!;
+    });
+  }
+
+  void updateGastarMenos(String? newGastarMenos) {
+    setState(() {
+      _gastarMenos = newGastarMenos!;
+    });
+  }
+
 
   void updateViviendaPropia(String? newViviendaPropia) {
     setState(() {
@@ -148,6 +164,68 @@ class _FuentesAdicionalesState extends State<FuentesAdicionales> {
     setState(() {
       _planHerencia = newPlanHerencia!;
     });
+  }
+
+
+  void saveFuentesAdicionales() async {
+    // var newData = _newDataController.text;
+
+    var response = await http.put(
+      Uri.parse('http://192.168.1.108:3001/fuentesAdicionales/$userId'),
+      body: {
+        'trabajarMas': _trabajarMas,
+        'ahorrarMas': _ahorrarMas,
+        'gastarMenos': _gastarMenos,
+        'habilidadGenerarIngresos': _habilidadEspecial,
+        'desarrollarHabilidades': _desarrollarHabilidades,
+        'viviendaPropia': _viviendaPropia,
+        'productosGustariaTener': _productosGustaria,
+        'analisisAsegurabilidad': _analisisAsegurabilidad,
+        'migracion': _migracion,
+        'planHerencia': _planHerencia
+      },
+    );
+
+    if (response.statusCode == 200) {
+      setState(() {
+        userData['trabajarMas'] = _trabajarMas;
+        userData['ahorrarMas'] = _ahorrarMas;
+        userData['gastarMenos'] = _gastarMenos;
+        userData['habilidadGenerarIngresos'] = _habilidadEspecial;
+        userData['desarrollarHabilidades'] = _desarrollarHabilidades;
+        userData['viviendaPropia'] = _viviendaPropia;
+        userData['productosGustariaTener'] = _productosGustaria;
+        userData['analisisAsegurabilidad'] = _analisisAsegurabilidad;
+        userData['migracion'] = _migracion;      
+        userData['planHerencia'] = _planHerencia;  
+      });
+
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Formulario completado'),
+            content: Text('Gracias por completar el formulario de plan financiero'),
+            actions: [
+              TextButton(
+                  onPressed: (){
+             Navigator.push(context, MaterialPageRoute(builder: (context)=>Dashboard(token: widget.token)));
+        
+
+                },
+                child: Text('Aceptar'),
+              ),
+            ],
+          );
+        },
+      );
+
+      // setState(() {
+      //   _ahorroPara = 'Quiero ahorrar para:';
+      //   // _valorAhorroController = '';
+      //   _plazo = 'Plazo(meses):';
+      // });
+}
   }
 
 
@@ -218,8 +296,8 @@ class _FuentesAdicionalesState extends State<FuentesAdicionales> {
                       color: Color(0XFF524898),
                       child: DropdownButton<String>(
                         dropdownColor: Color(0XFF524898),
-                        value: _generarIngresos,
-                        onChanged: updateGenrarIngresos,
+                        value: _trabajarMas,
+                        onChanged: updateTrabajarMas,
                         items: <String>[
                           'Enumere la opcion',
                           '1',
@@ -263,8 +341,8 @@ class _FuentesAdicionalesState extends State<FuentesAdicionales> {
                       color: Color(0XFF524898),
                       child: DropdownButton<String>(
                         dropdownColor: Color(0XFF524898),
-                        value: _generarIngresos,
-                        onChanged: updateGenrarIngresos,
+                        value: _ahorrarMas,
+                        onChanged: updateAhorrarMas,
                         items: <String>[
                           'Enumere la opcion',
                           '1',
@@ -307,8 +385,8 @@ class _FuentesAdicionalesState extends State<FuentesAdicionales> {
                       color: Color(0XFF524898),
                       child: DropdownButton<String>(
                         dropdownColor: Color(0XFF524898),
-                        value: _generarIngresos,
-                        onChanged: updateGenrarIngresos,
+                        value: _gastarMenos,
+                        onChanged: updateGastarMenos,
                         items: <String>[
                           'Enumere la opcion',
                           '1',
@@ -564,10 +642,7 @@ class _FuentesAdicionalesState extends State<FuentesAdicionales> {
                     SizedBox(height: 20),
                     ElevatedButton(
                       onPressed: (){
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Home(token: widget.token,),
-        ));
+                        saveFuentesAdicionales();
                       },
                       child: Text('Finalizar', style: TextStyle(fontSize: 18)),
                       style: ElevatedButton.styleFrom(

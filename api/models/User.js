@@ -435,6 +435,36 @@ const userSchema = mongoose.Schema({
     },
     continuarRetiros: {
         type: String
+    },
+    trabajarMas: {
+        type: String
+    },
+    ahorrarMas: {
+        type: String
+    },
+    gastarMenos: {
+        type: String
+    },
+    habilidadGenerarIngresos: {
+        type: String
+    },
+    desarrollarHabilidades: {
+        type: String
+    },
+    viviendaPropia: {
+        type: String
+    },
+    productosGustariaTener: {
+        type: String
+    },
+    analisisAsegurabilidad: {
+        type: String
+    },
+    migracion: {
+        type: String
+    },
+    planHerencia: {
+        type: String
     }
 
 

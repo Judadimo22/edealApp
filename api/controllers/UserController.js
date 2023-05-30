@@ -580,6 +580,35 @@ const getUsers = async (req, res) => {
       .catch((error) => res.status(500).json({ message: `${error} ` }));
   };
 
+  const putFuentesAdicionales= async (req, res) => {
+    const { id } = req.params;
+  
+    const {trabajarMas, ahorrarMas, gastarMenos, habilidadGenerarIngresos, desarrollarHabilidades, viviendaPropia, productosGustariaTener, analisisAsegurabilidad, migracion, planHerencia } =
+      req.body;
+  
+    userSchema
+      .updateOne(
+        { _id: id },
+        {
+          $set: {
+            trabajarMas,
+            ahorrarMas,
+            gastarMenos,
+            habilidadGenerarIngresos,
+            desarrollarHabilidades,
+            viviendaPropia,
+            productosGustariaTener,
+            analisisAsegurabilidad,
+            migracion,
+            planHerencia
+          },
+        }
+      )
+      .then((data) => res.json(data))
+      .catch((error) => res.status(500).json({ message: `${error} ` }));
+  };
+
+
 
   
 
@@ -606,5 +635,6 @@ module.exports ={
     putObjetivosSalud,
     putObjetivosEducacion,
     putObjetivosRetiro,
-    putPerfilRiesgo
+    putPerfilRiesgo,
+    putFuentesAdicionales
 }

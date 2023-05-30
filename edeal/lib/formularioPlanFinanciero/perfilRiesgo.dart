@@ -154,7 +154,7 @@ class _PerfilRiesgoState extends State<PerfilRiesgo> {
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text('Perfil de riesgo actualizado'),
-            content: Text('Gracias por completar el paso núnero 5.'),
+            content: Text('Gracias por completar el paso núnero 4.'),
             actions: [
               TextButton(
                   onPressed: (){
