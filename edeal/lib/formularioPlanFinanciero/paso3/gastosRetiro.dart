@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:edeal/formularioPlanFinanciero/controlFinanzas.dart';
+import 'package:edeal/formularioPlanFinanciero/definirObjetivos.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:http/http.dart' as http;
@@ -48,6 +49,67 @@ class _GastosRetiroState extends State<GastosRetiro > {
       _ubicacion = newUbicacion!;
     });
   }
+
+  void saveObjetivosRetiro() async {
+    // var newData = _newDataController.text;
+
+    var response = await http.put(
+      Uri.parse('http://192.168.1.108:3001/objetivosRetiro/$userId'),
+      body: {
+        'valorViviendaRetiro': _valorViviendaController.text,
+        'importanciaViviendaRetiro': _importanciaViviendaController.text,
+        'valorViajesRetiro': _valorViajesController.text,
+        'importanciaViajesRetiro': _importanciaViajesController.text,
+        'valorSaludRetiro': _valorSaludController.text,
+        'importanciaSaludRetiro': _importanciaSaludController.text,
+        'valorDependientesRetiro': _valorDependientesController.text,
+        'importanciaDependientesRetiro': _importanciaDependientesController.text,
+        'valorOtrosRetiro': _valorOtrosController.text,
+        'importanciaOtrosRetiro': _importanciaOtrosController.text
+      },
+    );
+
+    if (response.statusCode == 200) {
+      setState(() {
+        userData['valorViviendaRetiro'] = _valorViviendaController.text;
+        userData['importanciaViviendaRetiro'] = _importanciaViviendaController.text;
+        userData['valorViajesRetiro'] = _valorViajesController.text;
+        userData['importanciaViajesRetiro'] = _importanciaViajesController.text;
+        userData['valorSaludRetiro'] = _valorSaludController.text;
+        userData['importanciaSaludRetiro'] = _importanciaSaludController.text;
+        userData['valorDependientesRetiro'] = _valorDependientesController.text;
+        userData['importanciaDependientesRetiro'] = _importanciaDependientesController.text;
+        userData['valorOtrosRetiro'] = _valorOtrosController.text;  
+        userData['importanciaOtrosRetiro'] = _importanciaOtrosController.text; 
+
+      });
+
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Objetivos de retiro actualizados'),
+            content: Text('Tus objetivos de retiro han sido actualizados'),
+            actions: [
+              TextButton(
+                  onPressed: (){
+                   Navigator.push(context, MaterialPageRoute(builder: (context)=>DefinirObjetivo(token: widget.token)));
+                  },
+                child: Text('Aceptar'),
+              ),
+            ],
+          );
+        },
+      );
+
+      // setState(() {
+      //   _ahorroPara = 'Quiero ahorrar para:';
+      //   // _valorAhorroController = '';
+      //   _plazo = 'Plazo(meses):';
+      // });
+}
+  }
+
 
 
   @override
@@ -328,6 +390,7 @@ class _GastosRetiroState extends State<GastosRetiro > {
               margin: const EdgeInsets.only(top: 30, bottom: 30, left: 20, right: 20),
               child: ElevatedButton(
                 onPressed: () =>{
+                  saveObjetivosRetiro()
                 },
                 child: const Text('Continuar')),
             )

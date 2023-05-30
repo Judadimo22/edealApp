@@ -497,6 +497,34 @@ const getUsers = async (req, res) => {
       .catch((error) => res.status(500).json({ message: `${error} ` }));
   };
 
+  const putObjetivosRetiro= async (req, res) => {
+    const { id } = req.params;
+  
+    const { valorViviendaRetiro, importanciaViviendaRetiro, valorViajesRetiro, importanciaViajesRetiro, valorSaludRetiro, importanciaSaludRetiro, valorDependientesRetiro, importanciaDependientesRetiro, valorOtrosRetiro, importanciaOtrosRetiro } =
+      req.body;
+  
+    userSchema
+      .updateOne(
+        { _id: id },
+        {
+          $set: {
+            valorViviendaRetiro,
+            importanciaViviendaRetiro,
+            valorViajesRetiro,
+            importanciaViajesRetiro,
+            valorSaludRetiro,
+            importanciaSaludRetiro,
+            valorDependientesRetiro,
+            importanciaDependientesRetiro,
+            valorOtrosRetiro,
+            importanciaOtrosRetiro
+          },
+        }
+      )
+      .then((data) => res.json(data))
+      .catch((error) => res.status(500).json({ message: `${error} ` }));
+  };
+
   const putObjetivosEducacion= async (req, res) => {
     const { id } = req.params;
   
@@ -548,5 +576,6 @@ module.exports ={
     putGastosCredito,
     putMetasFinancieras,
     putObjetivosSalud,
-    putObjetivosEducacion
+    putObjetivosEducacion,
+    putObjetivosRetiro
 }

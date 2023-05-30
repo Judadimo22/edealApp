@@ -110,6 +110,8 @@ class _DefinirObjetivoState extends State<DefinirObjetivo> {
         )),
           }, 
           child: Text('Gastos para mi retiro')),
+          if(userData['valorViviendaRetiro'] != null )
+          const Text('Ya has terminado el formulario de objetivos de retiro'),
         Container(
           margin: const EdgeInsets.only(top: 40),
           child: ElevatedButton(

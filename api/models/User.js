@@ -375,6 +375,36 @@ const userSchema = mongoose.Schema({
     },
     nombreInstitucionEducativa: {
         type: String
+    },
+    valorViviendaRetiro: {
+        type: String
+    },
+    importanciaViviendaRetiro: {
+        type: String
+    },
+    valorViajesRetiro: {
+        type: String
+    },
+    importanciaViajesRetiro: {
+        type: String
+    },
+    valorSaludRetiro: {
+        type: String
+    },
+    importanciaSaludRetiro: {
+        type: String
+    },
+    valorDependientesRetiro: {
+        type: String
+    },
+    importanciaDependientesRetiro: {
+        type: String
+    },
+    valorOtrosRetiro: {
+        type: String
+    },
+    importanciaOtrosRetiro: {
+        type: String
     }
 
 
