@@ -51,13 +51,26 @@ class _ControlFinanzasState extends State<ControlFinanzas> {
 
 
   Widget build(BuildContext context) {
+     double porcentajeAvance = 40;
+     double porcentajeAvance2 = 20;
+     double porcentajeAvance3 = 20;
     return Scaffold(
       backgroundColor: Color(0XFF524898),
       body: Center(
         child: Container(
-          margin: EdgeInsets.only(top: 200),
+          margin: EdgeInsets.only(top: 70),
           child: Column(
           children: [
+            Container(
+              margin: EdgeInsets.only(top: 40),
+              child:LinearProgressIndicator(
+          value: porcentajeAvance / 100, 
+        ),
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 20),
+              child:Text('Has completado el ${porcentajeAvance.toStringAsFixed(1)}% del formulario'),
+            ),
           Container(
               margin: const EdgeInsets.only(top: 20, bottom: 40),
               child: const Text(

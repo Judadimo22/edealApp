@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'package:edeal/formularioPlanFinanciero/informacionPersonal.dart';
+import 'package:edeal/formularioPlanFinanciero/paso2/gastos.dart';
+import 'package:edeal/formularioPlanFinanciero/perfilRiesgo.dart';
 import 'package:edeal/views/homeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -71,10 +73,24 @@ class _PlaneacionScreenState extends State<PlaneacionScreen> {
       body: Center(
         child: ElevatedButton(
           onPressed: () => {
+          if(userData['nombreDependiente'] == null){
           Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => InformacionPersonal(token: widget.token)),
-        ),
+        ), 
+          }
+        //   else if(userData['nombreDependiente'] != null && userData['salario'] != null && userData['inversiones']!= null && userData['cine'] != null){
+        //   Navigator.push(
+        //   context,
+        //   MaterialPageRoute(builder: (context) => PerfilRiesgo(token: widget.token)),
+        // ), 
+        //   }
+        else if(userData['nombreDependiente'] != null && userData['salario'] != null && userData['inversiones'] !=null && userData['cine'] != null && userData['arriendo'] != null && userData['cuotaCarro'] != null && userData['seguroSalud'] != null && userData['hoteles'] != null && userData['predial'] != null && userData['montoInicialGastosCredito'] != null && userData['plazoAutomovil'] != null && userData['tipoPlanSalud'] != null && userData['numeroHijos'] != null && userData['importanciaViviendaRetiro'] != null && userData['experienciaInversiones'] == null ){
+          Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => PerfilRiesgo(token: widget.token)),
+        ), 
+          }
           }, 
           child: Text('Diligenciar formulario'))
       ),

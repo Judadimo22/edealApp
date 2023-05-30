@@ -55,14 +55,25 @@ class _DefinirObjetivoState extends State<DefinirObjetivo> {
 
 
   Widget build(BuildContext context) {
+     double porcentajeAvance = 60;
     return Scaffold(
       backgroundColor: Color(0XFF524898),
       body: Center(
         child: Container(
-          margin: EdgeInsets.only(top: 200),
+          margin: EdgeInsets.only(top: 70, bottom: 40),
           child: Column(
           children: [
-                      Container(
+            Container(
+              margin: EdgeInsets.only(top: 40),
+              child:LinearProgressIndicator(
+          value: porcentajeAvance / 100, 
+        ),
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 20),
+              child:Text('Has completado el ${porcentajeAvance.toStringAsFixed(1)}% del formulario'),
+            ),
+            Container(
               margin: const EdgeInsets.only(top: 20, bottom: 40, right: 20, left: 20),
               child: const Text(
                 'Paso 3: Definir mis objetivos de largo plazo ',

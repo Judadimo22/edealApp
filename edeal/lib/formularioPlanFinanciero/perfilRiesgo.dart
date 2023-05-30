@@ -200,7 +200,7 @@ class _PerfilRiesgoState extends State<PerfilRiesgo> {
 
   @override
   Widget build(BuildContext context) {
-     double porcentajeAvance = 50; // Porcentaje de avance deseado
+     double porcentajeAvance = 80; // Porcentaje de avance deseado
     return Scaffold(
       backgroundColor: Color(0XFF524898),
       body: Center(

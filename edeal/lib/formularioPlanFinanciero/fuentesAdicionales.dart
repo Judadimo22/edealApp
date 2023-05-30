@@ -231,6 +231,7 @@ class _FuentesAdicionalesState extends State<FuentesAdicionales> {
 
   @override
   Widget build(BuildContext context) {
+     double porcentajeAvance = 90;
     return Scaffold(
       backgroundColor: Color(0XFF524898),
       body: Center(
@@ -239,6 +240,16 @@ class _FuentesAdicionalesState extends State<FuentesAdicionales> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(height: 20),
+            Container(
+              margin: EdgeInsets.only(top: 40),
+              child:LinearProgressIndicator(
+          value: porcentajeAvance / 100, // Valor de progreso entre 0.0 y 1.0
+        ),
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 20),
+              child:Text('Has completado el ${porcentajeAvance.toStringAsFixed(1)}% del formulario'),
+            ),
             Form(
               key: _formKey,
               child: Padding(

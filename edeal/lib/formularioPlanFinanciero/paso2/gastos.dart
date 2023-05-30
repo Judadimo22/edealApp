@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:edeal/formularioPlanFinanciero/controlFinanzas.dart';
 import 'package:edeal/formularioPlanFinanciero/gastos/creditos.dart';
 import 'package:edeal/formularioPlanFinanciero/gastos/entretenimiento.dart';
 import 'package:edeal/formularioPlanFinanciero/gastos/financieros.dart';
@@ -147,6 +148,17 @@ class _GastosState extends State<Gastos> {
           child: Text('Mis créditos')),
          if(userData['tipoDeudaGastosCredito'] != null) 
          Text('Ya has completado el formulario de gastos en creditos'),
+         Container(
+          margin: EdgeInsets.only(top: 50),
+          child: ElevatedButton(
+            onPressed: (){
+          Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => ControlFinanzas(token: widget.token)),
+        );
+            },
+            child: const Text ('FInalizar fomulario gastos')),
+         )
           ],
         ),
         )
