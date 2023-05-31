@@ -1,6 +1,10 @@
 import 'dart:convert';
+import 'package:edeal/formularioPlanFinanciero/controlFinanzas.dart';
+import 'package:edeal/formularioPlanFinanciero/definirObjetivos.dart';
+import 'package:edeal/formularioPlanFinanciero/fuentesAdicionales.dart';
 import 'package:edeal/formularioPlanFinanciero/informacionPersonal.dart';
 import 'package:edeal/formularioPlanFinanciero/paso2/gastos.dart';
+import 'package:edeal/formularioPlanFinanciero/paso3/metasFinancieras.dart';
 import 'package:edeal/formularioPlanFinanciero/perfilRiesgo.dart';
 import 'package:edeal/views/homeScreen.dart';
 import 'package:flutter/material.dart';
@@ -68,7 +72,7 @@ class _PlaneacionScreenState extends State<PlaneacionScreen> {
       );
     }
     else {
-          return Scaffold(
+      return Scaffold(
       backgroundColor: Color(0XFF524898),
       body: Center(
         child: ElevatedButton(
@@ -79,18 +83,30 @@ class _PlaneacionScreenState extends State<PlaneacionScreen> {
           MaterialPageRoute(builder: (context) => InformacionPersonal(token: widget.token)),
         ), 
           }
-        //   else if(userData['nombreDependiente'] != null && userData['salario'] != null && userData['inversiones']!= null && userData['cine'] != null){
-        //   Navigator.push(
-        //   context,
-        //   MaterialPageRoute(builder: (context) => PerfilRiesgo(token: widget.token)),
-        // ), 
-        //   }
-        else if(userData['nombreDependiente'] != null && userData['salario'] != null && userData['inversiones'] !=null && userData['cine'] != null && userData['arriendo'] != null && userData['cuotaCarro'] != null && userData['seguroSalud'] != null && userData['hoteles'] != null && userData['predial'] != null && userData['montoInicialGastosCredito'] != null && userData['plazoAutomovil'] != null && userData['tipoPlanSalud'] != null && userData['numeroHijos'] != null && userData['importanciaViviendaRetiro'] != null && userData['experienciaInversiones'] == null ){
+        else if(userData['cine'] == null || userData['predial'] == null && userData['nombreDependiente'] != null){
+          Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => ControlFinanzas(token: widget.token)),
+          )
+        }
+        else if(userData['cine'] != null && userData['hoteles'] != null && userData['arriendo'] != null && userData['cuotaCarro'] != null && userData['seguroSalud'] != null && userData['predial'] != null && userData['plazoAutomovil'] == null){
+          Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => DefinirObjetivo(token: widget.token)),
+          )
+        }
+        else if(userData['cine'] != null && userData['hoteles'] != null && userData['arriendo'] != null && userData['cuotaCarro'] != null && userData['seguroSalud'] != null && userData['predial'] != null && userData['plazoAutomovil'] != null && userData['tipoPlanSalud'] != null && userData['nombreEstudiante1'] != null && userData['valorViviendaRetiro'] != null && userData['experienciaInversiones'] == null){
           Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => PerfilRiesgo(token: widget.token)),
-        ), 
-          }
+          )
+        }
+        else if(userData['cine'] != null && userData['hoteles'] != null && userData['arriendo'] != null && userData['cuotaCarro'] != null && userData['seguroSalud'] != null && userData['predial'] != null && userData['plazoAutomovil'] != null && userData['tipoPlanSalud'] != null && userData['nombreEstudiante1'] != null && userData['valorViviendaRetiro'] != null && userData['experienciaInversiones'] != null && userData['planHerencia'] == null){
+          Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => FuentesAdicionales(token: widget.token)),
+          )
+        }
           }, 
           child: Text('Diligenciar formulario'))
       ),
