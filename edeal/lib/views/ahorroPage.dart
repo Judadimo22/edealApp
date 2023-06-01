@@ -5,6 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:velocity_x/velocity_x.dart';
+import 'package:intl/intl.dart';
+import 'package:flutter/services.dart';
+
 
 class AhorroScreen extends StatefulWidget {
   final String token;
@@ -26,6 +29,7 @@ class _AhorroScreenState extends State<AhorroScreen> {
   // String _valorAhorro = 'Valor del ahorro(millones):';
   String _plazo= 'Plazo(meses):';
   bool _showTextField = false;
+
 
   @override
   void initState() {
@@ -49,30 +53,16 @@ class _AhorroScreenState extends State<AhorroScreen> {
 
 void saveUserData() async {
   if (_formKey.currentState!.validate()) {
-    var newData = _newDataController.text;
-
-    var response = await http.put(
-      Uri.parse('https://edeal-app.onrender.com/ahorro/$userId'),
-      body: {
-        'ahorroPara': _ahorroPara == 'Otros' ? newData : _ahorroPara,
-        'valorAhorro': _valorAhorroController.text,
-        'plazoAhorro': _plazo,
-      },
-    );
-
-    if (response.statusCode == 200) {
-      setState(() {
-        userData['ahorroPara'] = _ahorroPara == 'Otros' ? newData : _ahorroPara;
-        userData['valorAhorro'] = _valorAhorroController.text;
-        userData['plazoAhorro'] = _plazo;
-      });
-
+    if (_valorAhorroController.text.isEmpty ||
+        _plazo == 'Plazo(meses):' ||
+        _ahorroPara == 'Quiero ahorrar para:'
+        ) {
       showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Información actualizada'),
-            content: Text('Tu información se almacenó correctamente.'),
+            title: Text('Campos incompletos'),
+            content: Text('Por favor, completa todos los campos antes de enviar el formulario.'),
             actions: [
               TextButton(
                 onPressed: () {
@@ -84,14 +74,51 @@ void saveUserData() async {
           );
         },
       );
-
-      setState(() {
-        _ahorroPara = 'Quiero ahorrar para:';
-        // _valorAhorroController = '';
-        _plazo = 'Plazo(meses):';
-      });
     } else {
-      print('Error al actualizar la información: ${response.statusCode}');
+      var newData = _newDataController.text;
+
+      var response = await http.put(
+        Uri.parse('https://edeal-app.onrender.com/ahorro/$userId'),
+        body: {
+          'ahorroPara': _ahorroPara == 'Otros' ? newData : _ahorroPara,
+          'valorAhorro': _valorAhorroController.text,
+          'plazoAhorro': _plazo,
+        },
+      );
+
+      if (response.statusCode == 200) {
+        setState(() {
+          userData['ahorroPara'] = _ahorroPara == 'Otros' ? newData : _ahorroPara;
+          userData['valorAhorro'] = _valorAhorroController.text;
+          userData['plazoAhorro'] = _plazo;
+        });
+
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('Información actualizada'),
+              content: Text('Tu información se almacenó correctamente.'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('Aceptar'),
+                ),
+              ],
+            );
+          },
+        );
+
+        setState(() {
+          _ahorroPara = 'Quiero ahorrar para:';
+          // _valorAhorroController = '';
+          _plazo = 'Plazo(meses):';
+        });
+      } else {
+        print('Error al actualizar la información: ${response.statusCode}');
+      }
     }
   }
 }
@@ -236,7 +263,7 @@ Container(
   child: TextField(
     controller: _valorAhorroController,
     keyboardType: TextInputType.number,
-    style: TextStyle(color: Colors.white), // Cambiar el color del texto que se ingresa
+    style: TextStyle(color: Colors.white),
     decoration: InputDecoration(
       errorStyle: TextStyle(color: Colors.white),
       hintText: "Monto del ahorro",

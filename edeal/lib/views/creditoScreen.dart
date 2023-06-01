@@ -53,6 +53,30 @@ class _CreditoScreenState extends State<CreditoScreen> {
 
   void saveUserData() async {
     if (_formKey.currentState!.validate()) {
+          if (_montoCreditoController.text.isEmpty ||
+        _plazoCredito == 'Plazo del crédito en meses' ||
+        _tarjetaCredito == 'Tengo tarjeta de crédito:' ||
+        _creditoPara == 'Me gustaría un crédito para:' ||
+        _banco == 'Con cual banco:'
+        ) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Campos incompletos'),
+            content: Text('Por favor, completa todos los campos antes de enviar el formulario.'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('Aceptar'),
+              ),
+            ],
+          );
+        },
+      );
+    } else {
       var newData = _newDataController.text;
 
       var response = await http.put(
@@ -88,9 +112,10 @@ class _CreditoScreenState extends State<CreditoScreen> {
                   child: Text('Aceptar'),
                 ),
               ],
-            );
+            ) ;
           },
-        );
+        )
+      ;
 
         print('Información actualizada correctamente');
         setState(() {
@@ -105,7 +130,7 @@ class _CreditoScreenState extends State<CreditoScreen> {
       }
     }
   }
-
+  }
   void updateSelectedOption(String? newValue) {
     setState(() {
       _creditoPara = newValue!;
@@ -387,6 +412,5 @@ Container(
 
   }
 }
-
 
 
