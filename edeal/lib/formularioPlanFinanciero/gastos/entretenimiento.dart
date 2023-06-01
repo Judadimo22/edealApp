@@ -73,7 +73,7 @@ class _EntretenimientoState extends State<Entretenimiento> {
   }
 
   void fetchUserData() async {
-    var response = await http.get(Uri.parse('http://192.168.1.108:3001/user/$userId'));
+    var response = await http.get(Uri.parse('https://edeal-app.onrender.com/user/$userId'));
 
     if (response.statusCode == 200) {
       setState(() {
@@ -88,7 +88,7 @@ class _EntretenimientoState extends State<Entretenimiento> {
     // var newData = _newDataController.text;
 
     var response = await http.put(
-      Uri.parse('http://192.168.1.108:3001/gastosEntretenimiento/$userId'),
+      Uri.parse('https://edeal-app.onrender.com/gastosEntretenimiento/$userId'),
       body: {
         'restaurantes': _restaurantesController.text,
         'cine': _cineController.text,
@@ -228,7 +228,33 @@ class _EntretenimientoState extends State<Entretenimiento> {
                 margin: const EdgeInsets.only(top: 30, bottom: 30, left: 20, right: 20),
                 child: ElevatedButton(
                   onPressed: () => {
-                    saveGastosEntretenimiento()
+             if (_restaurantesController.text.isEmpty ||
+        _cineController.text.isEmpty ||
+        _conciertosController.text.isEmpty ||
+        _eventosDeportivosController.text.isEmpty ||
+        _salidasFiestasController.text.isEmpty 
+        ) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Completa todos los campos antes de continuar'),
+            content: Text('Por favor completa todos los campos antes de continuar'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('Aceptar'),
+              ),
+            ],
+          );
+        },
+      )
+    } else {
+      saveGastosEntretenimiento()
+    }
+                    
                   },
                   child: const Text('Continuar'),
                 ),
