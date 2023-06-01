@@ -91,7 +91,7 @@ class _IngresosState extends State<Ingresos> {
   }
 
   void fetchUserData() async {
-    var response = await http.get(Uri.parse('http://192.168.1.108:3001/user/$userId'));
+    var response = await http.get(Uri.parse('https://edeal-app.onrender.com/user/$userId'));
 
     if (response.statusCode == 200) {
       setState(() {
@@ -106,7 +106,7 @@ class _IngresosState extends State<Ingresos> {
     // var newData = _newDataController.text;
 
     var response = await http.put(
-      Uri.parse('http://192.168.1.108:3001/ingresos/$userId'),
+      Uri.parse('https://edeal-app.onrender.com/ingresos/$userId'),
       body: {
         'salario': _salarioController.text,
         'inversionesPesos': _inversionesPesosController.text,
@@ -276,7 +276,35 @@ class _IngresosState extends State<Ingresos> {
                 margin: const EdgeInsets.only(top: 30, bottom: 30, left: 20, right: 20),
                 child: ElevatedButton(
                   onPressed: () => {
-                    saveIngresos()
+                    if (_salarioController.text.isEmpty ||
+        _inversionesPesosController.text.isEmpty ||
+        _inversionesDolarController.text.isEmpty ||
+        _alquilerInmobiliarioController.text.isEmpty ||
+        _dividendosController.text.isEmpty ||
+        _pensionesController.text.isEmpty ||
+        _otrosIngresosController.text.isEmpty
+        ) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Completa todos los campos antes de continuar'),
+            content: Text('Tu información se almacenó correctamente.'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('Aceptar'),
+              ),
+            ],
+          );
+        },
+      )
+    } else {
+      saveIngresos()
+    }
+                    
                   },
                   child: const Text('Continuar'),
                 ),

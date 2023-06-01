@@ -31,7 +31,7 @@ class _ControlFinanzasState extends State<ControlFinanzas> {
   }
 
   void fetchUserData() async {
-    var response = await http.get(Uri.parse('http://192.168.1.108:3001/user/$userId'));
+    var response = await http.get(Uri.parse('https://edeal-app.onrender.com/user/$userId'));
 
     if (response.statusCode == 200) {
       setState(() {
@@ -98,9 +98,12 @@ class _ControlFinanzasState extends State<ControlFinanzas> {
           MaterialPageRoute(builder: (context) => Ingresos(token: widget.token)),
         ),
           }, 
+          style: userData['salario'] != null
+            ? ButtonStyle(
+            backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
+            )
+            : null,
           child: Text('Ingresos')),
-         if(userData['salario'] != null) 
-         Text('Ya has completado el formulario de Ingresos'),
           ElevatedButton(
           onPressed: () => {
           Navigator.push(
@@ -108,9 +111,12 @@ class _ControlFinanzasState extends State<ControlFinanzas> {
           MaterialPageRoute(builder: (context) => Ahorros(token: widget.token)),
         ),
           }, 
+            style: userData['inversiones'] != null
+            ? ButtonStyle(
+            backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
+            )
+            : null,
           child: Text('Ahorros')),
-         if(userData['aportesRetiro'] != null)
-         Text('Ya has completado el formulario de Ahorros'),
           ElevatedButton(
           onPressed: () => {
           Navigator.push(
@@ -118,6 +124,11 @@ class _ControlFinanzasState extends State<ControlFinanzas> {
           MaterialPageRoute(builder: (context) => Gastos(token: widget.token,),
         )),
           }, 
+            style: userData['arriendo'] != null && userData['cotaCarro'] != null && userData['cine'] != null && userData['seguroSalud'] != null && userData['hoteles'] != null && userData['predial'] != null && userData['saldoActualgastosCredito'] != null
+            ? ButtonStyle(
+            backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
+            )
+            : null,
           child: Text('Gastos')),
          if(userData['creditoHipotecario'] != null && userData['cuotaCarro'] != null && userData['cine'] != null && userData['seguroSalud'] != null && userData['hoteles'] != null && userData['predial'] != null && userData['tipoDeudaGastosCredito'] != null)
          Text('Ya has completado el formulario de Gastos'),
