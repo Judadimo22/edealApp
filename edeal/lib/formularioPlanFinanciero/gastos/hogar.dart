@@ -107,7 +107,7 @@ class _HogarState extends State<Hogar> {
   }
 
   void fetchUserData() async {
-    var response = await http.get(Uri.parse('http://192.168.1.108:3001/user/$userId'));
+    var response = await http.get(Uri.parse('https://edeal-app.onrender.com/user/$userId'));
 
     if (response.statusCode == 200) {
       setState(() {
@@ -122,7 +122,7 @@ class _HogarState extends State<Hogar> {
     // var newData = _newDataController.text;
 
     var response = await http.put(
-      Uri.parse('http://192.168.1.108:3001/gastosHogar/$userId'),
+      Uri.parse('https://edeal-app.onrender.com/gastosHogar/$userId'),
       body: {
         'creditoHipotecario': _creditoHipotecarioController.text,
         'arriendo': _arriendoController.text,
@@ -318,7 +318,37 @@ class _HogarState extends State<Hogar> {
                 margin: const EdgeInsets.only(top: 30, bottom: 30, left: 20, right: 20),
                 child: ElevatedButton(
                   onPressed: () => {
-                    saveGastosHogar()
+               if (_creditoHipotecarioController.text.isEmpty ||
+        _arriendoController.text.isEmpty ||
+        _serviciosPublicosController.text.isEmpty ||
+        _internetController.text.isEmpty ||
+        _planCelularController.text.isEmpty ||
+        _mantenimientoHogarController.text.isEmpty ||
+        _segurosHogarController.text.isEmpty ||
+        _mercadoController.text.isEmpty || 
+        _otrosGastosHogar.text.isEmpty
+        ) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Completa todos los campos antes de continuar'),
+            content: Text('Por favor completa todos los campos antes de continuar'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('Aceptar'),
+              ),
+            ],
+          );
+        },
+      )
+    } else {
+      saveGastosHogar()
+    }
+                    
                   },
                   child: const Text('Continuar'),
                 ),

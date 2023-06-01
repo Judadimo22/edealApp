@@ -38,7 +38,7 @@ class _GastosState extends State<Gastos> {
   }
 
   void fetchUserData() async {
-    var response = await http.get(Uri.parse('http://192.168.1.108:3001/user/$userId'));
+    var response = await http.get(Uri.parse('https://edeal-app.onrender.com/user/$userId'));
 
     if (response.statusCode == 200) {
       setState(() {
@@ -85,9 +85,12 @@ class _GastosState extends State<Gastos> {
           MaterialPageRoute(builder: (context) => Hogar(token: widget.token)),
         ),
           }, 
+            style: userData['mantenimientoHogar'] != null
+            ? ButtonStyle(
+            backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
+            )
+            : null,
           child: Text('Hogar')),
-         if(userData['mantenimientoHogar'] != null) 
-         Text('Ya has completado el formulario de gastos del hogar'),
           ElevatedButton(
           onPressed: () => {
           Navigator.push(
@@ -95,9 +98,12 @@ class _GastosState extends State<Gastos> {
           MaterialPageRoute(builder: (context) => Transporte(token: widget.token)),
         ),
           }, 
+          style: userData['mantenimientoCarro'] != null
+            ? ButtonStyle(
+            backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
+            )
+            : null,
           child: Text('Transporte')),
-         if(userData['mantenimientoCarro'] != null) 
-         Text('Ya has completado el formulario de gastos de transporte'),
           ElevatedButton(
           onPressed: () => {
           Navigator.push(
@@ -105,9 +111,12 @@ class _GastosState extends State<Gastos> {
           MaterialPageRoute(builder: (context) => Entretenimiento(token: widget.token,),
         )),
           }, 
+           style: userData['salidasFiestas'] != null
+            ? ButtonStyle(
+            backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
+            )
+            : null,
           child: Text('Entretenimiento y ocio')),
-         if(userData['salidasFiestas'] != null) 
-         Text('Ya has completado el formulario de gastos de entretenimiento'),
           ElevatedButton(
           onPressed: () => {
           Navigator.push(
@@ -115,9 +124,12 @@ class _GastosState extends State<Gastos> {
           MaterialPageRoute(builder: (context) => Financieros(token: widget.token,),
         )),
           }, 
+            style: userData['creditoLibreInversion'] != null
+            ? ButtonStyle(
+            backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
+            )
+            : null,
           child: Text('Financieros')),
-         if(userData['creditoLibreInversion'] != null) 
-         Text('Ya has completado el formulario de gastos financieros'),
           ElevatedButton(
           onPressed: () => {
           Navigator.push(
@@ -125,9 +137,12 @@ class _GastosState extends State<Gastos> {
           MaterialPageRoute(builder: (context) => Vacaciones(token: widget.token,),
         )),
           }, 
+           style: userData['gastosViaje'] != null
+            ? ButtonStyle(
+            backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
+            )
+            : null,
           child: Text('Vacaciones')),
-         if(userData['gastosViaje'] != null) 
-         Text('Ya has completado el formulario de gastos de vacaciones'),
           ElevatedButton(
           onPressed: () => {
           Navigator.push(
@@ -135,9 +150,12 @@ class _GastosState extends State<Gastos> {
           MaterialPageRoute(builder: (context) => Impuestos(token: widget.token,),
         )),
           }, 
+           style: userData['predial'] != null
+            ? ButtonStyle(
+            backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
+            )
+            : null,
           child: Text('Impuestos')),
-         if(userData['predial'] != null) 
-         Text('Ya has completado el formulario de gastos en impuestos'),
           ElevatedButton(
           onPressed: () => {
           Navigator.push(
@@ -145,6 +163,11 @@ class _GastosState extends State<Gastos> {
           MaterialPageRoute(builder: (context) => Creditos(token: widget.token,),
         )),
           }, 
+          style: userData['tipoDeudaGastosCredito'] != null
+            ? ButtonStyle(
+            backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
+            )
+            : null,
           child: Text('Mis créditos')),
          if(userData['tipoDeudaGastosCredito'] != null) 
          Text('Ya has completado el formulario de gastos en creditos'),
@@ -157,7 +180,7 @@ class _GastosState extends State<Gastos> {
           MaterialPageRoute(builder: (context) => ControlFinanzas(token: widget.token)),
         );
             },
-            child: const Text ('FInalizar fomulario gastos')),
+            child: const Text ('Finalizar fomulario gastos')),
          )
           ],
         ),

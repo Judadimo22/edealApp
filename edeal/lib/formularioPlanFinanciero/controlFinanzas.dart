@@ -130,8 +130,6 @@ class _ControlFinanzasState extends State<ControlFinanzas> {
             )
             : null,
           child: Text('Gastos')),
-         if(userData['creditoHipotecario'] != null && userData['cuotaCarro'] != null && userData['cine'] != null && userData['seguroSalud'] != null && userData['hoteles'] != null && userData['predial'] != null && userData['tipoDeudaGastosCredito'] != null)
-         Text('Ya has completado el formulario de Gastos'),
         Container(
           margin: const EdgeInsets.only(top: 40),
           child: ElevatedButton(
