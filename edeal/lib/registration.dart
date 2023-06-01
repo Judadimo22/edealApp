@@ -222,7 +222,7 @@ class _RegistrationState extends State<Registration> {
                     margin: EdgeInsets.only(bottom: 20),
                     child:TextField(
                     controller: phoneController,
-                    keyboardType: TextInputType.text,
+                    keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                         errorStyle: TextStyle(color: Colors.white),
                         errorText: _isNotValidate ? "Enter Proper Info" : null,
@@ -252,7 +252,7 @@ class _RegistrationState extends State<Registration> {
                     margin: EdgeInsets.only(bottom: 20),
                     child:TextField(
                     controller: cedulaController,
-                    keyboardType: TextInputType.text,
+                    keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                         errorStyle: TextStyle(color: Colors.white),
                         errorText: _isNotValidate ? "Enter Proper Info" : null,

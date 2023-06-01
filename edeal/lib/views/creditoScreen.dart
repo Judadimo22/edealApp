@@ -40,7 +40,7 @@ class _CreditoScreenState extends State<CreditoScreen> {
   }
 
   void fetchUserData() async {
-    var response = await http.get(Uri.parse('http://192.168.1.108:3001/user/$userId'));
+    var response = await http.get(Uri.parse('https://edeal-app.onrender.com/user/$userId'));
 
     if (response.statusCode == 200) {
       setState(() {
@@ -56,7 +56,7 @@ class _CreditoScreenState extends State<CreditoScreen> {
       var newData = _newDataController.text;
 
       var response = await http.put(
-        Uri.parse('http://192.168.1.108:3001/credit/$userId'),
+        Uri.parse('https://edeal-app.onrender.com/credit/$userId'),
         body: {
           'credito': _creditoPara,
           'tarjetaDeCredito': _tarjetaCredito,
@@ -352,7 +352,7 @@ Container(
   margin: EdgeInsets.only(bottom: 20),
   child: TextField(
     controller: _montoCreditoController,
-    keyboardType: TextInputType.text,
+    keyboardType: TextInputType.number,
     style: TextStyle(color: Colors.white), // Cambiar el color del texto que se ingresa
     decoration: InputDecoration(
       errorStyle: TextStyle(color: Colors.white),
