@@ -37,7 +37,7 @@ class _DashboardState extends State<Dashboard> {
 
   void fetchUserData() async {
     var response =
-        await http.get(Uri.parse('http://192.168.1.108:3001/user/$userId'));
+        await http.get(Uri.parse('https://edeal-app.onrender.com/user/$userId'));
 
     if (response.statusCode == 200) {
       setState(() {

@@ -30,7 +30,7 @@ class _HomeState extends State<Home> {
   }
 
   void fetchUserData() async {
-    var response = await http.get(Uri.parse('http://192.168.1.108:3001/user/$userId'));
+    var response = await http.get(Uri.parse('https://edeal-app.onrender.com/user/$userId'));
 
     if (response.statusCode == 200) {
       setState(() {

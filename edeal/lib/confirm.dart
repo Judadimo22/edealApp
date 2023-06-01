@@ -43,7 +43,7 @@ class _ConfirmState extends State<Confirm> {
 
   void fetchUserData() async {
     var response = await http.get(
-      Uri.parse('http://192.168.1.108:3001/user/$userId'),
+      Uri.parse('https://edeal-app.onrender.com/user/$userId'),
       headers: {
         'Authorization': 'Bearer ${widget.token}',
       },
@@ -65,7 +65,8 @@ class _ConfirmState extends State<Confirm> {
     String codeUser = codeController.text;
     if (userData['code'] == codeUser) {
       var response = await http.put(
-        Uri.parse('http://192.168.1.108:3001/confirmar/$userId'),
+        // Uri.parse('http://192.168.1.108:3001/confirmar/$userId'),
+        Uri.parse('https://edeal-app.onrender.com/confirmar/$userId'),
       );
       showDialog(
         context: context,
@@ -129,7 +130,7 @@ class _ConfirmState extends State<Confirm> {
   void reenviarEmail() async {
     var userEmail = userData['email'];
     var response = await http.put(
-      Uri.parse('http://192.168.1.108:3001/reenviar/$userId/$userEmail'),
+      Uri.parse('https://edeal-app.onrender.com/$userId/$userEmail'),
     );
 
     if (response.statusCode == 200) {
