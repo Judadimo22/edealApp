@@ -408,7 +408,7 @@ class _InformacionPersonalState extends State<InformacionPersonal> {
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text('Completa todos los campos antes de continuar'),
-            content: Text('Tu información se almacenó correctamente.'),
+            content: Text('Por favor completa todos los campos antes de continuar'),
             actions: [
               TextButton(
                 onPressed: () {

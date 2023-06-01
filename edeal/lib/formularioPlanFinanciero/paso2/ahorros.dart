@@ -75,7 +75,7 @@ class _AhorrosState extends State<Ahorros> {
   }
 
   void fetchUserData() async {
-    var response = await http.get(Uri.parse('http://192.168.1.108:3001/user/$userId'));
+    var response = await http.get(Uri.parse('https://edeal-app.onrender.com/user/$userId'));
 
     if (response.statusCode == 200) {
       setState(() {
@@ -90,7 +90,7 @@ class _AhorrosState extends State<Ahorros> {
     // var newData = _newDataController.text;
 
     var response = await http.put(
-      Uri.parse('http://192.168.1.108:3001/ahorros/$userId'),
+      Uri.parse('https://edeal-app.onrender.com/ahorros/$userId'),
       body: {
         'aportesEmergencia': _aportesEmergenciaController.text,
         'aportesAhorro': _aportesAhorroController.text,
@@ -187,7 +187,7 @@ class _AhorrosState extends State<Ahorros> {
                   controller: _aportesRetiroController,
                   keyboardType: TextInputType.number,
                   decoration: const InputDecoration(
-                    hintText: 'Aportes a mi fondo e retiro',
+                    hintText: 'Aportes a mi fondo de retiro',
                     hintStyle: TextStyle(color: Colors.white),
                   ),
                   style: const TextStyle(color: Colors.white),
@@ -231,7 +231,33 @@ class _AhorrosState extends State<Ahorros> {
                 margin: const EdgeInsets.only(top: 30, bottom: 30, left: 20, right: 20),
                 child: ElevatedButton(
                   onPressed: () => {
-                    saveAhorros()
+        if (_aportesEmergenciaController.text.isEmpty ||
+        _aportesAhorroController.text.isEmpty ||
+        _aportesRetiroController.text.isEmpty ||
+        _inversionesController.text.isEmpty ||
+        _otrosAhorrosController.text.isEmpty 
+        ) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Completa todos los campos antes de continuar'),
+            content: Text('Por favor completa todos los campos antes de continuar'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('Aceptar'),
+              ),
+            ],
+          );
+        },
+      )
+    } else {
+      saveAhorros()
+    }
+                    
                   },
                   child: const Text('Continuar'),
                 ),
