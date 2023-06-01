@@ -124,7 +124,7 @@ class _ControlFinanzasState extends State<ControlFinanzas> {
           MaterialPageRoute(builder: (context) => Gastos(token: widget.token,),
         )),
           }, 
-            style: userData['arriendo'] != null && userData['cotaCarro'] != null && userData['cine'] != null && userData['seguroSalud'] != null && userData['hoteles'] != null && userData['predial'] != null && userData['saldoActualgastosCredito'] != null
+            style: userData['arriendo'] != null && userData['cuotaCarro'] != null && userData['cine'] != null && userData['seguroSalud'] != null && userData['hoteles'] != null && userData['predial'] != null && userData['saldoActualGastosCredito'] != null
             ? ButtonStyle(
             backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
             )

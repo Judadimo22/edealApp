@@ -59,7 +59,7 @@ class _VacacionesState extends State<Vacaciones> {
   }
 
   void fetchUserData() async {
-    var response = await http.get(Uri.parse('http://192.168.1.108:3001/user/$userId'));
+    var response = await http.get(Uri.parse('https://edeal-app.onrender.com/user/$userId'));
 
     if (response.statusCode == 200) {
       setState(() {
@@ -74,7 +74,7 @@ class _VacacionesState extends State<Vacaciones> {
     // var newData = _newDataController.text;
 
     var response = await http.put(
-      Uri.parse('http://192.168.1.108:3001/gastosVacaciones/$userId'),
+      Uri.parse('https://edeal-app.onrender.com/gastosVacaciones/$userId'),
       body: {
         'tiquetesAereos': _tiquetesAereosController.text,
         'hoteles': _hotelesController.text,
@@ -186,7 +186,31 @@ class _VacacionesState extends State<Vacaciones> {
                 margin: const EdgeInsets.only(top: 30, bottom: 30, left: 20, right: 20),
                 child: ElevatedButton(
                   onPressed: () => {
-                    saveGastosVacaciones()
+                if (_tiquetesAereosController.text.isEmpty ||
+        _hotelesController.text.isEmpty ||
+        _gastosViajeController.text.isEmpty 
+        ) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Completa todos los campos antes de continuar'),
+            content: Text('Por favor completa todos los campos antes de continuar'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('Aceptar'),
+              ),
+            ],
+          );
+        },
+      )
+    } else {
+      saveGastosVacaciones()
+    }
+                    
                   },
                   child: const Text('Continuar'),
                 ),

@@ -72,7 +72,7 @@ class _CreditosState extends State<Creditos> {
   }
 
   void fetchUserData() async {
-    var response = await http.get(Uri.parse('http://192.168.1.108:3001/user/$userId'));
+    var response = await http.get(Uri.parse('https://edeal-app.onrender.com/user/$userId'));
 
     if (response.statusCode == 200) {
       setState(() {
@@ -88,7 +88,7 @@ class _CreditosState extends State<Creditos> {
     // var newData = _newDataController.text;
 
     var response = await http.put(
-      Uri.parse('http://192.168.1.108:3001/gastosCredito/$userId'),
+      Uri.parse('https://edeal-app.onrender.com/gastosCredito/$userId'),
       body: {
         'tipoDeudaGastosCredito': _tipoDeuda,
         'institucionGastosCredito': _institucion,
@@ -293,8 +293,9 @@ class _CreditosState extends State<Creditos> {
               margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
               child: TextField(
                 controller: _plazoCreditoController,
+                keyboardType: TextInputType.number,
                 decoration: const InputDecoration(
-                  hintText: 'Plazo del crédito',
+                  hintText: 'Plazo del crédito (meses)',
                   hintStyle: TextStyle(
                     color: Colors.white
                   )
@@ -324,6 +325,7 @@ class _CreditosState extends State<Creditos> {
               margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
               child: TextField(
                 controller: _interesDeudaController,
+                keyboardType: TextInputType.number,
                 decoration: const InputDecoration(
                   hintText: 'Interés de la deuda (anual)',
                   hintStyle: TextStyle(
@@ -339,6 +341,7 @@ class _CreditosState extends State<Creditos> {
               margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
               child: TextField(
                 controller: _pagoMensualController,
+                 keyboardType: TextInputType.number,
                 decoration: const InputDecoration(
                   hintText: 'Pago mensual (opcional)',
                   hintStyle: TextStyle(
@@ -354,7 +357,35 @@ class _CreditosState extends State<Creditos> {
               margin: const EdgeInsets.only(top: 30, bottom: 30, left: 20, right: 20),
               child: ElevatedButton(
                 onPressed: () =>{
-                  saveGastoCredito()
+              if (_tipoDeuda == 'Tipo de deuda' ||
+              _institucion == 'Institucion' ||
+                _montoInicialController.text.isEmpty ||
+        _fechaAdquisicionController.text.isEmpty ||
+        _plazoCreditoController.text.isEmpty ||
+        _saldoActualController.text.isEmpty ||
+        _interesDeudaController.text.isEmpty
+        ) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Completa todos los campos antes de continuar'),
+            content: Text('Por favor completa todos los campos antes de continuar'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('Aceptar'),
+              ),
+            ],
+          );
+        },
+      )
+    } else {
+      saveGastoCredito()
+    }
+                  
                 },
                 child: const Text('Continuar')),
             )
