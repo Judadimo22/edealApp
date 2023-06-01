@@ -73,7 +73,7 @@ class _FinancierosState extends State<Financieros> {
   }
 
   void fetchUserData() async {
-    var response = await http.get(Uri.parse('http://192.168.1.108:3001/user/$userId'));
+    var response = await http.get(Uri.parse('https://edeal-app.onrender.com/user/$userId'));
 
     if (response.statusCode == 200) {
       setState(() {
@@ -88,7 +88,7 @@ class _FinancierosState extends State<Financieros> {
     // var newData = _newDataController.text;
 
     var response = await http.put(
-      Uri.parse('http://192.168.1.108:3001/gastosFinancieros/$userId'),
+      Uri.parse('https://edeal-app.onrender.com/gastosFinancieros/$userId'),
       body: {
         'seguroSalud': _seguroSaludController.text,
         'seguroVida': _seguroVidaController.text,
@@ -228,7 +228,33 @@ class _FinancierosState extends State<Financieros> {
                 margin: const EdgeInsets.only(top: 30, bottom: 30, left: 20, right: 20),
                 child: ElevatedButton(
                   onPressed: () => {
-                    saveGastosFinancieros()
+            if (_seguroSaludController.text.isEmpty ||
+        _seguroVidaController.text.isEmpty ||
+        _tarjetaCreditoController.text.isEmpty ||
+        _creditoLibreInversionController.text.isEmpty ||
+        _creditoUsdController.text.isEmpty 
+        ) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Completa todos los campos antes de continuar'),
+            content: Text('Por favor completa todos los campos antes de continuar'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('Aceptar'),
+              ),
+            ],
+          );
+        },
+      )
+    } else {
+      saveGastosFinancieros()
+    }
+                    
                   },
                   child: const Text('Continuar'),
                 ),

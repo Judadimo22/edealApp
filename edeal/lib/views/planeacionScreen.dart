@@ -34,7 +34,7 @@ class _PlaneacionScreenState extends State<PlaneacionScreen> {
   }
 
   void fetchUserData() async {
-    var response = await http.get(Uri.parse('http://192.168.1.108:3001/user/$userId'));
+    var response = await http.get(Uri.parse('https://edeal-app.onrender.com/user/$userId'));
 
     if (response.statusCode == 200) {
       setState(() {
@@ -77,7 +77,7 @@ class _PlaneacionScreenState extends State<PlaneacionScreen> {
       body: Center(
         child: ElevatedButton(
           onPressed: () => {
-          if(userData['nombreDependiente'] == null){
+          if(userData['nombreDependiente'] == null && userData['fechaNacimientoDependiente'] == null){
           Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => InformacionPersonal(token: widget.token)),
