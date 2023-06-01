@@ -88,7 +88,7 @@ class _InformacionPersonalState extends State<InformacionPersonal> {
   }
 
   void fetchUserData() async {
-    var response = await http.get(Uri.parse('http://192.168.1.108:3001/user/$userId'));
+    var response = await http.get(Uri.parse('https://edeal-app.onrender.com/user/$userId'));
 
     if (response.statusCode == 200) {
       setState(() {
@@ -104,7 +104,7 @@ class _InformacionPersonalState extends State<InformacionPersonal> {
     // var newData = _newDataController.text;
 
     var response = await http.put(
-      Uri.parse('http://192.168.1.108:3001/infoPersonal/$userId'),
+      Uri.parse('https://edeal-app.onrender.com/infoPersonal/$userId'),
       body: {
         'estadoCivilCliente1': _estatusCivil,
         'situacionLaboralCliente1': _situacionLaboral,
@@ -396,10 +396,36 @@ class _InformacionPersonalState extends State<InformacionPersonal> {
             Container(
               margin: const EdgeInsets.only(top: 30, bottom: 30, left: 20, right: 20),
               child: ElevatedButton(
-                onPressed: () =>{
-                  saveInfoPersonal()
+  onPressed: () {
+    if (_estatusCivil == 'Estatus civil' ||
+        _situacionLaboral == 'Situacion laboral' ||
+        _lugarResidencia.text.isEmpty ||
+        _nombreDependiente.text.isEmpty ||
+        _relacionDependienteController.text.isEmpty ||
+        _fechaNacimientoDependienteController.text.isEmpty) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Completa todos los campos antes de continuar'),
+            content: Text('Tu información se almacenó correctamente.'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
                 },
-                child: const Text('Continuar')),
+                child: Text('Aceptar'),
+              ),
+            ],
+          );
+        },
+      );
+    } else {
+      saveInfoPersonal();
+    }
+  },
+  child: const Text('Continuar'),
+),
             )
           ],
         ),
