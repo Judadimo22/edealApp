@@ -56,7 +56,7 @@ class _EducacionState extends State<Educacion> {
   }
 
   void fetchUserData() async {
-    var response = await http.get(Uri.parse('http://192.168.1.108:3001/user/$userId'));
+    var response = await http.get(Uri.parse('https://edeal-app.onrender.com/user/$userId'));
 
     if (response.statusCode == 200) {
       setState(() {
@@ -72,7 +72,7 @@ class _EducacionState extends State<Educacion> {
     // var newData = _newDataController.text;
 
     var response = await http.put(
-      Uri.parse('http://192.168.1.108:3001/objetivosEducacion/$userId'),
+      Uri.parse('https://edeal-app.onrender.com/objetivosEducacion/$userId'),
       body: {
         'numeroHijos': _numeroHijosController.text,
         'nombreEstudiante1': _nameController.text,
@@ -342,7 +342,37 @@ class _EducacionState extends State<Educacion> {
               margin: const EdgeInsets.only(top: 30, bottom: 30, left: 20, right: 20),
               child: ElevatedButton(
                 onPressed: () =>{
-                  saveObjetivosEducacion()
+                if (_numeroHijosController.text.isEmpty ||
+                _nameController.text.isEmpty ||
+                _anoInicioController.text.isEmpty ||
+                _numeroAnosController.text.isEmpty ||
+                _importanciaController.text.isEmpty ||
+                _montoAnualController.text.isEmpty ||
+                _tipoInstitucion == 'Tipo de institucion educativa' ||
+                _ubicacion == 'Ubicacion' ||
+                _nombreInstitucionController.text.isEmpty
+        ) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Completa todos los campos antes de continuar'),
+            content: Text('Por favor completa todos los campos antes de continuar'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('Aceptar'),
+              ),
+            ],
+          );
+        },
+      )
+    } else {
+      saveObjetivosEducacion()
+    }
+                  
                 },
                 child: const Text('Continuar')),
             )

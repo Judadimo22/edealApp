@@ -24,7 +24,7 @@ class _SaludState extends State<Salud> {
 
 
 
-  String _planCobertura = 'Cuenta con un plan de covertura de salud';
+  String _planCobertura = 'Cuenta con un plan de cobertura de salud';
   String _tipoPlan = 'Que tipo de plan';
   String _porcentajeCobertura = 'Porcentaje de cobertura de su plan';
 
@@ -43,7 +43,7 @@ class _SaludState extends State<Salud> {
   }
 
   void fetchUserData() async {
-    var response = await http.get(Uri.parse('http://192.168.1.108:3001/user/$userId'));
+    var response = await http.get(Uri.parse('https://edeal-app.onrender.com/user/$userId'));
 
     if (response.statusCode == 200) {
       setState(() {
@@ -107,7 +107,7 @@ class _SaludState extends State<Salud> {
   void updatePlanCobertura(String? newPlanCobertura) {
     setState(() {
       _planCobertura = newPlanCobertura!;
-      if (newPlanCobertura == 'Cuenta con un plan de covertura de salud: Si') {
+      if (newPlanCobertura == 'Cuenta con un plan de cobertura de salud: Si') {
         _showPlanCobertura = true;
       } else {
         _showPlanCobertura = false;
@@ -131,7 +131,7 @@ class _SaludState extends State<Salud> {
     // var newData = _newDataController.text;
 
     var response = await http.put(
-      Uri.parse('http://192.168.1.108:3001/objetivosSalud/$userId'),
+      Uri.parse('https://edeal-app.onrender.com/objetivosSalud/$userId'),
       body: {
         'cuentaConPlanSalud': _planCobertura,
         'tipoPlanSalud': _tipoPlan,
@@ -216,9 +216,9 @@ class _SaludState extends State<Salud> {
                         value: _planCobertura,
                         onChanged: updatePlanCobertura,
                         items: <String>[
-                          'Cuenta con un plan de covertura de salud',
-                          'Cuenta con un plan de covertura de salud: Si',
-                          'Cuenta con un plan de covertura de salud: No'
+                          'Cuenta con un plan de cobertura de salud',
+                          'Cuenta con un plan de cobertura de salud: Si',
+                          'Cuenta con un plan de cobertura de salud: No'
                         ].map<DropdownMenuItem<String>>((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
@@ -310,7 +310,29 @@ class _SaludState extends State<Salud> {
 
                     ElevatedButton(
                       onPressed: (){
-                        saveObjetivosSalud();
+              if (_planCobertura == 'Cuenta con un plan de cobertura de salud'
+        ) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Completa todos los campos antes de continuar'),
+            content: Text('Por favor completa todos los campos antes de continuar'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('Aceptar'),
+              ),
+            ],
+          );
+        },
+      );
+    } else {
+      saveObjetivosSalud();
+    }
+                        
                       },
                       child: Text('Continuar', style: TextStyle(fontSize: 18)),
                       style: ElevatedButton.styleFrom(

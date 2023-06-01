@@ -89,7 +89,7 @@ class _PlaneacionScreenState extends State<PlaneacionScreen> {
           MaterialPageRoute(builder: (context) => ControlFinanzas(token: widget.token)),
           )
         }
-        else if(userData['cine'] != null && userData['hoteles'] != null && userData['arriendo'] != null && userData['cuotaCarro'] != null && userData['seguroSalud'] != null && userData['predial'] != null && userData['plazoAutomovil'] == null){
+        else if(userData['cine'] != null && userData['hoteles'] != null && userData['arriendo'] != null && userData['cuotaCarro'] != null && userData['seguroSalud'] != null && userData['predial'] != null && userData['plazoAutomovil'] == null || userData['tipoPlanSalud'] == null || userData['nombreEstudiante1'] == null ||userData['valorViviendaRetiro'] == null  ){
           Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => DefinirObjetivo(token: widget.token)),

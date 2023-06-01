@@ -84,7 +84,7 @@ class _MetasFinancierasState extends State<MetasFinancieras> {
   }
 
   void fetchUserData() async {
-    var response = await http.get(Uri.parse('http://192.168.1.108:3001/user/$userId'));
+    var response = await http.get(Uri.parse('https://edeal-app.onrender.com/user/$userId'));
 
     if (response.statusCode == 200) {
       setState(() {
@@ -259,7 +259,7 @@ class _MetasFinancierasState extends State<MetasFinancieras> {
     // var newData = _newDataController.text;
 
     var response = await http.put(
-      Uri.parse('http://192.168.1.108:3001/metasFinancieras/$userId'),
+      Uri.parse('https://edeal-app.onrender.com/metasFinancieras/$userId'),
       body: {
         'plazoVacaciones': _plazoVacacionesViajesController.text,
         'valorVacaciones': _valorVacacionesViajesController.text,
@@ -1681,7 +1681,38 @@ class _MetasFinancierasState extends State<MetasFinancieras> {
 
                     ElevatedButton(
                       onPressed: (){
-                        saveMetasFinancieras();
+              if (_vacionesViajes == 'Vacaciones/viajes' ||
+              _automovil == 'Automovil' ||
+                _educacion == 'Educacion' ||
+                _inmuebleColombia == 'Inmueble en Colombia' ||
+                _inmuebleUsa == 'Inmueble en USA' || 
+                _tratamientosMedicos == 'Tratamientos medicos y esteticos' ||
+                _tecnologia == 'Tecnologia' ||
+                _entretenimiento == 'Entretenimiento-conciertos y festivales' ||
+                _eventosDeportivos == 'Eventos deportivos internacionales' ||
+                _otros == 'Otros'
+        ) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Completa todos los campos antes de continuar'),
+            content: Text('Por favor completa todos los campos antes de continuar'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('Aceptar'),
+              ),
+            ],
+          );
+        },
+      );
+    } else {
+      saveMetasFinancieras();
+    }
+                        
                       },
                       child: Text('Guardar metas financieras', style: TextStyle(fontSize: 18)),
                       style: ElevatedButton.styleFrom(

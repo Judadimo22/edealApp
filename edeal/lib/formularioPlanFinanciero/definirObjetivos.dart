@@ -35,7 +35,7 @@ class _DefinirObjetivoState extends State<DefinirObjetivo> {
   }
 
   void fetchUserData() async {
-    var response = await http.get(Uri.parse('http://192.168.1.108:3001/user/$userId'));
+    var response = await http.get(Uri.parse('https://edeal-app.onrender.com/user/$userId'));
 
     if (response.statusCode == 200) {
       setState(() {
@@ -90,9 +90,12 @@ class _DefinirObjetivoState extends State<DefinirObjetivo> {
           MaterialPageRoute(builder: (context) => MetasFinancieras(token: widget.token)),
         ),
           }, 
+          style: userData['importanciaOtros'] != null
+            ? ButtonStyle(
+            backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
+            )
+            : null,
           child: Text('Mis metas financieras')),
-          if(userData['importanciaOtros'] != null && userData['importanciaVacaciones'] != null && userData['plazoAutomovil'] != null)
-          const Text('Ya has terminado el formulario de metas financieras'),
           ElevatedButton(
           onPressed: () => {
           Navigator.push(
@@ -100,9 +103,12 @@ class _DefinirObjetivoState extends State<DefinirObjetivo> {
           MaterialPageRoute(builder: (context) => Salud(token: widget.token)),
         ),
           }, 
+          style: userData['cuentaConPlanSalud'] != null
+            ? ButtonStyle(
+            backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
+            )
+            : null,
           child: Text('Salud')),
-          if(userData['cuentaConPlanSalud'] != null )
-          const Text('Ya has terminado el formulario de objetivos de salud'),
           ElevatedButton(
           onPressed: () => {
           Navigator.push(
@@ -110,9 +116,12 @@ class _DefinirObjetivoState extends State<DefinirObjetivo> {
           MaterialPageRoute(builder: (context) => Educacion(token: widget.token,),
         )),
           }, 
+            style: userData['tipoInstitucionEducativa'] != null
+            ? ButtonStyle(
+            backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
+            )
+            : null,
           child: Text('Educacion')),
-          if(userData['tipoInstitucionEducativa'] != null )
-          const Text('Ya has terminado el formulario de objetivos de educacion'),
           ElevatedButton(
           onPressed: () => {
           Navigator.push(
@@ -120,9 +129,12 @@ class _DefinirObjetivoState extends State<DefinirObjetivo> {
           MaterialPageRoute(builder: (context) => GastosRetiro(token: widget.token,),
         )),
           }, 
+            style: userData['valorViviendaRetiro'] != null
+            ? ButtonStyle(
+            backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
+            )
+            : null,
           child: Text('Gastos para mi retiro')),
-          if(userData['valorViviendaRetiro'] != null )
-          const Text('Ya has terminado el formulario de objetivos de retiro'),
         Container(
           margin: const EdgeInsets.only(top: 40),
           child: ElevatedButton(

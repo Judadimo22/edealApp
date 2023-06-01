@@ -54,7 +54,7 @@ class _GastosRetiroState extends State<GastosRetiro > {
     // var newData = _newDataController.text;
 
     var response = await http.put(
-      Uri.parse('http://192.168.1.108:3001/objetivosRetiro/$userId'),
+      Uri.parse('https://edeal-app.onrender.com/objetivosRetiro/$userId'),
       body: {
         'valorViviendaRetiro': _valorViviendaController.text,
         'importanciaViviendaRetiro': _importanciaViviendaController.text,
@@ -121,7 +121,7 @@ class _GastosRetiroState extends State<GastosRetiro > {
   }
 
   void fetchUserData() async {
-    var response = await http.get(Uri.parse('http://192.168.1.108:3001/user/$userId'));
+    var response = await http.get(Uri.parse('https://edeal-app.onrender.com/user/$userId'));
 
     if (response.statusCode == 200) {
       setState(() {
@@ -190,7 +190,7 @@ class _GastosRetiroState extends State<GastosRetiro > {
               margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
               child: TextField(
                 controller: _valorViviendaController,
-                keyboardType: TextInputType.text,
+                keyboardType: TextInputType.number,
                 decoration: const InputDecoration(
                   hintText: 'Valor de la meta',
                   hintStyle: TextStyle(
@@ -206,7 +206,7 @@ class _GastosRetiroState extends State<GastosRetiro > {
               margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
               child: TextField(
                 controller: _importanciaViviendaController,
-                keyboardType: TextInputType.text,
+                keyboardType: TextInputType.number,
                 decoration: const InputDecoration(
                   hintText: 'Nivel de importancia',
                   hintStyle: TextStyle(
@@ -232,7 +232,7 @@ class _GastosRetiroState extends State<GastosRetiro > {
               margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
               child: TextField(
                 controller: _valorViajesController,
-                keyboardType: TextInputType.text,
+                keyboardType: TextInputType.number,
                 decoration: const InputDecoration(
                   hintText: 'Valor de la meta',
                   hintStyle: TextStyle(
@@ -248,7 +248,7 @@ class _GastosRetiroState extends State<GastosRetiro > {
               margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
               child: TextField(
                 controller: _importanciaViajesController,
-                keyboardType: TextInputType.text,
+                keyboardType: TextInputType.number,
                 decoration: const InputDecoration(
                   hintText: 'Nivel de importancia',
                   hintStyle: TextStyle(
@@ -274,7 +274,7 @@ class _GastosRetiroState extends State<GastosRetiro > {
               margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
               child: TextField(
                 controller: _valorSaludController,
-                keyboardType: TextInputType.text,
+                keyboardType: TextInputType.number,
                 decoration: const InputDecoration(
                   hintText: 'Valor de la meta',
                   hintStyle: TextStyle(
@@ -290,7 +290,7 @@ class _GastosRetiroState extends State<GastosRetiro > {
               margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
               child: TextField(
                 controller: _importanciaSaludController,
-                keyboardType: TextInputType.text,
+                keyboardType: TextInputType.number,
                 decoration: const InputDecoration(
                   hintText: 'Nivel de importancia',
                   hintStyle: TextStyle(
@@ -316,7 +316,7 @@ class _GastosRetiroState extends State<GastosRetiro > {
               margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
               child: TextField(
                 controller: _valorDependientesController,
-                keyboardType: TextInputType.text,
+                keyboardType: TextInputType.number,
                 decoration: const InputDecoration(
                   hintText: 'Valor de la meta',
                   hintStyle: TextStyle(
@@ -332,7 +332,7 @@ class _GastosRetiroState extends State<GastosRetiro > {
               margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
               child: TextField(
                 controller: _importanciaDependientesController,
-                keyboardType: TextInputType.text,
+                keyboardType: TextInputType.number,
                 decoration: const InputDecoration(
                   hintText: 'Nivel de importancia',
                   hintStyle: TextStyle(
@@ -358,7 +358,7 @@ class _GastosRetiroState extends State<GastosRetiro > {
               margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
               child: TextField(
                 controller: _valorOtrosController,
-                keyboardType: TextInputType.text,
+                keyboardType: TextInputType.number,
                 decoration: const InputDecoration(
                   hintText: 'Valor de la meta',
                   hintStyle: TextStyle(
@@ -374,7 +374,7 @@ class _GastosRetiroState extends State<GastosRetiro > {
               margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
               child: TextField(
                 controller: _importanciaOtrosController,
-                keyboardType: TextInputType.text,
+                keyboardType: TextInputType.number,
                 decoration: const InputDecoration(
                   hintText: 'Nivel de importancia',
                   hintStyle: TextStyle(
@@ -390,7 +390,38 @@ class _GastosRetiroState extends State<GastosRetiro > {
               margin: const EdgeInsets.only(top: 30, bottom: 30, left: 20, right: 20),
               child: ElevatedButton(
                 onPressed: () =>{
-                  saveObjetivosRetiro()
+              if (_valorViviendaController.text.isEmpty ||
+                _importanciaViviendaController.text.isEmpty ||
+                _valorViajesController.text.isEmpty ||
+                _importanciaViajesController.text.isEmpty ||
+                _valorSaludController.text.isEmpty ||
+                _importanciaViviendaController.text.isEmpty ||
+                _valorDependientesController.text.isEmpty ||
+                _importanciaDependientesController.text.isEmpty ||
+                _valorOtrosController.text.isEmpty ||
+                _importanciaOtrosController.text.isEmpty
+        ) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Completa todos los campos antes de continuar'),
+            content: Text('Por favor completa todos los campos antes de continuar'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('Aceptar'),
+              ),
+            ],
+          );
+        },
+      )
+    } else {
+      saveObjetivosRetiro()
+    }
+                  
                 },
                 child: const Text('Continuar')),
             )
