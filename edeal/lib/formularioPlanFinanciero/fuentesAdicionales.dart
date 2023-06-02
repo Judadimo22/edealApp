@@ -44,7 +44,7 @@ class _FuentesAdicionalesState extends State<FuentesAdicionales> {
   }
 
   void fetchUserData() async {
-    var response = await http.get(Uri.parse('http://192.168.1.108:3001/user/$userId'));
+    var response = await http.get(Uri.parse('https://edeal-app.onrender.com/user/$userId'));
 
     if (response.statusCode == 200) {
       setState(() {
@@ -171,7 +171,7 @@ class _FuentesAdicionalesState extends State<FuentesAdicionales> {
     // var newData = _newDataController.text;
 
     var response = await http.put(
-      Uri.parse('http://192.168.1.108:3001/fuentesAdicionales/$userId'),
+      Uri.parse('https://edeal-app.onrender.com/fuentesAdicionales/$userId'),
       body: {
         'trabajarMas': _trabajarMas,
         'ahorrarMas': _ahorrarMas,
@@ -653,7 +653,38 @@ class _FuentesAdicionalesState extends State<FuentesAdicionales> {
                     SizedBox(height: 20),
                     ElevatedButton(
                       onPressed: (){
-                        saveFuentesAdicionales();
+                  if (_trabajarMas== 'Enumere la opcion' ||
+                _ahorrarMas == 'Enumere la opcion' ||
+                _gastarMenos == 'Enumere la opcion' ||
+                _habilidadEspecial == 'Habilidad para generar ingresos' ||
+                _desarrollarHabilidades == 'Desarrollar habilidades' ||
+                _viviendaPropia == 'Tener vivienda propia' ||
+                _productosGustaria == 'Productos que me gustaria tener' ||
+                _analisisAsegurabilidad == 'Analisis de asegurabilidad' ||
+                _migracion == 'Migracion (estoy pensando migrar)' ||
+                _planHerencia == 'Plan de herencia'
+        ) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Completa todos los campos antes de continuar'),
+            content: Text('Por favor completa todos los campos antes de continuar'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('Aceptar'),
+              ),
+            ],
+          );
+        },
+      );
+    } else {
+      saveFuentesAdicionales();
+    }
+                        
                       },
                       child: Text('Finalizar', style: TextStyle(fontSize: 18)),
                       style: ElevatedButton.styleFrom(
