@@ -45,7 +45,7 @@ class _PerfilRiesgoState extends State<PerfilRiesgo> {
   }
 
   void fetchUserData() async {
-    var response = await http.get(Uri.parse('http://192.168.1.108:3001/user/$userId'));
+    var response = await http.get(Uri.parse('https://edeal-app.onrender.com/user/$userId'));
 
     if (response.statusCode == 200) {
       setState(() {
@@ -120,7 +120,7 @@ class _PerfilRiesgoState extends State<PerfilRiesgo> {
     // var newData = _newDataController.text;
 
     var response = await http.put(
-      Uri.parse('http://192.168.1.108:3001/perfilRiesgo/$userId'),
+      Uri.parse('https://edeal-app.onrender.com/perfilRiesgo/$userId'),
       body: {
         'experienciaInversiones': _experienciaInversiones,
         'poseoAlgunActivo': _poseo,
@@ -668,7 +668,38 @@ class _PerfilRiesgoState extends State<PerfilRiesgo> {
                     SizedBox(height: 20),
                     ElevatedButton(
                       onPressed: (){
-                        savePerfilRiesgo();
+                  if (_experienciaInversiones == 'Cual es si nivel de experiencia en inversiones' ||
+                _poseo == 'He invertido o actualmente poseo algun activo' ||
+                _generarIngresos == 'Enumere la opcion' ||
+                _arriesgarCapital == 'Enumere la opcion' ||
+                _incrementarPatrimonio == 'Enumere la opcion' ||
+                _protegerPatrimonio == 'Enumere la opcion' ||
+                _perfil == 'Seleccione perfil' ||
+                _prioridades == 'Seleccione prioridades' ||
+                _anosRetiros == 'Seleccione años retiros' ||
+                _tiempoRetiros == 'Seleccione tiempo retiros'
+        ) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Completa todos los campos antes de continuar'),
+            content: Text('Por favor completa todos los campos antes de continuar'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('Aceptar'),
+              ),
+            ],
+          );
+        },
+      );
+    } else {
+      savePerfilRiesgo();
+    }
+                        
                       },
                       child: Text('Continuar', style: TextStyle(fontSize: 18)),
                       style: ElevatedButton.styleFrom(
