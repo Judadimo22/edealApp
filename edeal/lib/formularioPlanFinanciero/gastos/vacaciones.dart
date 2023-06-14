@@ -71,7 +71,6 @@ class _VacacionesState extends State<Vacaciones> {
   }
 
   void saveGastosVacaciones() async {
-    // var newData = _newDataController.text;
 
     var response = await http.put(
       Uri.parse('https://edeal-app.onrender.com/gastosVacaciones/$userId'),
@@ -107,11 +106,6 @@ class _VacacionesState extends State<Vacaciones> {
         },
       );
 
-      // setState(() {
-      //   _ahorroPara = 'Quiero ahorrar para:';
-      //   // _valorAhorroController = '';
-      //   _plazo = 'Plazo(meses):';
-      // });
 }
   }
 

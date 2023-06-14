@@ -51,7 +51,6 @@ class _GastosRetiroState extends State<GastosRetiro > {
   }
 
   void saveObjetivosRetiro() async {
-    // var newData = _newDataController.text;
 
     var response = await http.put(
       Uri.parse('https://edeal-app.onrender.com/objetivosRetiro/$userId'),
@@ -102,11 +101,6 @@ class _GastosRetiroState extends State<GastosRetiro > {
         },
       );
 
-      // setState(() {
-      //   _ahorroPara = 'Quiero ahorrar para:';
-      //   // _valorAhorroController = '';
-      //   _plazo = 'Plazo(meses):';
-      // });
 }
   }
 

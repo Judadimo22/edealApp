@@ -189,18 +189,13 @@ class _PerfilRiesgoState extends State<PerfilRiesgo> {
         },
       );
 
-      // setState(() {
-      //   _ahorroPara = 'Quiero ahorrar para:';
-      //   // _valorAhorroController = '';
-      //   _plazo = 'Plazo(meses):';
-      // });
 }
   }
 
 
   @override
   Widget build(BuildContext context) {
-     double porcentajeAvance = 80; // Porcentaje de avance deseado
+     double porcentajeAvance = 80; 
     return Scaffold(
       backgroundColor: Color(0XFF524898),
       body: Center(
@@ -212,7 +207,7 @@ class _PerfilRiesgoState extends State<PerfilRiesgo> {
             Container(
               margin: EdgeInsets.only(top: 40),
               child:LinearProgressIndicator(
-          value: porcentajeAvance / 100, // Valor de progreso entre 0.0 y 1.0
+          value: porcentajeAvance / 100, 
         ),
             ),
             Container(

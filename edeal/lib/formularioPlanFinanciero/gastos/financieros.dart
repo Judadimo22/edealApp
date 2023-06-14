@@ -85,7 +85,6 @@ class _FinancierosState extends State<Financieros> {
   }
 
   void saveGastosFinancieros() async {
-    // var newData = _newDataController.text;
 
     var response = await http.put(
       Uri.parse('https://edeal-app.onrender.com/gastosFinancieros/$userId'),
@@ -125,11 +124,6 @@ class _FinancierosState extends State<Financieros> {
         },
       );
 
-      // setState(() {
-      //   _ahorroPara = 'Quiero ahorrar para:';
-      //   // _valorAhorroController = '';
-      //   _plazo = 'Plazo(meses):';
-      // });
 }
   }
 

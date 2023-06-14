@@ -101,7 +101,7 @@ class _InformacionPersonalState extends State<InformacionPersonal> {
   }
 
   void saveInfoPersonal() async {
-    // var newData = _newDataController.text;
+
 
     var response = await http.put(
       Uri.parse('https://edeal-app.onrender.com/infoPersonal/$userId'),
@@ -165,11 +165,7 @@ class _InformacionPersonalState extends State<InformacionPersonal> {
         },
       );
 
-      // setState(() {
-      //   _ahorroPara = 'Quiero ahorrar para:';
-      //   // _valorAhorroController = '';
-      //   _plazo = 'Plazo(meses):';
-      // });
+
 }
   }
 

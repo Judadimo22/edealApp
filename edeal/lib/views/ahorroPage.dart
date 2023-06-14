@@ -135,12 +135,6 @@ void saveUserData() async {
     });
   }
 
-  // void updateValorAhorroOption(String? newValorAhorro){
-  //   setState(() {
-  //     _valorAhorro = newValorAhorro!;
-  //   });
-  // }
-
 void updatePlazoOption(String? newValue) {
   if (newValue != null && newValue != 'Plazo(meses):') {
     setState(() {
@@ -269,7 +263,7 @@ Container(
       hintText: "Monto del ahorro",
       hintStyle: TextStyle(color: Colors.white),
       border: UnderlineInputBorder(
-        borderSide: BorderSide(color: Colors.red), // Cambiar el color del borde inferior
+        borderSide: BorderSide(color: Colors.red),
       ),
     ),
   ).p4().px12(),

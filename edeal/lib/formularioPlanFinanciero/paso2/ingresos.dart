@@ -103,7 +103,6 @@ class _IngresosState extends State<Ingresos> {
   }
 
   void saveIngresos() async {
-    // var newData = _newDataController.text;
 
     var response = await http.put(
       Uri.parse('https://edeal-app.onrender.com/ingresos/$userId'),
@@ -115,7 +114,6 @@ class _IngresosState extends State<Ingresos> {
         'dividendos': _dividendosController.text,
         'pensiones': _pensionesController.text,
         'otrosIngresos': _otrosIngresosController.text,
-        // 'totalIngresos': ({(valorSalario + valorInversionesPesos + valorInversionesDolar + valorAlquileres + valorDividendos + valorPensiones + valorOtrosIngresos).toStringAsFixed(2)})
       },
     );
 
@@ -128,7 +126,6 @@ class _IngresosState extends State<Ingresos> {
         userData['dividendos'] = _dividendosController.text;
         userData['pensiones'] = _pensionesController.text;
         userData['otrosIngresos'] = _otrosIngresosController.text;
-        // userData['totalIngresos'] = ({(valorSalario + valorInversionesPesos + valorInversionesDolar + valorAlquileres + valorDividendos + valorPensiones + valorOtrosIngresos).toStringAsFixed(2)});
       });
 
       showDialog(
@@ -149,11 +146,6 @@ class _IngresosState extends State<Ingresos> {
         },
       );
 
-      // setState(() {
-      //   _ahorroPara = 'Quiero ahorrar para:';
-      //   // _valorAhorroController = '';
-      //   _plazo = 'Plazo(meses):';
-      // });
 }
   }
 

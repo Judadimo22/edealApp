@@ -85,7 +85,6 @@ class _CreditosState extends State<Creditos> {
   }
 
   void saveGastoCredito() async {
-    // var newData = _newDataController.text;
 
     var response = await http.put(
       Uri.parse('https://edeal-app.onrender.com/gastosCredito/$userId'),
@@ -132,11 +131,6 @@ class _CreditosState extends State<Creditos> {
         },
       );
 
-      // setState(() {
-      //   _ahorroPara = 'Quiero ahorrar para:';
-      //   // _valorAhorroController = '';
-      //   _plazo = 'Plazo(meses):';
-      // });
 }
   }
 

@@ -95,54 +95,6 @@ class _MetasFinancierasState extends State<MetasFinancieras> {
     }
   }
 
-// void saveUserData() async {
-//   if (_formKey.currentState!.validate()) {
-//     var vacacionesViajes = _vacacionesViajesController.text;
-
-//     var response = await http.put(
-//       Uri.parse('http://192.168.1.108:3001/ahorro/$userId'),
-//       body: {
-//         'ahorroPara': _ahorroPara == 'Otros' ? newData : _ahorroPara,
-//         'valorAhorro': _valorAhorroController.text,
-//         'plazoAhorro': _plazo,
-//       },
-//     );
-
-//     if (response.statusCode == 200) {
-//       setState(() {
-//         userData['ahorroPara'] = _ahorroPara == 'Otros' ? newData : _ahorroPara;
-//         userData['valorAhorro'] = _valorAhorroController.text;
-//         userData['plazoAhorro'] = _plazo;
-//       });
-
-//       showDialog(
-//         context: context,
-//         builder: (BuildContext context) {
-//           return AlertDialog(
-//             title: Text('Información actualizada'),
-//             content: Text('Tu información se almacenó correctamente.'),
-//             actions: [
-//               TextButton(
-//                 onPressed: () {
-//                   Navigator.of(context).pop();
-//                 },
-//                 child: Text('Aceptar'),
-//               ),
-//             ],
-//           );
-//         },
-//       );
-
-//       setState(() {
-//         _ahorroPara = 'Quiero ahorrar para:';
-//         // _valorAhorroController = '';
-//         _plazo = 'Plazo(meses):';
-//       });
-//     } else {
-//       print('Error al actualizar la información: ${response.statusCode}');
-//     }
-//   }
-// }
 
 
   void updateVacacionesViajes(String? newVacacionesViajes) {
@@ -256,7 +208,6 @@ class _MetasFinancierasState extends State<MetasFinancieras> {
   }
 
   void saveMetasFinancieras() async {
-    // var newData = _newDataController.text;
 
     var response = await http.put(
       Uri.parse('https://edeal-app.onrender.com/metasFinancieras/$userId'),
@@ -346,11 +297,6 @@ class _MetasFinancierasState extends State<MetasFinancieras> {
         },
       );
 
-      // setState(() {
-      //   _ahorroPara = 'Quiero ahorrar para:';
-      //   // _valorAhorroController = '';
-      //   _plazo = 'Plazo(meses):';
-      // });
 }
   }
 

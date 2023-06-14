@@ -85,7 +85,6 @@ class _TransporteState extends State<Transporte> {
   }
 
   void saveGastosTransporte() async {
-    // var newData = _newDataController.text;
 
     var response = await http.put(
       Uri.parse('https://edeal-app.onrender.com/gastosTransporte/$userId'),
@@ -125,11 +124,6 @@ class _TransporteState extends State<Transporte> {
         },
       );
 
-      // setState(() {
-      //   _ahorroPara = 'Quiero ahorrar para:';
-      //   // _valorAhorroController = '';
-      //   _plazo = 'Plazo(meses):';
-      // });
 }
   }
 

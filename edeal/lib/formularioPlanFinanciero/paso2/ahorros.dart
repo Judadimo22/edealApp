@@ -87,7 +87,6 @@ class _AhorrosState extends State<Ahorros> {
   }
 
   void saveAhorros() async {
-    // var newData = _newDataController.text;
 
     var response = await http.put(
       Uri.parse('https://edeal-app.onrender.com/ahorros/$userId'),
@@ -127,11 +126,6 @@ class _AhorrosState extends State<Ahorros> {
         },
       );
 
-      // setState(() {
-      //   _ahorroPara = 'Quiero ahorrar para:';
-      //   // _valorAhorroController = '';
-      //   _plazo = 'Plazo(meses):';
-      // });
 }
   }
 

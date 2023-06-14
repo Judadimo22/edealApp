@@ -6,7 +6,6 @@ const userSchema = mongoose.Schema({
         type: String,
         lowercase: true,
         required: [true, "Email can't be empty"],
-        // @ts-ignore
         match: [
             /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/,
             "userName format is not correct",
@@ -469,7 +468,6 @@ const userSchema = mongoose.Schema({
 
 
 },{timestamps:true});
-// used while encrypting user entered password
 userSchema.pre("save",async function(){
     var user = this;
     if(!user.isModified("password")){
@@ -483,11 +481,9 @@ userSchema.pre("save",async function(){
         throw err;
     }
 });
-//used while signIn decrypt
 userSchema.methods.comparePassword = async function (candidatePassword) {
     try {
         console.log('----------------no password',this.password);
-        // @ts-ignore
         const isMatch = await bcrypt.compare(candidatePassword, this.password);
         return isMatch;
     } catch (error) {

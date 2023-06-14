@@ -55,54 +55,6 @@ class _FuentesAdicionalesState extends State<FuentesAdicionales> {
     }
   }
 
-// void saveUserData() async {
-//   if (_formKey.currentState!.validate()) {
-//     var newData = _newDataController.text;
-
-//     var response = await http.put(
-//       Uri.parse('http://192.168.1.108:3001/ahorro/$userId'),
-//       body: {
-//         'ahorroPara': _ahorroPara == 'Otros' ? newData : _ahorroPara,
-//         'valorAhorro': _valorAhorroController.text,
-//         'plazoAhorro': _plazo,
-//       },
-//     );
-
-//     if (response.statusCode == 200) {
-//       setState(() {
-//         userData['ahorroPara'] = _ahorroPara == 'Otros' ? newData : _ahorroPara;
-//         userData['valorAhorro'] = _valorAhorroController.text;
-//         userData['plazoAhorro'] = _plazo;
-//       });
-
-//       showDialog(
-//         context: context,
-//         builder: (BuildContext context) {
-//           return AlertDialog(
-//             title: Text('Información actualizada'),
-//             content: Text('Tu información se almacenó correctamente.'),
-//             actions: [
-//               TextButton(
-//                 onPressed: () {
-//                   Navigator.of(context).pop();
-//                 },
-//                 child: Text('Aceptar'),
-//               ),
-//             ],
-//           );
-//         },
-//       );
-
-//       setState(() {
-//         _ahorroPara = 'Quiero ahorrar para:';
-//         // _valorAhorroController = '';
-//         _plazo = 'Plazo(meses):';
-//       });
-//     } else {
-//       print('Error al actualizar la información: ${response.statusCode}');
-//     }
-//   }
-// }
 
 
   void updateHabilidadEspecial(String? newHabilidadEspecial) {
@@ -168,7 +120,6 @@ class _FuentesAdicionalesState extends State<FuentesAdicionales> {
 
 
   void saveFuentesAdicionales() async {
-    // var newData = _newDataController.text;
 
     var response = await http.put(
       Uri.parse('https://edeal-app.onrender.com/fuentesAdicionales/$userId'),
@@ -220,11 +171,6 @@ class _FuentesAdicionalesState extends State<FuentesAdicionales> {
         },
       );
 
-      // setState(() {
-      //   _ahorroPara = 'Quiero ahorrar para:';
-      //   // _valorAhorroController = '';
-      //   _plazo = 'Plazo(meses):';
-      // });
 }
   }
 
@@ -243,7 +189,7 @@ class _FuentesAdicionalesState extends State<FuentesAdicionales> {
             Container(
               margin: EdgeInsets.only(top: 40),
               child:LinearProgressIndicator(
-          value: porcentajeAvance / 100, // Valor de progreso entre 0.0 y 1.0
+          value: porcentajeAvance / 100,
         ),
             ),
             Container(

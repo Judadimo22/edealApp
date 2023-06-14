@@ -85,7 +85,6 @@ class _EntretenimientoState extends State<Entretenimiento> {
   }
 
   void saveGastosEntretenimiento() async {
-    // var newData = _newDataController.text;
 
     var response = await http.put(
       Uri.parse('https://edeal-app.onrender.com/gastosEntretenimiento/$userId'),
@@ -125,11 +124,6 @@ class _EntretenimientoState extends State<Entretenimiento> {
         },
       );
 
-      // setState(() {
-      //   _ahorroPara = 'Quiero ahorrar para:';
-      //   // _valorAhorroController = '';
-      //   _plazo = 'Plazo(meses):';
-      // });
 }
   }
 

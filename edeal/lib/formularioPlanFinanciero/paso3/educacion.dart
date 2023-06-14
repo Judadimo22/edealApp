@@ -69,7 +69,6 @@ class _EducacionState extends State<Educacion> {
   }
 
   void saveObjetivosEducacion() async {
-    // var newData = _newDataController.text;
 
     var response = await http.put(
       Uri.parse('https://edeal-app.onrender.com/objetivosEducacion/$userId'),
@@ -117,11 +116,6 @@ class _EducacionState extends State<Educacion> {
         },
       );
 
-      // setState(() {
-      //   _ahorroPara = 'Quiero ahorrar para:';
-      //   // _valorAhorroController = '';
-      //   _plazo = 'Plazo(meses):';
-      // });
 }
   }
 

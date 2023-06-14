@@ -378,13 +378,13 @@ Container(
   child: TextField(
     controller: _montoCreditoController,
     keyboardType: TextInputType.number,
-    style: TextStyle(color: Colors.white), // Cambiar el color del texto que se ingresa
+    style: TextStyle(color: Colors.white),
     decoration: InputDecoration(
       errorStyle: TextStyle(color: Colors.white),
       hintText: "Monto del ahorro",
       hintStyle: TextStyle(color: Colors.white),
       border: UnderlineInputBorder(
-        borderSide: BorderSide(color: Colors.red), // Cambiar el color del borde inferior
+        borderSide: BorderSide(color: Colors.red),
       ),
     ),
   ).p4().px12(),
