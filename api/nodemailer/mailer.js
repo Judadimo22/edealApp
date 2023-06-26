@@ -67,22 +67,16 @@ const eMail = async (email, code) => {
       </div>
       <div
         style="
-          background-color: #e3e3e3;
+          background-color: #524898;
           margin-top: 0px;
           padding: 20px 0px 5px 0px;
           text-align: center;
         "
       >
         <h2>Bienvenido a Edeal</h2>
-        <h2>Hola ${email} por favor confirma tu cuenta el código de confirmación es ${code}</h2>
-        <p>
-        Please connfirm your account with the code
-        </p>
+        <p>Hola ${email} por favor confirma tu cuenta el código de confirmación es ${code}</p>
           </div>
         </div>
-          <p style="font-size: 20px; padding: 0px 20px 0px 20px">Soporte</p>
-            @ 2023 Edeal, todos los derechos reservados.
-          </p>
         </div>
       </div>
       <div></div>
