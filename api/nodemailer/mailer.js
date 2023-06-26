@@ -32,23 +32,23 @@ const eMail = async (email, code) => {
           font-family: "Roboto", sans-serif !important;
         }
         h1 {
-          font-size: 60px !important;
+          font-size: 30px !important;
         }
         h2 {
-          font-size: 45px !important;
-        }
-        h3 {
-          font-size: 35px !important;
-        }
-        h4 {
           font-size: 25px !important;
         }
-        h5 {
+        h3 {
+          font-size: 20px !important;
+        }
+        h4 {
           font-size: 15px !important;
+        }
+        h5 {
+          font-size: 12px !important;
         }
         p,
         a {
-          font-size: 15px !important;
+          font-size: 12px !important;
         }
       </style>
     </head>
@@ -57,9 +57,11 @@ const eMail = async (email, code) => {
         <div style="padding: 20px;">
           <div style="background-color: #E8E112; padding: 10px 0px; width: 100%; text-align: center;"></div>
         </div>
-        <div style="background-color: #524898; margin-top: 0px; padding: 20px 0px 5px 0px; text-align: center;">
+        <div style="background-color: #524898; margin-top: 0px; padding: 30px 0px 15px 0px; text-align: center;">
           <h2 style="color: white;">Bienvenido a Edeal</h2>
-          <p style="color: white;">Hola ${email}, por favor confirma tu cuenta. El código de confirmación es ${code}.</p>
+          <p style="color: white;">Hola ${email},</p>
+          <p style="color: white;">Por favor, confirma tu cuenta:</p>
+          <h3 style="color: white; font-weight: bold; margin: 10px 0;">Código de confirmación: ${code}</h3>
         </div>
       </div>
     </body>
