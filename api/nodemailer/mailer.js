@@ -44,18 +44,18 @@ const eMail = async (email, code) => {
           margin: 0;
         }
         .content {
-          background-color: #ffffff;
+          background-color: #524898 ;
           padding: 20px;
           text-align: center;
         }
         .text {
-          color: #524898;
+          color: #ffffff;
           font-size: 16px;
           margin: 0;
           padding: 10px 0;
         }
         .code {
-          color: #524898;
+          color: #ffffff;
           font-size: 20px;
           font-weight: bold;
           margin: 10px 0;
