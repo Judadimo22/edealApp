@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:edeal/views/ahorroPage.dart';
 import 'package:edeal/views/homeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -48,7 +49,7 @@ class _Ahorro2ScreenState extends State<Ahorro2Screen> {
     }
   }
 
-  void saveUserData() async {
+  Future<void> saveUserData() async {
     if (_formKey.currentState!.validate()) {
       if (_valorAhorroController.text.isEmpty ||
           _plazo == 'Plazo(meses):' ||
@@ -110,6 +111,12 @@ class _Ahorro2ScreenState extends State<Ahorro2Screen> {
                   TextButton(
                     onPressed: () {
                       Navigator.of(context).pop();
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AhorroScreen(token: widget.token),
+                        ),
+                      );
                     },
                     child: Text('Aceptar'),
                   ),

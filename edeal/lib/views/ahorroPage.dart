@@ -149,11 +149,16 @@ class _AhorroScreenState extends State<AhorroScreen> {
     }
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     if (userData['ahorroPara'] != null &&
         userData['valorAhorro'] != null &&
-        userData['plazoAhorro'] != null) {
+        userData['plazoAhorro'] != null &&         
+        userData ['ahorro2Para'] == null &&
+        userData ['valorAhorro2'] == null &&
+        userData ['plazoAhorro2'] == null) {
       double valorAhorro = double.parse(userData['valorAhorro']);
       int plazoAhorro = int.parse(userData['plazoAhorro']);
       double metaAhorroMes = (valorAhorro / plazoAhorro);
@@ -222,7 +227,148 @@ showDialog(
           ),
         ),
       );
-    } else {
+
+
+    } else if(userData['ahorroPara'] != null &&
+        userData['valorAhorro'] != null &&
+        userData['plazoAhorro'] != null &&
+        userData ['ahorro2Para'] != null &&
+        userData ['valorAhorro2'] != null &&
+        userData ['plazoAhorro2'] != null){
+      double valorAhorro = double.parse(userData['valorAhorro']);
+      int plazoAhorro = int.parse(userData['plazoAhorro']);
+      double metaAhorroMes = (valorAhorro / plazoAhorro);
+
+        double valorAhorro2 = double.parse(userData['valorAhorro2']);
+      int plazoAhorro2 = int.parse(userData['plazoAhorro2']);
+      double metaAhorro2Mes = (valorAhorro2 / plazoAhorro2);
+      return Scaffold(
+        backgroundColor: Color(0XFF524898),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Meta de ahorro 1',
+                style: TextStyle(fontSize: 24, color: Colors.white),
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+showDialog(
+  context: context,
+  builder: (BuildContext context) {
+    return AlertDialog(
+      title: Text('Información meta de ahorro 1'),
+      content: SingleChildScrollView(
+        child: ConstrainedBox(
+          constraints: BoxConstraints(maxHeight: 150),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Valor del ahorro: ${userData['valorAhorro']}'),
+              SizedBox(height: 10,),
+              Text('El objetivo del ahorro es para: ${userData['ahorroPara']}'),
+              SizedBox(height: 10,),
+              Text('El plazo del ahorro es de: ${userData['plazoAhorro']} meses'),
+              SizedBox(height: 20,),
+              Text(
+                'La meta de ahorro es de: \$${metaAhorroMes.toStringAsFixed(2)}',
+                style: TextStyle(fontSize: 20),
+                ),
+            ],
+          ),
+        ),
+      ),
+      actions: [
+        TextButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          child: Text('Aceptar'),
+        ),
+      ],
+    );
+  },
+);
+                },
+                child: Text('Ver información'),
+              ),
+
+            SizedBox(height: 30,),
+
+
+              Text(
+                'Meta de ahorro 2',
+                style: TextStyle(fontSize: 24, color: Colors.white),
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+showDialog(
+  context: context,
+  builder: (BuildContext context) {
+    return AlertDialog(
+      title: Text('Información meta de ahorro 2'),
+      content: SingleChildScrollView(
+        child: ConstrainedBox(
+          constraints: BoxConstraints(maxHeight: 150),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Valor del ahorro: ${userData['valorAhorro2']}'),
+              SizedBox(height: 10,),
+              Text('El objetivo del ahorro es para: ${userData['ahorro2Para']}'),
+              SizedBox(height: 10,),
+              Text('El plazo del ahorro es de: ${userData['plazoAhorro2']} meses'),
+              SizedBox(height: 20,),
+              Text(
+                'La meta de ahorro es de: \$${metaAhorro2Mes.toStringAsFixed(2)}',
+                style: TextStyle(fontSize: 20),
+                ),
+            ],
+          ),
+        ),
+      ),
+      actions: [
+        TextButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          child: Text('Aceptar'),
+        ),
+      ],
+    );
+  },
+);
+                },
+                child: Text('Ver información'),
+              ),
+
+              SizedBox(height: 70,),
+              ElevatedButton(
+                onPressed: () => {
+                  if(userData['valorAhorro2'] == null){
+                     Navigator.push(
+                     context,
+                     MaterialPageRoute(builder: (context) => Ahorro2Screen(token: widget.token)),
+                  )
+                  }
+                  else if (userData['valorAhorro2'] != null && userData['valorAhorro3'] == null){
+                    Navigator.push(
+                     context,
+                     MaterialPageRoute(builder: (context) => Ahorro2Screen(token: widget.token)),
+                  )       
+                  }
+            },
+                child: Text('Crear nueva meta'))
+            ],
+          ),
+        ),
+      );
+
+
+      } else {
       return Scaffold(
         backgroundColor: Color(0XFF524898),
         body: Center(
