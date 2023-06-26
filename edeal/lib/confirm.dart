@@ -130,7 +130,7 @@ class _ConfirmState extends State<Confirm> {
   void reenviarEmail() async {
     var userEmail = userData['email'];
     var response = await http.put(
-      Uri.parse('https://edeal-app.onrender.com/$userId/$userEmail'),
+      Uri.parse('https://edeal-app.onrender.com/reenviar/$userId/$userEmail'),
     );
 
     if (response.statusCode == 200) {
