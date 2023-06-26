@@ -57,12 +57,22 @@ void saveUserData() async {
         _plazo == 'Plazo(meses):' ||
         _ahorroPara == 'Quiero ahorrar para:'
         ) {
+      String errorMessage = '';
+
+      if (_ahorroPara == 'Quiero ahorrar para:') {
+        errorMessage = 'Por favor, selecciona una opción en Quiero ahorrar para';
+      } else if (_valorAhorroController.text.isEmpty) {
+        errorMessage = 'Por favor, ingresa el monto del ahorro';
+      } else if (_plazo == 'Plazo(meses):') {
+        errorMessage = 'Por favor, selecciona una opción en Plazo';
+      }
+
       showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text('Campos incompletos'),
-            content: Text('Por favor, completa todos los campos antes de enviar el formulario.'),
+            content: Text(errorMessage),
             actions: [
               TextButton(
                 onPressed: () {

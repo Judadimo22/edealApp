@@ -51,20 +51,32 @@ class _CreditoScreenState extends State<CreditoScreen> {
     }
   }
 
-  void saveUserData() async {
-    if (_formKey.currentState!.validate()) {
-          if (_montoCreditoController.text.isEmpty ||
+void saveUserData() async {
+  if (_formKey.currentState!.validate()) {
+    if (_montoCreditoController.text.isEmpty ||
         _plazoCredito == 'Plazo del crédito en meses' ||
         _tarjetaCredito == 'Tengo tarjeta de crédito:' ||
         _creditoPara == 'Me gustaría un crédito para:' ||
         _banco == 'Con cual banco:'
-        ) {
+    ) {
+      String errorMessage = '';
+
+      if (_creditoPara == 'Me gustaría un crédito para:') {
+        errorMessage = 'Por favor, selecciona una opción en Me gustaría un crédito para';
+      } else if (_tarjetaCredito == 'Tengo tarjeta de crédito:') {
+        errorMessage = 'Por favor, selecciona una opción en Tengo tarjeta de crédito';
+      } else if (_montoCreditoController.text.isEmpty) {
+        errorMessage = 'Por favor, ingresa el monto del crédito';
+      } else if (_plazoCredito == 'Plazo del crédito en meses') {
+        errorMessage = 'Por favor, selecciona una opción en Plazo del crédito';
+      }
+
       showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text('Campos incompletos'),
-            content: Text('Por favor, completa todos los campos antes de enviar el formulario.'),
+            content: Text(errorMessage),
             actions: [
               TextButton(
                 onPressed: () {
@@ -381,7 +393,7 @@ Container(
     style: TextStyle(color: Colors.white),
     decoration: InputDecoration(
       errorStyle: TextStyle(color: Colors.white),
-      hintText: "Monto del ahorro",
+      hintText: "Monto del crédito",
       hintStyle: TextStyle(color: Colors.white),
       border: UnderlineInputBorder(
         borderSide: BorderSide(color: Colors.red),
