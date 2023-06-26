@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:edeal/views/ahorroPage.dart';
 import 'package:edeal/views/creditoScreen.dart';
+import 'package:edeal/views/fincaRaizPage.dart';
 import 'package:edeal/views/homeScreen.dart';
 import 'package:edeal/views/planeacionScreen.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +32,8 @@ class _DashboardState extends State<Dashboard> {
       Home(token: widget.token),
       PlaneacionScreen(token: widget.token),
       AhorroScreen(token: widget.token),
-      CreditoScreen(token: widget.token)
+      CreditoScreen(token: widget.token),
+      FincaRaizScreen(token: widget.token)
     ];
   }
 
@@ -79,6 +81,9 @@ class _DashboardState extends State<Dashboard> {
               icon: Icon(Icons.monetization_on), label: "Ahorro"),
           BottomNavigationBarItem(
               icon: Icon(Icons.credit_score_sharp), label: "Crédito"),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home_work), label: "Finca Raíz EEUU"
+          )
         ],
 
     ),

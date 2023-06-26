@@ -1,8 +1,11 @@
 import 'dart:convert';
 import 'package:edeal/views/ahorroPage.dart';
+import 'package:edeal/views/contactPage.dart';
 import 'package:edeal/views/creditoScreen.dart';
+import 'package:edeal/views/fincaRaizPage.dart';
 import 'package:edeal/views/homeScreen.dart';
 import 'package:edeal/views/planeacionScreen.dart';
+import 'package:edeal/views/questionsPage.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:jwt_decoder/jwt_decoder.dart';
@@ -66,13 +69,13 @@ class _HomeState extends State<Home> {
           ),
       ),
 Container(
-  margin: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+  margin: EdgeInsets.symmetric(horizontal: 10, vertical: 30),
   child: Row(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
       Expanded(
         child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 10),
+          margin: EdgeInsets.symmetric(horizontal: 2),
           child: ElevatedButton(
           style: ButtonStyle(
             backgroundColor:
@@ -84,13 +87,18 @@ Container(
               MaterialPageRoute(builder: (context) => PlaneacionScreen(token: widget.token)),
             )
             },
-            child: Text('Planeación'),
+            child: Text(
+              'Planeación',
+              style:  TextStyle(
+                fontSize: 12
+              ),
+              ),
           ),
         ),
       ),
       Expanded(
         child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 10),
+          margin: EdgeInsets.symmetric(horizontal: 2),
           child: ElevatedButton(
           style: ButtonStyle(
             backgroundColor:
@@ -108,7 +116,7 @@ Container(
       ),
       Expanded(
         child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 10),
+        margin: EdgeInsets.symmetric(horizontal: 2),
           child: ElevatedButton(
             style: ButtonStyle(
             backgroundColor:
@@ -123,6 +131,66 @@ Container(
             child: Text('Crédito'),
           ),
         ),
+      ),
+            Expanded(
+        child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 2),
+          child: ElevatedButton(
+            style: ButtonStyle(
+            backgroundColor:
+            MaterialStateProperty.all<Color>(Color(0XFFE8E112)),
+            ),
+            onPressed: () => {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => FincaRaizScreen(token: widget.token)),
+            )
+            },
+            child: Text(
+              'Finca Raíz',
+              style: TextStyle(
+                fontSize: 13
+              ),
+              ),
+          ),
+        ),
+      ),
+    ],
+  ),
+),
+Container(
+  child: Row(
+    children: [
+      Expanded(
+        child: InkWell(
+          onTap: () => {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ContactScreen(token: widget.token)),
+            )
+            }, 
+          child: Icon(
+          Icons.headphones,
+          color: Colors.white,
+          size: 25,
+          
+          ),
+        ),
+      ),
+      Expanded(
+        child: InkWell(
+          onTap: () => {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => QuestionsScreen(token: widget.token)),
+            )
+            }, 
+          child:Icon(
+          Icons.question_mark,
+          color: Colors.white,
+          size: 25,
+          ), 
+        )
       ),
     ],
   ),
