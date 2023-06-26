@@ -25,7 +25,6 @@ class _RegistrationState extends State<Registration> {
   TextEditingController phoneController = TextEditingController();
   TextEditingController tipoCedulaController = TextEditingController();
   TextEditingController cedulaController = TextEditingController();
-  TextEditingController emisionCedulaController = TextEditingController();
   TextEditingController fechaNacimientoController = TextEditingController();
   DateTime ? selectedDate;
 
@@ -48,23 +47,7 @@ class _RegistrationState extends State<Registration> {
     }
   }
 
-      Future<void> _selectDateEmisionCedula(BuildContext context) async {
-    final DateTime? picked = await DatePicker.showDatePicker(
-      context,
-      showTitleActions: true,
-      minTime: DateTime(1900),
-      maxTime: DateTime.now(),
-      locale: LocaleType.es,
-    );
 
-    if (picked != null && picked != selectedDate) {
-      setState(() {
-        selectedDate = picked;
-        emisionCedulaController.text =
-            "${picked.day}/${picked.month}/${picked.year}";
-      });
-    }
-  }
 
   String _tipoDocumento = 'Tipo de documento';
   bool _isNotValidate = false;
@@ -84,7 +67,6 @@ class _RegistrationState extends State<Registration> {
     lastNameController.text.isNotEmpty &&
     phoneController.text.isNotEmpty &&
     cedulaController.text.isNotEmpty &&
-    emisionCedulaController.text.isNotEmpty &&
     fechaNacimientoController.text.isNotEmpty
     ){
 
@@ -96,7 +78,6 @@ class _RegistrationState extends State<Registration> {
         "phone": phoneController.text,
         "tipoCedula": _tipoDocumento,
         "cedula": cedulaController.text,
-        "emisionCedula": emisionCedulaController.text,
         "fechaNacimiento": fechaNacimientoController.text
       };
 
@@ -258,22 +239,6 @@ class _RegistrationState extends State<Registration> {
                         errorText: _isNotValidate ? "Enter Proper Info" : null,
                         hintText: "Número de cédula",),
                   ).p4().px24(),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(bottom: 20, left: 27, right: 27),
-                    child:TextField(
-                    controller: emisionCedulaController,
-                    readOnly: true,
-                    decoration: InputDecoration(
-                        hintText: 'Fecha de Emisión de la cédula',
-                        suffixIcon: IconButton(
-                    icon: Icon(Icons.calendar_today),
-                        onPressed: () {
-                        _selectDateEmisionCedula(context);
-                   },
-                  ),
-                  ),
-                  )
                   ),
                   Container(
                     margin:EdgeInsets.only(bottom: 20, left: 27, right: 27),

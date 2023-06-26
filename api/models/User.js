@@ -39,10 +39,6 @@ const userSchema = mongoose.Schema({
         type: String,
         required: [true, "cedula is required"],
     },
-    emisionCedula: {
-        type: String,
-        required: [true, "Emisión cedula is required"],
-    },
     fechaNacimiento: {
         type: String,
         required: [true, "Fecha nacimiento is required"],
