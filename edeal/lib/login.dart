@@ -59,13 +59,13 @@ void loginUser() async {
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text('Error de inicio de sesión'),
-            content: Text(jsonResponse['error']),
+            content: Text(jsonResponse['message']),
             actions: [
               TextButton(
+                child: Text('Cerrar'),
                 onPressed: () {
-                  Navigator.pop(context);
+                  Navigator.of(context).pop();
                 },
-                child: Text('Aceptar'),
               ),
             ],
           );
@@ -74,6 +74,7 @@ void loginUser() async {
     }
   }
 }
+
 
 
   @override
