@@ -54,11 +54,11 @@ const eMail = async (email, code) => {
         }
       </style>
     </head>
-    <div style="width: 100%; background-color: #e3e3e3">
+    <div style="width: 100%; background-color: #E8E112">
       <div style="padding: 20px 10px 20px 10px">
         <div
           style="
-            background-color: rgb(203, 173, 3);
+            background-color: #524898;
             padding: 10px 0px 10px 0px;
             width: 100%;
             text-align: center;
@@ -73,7 +73,8 @@ const eMail = async (email, code) => {
           text-align: center;
         "
       >
-        <h2>Welcome to Edeal</h2>
+        <h2>Bienvenido a Edeal</h2>
+        <h2>Hola ${email} por favor confirma tu cuenta el código de confirmación es ${code}</h2>
         <p>
         Please connfirm your account with the code
         </p>
@@ -89,10 +90,11 @@ const eMail = async (email, code) => {
     <body></body>
   </html>`;
 
+
   let msj = {
     from: 'Edeal" <diazmorenodavid16@gmail.com>',
     to: email,
-    subject: 'Verification code' + code ,
+    subject: 'Código de verificación:' + code ,
     text: "Verify Your account",
     html: html,
   };
