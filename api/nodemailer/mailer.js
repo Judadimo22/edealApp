@@ -1,6 +1,4 @@
-
 const nodemailer = require("nodemailer");
-
 
 let transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
@@ -54,42 +52,24 @@ const eMail = async (email, code) => {
         }
       </style>
     </head>
-    <div style="width: 100%; background-color: #E8E112">
-      <div style="padding: 20px 10px 20px 10px">
-        <div
-          style="
-            background-color: #524898;
-            padding: 10px 0px 10px 0px;
-            width: 100%;
-            text-align: center;
-          "
-        ></div>
-      </div>
-      <div
-        style="
-          background-color: #524898;
-          margin-top: 0px;
-          padding: 20px 0px 5px 0px;
-          text-align: center;
-        "
-      >
-        <h2>Bienvenido a Edeal</h2>
-        <p>Hola ${email} por favor confirma tu cuenta el código de confirmación es ${code}</p>
-          </div>
+    <body>
+      <div style="width: 100%; background-color: #E8E112; padding: 20px;">
+        <div style="padding: 20px;">
+          <div style="background-color: #E8E112; padding: 10px 0px; width: 100%; text-align: center;"></div>
         </div>
+        <div style="background-color: #524898; margin-top: 0px; padding: 20px 0px 5px 0px; text-align: center;">
+          <h2 style="color: white;">Bienvenido a Edeal</h2>
+          <p style="color: white;">Hola ${email}, por favor confirma tu cuenta. El código de confirmación es ${code}.</p>
         </div>
       </div>
-      <div></div>
-    </div>
-    <body></body>
+    </body>
   </html>`;
-
 
   let msj = {
     from: 'Edeal" <diazmorenodavid16@gmail.com>',
     to: email,
-    subject: 'Código de verificación:' + code ,
-    text: "Verify Your account",
+    subject: 'Código de verificación: ' + code,
+    text: "Verify Your Account",
     html: html,
   };
 
