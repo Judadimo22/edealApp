@@ -31,33 +31,50 @@ class _SignInPageState extends State<SignInPage> {
     prefs = await SharedPreferences.getInstance();
   }
 
-  void loginUser() async {
-    if (emailController.text.isNotEmpty && passwordController.text.isNotEmpty) {
-      var reqBody = {
-        "email": emailController.text,
-        "password": passwordController.text
-      };
+void loginUser() async {
+  if (emailController.text.isNotEmpty && passwordController.text.isNotEmpty) {
+    var reqBody = {
+      "email": emailController.text,
+      "password": passwordController.text
+    };
 
-      var response = await http.post(
-        Uri.parse(login),
-        headers: {"Content-Type": "application/json"},
-        body: jsonEncode(reqBody),
+    var response = await http.post(
+      Uri.parse(login),
+      headers: {"Content-Type": "application/json"},
+      body: jsonEncode(reqBody),
+    );
+
+    var jsonResponse = jsonDecode(response.body);
+
+    if (jsonResponse['status']) {
+      var myToken = jsonResponse['token'];
+      prefs.setString('token', myToken);
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => Dashboard(token: myToken)),
       );
-
-      var jsonResponse = jsonDecode(response.body);
-
-      if (jsonResponse['status']) {
-        var myToken = jsonResponse['token'];
-        prefs.setString('token', myToken);
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => Dashboard(token: myToken)),
-        );
-      } else {
-        print('Something went wrong');
-      }
+    } else {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Error de inicio de sesión'),
+            content: Text(jsonResponse['error']),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text('Aceptar'),
+              ),
+            ],
+          );
+        },
+      );
     }
   }
+}
+
 
   @override
   Widget build(BuildContext context) {

@@ -68,25 +68,25 @@ const login = async (req, res, next) => {
     const { email, password } = req.body;
 
     if (!email || !password) {
-      throw new Error('Parameters are not correct');
+      return res.status(400).json({ error: 'Parameters are not correct' });
     }
 
     let user = await UserServices.checkUser(email);
     if (!user) {
-      throw new Error('User does not exist');
+      return res.status(404).json({ error: 'User does not exist' });
     }
 
     const isPasswordCorrect = await UserServices.comparePassword(password, user.password);
     if (!isPasswordCorrect) {
-      throw new Error('Username or Password does not match');
+      return res.status(401).json({ error: 'Username or Password does not match' });
     }
 
     let tokenData;
     tokenData = { _id: user._id, email: user.email };
 
-    const token = await UserServices.generateAccessToken(tokenData, "secret", "1h");
+    const token = await UserServices.generateAccessToken(tokenData, 'secret', '1h');
 
-    res.status(200).json({ status: true, success: "sendData", token: token });
+    res.status(200).json({ status: true, success: 'sendData', token: token });
   } catch (error) {
     console.log(error, 'err---->');
     next(error);

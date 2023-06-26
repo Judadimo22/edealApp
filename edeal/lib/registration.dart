@@ -1,11 +1,8 @@
 import 'dart:convert';
-import 'dart:math';
 import 'package:edeal/confirm.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'login.dart';
 import 'package:http/http.dart' as http;
 import 'config.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
@@ -20,6 +17,7 @@ class _RegistrationState extends State<Registration> {
 
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmPasswordControler = TextEditingController();
   TextEditingController nameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
@@ -27,6 +25,13 @@ class _RegistrationState extends State<Registration> {
   TextEditingController cedulaController = TextEditingController();
   TextEditingController fechaNacimientoController = TextEditingController();
   DateTime ? selectedDate;
+  bool _isPasswordValid = true;
+
+  void _validatePassword() {
+    setState(() {
+      _isPasswordValid = passwordController.text.length >= 8;
+    });
+  }
 
 
     Future<void> _selectDate(BuildContext context) async {
@@ -60,81 +65,105 @@ class _RegistrationState extends State<Registration> {
     void initSharedPref() async{
     prefs = await SharedPreferences.getInstance();
   } 
-  void registerUser() async{
-    if(emailController.text.isNotEmpty && 
-    passwordController.text.isNotEmpty &&
-    nameController.text.isNotEmpty &&
-    lastNameController.text.isNotEmpty &&
-    phoneController.text.isNotEmpty &&
-    cedulaController.text.isNotEmpty &&
-    fechaNacimientoController.text.isNotEmpty
-    ){
-
-      var regBody = {
-        "email":emailController.text,
-        "password":passwordController.text,
-        "name": nameController.text,
-        "lastName": lastNameController.text,
-        "phone": phoneController.text,
-        "tipoCedula": _tipoDocumento,
-        "cedula": cedulaController.text,
-        "fechaNacimiento": fechaNacimientoController.text
-      };
-
-      var response = await http.post(Uri.parse(registration),
-      headers: {"Content-Type":"application/json"},
-      body: jsonEncode(regBody)
-      );
-
-      var jsonResponse = jsonDecode(response.body);
-
-      print(jsonResponse['status']);
-
-      if(jsonResponse['status']){
-        var myToken = jsonResponse['token'];
-        prefs.setString('token', myToken);
-        showDialog(
-          context: context,
-          builder: (BuildContext context){
-            return AlertDialog(
-              title: Text('Usuario creado correctamente'),
-              content: (Text('Tu usuario se creó correctamente')),
-              actions: [
-                TextButton(
-                  onPressed: (){
-                   Navigator.push(context, MaterialPageRoute(builder: (context)=>Confirm(token: myToken)));
-                  },
-                  child: Text('Aceptar'))
-              ],
-            );
-          }
+void registerUser() async {
+  if (passwordController.text != confirmPasswordControler.text) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Contraseñas no coinciden'),
+          content: Text('Por favor, asegúrate de que las contraseñas coincidan.'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text('Aceptar'),
+            ),
+          ],
         );
-      }else{
-        showDialog(
-          context: context,
-          builder: (BuildContext context){
-            return AlertDialog(
-              title: Text('Error al registrarse'),
-              content: (Text('Hubo un error al registrate, por favor intentálo de nuevo')),
-              actions: [
-                TextButton(
-                  onPressed: (){
-                    Navigator.pop(context);
-                  },
-                  child: Text('Aceptar'))
-              ],
-            );
-          }
-
-        );
-      }
-    }else{
-      setState(() {
-        _isNotValidate = true;
-        _tipoDocumento ='Tipo de documento';
-      });
-    }
+      },
+    );
+    return;
   }
+
+  if (emailController.text.isNotEmpty &&
+      passwordController.text.isNotEmpty &&
+      nameController.text.isNotEmpty &&
+      lastNameController.text.isNotEmpty &&
+      phoneController.text.isNotEmpty &&
+      cedulaController.text.isNotEmpty &&
+      fechaNacimientoController.text.isNotEmpty) {
+    var regBody = {
+      "email": emailController.text,
+      "password": passwordController.text,
+      "name": nameController.text,
+      "lastName": lastNameController.text,
+      "phone": phoneController.text,
+      "tipoCedula": _tipoDocumento,
+      "cedula": cedulaController.text,
+      "fechaNacimiento": fechaNacimientoController.text
+    };
+
+    var response = await http.post(
+      Uri.parse(registration),
+      headers: {"Content-Type": "application/json"},
+      body: jsonEncode(regBody),
+    );
+
+    var jsonResponse = jsonDecode(response.body);
+
+    print(jsonResponse['status']);
+
+    if (jsonResponse['status']) {
+      var myToken = jsonResponse['token'];
+      prefs.setString('token', myToken);
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Usuario creado correctamente'),
+            content: Text('Tu usuario se creó correctamente'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Confirm(token: myToken)),
+                  );
+                },
+                child: Text('Aceptar'),
+              ),
+            ],
+          );
+        },
+      );
+    } else {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Error al registrarse'),
+            content: Text('Hubo un error al registrarte, por favor inténtalo de nuevo'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text('Aceptar'),
+              ),
+            ],
+          );
+        },
+      );
+    }
+  } else {
+    setState(() {
+      _isNotValidate = true;
+      _tipoDocumento = 'Tipo de documento';
+    });
+  }
+}
 
     void updateTipoDocumento(String? newTipoDocumento){
     setState(() {
@@ -262,10 +291,12 @@ class _RegistrationState extends State<Registration> {
                     controller: passwordController,
                     keyboardType: TextInputType.text,
                     obscureText: !_isPasswordVisible,
+                    onChanged: (value) => _validatePassword(),
                     decoration: InputDecoration(
                         errorStyle: TextStyle(color: Colors.white),
                         errorText: _isNotValidate ? "Enter Proper Info" : null,
                         hintText: "Contraseña",
+                        helperText: _isPasswordValid ? null : "La contraseña debe tener al menos 8 caracteres",
                     suffixIcon: GestureDetector(
                     onTap: () {
                   setState(() {
@@ -282,7 +313,7 @@ class _RegistrationState extends State<Registration> {
                 Container(
                     margin: EdgeInsets.only(bottom: 20),
                     child: TextFormField(
-                    controller: passwordController,
+                    controller: confirmPasswordControler,
                     keyboardType: TextInputType.text,
                     obscureText: !_isPasswordVisible,
                     decoration: InputDecoration(
