@@ -60,8 +60,8 @@ void loginUser() async {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Error de inicio de sesión'),
-            content: Text('Error'),
+            title: Text('Usuario o Contraseña incorrectos'),
+            content: Text('Por favor verifique la información y vuelva a intentarlo'),
             actions: [
               TextButton(
                 child: Text('Cerrar'),
