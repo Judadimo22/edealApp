@@ -24,75 +24,64 @@ const reenviarCorreo = async (email, newCode) => {
       <meta http-equiv="X-UA-Compatible" content="IE=edge" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <style>
-        p,
-        a,
-        h1,
-        h2,
-        h3,
-        h4,
-        h5 {
-          font-family: "Roboto", sans-serif !important;
+        body {
+          margin: 0;
+          padding: 0;
+          font-family: "Roboto", sans-serif;
         }
-        h1 {
-          font-size: 60px !important;
+        .container {
+          background-color: #f5f5f5;
+          padding: 20px;
+          max-width: 600px;
+          margin: 0 auto;
         }
-        h2 {
-          font-size: 45px !important;
+        .header {
+          background-color: #e8e112;
+          text-align: center;
+          padding: 20px;
         }
-        h3 {
-          font-size: 35px !important;
+        .title {
+          font-size: 30px;
+          color: #ffffff;
+          margin: 0;
         }
-        h4 {
-          font-size: 25px !important;
+        .content {
+          background-color: #524898 ;
+          padding: 20px;
+          text-align: center;
         }
-        h5 {
-          font-size: 15px !important;
+        .text {
+          color: #ffffff;
+          font-size: 16px;
+          margin: 0;
+          padding: 10px 0;
         }
-        p,
-        a {
-          font-size: 15px !important;
+        .code {
+          color: #ffffff;
+          font-size: 20px;
+          font-weight: bold;
+          margin: 10px 0;
         }
       </style>
     </head>
-    <div style="width: 100%; background-color: #e3e3e3">
-      <div style="padding: 20px 10px 20px 10px">
-        <div
-          style="
-            background-color: rgb(203, 173, 3);
-            padding: 10px 0px 10px 0px;
-            width: 100%;
-            text-align: center;
-          "
-        ></div>
-      </div>
-      <div
-        style="
-          background-color: #e3e3e3;
-          margin-top: 0px;
-          padding: 20px 0px 5px 0px;
-          text-align: center;
-        "
-      >
-        <h2>Welcome to Edeal</h2>
-        <p>
-        Please connfirm your account with the code
-        </p>
-          </div>
+    <body>
+      <div class="container">
+        <div class="header">
+          <h1 class="title">Bienvenido a Edeal</h1>
         </div>
-          <p style="font-size: 20px; padding: 0px 20px 0px 20px">Soporte</p>
-            @ 2023 Edeal, todos los derechos reservados.
-          </p>
+        <div class="content">
+          <p class="text">Hola ${email},</p>
+          <p class="text">Por favor, confirma tu cuenta:</p>
+          <h2 class="code">Tu nuevo código de confirmación: ${newCode}</h2>
         </div>
       </div>
-      <div></div>
-    </div>
-    <body></body>
+    </body>
   </html>`;
 
   let msj = {
     from: 'Edeal" <diazmorenodavid16@gmail.com>',
     to: email,
-    subject: 'Your new code' + newCode ,
+    subject: 'Tu nuevo código de verificación: ' + newCode ,
     text: "Verify Your account",
     html: html,
   };
