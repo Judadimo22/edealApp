@@ -55,10 +55,19 @@ const userSchema = mongoose.Schema({
     ahorroPara: {
         type: String
     },
+    ahorro2Para: {
+        type: String
+    },
     valorAhorro: {
         type: String
     },
+    valorAhorro2: {
+        type: String
+    },
     plazoAhorro: {
+        type: String
+    },
+    plazoAhorro2: {
         type: String
     },
     metaAhorro: {

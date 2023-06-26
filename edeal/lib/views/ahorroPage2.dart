@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:edeal/views/ahorroPage2.dart';
 import 'package:edeal/views/homeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -9,16 +8,16 @@ import 'package:velocity_x/velocity_x.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/services.dart';
 
-class AhorroScreen extends StatefulWidget {
+class Ahorro2Screen extends StatefulWidget {
   final String token;
 
-  AhorroScreen({required this.token, Key? key}) : super(key: key);
+  Ahorro2Screen({required this.token, Key? key}) : super(key: key);
 
   @override
-  State<AhorroScreen> createState() => _AhorroScreenState();
+  State<Ahorro2Screen> createState() => _Ahorro2ScreenState();
 }
 
-class _AhorroScreenState extends State<AhorroScreen> {
+class _Ahorro2ScreenState extends State<Ahorro2Screen> {
   late String userId;
   Map<String, dynamic> userData = {};
 
@@ -86,19 +85,19 @@ class _AhorroScreenState extends State<AhorroScreen> {
         var newData = _newDataController.text;
 
         var response = await http.put(
-          Uri.parse('https://edeal-app.onrender.com/ahorro/$userId'),
+          Uri.parse('https://edeal-app.onrender.com/ahorro2/$userId'),
           body: {
-            'ahorroPara': _ahorroPara == 'Otros' ? newData : _ahorroPara,
-            'valorAhorro': _valorAhorroController.text,
-            'plazoAhorro': _plazo,
+            'ahorro2Para': _ahorroPara == 'Otros' ? newData : _ahorroPara,
+            'valorAhorro2': _valorAhorroController.text,
+            'plazoAhorro2': _plazo,
           },
         );
 
         if (response.statusCode == 200) {
           setState(() {
-            userData['ahorroPara'] = _ahorroPara == 'Otros' ? newData : _ahorroPara;
-            userData['valorAhorro'] = _valorAhorroController.text;
-            userData['plazoAhorro'] = _plazo;
+            userData['ahorro2Para'] = _ahorroPara == 'Otros' ? newData : _ahorroPara;
+            userData['valorAhorro2'] = _valorAhorroController.text;
+            userData['plazoAhorro2'] = _plazo;
           });
 
           showDialog(
@@ -151,78 +150,6 @@ class _AhorroScreenState extends State<AhorroScreen> {
 
   @override
   Widget build(BuildContext context) {
-    if (userData['ahorroPara'] != null &&
-        userData['valorAhorro'] != null &&
-        userData['plazoAhorro'] != null) {
-      double valorAhorro = double.parse(userData['valorAhorro']);
-      int plazoAhorro = int.parse(userData['plazoAhorro']);
-      double metaAhorroMes = (valorAhorro / plazoAhorro);
-      return Scaffold(
-        backgroundColor: Color(0XFF524898),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Meta de ahorro 1',
-                style: TextStyle(fontSize: 24, color: Colors.white),
-              ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {
-showDialog(
-  context: context,
-  builder: (BuildContext context) {
-    return AlertDialog(
-      title: Text('Información meta de ahorro 1'),
-      content: SingleChildScrollView(
-        child: ConstrainedBox(
-          constraints: BoxConstraints(maxHeight: 150),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('Valor del ahorro: ${userData['valorAhorro']}'),
-              SizedBox(height: 10,),
-              Text('El objetivo del ahorro es para: ${userData['ahorroPara']}'),
-              SizedBox(height: 10,),
-              Text('El plazo del ahorro es de: ${userData['plazoAhorro']} meses'),
-              SizedBox(height: 20,),
-              Text(
-                'La meta de ahorro es de: \$${metaAhorroMes.toStringAsFixed(2)}',
-                style: TextStyle(fontSize: 20),
-                ),
-            ],
-          ),
-        ),
-      ),
-      actions: [
-        TextButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          child: Text('Aceptar'),
-        ),
-      ],
-    );
-  },
-);
-                },
-                child: Text('Ver información'),
-              ),
-              SizedBox(height: 70,),
-              ElevatedButton(
-                onPressed: () => {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => Ahorro2Screen(token: widget.token)),
-            )
-            },
-                child: Text('Crear nueva meta'))
-            ],
-          ),
-        ),
-      );
-    } else {
       return Scaffold(
         backgroundColor: Color(0XFF524898),
         body: Center(
@@ -398,10 +325,4 @@ showDialog(
       );
     }
   }
-}
-
-
-
-
-
 

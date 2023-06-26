@@ -147,6 +147,27 @@ const getUsers = async (req, res) => {
       .catch((error) => res.status(500).json({ message: `${error} ` }));
   };
 
+  const putAhorro2 = async (req, res) => {
+    const { id } = req.params;
+  
+    const { ahorro2Para, valorAhorro2, plazoAhorro2} =
+      req.body;
+  
+    userSchema
+      .updateOne(
+        { _id: id },
+        {
+          $set: {
+            ahorro2Para,
+            valorAhorro2,
+            plazoAhorro2,
+          },
+        }
+      )
+      .then((data) => res.json(data))
+      .catch((error) => res.status(500).json({ message: `${error} ` }));
+  };
+
   const putAhorro = async (req, res) => {
     const { id } = req.params;
   
@@ -620,6 +641,7 @@ module.exports ={
     getUserById,
     putCredit,
     putAhorro,
+    putAhorro2,
     reenviar,
     confirmarCuenta,
     putInfoPersonal,
