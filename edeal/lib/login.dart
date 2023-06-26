@@ -46,6 +46,8 @@ void loginUser() async {
 
     var jsonResponse = jsonDecode(response.body);
 
+
+
     if (jsonResponse['status']) {
       var myToken = jsonResponse['token'];
       prefs.setString('token', myToken);
@@ -59,7 +61,7 @@ void loginUser() async {
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text('Error de inicio de sesión'),
-            content: Text(jsonResponse['message']),
+            content: Text('Error'),
             actions: [
               TextButton(
                 child: Text('Cerrar'),
