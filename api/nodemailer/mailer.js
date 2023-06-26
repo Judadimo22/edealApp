@@ -22,46 +22,55 @@ const eMail = async (email, code) => {
       <meta http-equiv="X-UA-Compatible" content="IE=edge" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <style>
-        p,
-        a,
-        h1,
-        h2,
-        h3,
-        h4,
-        h5 {
-          font-family: "Roboto", sans-serif !important;
+        body {
+          margin: 0;
+          padding: 0;
+          font-family: "Roboto", sans-serif;
         }
-        h1 {
-          font-size: 30px !important;
+        .container {
+          background-color: #f5f5f5;
+          padding: 20px;
+          max-width: 600px;
+          margin: 0 auto;
         }
-        h2 {
-          font-size: 25px !important;
+        .header {
+          background-color: #e8e112;
+          text-align: center;
+          padding: 20px;
         }
-        h3 {
-          font-size: 20px !important;
+        .title {
+          font-size: 30px;
+          color: #ffffff;
+          margin: 0;
         }
-        h4 {
-          font-size: 15px !important;
+        .content {
+          background-color: #ffffff;
+          padding: 20px;
+          text-align: center;
         }
-        h5 {
-          font-size: 12px !important;
+        .text {
+          color: #524898;
+          font-size: 16px;
+          margin: 0;
+          padding: 10px 0;
         }
-        p,
-        a {
-          font-size: 12px !important;
+        .code {
+          color: #524898;
+          font-size: 20px;
+          font-weight: bold;
+          margin: 10px 0;
         }
       </style>
     </head>
     <body>
-      <div style="width: 100%; background-color: #E8E112; padding: 20px;">
-        <div style="padding: 20px;">
-          <div style="background-color: #E8E112; padding: 10px 0px; width: 100%; text-align: center;"></div>
+      <div class="container">
+        <div class="header">
+          <h1 class="title">Bienvenido a Edeal</h1>
         </div>
-        <div style="background-color: #524898; margin-top: 0px; padding: 30px 0px 15px 0px; text-align: center;">
-          <h2 style="color: white;">Bienvenido a Edeal</h2>
-          <p style="color: white;">Hola ${email},</p>
-          <p style="color: white;">Por favor, confirma tu cuenta:</p>
-          <h3 style="color: white; font-weight: bold; margin: 10px 0;">Código de confirmación: ${code}</h3>
+        <div class="content">
+          <p class="text">Hola ${email},</p>
+          <p class="text">Por favor, confirma tu cuenta:</p>
+          <h2 class="code">Código de confirmación: ${code}</h2>
         </div>
       </div>
     </body>
@@ -79,3 +88,4 @@ const eMail = async (email, code) => {
 };
 
 module.exports = { eMail };
+
