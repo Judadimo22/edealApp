@@ -46,10 +46,31 @@ const userSchema = mongoose.Schema({
     credito: {
         type: String,
     },
+    credito2: {
+        type: String
+    },
     tarjetaDeCredito:{
         type: String
     },
+    tarjetaDeCredito2: {
+        type: String
+    },
     bancoCredito: {
+        type: String
+    },
+    bancoCredito2: {
+        type: String
+    },
+    montoCredito: {
+        type: String
+    },
+    montoCredito2: {
+        type: String
+    },
+    plazoCredito: {
+        type: String
+    },
+    plazoCredito2: {
         type: String
     },
     ahorroPara: {
@@ -85,12 +106,6 @@ const userSchema = mongoose.Schema({
     cuentaConfirmada: {
         type: String,
         default: 'No'
-    },
-    montoCredito: {
-        type: String
-    },
-    plazoCredito: {
-        type: String
     },
     estadoCivilCliente1:{
         type: String

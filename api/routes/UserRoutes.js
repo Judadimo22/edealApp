@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const UserController = require('../controllers/UserController');
-const {getUsers, register, login, getUserById, putCredit, putAhorro, reenviar, confirmarCuenta,putInfoPersonal,putIngresos,putAhorros,putGastosHogar,putGastosTransporte,putGastosEntretenimiento, putGastosFinancieros,putGastosVacaciones,putGastosImpuestos,putGastosCredito, putMetasFinancieras,putObjetivosSalud, putObjetivosEducacion, putObjetivosRetiro, putPerfilRiesgo, putFuentesAdicionales, putAhorro2, putAhorro3} = require('../controllers/UserController');
+const {getUsers, register, login, getUserById, putCredit, putAhorro, reenviar, confirmarCuenta,putInfoPersonal,putIngresos,putAhorros,putGastosHogar,putGastosTransporte,putGastosEntretenimiento, putGastosFinancieros,putGastosVacaciones,putGastosImpuestos,putGastosCredito, putMetasFinancieras,putObjetivosSalud, putObjetivosEducacion, putObjetivosRetiro, putPerfilRiesgo, putFuentesAdicionales, putAhorro2, putAhorro3, putCredit2} = require('../controllers/UserController');
 const { updateUserCredit } = require("../services/UserServices");
 
 router.post("/register", (req,res,next) => {
@@ -23,6 +23,11 @@ router.get("/user/:id", (req, res) => {
 router.put('/credit/:id', (req, res, next) => {
   putCredit(req,res, next)
 })
+
+router.put('/credit2/:id', (req, res, next) => {
+  putCredit2(req,res, next)
+})
+
 
 router.put('/ahorro/:id', (req, res, next) => {
   putAhorro(req,res, next)

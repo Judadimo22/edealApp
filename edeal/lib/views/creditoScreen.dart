@@ -128,8 +128,6 @@ void saveUserData() async {
           },
         )
       ;
-
-        print('Información actualizada correctamente');
         setState(() {
          _creditoPara = 'Me gustaría un crédito para:';
          _tarjetaCredito = 'Tengo tarjeta de crédito:';
@@ -177,23 +175,25 @@ void saveUserData() async {
   @override
   Widget build(BuildContext context) {
     if(userData['credito'] != null
-    || userData['bancoCredito']  != null
-    || userData['montoCredito'] != null
-    || userData['plazoCredito'] != null
-    || userData['tarjetaDeCredito'] != null
+    && userData['montoCredito'] != null
+    && userData['plazoCredito'] != null
+    && userData['tarjetaDeCredito'] != null
+    && userData['credito2'] == null
+    && userData['montoCredito2'] == null
+    && userData['plazoCredito2'] == null
+    && userData['tarjetaDeCredito2'] == null
     ){
     double montoCredito = double.parse(userData['montoCredito']);
     int plazoCredito = int.parse(userData['plazoCredito']);
-
     double valorCuota = (montoCredito * (0.018 * pow(1 + 0.018, plazoCredito))) /
     (pow(1 + 0.018, plazoCredito) - 1);
     return Scaffold(
       backgroundColor: Color(0XFF524898),
       body: Center(
-    child: Text(
-      'El valor de la cuota es: \$${valorCuota.toStringAsFixed(2)}',
-      style: TextStyle(fontSize: 24, color: Colors.white),
-    ),
+        child: Column (
+          mainAxisAlignment: MainAxisAlignment.center,
+          
+        )
       ),
     );
     }
