@@ -1,7 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:edeal/views/creditoScreen2.dart';
-import 'package:edeal/views/creditoScreen3.dart';
 import 'package:edeal/views/homeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -10,16 +8,16 @@ import 'package:velocity_x/velocity_x.dart';
 import 'dart:math';
 
 
-class CreditoScreen extends StatefulWidget {
+class Credito3Screen extends StatefulWidget {
   final String token;
 
-  CreditoScreen({required this.token, Key? key}) : super(key: key);
+  Credito3Screen({required this.token, Key? key}) : super(key: key);
 
   @override
-  State<CreditoScreen> createState() => _CreditoScreenState();
+  State<Credito3Screen> createState() => _Credito3ScreenState();
 }
 
-class _CreditoScreenState extends State<CreditoScreen> {
+class _Credito3ScreenState extends State<Credito3Screen> {
   late String userId;
   Map<String, dynamic> userData = {};
 
@@ -58,7 +56,7 @@ void saveUserData() async {
     if (_montoCreditoController.text.isEmpty ||
         _plazoCredito == 'Plazo del crédito en meses' ||
         _tarjetaCredito == 'Tengo tarjeta de crédito:' ||
-        _creditoPara == 'Me gustaría un crédito para:'
+        _creditoPara == 'Me gustaría un crédito para:' 
     ) {
       String errorMessage = '';
 
@@ -93,23 +91,23 @@ void saveUserData() async {
       var newData = _newDataController.text;
 
       var response = await http.put(
-        Uri.parse('https://edeal-app.onrender.com/credit/$userId'),
+        Uri.parse('https://edeal-app.onrender.com/credit2/$userId'),
         body: {
-          'credito': _creditoPara,
-          'tarjetaDeCredito': _tarjetaCredito,
-          'bancoCredito': _banco,
-          'montoCredito': _montoCreditoController.text,
-          'plazoCredito': _plazoCredito
+          'credito2': _creditoPara,
+          'tarjetaDeCredito2': _tarjetaCredito,
+          'bancoCredito2': _banco,
+          'montoCredito2': _montoCreditoController.text,
+          'plazoCredito2': _plazoCredito
           },
       );
 
       if (response.statusCode == 200) {
         setState(() {
-          userData['credit'] = _creditoPara;
-          userData['tarjetaDeCredito'] = _tarjetaCredito;
-          userData['bancoCredito'] = _banco;
-          userData['montoCredito'] = _montoCreditoController.text;
-          userData['plazoCredito'] = _plazoCredito;
+          userData['credit2'] = _creditoPara;
+          userData['tarjetaDeCredito2'] = _tarjetaCredito;
+          userData['bancoCredito2'] = _banco;
+          userData['montoCredito2'] = _montoCreditoController.text;
+          userData['plazoCredito2'] = _plazoCredito;
         });
           showDialog(
           context: context,
@@ -175,239 +173,6 @@ void saveUserData() async {
 
   @override
   Widget build(BuildContext context) {
-    if(userData['credito'] != null
-    && userData['montoCredito'] != null
-    && userData['plazoCredito'] != null
-    && userData['tarjetaDeCredito'] != null
-    && userData['credito2'] == null
-    && userData['montoCredito2'] == null
-    && userData['plazoCredito2'] == null
-    && userData['tarjetaDeCredito2'] == null
-    ){
-    double montoCredito = double.parse(userData['montoCredito']);
-    int plazoCredito = int.parse(userData['plazoCredito']);
-    double valorCuota = (montoCredito * (0.018 * pow(1 + 0.018, plazoCredito))) /
-    (pow(1 + 0.018, plazoCredito) - 1);
-    return Scaffold(
-      backgroundColor: Color(0XFF524898),
-      body: Center(
-        child: Column (
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Credito 1',
-              style: TextStyle(
-                fontSize: 24,
-                color: Colors.white
-              )
-            ),
-            SizedBox(height: 20,),
-            ElevatedButton(
-              onPressed: (){
-                showDialog(
-                  context: context, 
-                  builder: (BuildContext context){
-                    return AlertDialog(
-                      title: Text('Información crédito 1'),
-                      content: SingleChildScrollView(
-                        child: ConstrainedBox(
-                        constraints: BoxConstraints(maxHeight: 150),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Valor del crédito: ${userData['montoCredito']}'),
-                            SizedBox(height: 10,),
-                            Text('Objetivo del credito: ${userData['credito']}'),
-                            SizedBox(height: 10,),
-                            Text('Tiene tarjeta de credito: ${userData['tarjetaDeCredito']}'),
-                            SizedBox(height: 10,),
-                            Text('Plazo del crédito: ${userData['plazoCredito']} meses'),
-                            SizedBox(height: 10,),
-                            Text('Valor mensual de la cuota: \$${valorCuota.toStringAsFixed(2)}'),
-                          ],
-                        ),
-                      ), 
-                    ),
-                    actions: [
-                      TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        }, 
-                        child: Text('Aceptar')
-                        ),
-                    ],
-                    );
-                  }
-                  );
-            
-              },
-              child: Text('Ver información')
-              ),
-              SizedBox(height: 70,),
-              ElevatedButton(
-                onPressed: (){
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Credito2Screen(token: widget.token))
-                  );
-                }, 
-                child: Text('Crear nuevo crédito'))
-          ]
-          
-        )
-      ),
-    );
-    }
-
-
-    else if(userData['credito'] != null
-    && userData['montoCredito'] != null
-    && userData['plazoCredito'] != null
-    && userData['tarjetaDeCredito'] != null
-    && userData['credito2'] != null
-    && userData['montoCredito2'] != null
-    && userData['plazoCredito2'] != null
-    && userData['tarjetaDeCredito2'] != null
-    && userData['credito3'] == null
-    && userData['montoCredito3'] == null
-    && userData['plazoCredito3'] == null
-    && userData['tarjetaCredito3'] == null
-    ){
-    double montoCredito = double.parse(userData['montoCredito']);
-    int plazoCredito = int.parse(userData['plazoCredito']);
-    double valorCuota = (montoCredito * (0.018 * pow(1 + 0.018, plazoCredito))) /
-    (pow(1 + 0.018, plazoCredito) - 1);
-
-    double montoCredito2 = double.parse(userData['montoCredito2']);
-    int plazoCredito2 = int.parse(userData['plazoCredito2']);
-    double valorCuota2 = (montoCredito2 * (0.018 * pow(1 + 0.018, plazoCredito2))) /
-    (pow(1 + 0.018, plazoCredito2) - 1);
-
-    return Scaffold(
-      backgroundColor: Color(0XFF524898),
-      body: Center(
-        child: Column (
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Credito 1',
-              style: TextStyle(
-                fontSize: 24,
-                color: Colors.white
-              )
-            ),
-            SizedBox(height: 20,),
-            ElevatedButton(
-              onPressed: (){
-                showDialog(
-                  context: context, 
-                  builder: (BuildContext context){
-                    return AlertDialog(
-                      title: Text('Información crédito 1'),
-                      content: SingleChildScrollView(
-                        child: ConstrainedBox(
-                        constraints: BoxConstraints(maxHeight: 150),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Valor del crédito: ${userData['montoCredito']}'),
-                            SizedBox(height: 10,),
-                            Text('Objetivo del credito: ${userData['credito']}'),
-                            SizedBox(height: 10,),
-                            Text('Tiene tarjeta de credito: ${userData['tarjetaDeCredito']}'),
-                            SizedBox(height: 10,),
-                            Text('Plazo del crédito: ${userData['plazoCredito']} meses'),
-                            SizedBox(height: 10,),
-                            Text('Valor mensual de la cuota: \$${valorCuota.toStringAsFixed(2)}'),
-                          ],
-                        ),
-                      ), 
-                    ),
-                    actions: [
-                      TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        }, 
-                        child: Text('Aceptar')
-                        ),
-                    ],
-                    );
-                  }
-                  );
-            
-              },
-              child: Text('Ver información')
-              ),
-
-              SizedBox(height: 10,),
-
-              Text(
-              'Credito 2',
-              style: TextStyle(
-                fontSize: 24,
-                color: Colors.white
-              )
-            ),
-            SizedBox(height: 20,),
-            ElevatedButton(
-              onPressed: (){
-                showDialog(
-                  context: context, 
-                  builder: (BuildContext context){
-                    return AlertDialog(
-                      title: Text('Información crédito 2'),
-                      content: SingleChildScrollView(
-                        child: ConstrainedBox(
-                        constraints: BoxConstraints(maxHeight: 150),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Valor del crédito: ${userData['montoCredito2']}'),
-                            SizedBox(height: 10,),
-                            Text('Objetivo del credito: ${userData['credito2']}'),
-                            SizedBox(height: 10,),
-                            Text('Tiene tarjeta de credito: ${userData['tarjetaDeCredito2']}'),
-                            SizedBox(height: 10,),
-                            Text('Plazo del crédito: ${userData['plazoCredito2']} meses'),
-                            SizedBox(height: 10,),
-                            Text('Valor mensual de la cuota: \$${valorCuota2.toStringAsFixed(2)}'),
-                          ],
-                        ),
-                      ), 
-                    ),
-                    actions: [
-                      TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        }, 
-                        child: Text('Aceptar')
-                        ),
-                    ],
-                    );
-                  }
-                  );
-            
-              },
-              child: Text('Ver información')
-              ),
-
-              SizedBox(height: 70,),
-              ElevatedButton(
-                onPressed: (){
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Credito3Screen(token: widget.token))
-                  );
-                }, 
-                child: Text('Crear nuevo crédito'))
-          ]
-          
-        )
-      ),
-    );
-    }
-
-    else {
           return Scaffold(
       backgroundColor: Color(0XFF524898),
       body: Center(
@@ -429,7 +194,7 @@ void saveUserData() async {
                       margin: EdgeInsets.only(bottom: 50),
                       child:
                       Text(
-                        'Crédito',
+                        'Crédito 3',
                         style: TextStyle(
                           fontSize: 30,
                           color: Colors.white
@@ -633,6 +398,3 @@ Container(
     }
 
   }
-}
-
-
