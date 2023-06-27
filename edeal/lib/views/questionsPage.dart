@@ -145,22 +145,6 @@ void updatePlazoOption(String? newValue) {
 
   @override
   Widget build(BuildContext context) {
-      if (userData['ahorroPara'] != null &&
-      userData['valorAhorro'] != null &&
-      userData['plazoAhorro'] != null) {
-      double valorAhorro = double.parse(userData['valorAhorro']);
-      int plazoAhorro = int.parse(userData['plazoAhorro']);
-      double metaAhorroMes = (valorAhorro / plazoAhorro);
-    return Scaffold(
-      backgroundColor: Color(0XFF524898),
-      body: Center(
-        child: Text(
-      'La meta de ahorro es de : \$${metaAhorroMes.toStringAsFixed(2)}',
-          style: TextStyle(fontSize: 24, color: Colors.white),
-        ),
-      ),
-    );
-  } else {
     return Scaffold(
       backgroundColor: Color(0XFF524898),
       body: Center(
@@ -197,5 +181,4 @@ void updatePlazoOption(String? newValue) {
       ),
     );
   }
-}
 }

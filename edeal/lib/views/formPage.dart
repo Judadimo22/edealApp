@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:edeal/views/formPage.dart';
 import 'package:edeal/views/homeScreen.dart';
 import 'package:edeal/views/questionsPage.dart';
 import 'package:flutter/material.dart';
@@ -11,16 +10,16 @@ import 'package:intl/intl.dart';
 import 'package:flutter/services.dart';
 
 
-class ContactScreen extends StatefulWidget {
+class FormContactScreen extends StatefulWidget {
   final String token;
 
-  ContactScreen({required this.token, Key? key}) : super(key: key);
+  FormContactScreen({required this.token, Key? key}) : super(key: key);
 
   @override
-  State<ContactScreen> createState() => _ContactScreenState();
+  State<FormContactScreen> createState() => _FormContactScreenState();
 }
 
-class _ContactScreenState extends State<ContactScreen> {
+class _FormContactScreenState extends State<FormContactScreen> {
   late String userId;
   Map<String, dynamic> userData = {};
 
@@ -145,98 +144,57 @@ void updatePlazoOption(String? newValue) {
   }
 }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color(0XFF524898),
-      body: Center(
+@override
+Widget build(BuildContext context) {
+  return Scaffold(
+    backgroundColor: Color(0XFF524898),
+    body: Center(
+      child: Padding(
+        padding: EdgeInsets.all(20.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(height: 20),
-            Form(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Container(
-                  color: Color(0XFF524898),
-                  padding: EdgeInsets.symmetric(vertical: 50),
-                  child: Column(
-                    children: [
-                      Container(
-                        padding: EdgeInsets.only(top: 50, bottom: 30),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: InkWell(
-                                onTap: () {
-                                  // Acción al hacer clic en el ícono "Chatea con nosotros"
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: Color(0XFFE8E112),
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  padding: EdgeInsets.all(10),
-                                  child: Column(
-                                    children: [
-                                      Icon(
-                                        Icons.phone,
-                                        color: Colors.white,
-                                        size: 25,
-                                      ),
-                                      SizedBox(height: 10),
-                                      Text(
-                                        'Chatea con nosotros',
-                                        style: TextStyle(color: Colors.white),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                            SizedBox(width: 10),
-                            Expanded(
-                              child: InkWell(
-          onTap: () => {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => FormContactScreen(token: widget.token)),
-            )
-            }, 
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: Color(0XFFE8E112),
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  padding: EdgeInsets.all(10),
-                                  child: Column(
-                                    children: [
-                                      Icon(
-                                        Icons.mail,
-                                        color: Colors.white,
-                                        size: 25,
-                                      ),
-                                      SizedBox(height: 10),
-                                      Text(
-                                        'Envíanos un mensaje',
-                                        style: TextStyle(color: Colors.white),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+            TextFormField(
+              decoration: InputDecoration(
+                labelText: 'Nombre',
+                fillColor: Colors.white,
+                filled: true,
               ),
+            ),
+            SizedBox(height: 16.0),
+            TextFormField(
+              decoration: InputDecoration(
+                labelText: 'Correo electrónico',
+                fillColor: Colors.white,
+                filled: true,
+              ),
+              keyboardType: TextInputType.emailAddress,
+            ),
+            SizedBox(height: 16.0),
+            TextFormField(
+              decoration: InputDecoration(
+                labelText: 'Mensaje',
+                fillColor: Colors.white,
+                filled: true,
+              ),
+              maxLines: 4,
+            ),
+            SizedBox(height: 16.0),
+            ElevatedButton(
+            style: ButtonStyle(
+            backgroundColor:
+            MaterialStateProperty.all<Color>(Color(0XFFE8E112)),
+            ),
+              onPressed: () {
+                // Lógica para enviar el formulario
+              },
+              child: Text('Enviar'),
             ),
           ],
         ),
       ),
-    );
-  }
+    ),
+  );
+}
+
 }
