@@ -92,7 +92,11 @@ void loginUser() async {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Image.asset('assets/logo_edeal.png'),
+                  Container(
+                    margin: EdgeInsets.only(bottom: 20),
+                    width: 200,
+                    child:Image.asset('assets/logo_blanco.png'), 
+                  ),
                   Container(
                     margin: EdgeInsets.symmetric(vertical: 20),
                     child: TextField(

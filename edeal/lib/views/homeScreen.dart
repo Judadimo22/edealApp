@@ -59,6 +59,11 @@ class _HomeState extends State<Home> {
     margin: EdgeInsets.only(top: 120),
     child: Column(children: [
       Container(
+        margin: EdgeInsets.only(bottom:30),
+      width: 150,
+      child:Image.asset('assets/logo_blanco.png'), 
+      ),
+      Container(
         margin: EdgeInsets.only(bottom: 20),
         child:Text(
           'Hola ${userData['name']}',
@@ -70,6 +75,7 @@ class _HomeState extends State<Home> {
       ),
 Container(
   margin: EdgeInsets.symmetric(horizontal: 10, vertical: 30),
+  
   child: Row(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
