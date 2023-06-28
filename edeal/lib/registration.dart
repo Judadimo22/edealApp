@@ -377,7 +377,7 @@ void registerUser() async {
                             const Color(0xFF0C67B0)
                           ),
                           padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                              const EdgeInsets.symmetric(horizontal: 141, vertical:10),
+                              const EdgeInsets.symmetric(horizontal: 124, vertical:10),
                           ),
                         ),
                          child: Text(
