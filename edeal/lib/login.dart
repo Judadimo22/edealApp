@@ -6,19 +6,21 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'config.dart';
 import 'package:http/http.dart' as http;
 import 'package:velocity_x/velocity_x.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 
 
 
 class SignInPage extends StatefulWidget {
+  const SignInPage({Key? key}) : super(key: key);
   @override
-  _SignInPageState createState() => _SignInPageState();
+  SignInPageState createState() => SignInPageState();
 }
 
-class _SignInPageState extends State<SignInPage> {
+class SignInPageState extends State<SignInPage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  bool _isNotValidate = false;
+  final bool _isNotValidate = false;
   late SharedPreferences prefs;
 
   @override
@@ -86,77 +88,249 @@ void loginUser() async {
         body: Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
-          color: Color(0XFF524898),
-          child: Center(
+          color: Colors.white,
             child: SingleChildScrollView(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Container(
-                    margin: EdgeInsets.only(bottom: 20),
+                  Center(
+                    child: Container(
+                    margin: const EdgeInsets.only(bottom: 20, top: 65),
                     width: 200,
-                    child:Image.asset('assets/logo_blanco.png'), 
+                    child:Image.asset('assets/logo_base.png'), 
+                  ),
+                  ),
+                  Center(
+                    child: Container(
+                      margin: const EdgeInsets.only(top: 30, bottom: 20),
+                      child: Text(
+                        'Bienvenido a Edeal !',
+                        style: GoogleFonts.poppins(
+                          color: const Color(0xFF0C67B0),
+                          fontSize: 26,
+                          fontWeight: FontWeight.w700,
+                          height: 1.5,
+                          letterSpacing: -0.01
+                        )
+                        ),
+                    ),
                   ),
                   Container(
-                    margin: EdgeInsets.symmetric(vertical: 20),
-                    child: TextField(
+                  margin: const EdgeInsets.only(top: 20, left: 40, right: 40, ),
+                  child: Text(
+                    'Hola ,',
+                    style: GoogleFonts.poppins(
+                      color: const Color(0xFF444C52),
+                      fontSize: 36,
+                      fontWeight: FontWeight.w600,
+                      letterSpacing: -0.01,
+                      height: 1.5,
+                    ),
+                    textAlign: TextAlign.start,
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(left: 40, right: 40, ),
+                  child: Text(
+                    'inicia sesión',
+                    style: GoogleFonts.poppins(
+                      color: const Color(0xFF444C52),
+                      fontSize: 36,
+                      fontWeight: FontWeight.w600,
+                      letterSpacing: -0.01,
+                      height: 1.5,
+                    ),
+                    textAlign: TextAlign.start,
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(left: 40, right: 40, top: 15, bottom: 30 ),
+                  child: Row(
+                    children: [
+                      Text(
+                        'No tienes cuenta ?',
+                        style: GoogleFonts.poppins(
+                          color: const Color(0xFF444C52),
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                          height: 1.5,
+                          letterSpacing: -0.01
+                        ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                          Navigator.push( 
+                            context,
+                            MaterialPageRoute(builder: (context) => Registration()),
+                        );
+                          },
+                          child:Text(
+                        '/Regístrate ahora',
+                        style: GoogleFonts.poppins(
+                          color: const Color(0xFF165AA5),
+                          fontSize: 12,
+                          fontWeight:  FontWeight.w500,
+                          height: 1.5,
+                          letterSpacing:  -0.01
+                        ),
+                        ),
+                        )
+                    ],
+                  )
+                ),
+                  Container(
+                    margin: const EdgeInsets.symmetric(vertical: 10),
+                    child: Column(
+                      children: [ 
+                        Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 33),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Correo electrónico', 
+                              style: GoogleFonts.poppins(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                          ) ,
+                        ), 
+                        Container(
+                          child: TextField(
                       controller: emailController,
                       keyboardType: TextInputType.text,
                       decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
-                        hintText: "Email",
+                        hintText: "Ingresa tu correo electrónico",
+                        hintStyle: const TextStyle(
+                          color: Color(0xFFABB3B8)
+                        ),
                         errorText: _isNotValidate ? "Enter Proper Info" : null,
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: const BorderSide(
+                            color: Color(0xFF0C67B0),
+                            width: 1
+                          ),
+                        ),
+                        enabledBorder:  OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: const BorderSide(
+                            color: Color(0xFF0C67B0),
+                            width: 1
+                          ),
+                        ),
                       ),
                     ).p4().px24(),
+                        ),
+                      ],
+                    )
                   ),
                   Container(
-                    margin: EdgeInsets.symmetric(vertical: 20),
-                    child: TextField(
+                    margin: const EdgeInsets.symmetric(vertical: 0),
+                    child: Column(
+                      children: [ 
+                        Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 33),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Contraseña', 
+                              style: GoogleFonts.poppins(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                          ) ,
+                        ), 
+                        Container(
+                          child: TextField(
                       controller: passwordController,
                       keyboardType: TextInputType.text,
                       decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.white,
-                        hintText: "Password",
+                        hintText: "Ingresa tu contraseña",
+                        hintStyle: const TextStyle(
+                          color: Color(0xFFABB3B8)
+                        ),
                         errorText: _isNotValidate ? "Enter Proper Info" : null,
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: const BorderSide(
+                            color: Color(0xFF0C67B0),
+                            width: 1
+                          ),
+                        ),
+                        enabledBorder:  OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: const BorderSide(
+                            color: Color(0xFF0C67B0),
+                            width: 1
+                          ),
+                        ),
                       ),
                     ).p4().px24(),
-                  ),
-                  SizedBox(height: 30),
-                  ElevatedButton(
-                    onPressed: loginUser,
-                    style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all<Color>(Color(0XFFE8E112)),
-                    ),
-                    child: Text('INGRESAR'),
+                        ),
+                      ],
+                    )
                   ),
                   Container(
-                    margin: EdgeInsets.only(top: 40),
-                    child: Text(
-                      'Olvidé mi contraseña',
-                      style: TextStyle(color: Colors.white),
+                          margin: const EdgeInsets.symmetric(horizontal: 33, vertical: 5),
+                          child: Align(
+                            alignment: Alignment.centerRight,
+                            child: Text(
+                              'Olvidaste tu contraseña ?', 
+                              style: GoogleFonts.poppins(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w400,
+                                height: 1.5,
+                                letterSpacing: -0.01,
+                                color: const Color(0xFF444C52)
+                              ),                   
+                            ),
+                          ) ,
+                        ), 
+                  const SizedBox(height: 10),
+                  Center(
+                    child: Container(
+                      margin: const EdgeInsets.only(top: 15),
+                      child: ElevatedButton(
+                        onPressed: loginUser,
+                        style: ButtonStyle(
+                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                            const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(10))
+                            )
+                          ),
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                            const Color(0xFF0C67B0)
+                          ),
+                          padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                              const EdgeInsets.symmetric(horizontal: 141, vertical:10),
+                          ),
+                        ),
+                         child: Text(
+                              'Ingresar', 
+                              style: GoogleFonts.poppins(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w400,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                      )
                     ),
-                  ),
-                  SizedBox(height: 50),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Registration()),
-                      );
-                    },
-                    style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all<Color>(Color(0XFFE8E112)),
-                    ),
-                    child: Text('REGISTRARSE'),
                   ),
                 ],
               ),
             ),
-          ),
         ),
       ),
     );
