@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:edeal/formularioPlanFinanciero/informacionPersonal.dart';
 import 'package:edeal/views/ahorroPage.dart';
 import 'package:edeal/views/contactPage.dart';
 import 'package:edeal/views/creditoScreen.dart';
@@ -63,16 +64,6 @@ class _HomeState extends State<Home> {
       width: 150,
       child:Image.asset('assets/logo_blanco.png'), 
       ),
-      Container(
-        margin: EdgeInsets.only(bottom: 20),
-        child:Text(
-          'Hola ${userData['name']}',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 20
-          ),
-          ),
-      ),
 Container(
   margin: EdgeInsets.symmetric(horizontal: 10, vertical: 30),
   
@@ -90,7 +81,7 @@ Container(
             onPressed: () => {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => PlaneacionScreen(token: widget.token)),
+              MaterialPageRoute(builder: (context) => InformacionPersonal(token: widget.token)),
             )
             },
             child: Text(

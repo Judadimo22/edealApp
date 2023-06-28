@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:edeal/formularioPlanFinanciero/informacionPersonal.dart';
 import 'package:edeal/views/ahorroPage.dart';
 import 'package:edeal/views/creditoScreen.dart';
 import 'package:edeal/views/fincaRaizPage.dart';
@@ -30,7 +31,7 @@ class _DashboardState extends State<Dashboard> {
     fetchUserData();
     _pages = [
       Home(token: widget.token),
-      PlaneacionScreen(token: widget.token),
+      InformacionPersonal(token: widget.token),
       AhorroScreen(token: widget.token),
       CreditoScreen(token: widget.token),
       FincaRaizScreen(token: widget.token)
