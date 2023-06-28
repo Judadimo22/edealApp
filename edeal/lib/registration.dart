@@ -5,7 +5,8 @@ import 'package:velocity_x/velocity_x.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'config.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 
 
 class Registration extends StatefulWidget {
@@ -135,96 +136,265 @@ void registerUser() async {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          title: Text('Registro'),
-          centerTitle: true,
-          backgroundColor: Color(0XFF524898),
-          toolbarHeight: 70,
-        ),
         body: Container(
-          margin: EdgeInsets.only(top: 10, bottom: 10),
+          margin: const EdgeInsets.only(top: 10, bottom: 10),
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           color: Colors.white,
-          child: Center(
             child: SingleChildScrollView(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  HeightBox(10),
+                  Center(
+                    child: Container(
+                    margin: const EdgeInsets.only(bottom: 20, top: 65),
+                    width: 200,
+                    child:Image.asset('assets/logo_base.png'), 
+                  ),
+                  ),
                   Container(
-                    margin: EdgeInsets.only(bottom: 20),
-                    child:TextField(
-                    controller: emailController,
-                    keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                        errorStyle: TextStyle(color: Colors.white),
-                        errorText: _isNotValidate ? "Enter Proper Info" : null,
-                        hintText: "Email",),
-                  ).p4().px24(),
+                  margin: const EdgeInsets.only(top: 20, left: 40, right: 40, ),
+                  child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Hola,', 
+                              style: GoogleFonts.poppins(
+                                color: const Color(0xFF444C52),
+                                fontSize: 36,
+                                fontWeight: FontWeight.w600,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                          ) ,
+                ),
+                Container(
+                  margin: const EdgeInsets.only(left: 40, right: 40, bottom: 40 ),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                    'regístrate',
+                    style: GoogleFonts.poppins(
+                      color: const Color(0xFF444C52),
+                      fontSize: 36,
+                      fontWeight: FontWeight.w600,
+                      letterSpacing: -0.01,
+                      height: 1.5,
+                    ),
+                    textAlign: TextAlign.start,
+                  ),
+                  )
+                ),
+                Container(
+                    margin: const EdgeInsets.symmetric(vertical: 10),
+                    child: Column(
+                      children: [ 
+                        Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 33),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Correo electrónico', 
+                              style: GoogleFonts.poppins(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                          ) ,
+                        ), 
+                        Container(
+                          child: TextField(
+                      controller: emailController,
+                      keyboardType: TextInputType.text,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        hintText: "Ingresa tu correo electrónico",
+                        hintStyle: const TextStyle(
+                          color: Color(0xFFABB3B8)
+                        ),
+                        errorText: _isNotValidate ? "Ingresa un correo electrónico válido" : null,
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: const BorderSide(
+                            color: Color(0xFF0C67B0),
+                            width: 1
+                          ),
+                        ),
+                        enabledBorder:  OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: const BorderSide(
+                            color: Color(0xFF0C67B0),
+                            width: 1
+                          ),
+                        ),
+                      ),
+                    ).p4().px24(),
+                        ),
+                      ],
+                    )
                   ),
                 Container(
-                    margin: EdgeInsets.only(bottom: 20),
-                    child: TextFormField(
-                    controller: passwordController,
-                    keyboardType: TextInputType.text,
-                    obscureText: !_isPasswordVisible,
-                    onChanged: (value) => _validatePassword(),
-                    decoration: InputDecoration(
-                        errorStyle: TextStyle(color: Colors.white),
-                        errorText: _isNotValidate ? "Enter Proper Info" : null,
-                        hintText: "Contraseña",
+                    margin: const EdgeInsets.symmetric(vertical: 10),
+                    child: Column(
+                      children: [ 
+                        Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 33),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Contraseña', 
+                              style: GoogleFonts.poppins(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                          ) ,
+                        ), 
+                        Container(
+                          child: TextField(
+                      controller: passwordController,
+                      keyboardType: TextInputType.text,
+                      obscureText: !_isPasswordVisible,
+                      onChanged: (value) => _validatePassword(),
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        hintText: "Ingresa tu contraseña",
                         helperText: _isPasswordValid ? null : "La contraseña debe tener al menos 8 caracteres",
-                    suffixIcon: GestureDetector(
-                    onTap: () {
-                  setState(() {
-                      _isPasswordVisible = !_isPasswordVisible;
-                    });
-                  },
-                child: Icon(
-                _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
-                ),
-                ),
-                ),
-                ).p4().px24(),
-                ),
-                Container(
-                    margin: EdgeInsets.only(bottom: 20),
-                    child: TextFormField(
-                    controller: confirmPasswordControler,
-                    keyboardType: TextInputType.text,
-                    obscureText: !_isPasswordVisible,
-                    decoration: InputDecoration(
-                        errorStyle: TextStyle(color: Colors.white),
-                        errorText: _isNotValidate ? "Enter Proper Info" : null,
-                        hintText: "Confirmar contraseña",
-                    suffixIcon: GestureDetector(
-                    onTap: () {
-                  setState(() {
-                      _isPasswordVisible = !_isPasswordVisible;
-                    });
-                  },
-                child: Icon(
-                _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
-                ),),
-                ),
-                ).p4().px24(),
-                ),
-                  Container(
-                    child: ElevatedButton(
-                      onPressed: () =>{
-                        registerUser()
-                      },
-                      style: ElevatedButton.styleFrom(
-                        primary: Color(0XFFE8E112) , // Background color
+                        hintStyle: const TextStyle(
+                          color: Color(0xFFABB3B8)
                         ),
-                      child: Text('REGISTRARSE'),
+                        suffixIcon: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              _isPasswordVisible = !_isPasswordVisible;
+                            });
+                          },
+                          child: Icon(
+                            _isPasswordVisible ? Icons.visibility : Icons.visibility_off
+                          ),
+                        ),
+                        errorText: _isNotValidate ? "Ingresa una contraseña válida" : null,
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: const BorderSide(
+                            color: Color(0xFF0C67B0),
+                            width: 1
+                          ),
+                        ),
+                        enabledBorder:  OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: const BorderSide(
+                            color: Color(0xFF0C67B0),
+                            width: 1
+                          ),
+                        ),
+                      ),
+                    ).p4().px24(),
+                        ),
+                      ],
+                    )
+                  ),
+                  Container(
+                    margin: const EdgeInsets.symmetric(vertical: 10),
+                    child: Column(
+                      children: [ 
+                        Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 33),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Confirma tu contraseña', 
+                              style: GoogleFonts.poppins(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                          ) ,
+                        ), 
+                        Container(
+                          child: TextField(
+                      controller: confirmPasswordControler,
+                      keyboardType: TextInputType.text,
+                      obscureText: !_isPasswordVisible,
+                      onChanged: (value) => _validatePassword(),
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        hintText: "Ingresa nuevamente tu contraseña",
+                        hintStyle: const TextStyle(
+                          color: Color(0xFFABB3B8)
+                        ),
+                        suffixIcon: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              _isPasswordVisible = !_isPasswordVisible;
+                            });
+                          },
+                          child: Icon(
+                            _isPasswordVisible ? Icons.visibility : Icons.visibility_off
+                          ),
+                        ),
+                        errorText: _isNotValidate ? "Confirma tu contraseña" : null,
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: const BorderSide(
+                            color: Color(0xFF0C67B0),
+                            width: 1
+                          ),
+                        ),
+                        enabledBorder:  OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: const BorderSide(
+                            color: Color(0xFF0C67B0),
+                            width: 1
+                          ),
+                        ),
+                      ),
+                    ).p4().px24(),
+                        ),
+                      ],
+                    )
+                  ),
+                  Center(
+                    child: Container(
+                      margin: const EdgeInsets.only(top: 25),
+                      child: ElevatedButton(
+                        onPressed: registerUser,
+                        style: ButtonStyle(
+                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                            const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(10))
+                            )
+                          ),
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                            const Color(0xFF0C67B0)
+                          ),
+                          padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                              const EdgeInsets.symmetric(horizontal: 141, vertical:10),
+                          ),
+                        ),
+                         child: Text(
+                              'Registrarse', 
+                              style: GoogleFonts.poppins(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w400,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                      )
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
-          ),
         ),
       ),
     );
