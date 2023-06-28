@@ -21,27 +21,21 @@ const userSchema = mongoose.Schema({
     },
     name: {
         type: String,
-        required: [true, "Name is required"],
     },
     lastName: {
         type: String,
-        required: [true, "Last name is required"],
     },
     phone: {
         type: String,
-        required: [true, "Phone is required"],
     },
     tipoCedula: {
         type: String,
-        required: [true, "Tipo de cedula is required"],
     },
     cedula: {
         type: String,
-        required: [true, "cedula is required"],
     },
     fechaNacimiento: {
         type: String,
-        required: [true, "Fecha nacimiento is required"],
     },
     credito: {
         type: String,
