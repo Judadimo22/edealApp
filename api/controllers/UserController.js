@@ -6,14 +6,14 @@ const { reenviarCorreo } = require('../nodemailer/reenviarCorreo');
 const register = async (req, res, next) => {
   try {
     console.log("---req body---", req.body);
-    const { email, password, name, lastName, phone, tipoCedula, cedula, fechaNacimiento } = req.body;
+    const { email, password} = req.body;
     const code = Math.round(Math.random() * 999999);
     const confirmarCuenta = 'No'
     const duplicate = await UserServices.getUserByEmail(email);
     if (duplicate) {
       throw new Error(`UserName ${email}, Already Registered`);
     }
-    const user = await UserServices.registerUser(email, password, code, name, lastName, phone, tipoCedula, cedula, fechaNacimiento,confirmarCuenta);
+    const user = await UserServices.registerUser(email, password, code, confirmarCuenta);
     eMail(email, code);
 
     const tokenData = { _id: user._id, email: user.email };

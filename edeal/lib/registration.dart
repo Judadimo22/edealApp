@@ -9,22 +9,16 @@ import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
 
 class Registration extends StatefulWidget {
+    const Registration({Key? key}) : super(key: key);
   @override
-  _RegistrationState createState() => _RegistrationState();
+  RegistrationState createState() => RegistrationState();
 }
 
-class _RegistrationState extends State<Registration> {
+class RegistrationState extends State<Registration> {
 
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordControler = TextEditingController();
-  TextEditingController nameController = TextEditingController();
-  TextEditingController lastNameController = TextEditingController();
-  TextEditingController phoneController = TextEditingController();
-  TextEditingController tipoCedulaController = TextEditingController();
-  TextEditingController cedulaController = TextEditingController();
-  TextEditingController fechaNacimientoController = TextEditingController();
-  DateTime ? selectedDate;
   bool _isPasswordValid = true;
 
   void _validatePassword() {
@@ -34,27 +28,7 @@ class _RegistrationState extends State<Registration> {
   }
 
 
-    Future<void> _selectDate(BuildContext context) async {
-    final DateTime? picked = await DatePicker.showDatePicker(
-      context,
-      showTitleActions: true,
-      minTime: DateTime(1900),
-      maxTime: DateTime.now(),
-      locale: LocaleType.es,
-    );
 
-    if (picked != null && picked != selectedDate) {
-      setState(() {
-        selectedDate = picked;
-        fechaNacimientoController.text =
-            "${picked.day}/${picked.month}/${picked.year}";
-      });
-    }
-  }
-
-
-
-  String _tipoDocumento = 'Tipo de documento';
   bool _isNotValidate = false;
   late SharedPreferences prefs;
   @override
@@ -71,14 +45,14 @@ void registerUser() async {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Contraseñas no coinciden'),
-          content: Text('Por favor, asegúrate de que las contraseñas coincidan.'),
+          title: const Text('Contraseñas no coinciden'),
+          content: const Text('Por favor, asegúrate de que las contraseñas coincidan.'),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: Text('Aceptar'),
+              child: const Text('Aceptar'),
             ),
           ],
         );
@@ -88,21 +62,10 @@ void registerUser() async {
   }
 
   if (emailController.text.isNotEmpty &&
-      passwordController.text.isNotEmpty &&
-      nameController.text.isNotEmpty &&
-      lastNameController.text.isNotEmpty &&
-      phoneController.text.isNotEmpty &&
-      cedulaController.text.isNotEmpty &&
-      fechaNacimientoController.text.isNotEmpty) {
+      passwordController.text.isNotEmpty ) {
     var regBody = {
       "email": emailController.text,
       "password": passwordController.text,
-      "name": nameController.text,
-      "lastName": lastNameController.text,
-      "phone": phoneController.text,
-      "tipoCedula": _tipoDocumento,
-      "cedula": cedulaController.text,
-      "fechaNacimiento": fechaNacimientoController.text
     };
 
     var response = await http.post(
@@ -160,16 +123,10 @@ void registerUser() async {
   } else {
     setState(() {
       _isNotValidate = true;
-      _tipoDocumento = 'Tipo de documento';
     });
   }
 }
 
-    void updateTipoDocumento(String? newTipoDocumento){
-    setState(() {
-    _tipoDocumento = newTipoDocumento!;
-    });
-  }
 
   bool _isPasswordVisible = false;
 
@@ -198,28 +155,6 @@ void registerUser() async {
                   Container(
                     margin: EdgeInsets.only(bottom: 20),
                     child:TextField(
-                    controller: nameController,
-                    keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                        errorStyle: TextStyle(color: Colors.white),
-                        errorText: _isNotValidate ? "Enter Proper Info" : null,
-                        hintText: "Nombre",),
-                  ).p4().px24(),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(bottom: 20),
-                    child:TextField(
-                    controller: lastNameController,
-                    keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                        errorStyle: TextStyle(color: Colors.white),
-                        errorText: _isNotValidate ? "Enter Proper Info" : null,
-                        hintText: "Apellido",),
-                  ).p4().px24(),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(bottom: 20),
-                    child:TextField(
                     controller: emailController,
                     keyboardType: TextInputType.text,
                     decoration: InputDecoration(
@@ -227,63 +162,6 @@ void registerUser() async {
                         errorText: _isNotValidate ? "Enter Proper Info" : null,
                         hintText: "Email",),
                   ).p4().px24(),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(bottom: 20),
-                    child:TextField(
-                    controller: phoneController,
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
-                        errorStyle: TextStyle(color: Colors.white),
-                        errorText: _isNotValidate ? "Enter Proper Info" : null,
-                        hintText: "Teléfono",),
-                  ).p4().px24(),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(bottom: 20),
-                    width: 360,
-                    child:DropdownButton<String>(
-                      value: _tipoDocumento,
-                      onChanged: updateTipoDocumento,
-                      items: <String>[
-                        'Tipo de documento',
-                        'Cédula',
-                        'Pasaporte',
-                        'Cédula extranjería',
-                      ].map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(bottom: 20),
-                    child:TextField(
-                    controller: cedulaController,
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
-                        errorStyle: TextStyle(color: Colors.white),
-                        errorText: _isNotValidate ? "Enter Proper Info" : null,
-                        hintText: "Número de cédula",),
-                  ).p4().px24(),
-                  ),
-                  Container(
-                    margin:EdgeInsets.only(bottom: 20, left: 27, right: 27),
-                    child:             TextField(
-                    controller: fechaNacimientoController,
-                    readOnly: true,
-                    decoration: InputDecoration(
-                        hintText: 'Fecha de Nacimiento',
-                        suffixIcon: IconButton(
-                    icon: Icon(Icons.calendar_today),
-                        onPressed: () {
-                        _selectDate(context);
-                    },
-                  ),
-                  ),
-                  )
                   ),
                 Container(
                     margin: EdgeInsets.only(bottom: 20),
