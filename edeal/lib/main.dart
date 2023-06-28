@@ -1,4 +1,5 @@
 import 'package:edeal/confirm.dart';
+import 'package:edeal/views/firstPage.dart';
 import 'package:flutter/material.dart';
 import 'package:edeal/dashboard.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
@@ -27,13 +28,14 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-
         primaryColor: Colors.black,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: (token != null && JwtDecoder.isExpired(token) == false )?Dashboard(token: token):SignInPage(),
+      initialRoute: '/',
+      // home: (token != null && JwtDecoder.isExpired(token) == false )?Dashboard(token: token):SignInPage(),
       routes: {
-        '/confirm': (context) => Confirm(token: token)
+        // '/confirm': (context) => Confirm(token: token),
+        '/': (context) =>  const FirstPage()
       },
     );
   }
