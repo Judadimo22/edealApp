@@ -38,19 +38,19 @@ class FirstPageState extends State<FirstPage> {
               children: <Widget>[
                 Center(
                   child:Container(
-                  margin: const EdgeInsets.only(bottom: 100, top: 200),
+                  margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.02, top: MediaQuery.of(context).size.height * 0.2),
                   width: 200,
                   child: Image.asset('assets/logo_base.png'),
                 ),
                 ),
-                const SizedBox(height: 50),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.05),
                 Container(
-                  margin: const EdgeInsets.only(top: 20, left: 40, right: 40, ),
+                  margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.02, left: MediaQuery.of(context).size.height * 0.045, right: MediaQuery.of(context).size.height * 0.045, ),
                   child: Text(
                     'Get Started',
                     style: GoogleFonts.poppins(
                       color: const Color(0xFF444C52),
-                      fontSize: 36,
+                      fontSize: MediaQuery.of(context).size.height * 0.035,
                       fontWeight: FontWeight.w600,
                       letterSpacing: -0.01,
                       height: 1.5,
@@ -58,12 +58,12 @@ class FirstPageState extends State<FirstPage> {
                   ),
                 ),
                 Container(
-                  margin: const EdgeInsets.only(top:20, left:40, right:40),
+                  margin: EdgeInsets.only(top:MediaQuery.of(context).size.height * 0.030, left:MediaQuery.of(context).size.height * 0.045, right:MediaQuery.of(context).size.height * 0.045),
                   child: Text(
                     'Reference site about Lorem Ipsum,\ninformation on its origins, as well as\nrandom Lipsum generator.',
                     style: GoogleFonts.poppins(
                       color: const Color(0xFF817F7F),
-                      fontSize: 16,
+                      fontSize: MediaQuery.of(context).size.height * 0.021,
                       fontWeight: FontWeight.w500,
                       height: 1.5,
                       letterSpacing: 0.01
@@ -71,14 +71,14 @@ class FirstPageState extends State<FirstPage> {
                   ),
                 ),
                 Container(
-                  margin:  const EdgeInsets.only(top: 80, right: 50, left: 50),
+                  margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.075, right: MediaQuery.of(context).size.height * 0.045, left: MediaQuery.of(context).size.height * 0.045),
                   child: Center(
                     child: 
                       ElevatedButton(
                         onPressed: (){
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => SignInPage()),
+                            MaterialPageRoute(builder: (context) =>const SignInPage()),
                         );
                         }, 
                         style: ButtonStyle(
@@ -91,7 +91,7 @@ class FirstPageState extends State<FirstPage> {
                             const Color(0xFF0C67B0)
                           ),
                           padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                              const EdgeInsets.symmetric(horizontal: 50),
+                              EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.065),
                           ),
                         ),
                         child: const Text('Start now'),

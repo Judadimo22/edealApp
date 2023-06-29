@@ -90,25 +90,25 @@ void loginUser() async {
           height: MediaQuery.of(context).size.height,
           color: Colors.white,
             child: SingleChildScrollView(
-              child: Column(
+                child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Center(
                     child: Container(
-                    margin: const EdgeInsets.only(bottom: 20, top: 65),
-                    width: 200,
+                    margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.02, top: MediaQuery.of(context).size.height * 0.08),
+                    width: MediaQuery.of(context).size.width * 0.5,
                     child:Image.asset('assets/logo_base.png'), 
                   ),
                   ),
                   Center(
                     child: Container(
-                      margin: const EdgeInsets.only(top: 30, bottom: 20),
+                      margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.01, bottom: MediaQuery.of(context).size.height * 0.01),
                       child: Text(
                         'Bienvenido a Edeal !',
                         style: GoogleFonts.poppins(
                           color: const Color(0xFF0C67B0),
-                          fontSize: 26,
+                          fontSize: MediaQuery.of(context).size.width * 0.05,
                           fontWeight: FontWeight.w700,
                           height: 1.5,
                           letterSpacing: -0.01
@@ -117,12 +117,12 @@ void loginUser() async {
                     ),
                   ),
                   Container(
-                  margin: const EdgeInsets.only(top: 20, left: 40, right: 40, ),
+                  margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.027, left: MediaQuery.of(context).size.width * 0.094, right: MediaQuery.of(context).size.width * 0.094, ),
                   child: Text(
                     'Hola ,',
                     style: GoogleFonts.poppins(
                       color: const Color(0xFF444C52),
-                      fontSize: 36,
+                      fontSize: MediaQuery.of(context).size.width * 0.080,
                       fontWeight: FontWeight.w600,
                       letterSpacing: -0.01,
                       height: 1.5,
@@ -131,12 +131,12 @@ void loginUser() async {
                   ),
                 ),
                 Container(
-                  margin: const EdgeInsets.only(left: 40, right: 40, ),
+                  margin: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.094, right: MediaQuery.of(context).size.width * 0.094, ),
                   child: Text(
                     'inicia sesión',
                     style: GoogleFonts.poppins(
                       color: const Color(0xFF444C52),
-                      fontSize: 36,
+                      fontSize: MediaQuery.of(context).size.width * 0.080,
                       fontWeight: FontWeight.w600,
                       letterSpacing: -0.01,
                       height: 1.5,
@@ -145,14 +145,14 @@ void loginUser() async {
                   ),
                 ),
                 Container(
-                  margin: const EdgeInsets.only(left: 40, right: 40, top: 15, bottom: 30 ),
+                  margin: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.094, right: MediaQuery.of(context).size.width * 0.094, top: MediaQuery.of(context).size.width * 0.03, bottom: MediaQuery.of(context).size.width * 0.03 ),
                   child: Row(
                     children: [
                       Text(
                         'No tienes cuenta ?',
                         style: GoogleFonts.poppins(
                           color: const Color(0xFF444C52),
-                          fontSize: 12,
+                          fontSize: MediaQuery.of(context).size.width * 0.032,
                           fontWeight: FontWeight.w400,
                           height: 1.5,
                           letterSpacing: -0.01
@@ -169,7 +169,7 @@ void loginUser() async {
                         '/Regístrate ahora',
                         style: GoogleFonts.poppins(
                           color: const Color(0xFF165AA5),
-                          fontSize: 12,
+                          fontSize: MediaQuery.of(context).size.width * 0.031,
                           fontWeight:  FontWeight.w500,
                           height: 1.5,
                           letterSpacing:  -0.01
@@ -180,17 +180,17 @@ void loginUser() async {
                   )
                 ),
                   Container(
-                    margin: const EdgeInsets.symmetric(vertical: 10),
+                    margin: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height * 0.008),
                     child: Column(
                       children: [ 
                         Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 33),
+                          margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.08),
                           child: Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
                               'Correo electrónico', 
                               style: GoogleFonts.poppins(
-                                fontSize: 14,
+                                fontSize: MediaQuery.of(context).size.width * 0.035,
                                 fontWeight: FontWeight.w500,
                                 height: 1.5,
                                 letterSpacing: -0.01
@@ -235,13 +235,13 @@ void loginUser() async {
                     child: Column(
                       children: [ 
                         Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 33),
+                          margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.08),
                           child: Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
                               'Contraseña', 
                               style: GoogleFonts.poppins(
-                                fontSize: 14,
+                                fontSize: MediaQuery.of(context).size.width * 0.035,
                                 fontWeight: FontWeight.w500,
                                 height: 1.5,
                                 letterSpacing: -0.01
@@ -282,13 +282,13 @@ void loginUser() async {
                     )
                   ),
                   Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 33, vertical: 5),
+                          margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.08, vertical: MediaQuery.of(context).size.height * 0.008),
                           child: Align(
                             alignment: Alignment.centerRight,
                             child: Text(
                               'Olvidaste tu contraseña ?', 
                               style: GoogleFonts.poppins(
-                                fontSize: 12,
+                                fontSize: MediaQuery.of(context).size.width * 0.03,
                                 fontWeight: FontWeight.w400,
                                 height: 1.5,
                                 letterSpacing: -0.01,
@@ -297,10 +297,10 @@ void loginUser() async {
                             ),
                           ) ,
                         ), 
-                  const SizedBox(height: 10),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.003),
                   Center(
                     child: Container(
-                      margin: const EdgeInsets.only(top: 15),
+                      margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.015, bottom:MediaQuery.of(context).size.height * 0),
                       child: ElevatedButton(
                         onPressed: loginUser,
                         style: ButtonStyle(
@@ -313,13 +313,13 @@ void loginUser() async {
                             const Color(0xFF0C67B0)
                           ),
                           padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                              const EdgeInsets.symmetric(horizontal: 141, vertical:10),
+                              EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.33, vertical: MediaQuery.of(context).size.height * 0.005),
                           ),
                         ),
                          child: Text(
                               'Ingresar', 
                               style: GoogleFonts.poppins(
-                                fontSize: 20,
+                                fontSize: MediaQuery.of(context).size.width * 0.05,
                                 fontWeight: FontWeight.w400,
                                 height: 1.5,
                                 letterSpacing: -0.01
@@ -336,3 +336,7 @@ void loginUser() async {
     );
   }
 }
+
+
+
+
