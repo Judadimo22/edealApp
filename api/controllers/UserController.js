@@ -238,7 +238,7 @@ const getUsers = async (req, res) => {
   const putInfoPersonal= async (req, res) => {
     const { id } = req.params;
   
-    const { estadoCivilCliente1, situacionLaboralCliente1, lugarResidenciaCLiente1,fechaNacimiento, phone} =
+    const { estadoCivilCliente1, situacionLaboralCliente1, lugarResidenciaCLiente1,fechaNacimiento, phone, cuentaConPlanSalud, tipoPlanSalud, porcentajeCoberturaPlan} =
       req.body;
   
     userSchema
@@ -250,7 +250,10 @@ const getUsers = async (req, res) => {
             situacionLaboralCliente1,
             lugarResidenciaCLiente1,
             fechaNacimiento,
-            phone
+            phone,
+            cuentaConPlanSalud,
+            tipoPlanSalud,
+            porcentajeCoberturaPlan
           },
         }
       )
