@@ -279,6 +279,27 @@ const getUsers = async (req, res) => {
       .catch((error) => res.status(500).json({ message: `${error} ` }));
   };
 
+  const putDependiente2= async (req, res) => {
+    const { id } = req.params;
+  
+    const { nombreDependiente2, relacionDependiente2, fechaNacimientoDependiente2} =
+      req.body;
+  
+    userSchema
+      .updateOne(
+        { _id: id },
+        {
+          $set: {
+            nombreDependiente2,
+            relacionDependiente2,
+            fechaNacimientoDependiente2,
+          },
+        }
+      )
+      .then((data) => res.json(data))
+      .catch((error) => res.status(500).json({ message: `${error} ` }));
+  };
+
   const putIngresos = async (req, res) => {
     const { id } = req.params;
   
@@ -727,5 +748,6 @@ module.exports ={
     putObjetivosRetiro,
     putPerfilRiesgo,
     putFuentesAdicionales,
-    putDependiente1
+    putDependiente1,
+    putDependiente2
 }
