@@ -137,7 +137,6 @@ void registerUser() async {
     return SafeArea(
       child: Scaffold(
         body: Container(
-          margin: const EdgeInsets.only(top: 10, bottom: 10),
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           color: Colors.white,
@@ -146,7 +145,7 @@ void registerUser() async {
                 children: <Widget>[
                   Center(
                     child: Container(
-                    margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.020, top: MediaQuery.of(context).size.height * 0.050),
+                    margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.020, top: MediaQuery.of(context).size.height * 0.060),
                     width: 200,
                     child:Image.asset('assets/logo_base.png'), 
                   ),

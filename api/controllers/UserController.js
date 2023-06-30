@@ -238,7 +238,7 @@ const getUsers = async (req, res) => {
   const putInfoPersonal= async (req, res) => {
     const { id } = req.params;
   
-    const { estadoCivilCliente1, situacionLaboralCliente1, lugarResidenciaCLiente1,nombreDependiente,relacionDependiente, fechaNacimientoDependiente} =
+    const { estadoCivilCliente1, situacionLaboralCliente1, lugarResidenciaCLiente1,fechaNacimiento, phone} =
       req.body;
   
     userSchema
@@ -249,9 +249,29 @@ const getUsers = async (req, res) => {
             estadoCivilCliente1,
             situacionLaboralCliente1,
             lugarResidenciaCLiente1,
+            fechaNacimiento,
+            phone
+          },
+        }
+      )
+      .then((data) => res.json(data))
+      .catch((error) => res.status(500).json({ message: `${error} ` }));
+  };
+
+  const putDependiente1= async (req, res) => {
+    const { id } = req.params;
+  
+    const { nombreDependiente, relacionDependiente, fechaNacimientoDependiente} =
+      req.body;
+  
+    userSchema
+      .updateOne(
+        { _id: id },
+        {
+          $set: {
             nombreDependiente,
             relacionDependiente,
-            fechaNacimientoDependiente
+            fechaNacimientoDependiente,
           },
         }
       )
@@ -464,7 +484,7 @@ const getUsers = async (req, res) => {
             plazoCreditoGastosCredito,
             saldoActualGastosCredito,
             interesAnualGastosCredito,
-            pagoMensualGastosCredito
+            pagoMensualGastosCredito,
           },
         }
       )
@@ -706,5 +726,6 @@ module.exports ={
     putObjetivosEducacion,
     putObjetivosRetiro,
     putPerfilRiesgo,
-    putFuentesAdicionales
+    putFuentesAdicionales,
+    putDependiente1
 }
