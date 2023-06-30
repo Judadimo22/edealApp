@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:edeal/formularioPlanFinanciero/controlFinanzas.dart';
+import 'package:edeal/formularioPlanFinanciero/paso2/ingresos.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:http/http.dart' as http;
@@ -186,7 +187,7 @@ class _InformacionPersonalState extends State<InformacionPersonal> {
         );
                     }
             else {
-             Navigator.push(context, MaterialPageRoute(builder: (context)=>ControlFinanzas(token: widget.token)));
+             Navigator.push(context, MaterialPageRoute(builder: (context)=>Ingresos(token: widget.token)));
             }
 
                   },

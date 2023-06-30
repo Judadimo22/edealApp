@@ -6,6 +6,8 @@ import 'package:edeal/views/homeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:jwt_decoder/jwt_decoder.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class Hogar extends StatefulWidget {
   final String token;
@@ -172,14 +174,119 @@ class _HogarState extends State<Hogar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color(0XFF524898),
-      ),
-      backgroundColor: const Color(0XFF524898),
+      backgroundColor: Colors.white,
       body: Center(
         child: SingleChildScrollView(
           child: Column(
             children: [
+               Row(
+              children: [
+              Container(
+              margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.080, left: MediaQuery.of(context).size.height * 0.040),
+              child: Column(
+                children: [
+                  Text(
+                ' Agrega              ',
+                style: GoogleFonts.poppins(
+                  color: const Color(0xFF444C52),
+                  fontSize: MediaQuery.of(context).size.height * 0.035,
+                  fontWeight: FontWeight.w600,
+                  height: 1.5,
+                  letterSpacing: -0.01
+                )
+              ),
+              Text(
+                ' tus gastos       ',
+                style: GoogleFonts.poppins(
+                  color: const Color(0xFF444C52),
+                  fontSize: MediaQuery.of(context).size.height * 0.035,
+                  fontWeight: FontWeight.w600,
+                  height: 1.5,
+                  letterSpacing: -0.01
+                )
+              )
+                ],
+              )
+            ),
+            Container(
+              margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.040, bottom: MediaQuery.of(context).size.height * 0.035 ),
+              child:Text(
+                '3/4',
+                style: GoogleFonts.inter(
+                  color: const Color(0xFF444C52),
+                  fontSize: MediaQuery.of(context).size.height * 0.015,
+                  fontWeight: FontWeight.w600,
+                  height: 1.5,
+                  letterSpacing: -0.01
+                )
+              ),
+            )
+              ],
+            ),
+                    Container(
+              margin: EdgeInsets.only(top: 20, left: MediaQuery.of(context).size.height * 0.050, right: MediaQuery.of(context).size.height * 0.050 ),
+              child: Text(
+                'Por favor indiquenos la siguiente información de sus gastos',
+                style: GoogleFonts.inter(
+                  color: const Color(0xFF817F7F),
+                  fontSize: MediaQuery.of(context).size.height * 0.020,
+                  fontWeight: FontWeight.w600,
+                  height: 1.5,
+                  letterSpacing: -0.01
+                )
+              ),
+            ),
+                      Container(
+                    margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.030 ),
+                    child: Column(
+                      children: [ 
+                        Container(
+                          margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.050),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Alquiler', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.016,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                          ) ,
+                        ), 
+                        Container(
+                          margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.010 ),
+                          child: TextField(
+                      controller: _creditoHipotecarioController,
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        hintText: "Alquiler",
+                        hintStyle: const TextStyle(
+                          color: Color(0xFFABB3B8)
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: const BorderSide(
+                            color: Color(0xFF0C67B0),
+                            width: 1
+                          ),
+                        ),
+                        enabledBorder:  OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: const BorderSide(
+                            color: Color(0xFF0C67B0),
+                            width: 1
+                          ),
+                        ),
+                      ),
+                    ).p4().px24(),
+                        ),
+                      ],
+                    )
+                  ),
               Container(
                 margin: const EdgeInsets.only(top: 40),
                 child: const Text(

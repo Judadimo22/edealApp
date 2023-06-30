@@ -38,6 +38,7 @@ dependencies:
   flutter_datetime_picker:
   flutter_countdown_timer:  
   google_fonts:
+  flutter_xlider:
 
 
   # The following adds the Cupertino Icons font to your application.
