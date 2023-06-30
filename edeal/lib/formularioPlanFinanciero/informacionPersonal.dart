@@ -1039,6 +1039,7 @@ class _InformacionPersonalState extends State<InformacionPersonal> {
                 )
               ),
             ),
+            if(userData['nombreDependiente'] != null)
             Container(
               decoration: BoxDecoration(
                 border: Border.all(
@@ -1398,7 +1399,7 @@ class _InformacionPersonalState extends State<InformacionPersonal> {
                           ),
                         ),
                          child: Text(
-                              'Ingresar', 
+                              'Siguiente', 
                               style: GoogleFonts.poppins(
                                 fontSize: MediaQuery.of(context).size.width * 0.05,
                                 fontWeight: FontWeight.w400,
