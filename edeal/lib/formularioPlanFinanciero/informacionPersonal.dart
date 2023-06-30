@@ -229,6 +229,67 @@ class _InformacionPersonalState extends State<InformacionPersonal> {
 }
   }
 
+  void addDependiente2() async {
+    var response = await http.put(
+      Uri.parse('https://edeal-app.onrender.com/dependiente2/$userId'),
+      body: {
+        'nombreDependiente2': _nombreDependiente.text,
+        'relacionDependiente2': _relacionDependienteController.text,
+        'fechaNacimientoDependiente2': _fechaNacimientoDependienteController.text,
+      },
+    );
+
+    if (response.statusCode == 200) {
+      setState(() {
+        userData['nombreDependiente2'] = _nombreDependiente.text;
+        userData['relacionDependiente2'] = _relacionDependienteController.text;
+        userData['fechaNacimientoDependiente2'] = _fechaNacimientoDependienteController.text;
+      });
+
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Información dependiente actualizada'),
+            content: Text('Has añadido la informacíon de una persona dependiente'),
+            actions: [
+              TextButton(
+                  onPressed: (){
+                    if (userData['nombreDependiente2'] == null){
+                              showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('Completa todos los campos antes de continuar'),
+              content: Text('Por favor diligencia los datos '),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('Aceptar'),
+                ),
+              ],
+            );
+          },
+        );
+                    }
+            else {
+             Navigator.push(context, MaterialPageRoute(builder: (context)=>InformacionPersonal(token: widget.token)));
+            }
+
+                  },
+                child: Text('Aceptar'),
+              ),
+            ],
+          );
+        },
+      );
+
+
+}
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -549,7 +610,7 @@ class _InformacionPersonalState extends State<InformacionPersonal> {
                     child: ElevatedButton(
                         onPressed: (){
                           if(userData['nombreDependiente'] == null) {
-                                                      showDialog(
+                          showDialog(
                             context: context, 
                             builder: (BuildContext context) {
                               return AlertDialog(
@@ -633,6 +694,8 @@ class _InformacionPersonalState extends State<InformacionPersonal> {
                             }
                             );
                           }
+
+  
                           else if(userData['nombreDependiente'] != null && userData['nombreDependiente2'] == null) {
                           showDialog(
                             context: context, 
@@ -710,7 +773,7 @@ class _InformacionPersonalState extends State<InformacionPersonal> {
             actions: [
               ElevatedButton(
                 onPressed: (){
-                  addDependiente1();
+                  addDependiente2();
                 }, 
                 child: const Text('Añadir')),
             ],
@@ -791,6 +854,45 @@ class _InformacionPersonalState extends State<InformacionPersonal> {
                   ),
                 ],
               )
+              
+            ),
+            if(userData['nombreDependiente2'] != null)
+            Container(
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: const Color(0xFFEDE5E5),
+                  width: 0.5
+                ),
+                borderRadius: BorderRadius.circular(12)
+              ),
+              padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.03, right: MediaQuery.of(context).size.width * 0.03, top: MediaQuery.of(context).size.width * 0.03, bottom: MediaQuery.of(context).size.width * 0.03  ) ,
+              margin: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.1, right: MediaQuery.of(context).size.width * 0.1, top: MediaQuery.of(context).size.width * 0.01   ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                   Text(
+                    '${userData['nombreDependiente2']}', 
+                    style: GoogleFonts.poppins(
+                    fontSize: MediaQuery.of(context).size.width * 0.03,
+                    fontWeight: FontWeight.w400,
+                    height: 1.5,
+                    letterSpacing: -0.01,
+                    color: const Color(0xFF444C52)
+                    ),                   
+                  ),
+                  Text(
+                    '${userData['relacionDependiente2']}', 
+                    style: GoogleFonts.poppins(
+                    fontSize: MediaQuery.of(context).size.width * 0.025,
+                    fontWeight: FontWeight.w400,
+                    height: 1.5,
+                    letterSpacing: -0.01,
+                    color: const Color(0xFF444C52)
+                    ),                   
+                  ),
+                ],
+              )
+              
             ),
             Container(
               margin: const EdgeInsets.only(top: 30, bottom: 30, left: 20, right: 20),

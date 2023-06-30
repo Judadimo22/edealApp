@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const UserController = require('../controllers/UserController');
-const {getUsers, register, login, getUserById, putCredit, putAhorro, reenviar, confirmarCuenta,putInfoPersonal,putIngresos,putAhorros,putGastosHogar,putGastosTransporte,putGastosEntretenimiento, putGastosFinancieros,putGastosVacaciones,putGastosImpuestos,putGastosCredito, putMetasFinancieras,putObjetivosSalud, putObjetivosEducacion, putObjetivosRetiro, putPerfilRiesgo, putFuentesAdicionales, putAhorro2, putAhorro3, putCredit2, putDependiente1, putDependiente2} = require('../controllers/UserController');
+const {getUsers, register, login, getUserById, putCredit, putAhorro, reenviar, confirmarCuenta,putInfoPersonal,putIngresos,putAhorros,putGastosHogar,putGastosTransporte,putGastosEntretenimiento, putGastosFinancieros,putGastosVacaciones,putGastosImpuestos,putGastosCredito, putMetasFinancieras,putObjetivosSalud, putObjetivosEducacion, putObjetivosRetiro, putPerfilRiesgo, putFuentesAdicionales, putAhorro2, putAhorro3, putCredit2, putDependiente1, putDependiente2, putDependiente3} = require('../controllers/UserController');
 const { updateUserCredit } = require("../services/UserServices");
 
 router.post("/register", (req,res,next) => {
@@ -59,6 +59,10 @@ router.put('/dependiente1/:id', (req, res, next) => {
 
  router.put('/dependiente2/:id', (req, res, next) => {
   putDependiente2(req,res,next)
+ })
+
+ router.put('/dependiente3/:id', (req, res, next) => {
+  putDependiente3(req,res,next)
  })
 
 router.put('/ingresos/:id', (req, res, next) => {

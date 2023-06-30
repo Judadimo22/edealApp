@@ -116,16 +116,25 @@ const userSchema = mongoose.Schema({
     nombreDependiente2: {
         type: String
     },
+    nombreDependiente3: {
+        type: String
+    },
     relacionDependiente: {
         type: String
     },
     relacionDependiente2: {
         type: String
     },
+    relacionDependiente3: {
+        type: String
+    },
     fechaNacimientoDependiente: {
         type: String
     },
     fechaNacimientoDependiente2: {
+        type: String
+    },
+    fechaNacimientoDependiente3: {
         type: String
     },
     salario: {

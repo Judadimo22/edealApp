@@ -300,6 +300,27 @@ const getUsers = async (req, res) => {
       .catch((error) => res.status(500).json({ message: `${error} ` }));
   };
 
+  const putDependiente3= async (req, res) => {
+    const { id } = req.params;
+  
+    const { nombreDependiente3, relacionDependiente3, fechaNacimientoDependiente3} =
+      req.body;
+  
+    userSchema
+      .updateOne(
+        { _id: id },
+        {
+          $set: {
+            nombreDependiente3,
+            relacionDependiente3,
+            fechaNacimientoDependiente3,
+          },
+        }
+      )
+      .then((data) => res.json(data))
+      .catch((error) => res.status(500).json({ message: `${error} ` }));
+  };
+
   const putIngresos = async (req, res) => {
     const { id } = req.params;
   
@@ -749,5 +770,6 @@ module.exports ={
     putPerfilRiesgo,
     putFuentesAdicionales,
     putDependiente1,
-    putDependiente2
+    putDependiente2,
+    putDependiente3
 }
