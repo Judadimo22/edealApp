@@ -7,6 +7,8 @@ import 'package:http/http.dart' as http;
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:velocity_x/velocity_x.dart';
+import 'package:dropdown_search/dropdown_search.dart';
+
 
 class InformacionPersonal extends StatefulWidget {
   final String token;
@@ -30,6 +32,7 @@ class _InformacionPersonalState extends State<InformacionPersonal> {
   String _planCobertura = 'Cuenta con un plan de salud';
   String _tipoPlan = 'Que tipo de plan';
   String _porcentajeCobertura = 'Porcentaje de cobertura';
+  String _relacionDependiente = 'Relacion';
 
   bool _showPlanCobertura = false;
 
@@ -84,6 +87,12 @@ class _InformacionPersonalState extends State<InformacionPersonal> {
   void _updateSituacionLaboral (String? newSituacionLaboral){
     setState(() {
       _situacionLaboral = newSituacionLaboral!;
+    });
+  }
+
+    void _updateRelacionDependiente (String? newRelacionDependiente){
+    setState(() {
+      _relacionDependiente = newRelacionDependiente!;
     });
   }
 
@@ -143,7 +152,8 @@ class _InformacionPersonalState extends State<InformacionPersonal> {
         'phone': _phoneController.text,
         'cuentaConPlanSalud': _planCobertura,
         'tipoPlanSalud': _tipoPlan,
-        'porcentajeCoberturaPlan': _porcentajeCobertura
+        'porcentajeCoberturaPlan': _porcentajeCobertura,
+        'fechaNacimiento': _fechaNacimientoController.text
       },
     );
 
@@ -152,6 +162,7 @@ class _InformacionPersonalState extends State<InformacionPersonal> {
         userData['estadoCivilCliente1'] = _estatusCivil;
         userData['situacionLaboralCliente1'] = _situacionLaboral;
         userData['lugarResidenciaCLiente1'] = _lugarResidencia.text;
+        userData['fechaNacimiento'] = _fechaNacimientoController.text;
         userData['phone'] = _phoneController.text;
         userData['cuentaConPlanSalud'] = _planCobertura;
         userData['tipoPlanSalud'] = _tipoPlan;
@@ -207,7 +218,7 @@ class _InformacionPersonalState extends State<InformacionPersonal> {
       Uri.parse('https://edeal-app.onrender.com/dependiente1/$userId'),
       body: {
         'nombreDependiente': _nombreDependiente.text,
-        'relacionDependiente': _relacionDependienteController.text,
+        'relacionDependiente': _relacionDependiente,
         'fechaNacimientoDependiente': _fechaNacimientoDependienteController.text,
       },
     );
@@ -215,7 +226,7 @@ class _InformacionPersonalState extends State<InformacionPersonal> {
     if (response.statusCode == 200) {
       setState(() {
         userData['nombreDependiente'] = _nombreDependiente.text;
-        userData['relacionDependiente'] = _relacionDependienteController.text;
+        userData['relacionDependiente'] = _relacionDependiente;
         userData['fechaNacimientoDependiente'] = _fechaNacimientoDependienteController.text;
       });
 
@@ -268,7 +279,7 @@ class _InformacionPersonalState extends State<InformacionPersonal> {
       Uri.parse('https://edeal-app.onrender.com/dependiente2/$userId'),
       body: {
         'nombreDependiente2': _nombreDependiente.text,
-        'relacionDependiente2': _relacionDependienteController.text,
+        'relacionDependiente2': _relacionDependiente,
         'fechaNacimientoDependiente2': _fechaNacimientoDependienteController.text,
       },
     );
@@ -276,7 +287,7 @@ class _InformacionPersonalState extends State<InformacionPersonal> {
     if (response.statusCode == 200) {
       setState(() {
         userData['nombreDependiente2'] = _nombreDependiente.text;
-        userData['relacionDependiente2'] = _relacionDependienteController.text;
+        userData['relacionDependiente2'] = _relacionDependiente;
         userData['fechaNacimientoDependiente2'] = _fechaNacimientoDependienteController.text;
       });
 
@@ -329,7 +340,7 @@ class _InformacionPersonalState extends State<InformacionPersonal> {
       Uri.parse('https://edeal-app.onrender.com/dependiente3/$userId'),
       body: {
         'nombreDependiente3': _nombreDependiente.text,
-        'relacionDependiente3': _relacionDependienteController.text,
+        'relacionDependiente3': _relacionDependiente,
         'fechaNacimientoDependiente3': _fechaNacimientoDependienteController.text,
       },
     );
@@ -337,7 +348,7 @@ class _InformacionPersonalState extends State<InformacionPersonal> {
     if (response.statusCode == 200) {
       setState(() {
         userData['nombreDependiente3'] = _nombreDependiente.text;
-        userData['relacionDependiente3'] = _relacionDependienteController.text;
+        userData['relacionDependiente3'] = _relacionDependiente;
         userData['fechaNacimientoDependiente3'] = _fechaNacimientoDependienteController.text;
       });
 
@@ -758,65 +769,180 @@ class _InformacionPersonalState extends State<InformacionPersonal> {
                                 letterSpacing: -0.01
                               ),                   
                             ), 
-                            content: Container(
+                            content: SingleChildScrollView(
+                              child: Container(
                               child: Column(
                                 children: [
                                               Container(
-              margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
-              child: TextField(
-                controller: _nombreDependiente,
-                decoration: const InputDecoration(
-                  hintText: 'Nombre',
-                  hintStyle: TextStyle(
-                    color: Colors.black
-                  )
-                ),
-                style: const TextStyle(
-                  color: Colors.black
-                ),
-              ),
-            ),
+                    margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.030 ),
+                    child: Column(
+                      children: [ 
                         Container(
-              margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
-              child: TextField(
-                controller: _relacionDependienteController,
-                decoration: const InputDecoration(
-                  hintText: 'Relación',
-                  hintStyle: TextStyle(
-                    color: Colors.black
-                  )
-                ),
-                style: const TextStyle(
-                  color: Colors.black
-                ),
-              ),
-            ),
+                          margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.050),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Nombre', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.016,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                          ) ,
+                        ), 
                         Container(
-              margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
-              child: TextField(
-                controller: _fechaNacimientoDependienteController,
-                readOnly: true,
-                decoration: InputDecoration(
-                  hintText: 'Fecha de nacimiento',
-                  hintStyle: const TextStyle(
-                    color: Colors.white
+                          margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.010 ),
+                          child: TextField(
+                      controller: _nombreDependiente,
+                      keyboardType: TextInputType.text,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        hintText: "Ingresa el nombre",
+                        hintStyle: const TextStyle(
+                          color: Color(0xFFABB3B8)
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: const BorderSide(
+                            color: Color(0xFF0C67B0),
+                            width: 1
+                          ),
+                        ),
+                        enabledBorder:  OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: const BorderSide(
+                            color: Color(0xFF0C67B0),
+                            width: 1
+                          ),
+                        ),
+                      ),
+                    ).p4().px24(),
+                        ),
+                      ],
+                    )
                   ),
-                  suffixIcon: IconButton(
-                    onPressed: (){
-                      _selectFechaNacimientoDependiente(context);
-                    }, 
+              Container(
+                          margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.050, right: MediaQuery.of(context).size.height * 0.050, top: MediaQuery.of(context).size.height * 0.020 ),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Relación dependiente', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.016,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                          ) ,
+                        ), 
+              Container(
+                width: MediaQuery.of(context).size.height * 1,
+                margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.005, left: MediaQuery.of(context).size.height * 0.045, right: MediaQuery.of(context).size.height * 0.045, bottom: MediaQuery.of(context).size.height * 0.009 ),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(
+                    color: const Color(0xFF0C67B0),
+                    width: 1
+                  )
+                ),
+                child: Container(
+                  padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height * 0.008, horizontal: MediaQuery.of(context).size.height * 0.010),
+                  child: DropdownButtonHideUnderline(
+                  child: DropdownButton<String>(
+                    dropdownColor: Colors.white,
+                    value: _relacionDependiente,
+                    onChanged: _updateRelacionDependiente,
+                    items: <String>[
+                      'Relacion',
+                      'Padre',
+                      'Hijo',
+                      'Hermano',
+                      'Otro'
+                    ].map<DropdownMenuItem<String>>((String value){
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.002),
+                          child: Text(
+                            value,
+                            style: const TextStyle(
+                              color: Color(0xFFABB3B8),
+                            ),
+                          ),
+                          )
+                          ,
+                      );
+                    }).toList(),
+                    underline: null,
                     icon: const Icon(
-                      color: Colors.black,
-                      Icons.calendar_today
-                    ))
-                ),
-                style: const TextStyle(
-                  color: Colors.black
-                ),
-              ) ,
-            ),
+                      Icons.arrow_drop_down,
+                      color: Color(0xFF0C67B0)
+                    ),
+                  )
+                  ),
+                )
+              ),
+            Container(
+                          margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.050),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Fecha de nacimiento', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.016,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                          ) ,
+                        ), 
+                         Container(
+                          margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.010 ),
+                          child: TextField(
+                      controller: _fechaNacimientoDependienteController,
+                      readOnly: true,
+                      keyboardType: TextInputType.text,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        hintText: "Fecha de nacimiento",
+                        hintStyle: const TextStyle(
+                          color: Color(0xFFABB3B8)
+                        ),
+                        suffixIcon: IconButton(
+                          onPressed: (){
+                            _selectFechaNacimientoDependiente(context);
+                          },
+                          icon: const Icon(
+                            color: Color(0xFF0C67B0),
+                            Icons.calendar_today
+                            ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: const BorderSide(
+                            color: Color(0xFF0C67B0),
+                            width: 1
+                          ),
+                        ),
+                        enabledBorder:  OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: const BorderSide(
+                            color: Color(0xFF0C67B0),
+                            width: 1
+                          ),
+                        ),
+                      ),
+                    ).p4().px24(),
+                        ),
                                 ],
                               ),
+                            ),
                             ),
             actions: [
               ElevatedButton(
@@ -845,65 +971,173 @@ class _InformacionPersonalState extends State<InformacionPersonal> {
                                 letterSpacing: -0.01
                               ),                   
                             ), 
-                            content: Container(
+                            content: SingleChildScrollView(
+                              child: Container(
                               child: Column(
                                 children: [
-                                              Container(
-              margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
-              child: TextField(
-                controller: _nombreDependiente,
-                decoration: const InputDecoration(
-                  hintText: 'Nombre',
-                  hintStyle: TextStyle(
-                    color: Colors.black
+                     Container(
+                          margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.050),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Nombre', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.016,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                          ) ,
+                        ), 
+                        Container(
+                          margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.010 ),
+                          child: TextField(
+                      controller: _nombreDependiente,
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        hintText: "Ingresa el nombre",
+                        hintStyle: const TextStyle(
+                          color: Color(0xFFABB3B8)
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: const BorderSide(
+                            color: Color(0xFF0C67B0),
+                            width: 1
+                          ),
+                        ),
+                        enabledBorder:  OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: const BorderSide(
+                            color: Color(0xFF0C67B0),
+                            width: 1
+                          ),
+                        ),
+                      ),
+                    ).p4().px24(),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.050, right: MediaQuery.of(context).size.height * 0.050, top: MediaQuery.of(context).size.height * 0.020 ),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Relación dependiente', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.016,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                          ) ,
+                        ), 
+              Container(
+                width: MediaQuery.of(context).size.height * 1,
+                margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.005, left: MediaQuery.of(context).size.height * 0.045, right: MediaQuery.of(context).size.height * 0.045, bottom: MediaQuery.of(context).size.height * 0.009 ),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(
+                    color: const Color(0xFF0C67B0),
+                    width: 1
                   )
                 ),
-                style: const TextStyle(
-                  color: Colors.black
-                ),
-              ),
-            ),
-                        Container(
-              margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
-              child: TextField(
-                controller: _relacionDependienteController,
-                decoration: const InputDecoration(
-                  hintText: 'Relación',
-                  hintStyle: TextStyle(
-                    color: Colors.black
-                  )
-                ),
-                style: const TextStyle(
-                  color: Colors.black
-                ),
-              ),
-            ),
-                        Container(
-              margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
-              child: TextField(
-                controller: _fechaNacimientoDependienteController,
-                readOnly: true,
-                decoration: InputDecoration(
-                  hintText: 'Fecha de nacimiento',
-                  hintStyle: const TextStyle(
-                    color: Colors.white
-                  ),
-                  suffixIcon: IconButton(
-                    onPressed: (){
-                      _selectFechaNacimientoDependiente(context);
-                    }, 
+                child: Container(
+                  padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height * 0.008, horizontal: MediaQuery.of(context).size.height * 0.010),
+                  child: DropdownButtonHideUnderline(
+                  child: DropdownButton<String>(
+                    dropdownColor: Colors.white,
+                    value: _relacionDependiente,
+                    onChanged: _updateRelacionDependiente,
+                    items: <String>[
+                      'Relacion',
+                      'Padre',
+                      'Hijo',
+                      'Hermano',
+                      'Otro'
+                    ].map<DropdownMenuItem<String>>((String value){
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.002),
+                          child: Text(
+                            value,
+                            style: const TextStyle(
+                              color: Color(0xFFABB3B8),
+                            ),
+                          ),
+                          )
+                          ,
+                      );
+                    }).toList(),
+                    underline: null,
                     icon: const Icon(
-                      color: Colors.black,
-                      Icons.calendar_today
-                    ))
-                ),
-                style: const TextStyle(
-                  color: Colors.black
-                ),
-              ) ,
-            ),
+                      Icons.arrow_drop_down,
+                      color: Color(0xFF0C67B0)
+                    ),
+                  )
+                  ),
+                )
+              ),
+              Container(
+                          margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.050),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Fecha de nacimiento', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.016,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                          ) ,
+                        ), 
+                        Container(
+                          margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.010 ),
+                          child: TextField(
+                      controller: _fechaNacimientoDependienteController,
+                      readOnly: true,
+                      keyboardType: TextInputType.text,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        hintText: "Fecha de nacimiento",
+                        hintStyle: const TextStyle(
+                          color: Color(0xFFABB3B8)
+                        ),
+                        suffixIcon: IconButton(
+                          onPressed: (){
+                            _selectFechaNacimientoDependiente(context);
+                          },
+                          icon: const Icon(
+                            color: Color(0xFF0C67B0),
+                            Icons.calendar_today
+                            ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: const BorderSide(
+                            color: Color(0xFF0C67B0),
+                            width: 1
+                          ),
+                        ),
+                        enabledBorder:  OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: const BorderSide(
+                            color: Color(0xFF0C67B0),
+                            width: 1
+                          ),
+                        ),
+                      ),
+                    ).p4().px24(),
+                        ),
                                 ],
                               ),
+                            ),
                             ),
             actions: [
               ElevatedButton(
@@ -931,65 +1165,173 @@ class _InformacionPersonalState extends State<InformacionPersonal> {
                                 letterSpacing: -0.01
                               ),                   
                             ), 
-                            content: Container(
+                            content: SingleChildScrollView(
+                              child: Container(
                               child: Column(
                                 children: [
-                                              Container(
-              margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
-              child: TextField(
-                controller: _nombreDependiente,
-                decoration: const InputDecoration(
-                  hintText: 'Nombre',
-                  hintStyle: TextStyle(
-                    color: Colors.black
+                           Container(
+                          margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.050),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Nombre', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.016,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                          ) ,
+                        ), 
+                        Container(
+                          margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.010 ),
+                          child: TextField(
+                      controller: _nombreDependiente,
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        hintText: "Ingresa el nombre",
+                        hintStyle: const TextStyle(
+                          color: Color(0xFFABB3B8)
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: const BorderSide(
+                            color: Color(0xFF0C67B0),
+                            width: 1
+                          ),
+                        ),
+                        enabledBorder:  OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: const BorderSide(
+                            color: Color(0xFF0C67B0),
+                            width: 1
+                          ),
+                        ),
+                      ),
+                    ).p4().px24(),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.050, right: MediaQuery.of(context).size.height * 0.050, top: MediaQuery.of(context).size.height * 0.020 ),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Relación dependiente', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.016,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                          ) ,
+                        ), 
+              Container(
+                width: MediaQuery.of(context).size.height * 1,
+                margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.005, left: MediaQuery.of(context).size.height * 0.045, right: MediaQuery.of(context).size.height * 0.045, bottom: MediaQuery.of(context).size.height * 0.009 ),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(
+                    color: const Color(0xFF0C67B0),
+                    width: 1
                   )
                 ),
-                style: const TextStyle(
-                  color: Colors.black
-                ),
-              ),
-            ),
-                        Container(
-              margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
-              child: TextField(
-                controller: _relacionDependienteController,
-                decoration: const InputDecoration(
-                  hintText: 'Relación',
-                  hintStyle: TextStyle(
-                    color: Colors.black
-                  )
-                ),
-                style: const TextStyle(
-                  color: Colors.black
-                ),
-              ),
-            ),
-                        Container(
-              margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
-              child: TextField(
-                controller: _fechaNacimientoDependienteController,
-                readOnly: true,
-                decoration: InputDecoration(
-                  hintText: 'Fecha de nacimiento',
-                  hintStyle: const TextStyle(
-                    color: Colors.white
-                  ),
-                  suffixIcon: IconButton(
-                    onPressed: (){
-                      _selectFechaNacimientoDependiente(context);
-                    }, 
+                child: Container(
+                  padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height * 0.008, horizontal: MediaQuery.of(context).size.height * 0.010),
+                  child: DropdownButtonHideUnderline(
+                  child: DropdownButton<String>(
+                    dropdownColor: Colors.white,
+                    value: _relacionDependiente,
+                    onChanged: _updateRelacionDependiente,
+                    items: <String>[
+                      'Relacion',
+                      'Padre',
+                      'Hijo',
+                      'Hermano',
+                      'Otro'
+                    ].map<DropdownMenuItem<String>>((String value){
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.002),
+                          child: Text(
+                            value,
+                            style: const TextStyle(
+                              color: Color(0xFFABB3B8),
+                            ),
+                          ),
+                          )
+                          ,
+                      );
+                    }).toList(),
+                    underline: null,
                     icon: const Icon(
-                      color: Colors.black,
-                      Icons.calendar_today
-                    ))
-                ),
-                style: const TextStyle(
-                  color: Colors.black
-                ),
-              ) ,
-            ),
+                      Icons.arrow_drop_down,
+                      color: Color(0xFF0C67B0)
+                    ),
+                  )
+                  ),
+                )
+              ),
+              Container(
+                          margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.050),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Fecha de nacimiento', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.016,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                          ) ,
+                        ), 
+                        Container(
+                          margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.010 ),
+                          child: TextField(
+                      controller: _fechaNacimientoDependienteController,
+                      readOnly: true,
+                      keyboardType: TextInputType.text,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        hintText: "Fecha de nacimiento",
+                        hintStyle: const TextStyle(
+                          color: Color(0xFFABB3B8)
+                        ),
+                        suffixIcon: IconButton(
+                          onPressed: (){
+                            _selectFechaNacimientoDependiente(context);
+                          },
+                          icon: const Icon(
+                            color: Color(0xFF0C67B0),
+                            Icons.calendar_today
+                            ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: const BorderSide(
+                            color: Color(0xFF0C67B0),
+                            width: 1
+                          ),
+                        ),
+                        enabledBorder:  OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: const BorderSide(
+                            color: Color(0xFF0C67B0),
+                            width: 1
+                          ),
+                        ),
+                      ),
+                    ).p4().px24(),
+                        ),
                                 ],
                               ),
+                            ),
                             ),
             actions: [
               ElevatedButton(
