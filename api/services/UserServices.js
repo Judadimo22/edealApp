@@ -5,11 +5,11 @@ const bcrypt = require('bcrypt');
 
 class UserServices{
  
-    static async registerUser(email,password,code,confirmarCuenta){
+    static async registerUser(email,password,code,confirmarCuenta, name, lastName){
         try{
                 console.log("-----Email --- Password-----",email,password);
                 
-                const createUser = new UserModel({email,password,code,confirmarCuenta});
+                const createUser = new UserModel({email,password,code,confirmarCuenta, name, lastName});
                 return await createUser.save();
         }catch(err){
             throw err;

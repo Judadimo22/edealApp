@@ -20,6 +20,8 @@ class RegistrationState extends State<Registration> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordControler = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController lastNameController = TextEditingController();
   bool _isPasswordValid = true;
 
   void _validatePassword() {
@@ -63,10 +65,14 @@ void registerUser() async {
   }
 
   if (emailController.text.isNotEmpty &&
-      passwordController.text.isNotEmpty ) {
+      passwordController.text.isNotEmpty &&
+      nameController.text.isNotEmpty &&
+      lastNameController.text.isNotEmpty ) {
     var regBody = {
       "email": emailController.text,
       "password": passwordController.text,
+      "name": nameController.text,
+      "lastName": lastNameController.text
     };
 
     var response = await http.post(
@@ -214,6 +220,110 @@ void registerUser() async {
                           color: Color(0xFFABB3B8)
                         ),
                         errorText: _isNotValidate ? "Ingresa un correo electrónico válido" : null,
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: const BorderSide(
+                            color: Color(0xFF0C67B0),
+                            width: 1
+                          ),
+                        ),
+                        enabledBorder:  OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: const BorderSide(
+                            color: Color(0xFF0C67B0),
+                            width: 1
+                          ),
+                        ),
+                      ),
+                    ).p4().px24(),
+                        ),
+                      ],
+                    )
+                  ),
+
+              Container(
+                    margin: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height * 0.015),
+                    child: Column(
+                      children: [ 
+                        Container(
+                          margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.040),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Nombre', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.016,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                          ) ,
+                        ), 
+                        Container(
+                          child: TextField(
+                      controller: nameController,
+                      keyboardType: TextInputType.text,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        hintText: "Ingresa tu nombre",
+                        hintStyle: const TextStyle(
+                          color: Color(0xFFABB3B8)
+                        ),
+                        errorText: _isNotValidate ? "Ingresa tu nombre" : null,
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: const BorderSide(
+                            color: Color(0xFF0C67B0),
+                            width: 1
+                          ),
+                        ),
+                        enabledBorder:  OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: const BorderSide(
+                            color: Color(0xFF0C67B0),
+                            width: 1
+                          ),
+                        ),
+                      ),
+                    ).p4().px24(),
+                        ),
+                      ],
+                    )
+                  ),
+
+          Container(
+                    margin: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height * 0.015),
+                    child: Column(
+                      children: [ 
+                        Container(
+                          margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.040),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Apellido', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.016,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                          ) ,
+                        ), 
+                        Container(
+                          child: TextField(
+                      controller: lastNameController,
+                      keyboardType: TextInputType.text,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        hintText: "Ingresa tu apellido",
+                        hintStyle: const TextStyle(
+                          color: Color(0xFFABB3B8)
+                        ),
+                        errorText: _isNotValidate ? "Ingresa tu nombre" : null,
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                           borderSide: const BorderSide(
