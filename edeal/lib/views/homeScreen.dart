@@ -4,17 +4,16 @@ import 'package:edeal/views/ahorroPage.dart';
 import 'package:edeal/views/contactPage.dart';
 import 'package:edeal/views/creditoScreen.dart';
 import 'package:edeal/views/fincaRaizPage.dart';
-import 'package:edeal/views/homeScreen.dart';
-import 'package:edeal/views/planeacionScreen.dart';
 import 'package:edeal/views/questionsPage.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:jwt_decoder/jwt_decoder.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Home extends StatefulWidget {
   final String token;
 
-  Home({required this.token, Key? key}) : super(key: key);
+  const Home({required this.token, Key? key}) : super(key: key);
 
   @override
   State<Home> createState() => _HomeState();
@@ -55,17 +54,34 @@ class _HomeState extends State<Home> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0XFF524898),
+      backgroundColor: Colors.white,
       body:Container(
-    margin: EdgeInsets.only(top: 120),
+    margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.050),
     child: Column(children: [
-      Container(
-        margin: EdgeInsets.only(bottom:30),
-      width: 150,
-      child:Image.asset('assets/logo_blanco.png'), 
-      ),
+                  Center(
+                    child: Container(
+                    margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.020, top: MediaQuery.of(context).size.height * 0.060),
+                    width: 200,
+                    child:Image.asset('assets/logo_base.png'), 
+                  ),
+                  ),
+                Center(
+                  child: Container(
+                  margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.020, left: MediaQuery.of(context).size.height * 0.045, right: MediaQuery.of(context).size.height * 0.045, ),
+                  child: Text(
+                              'Bienvenido ${userData['name']}', 
+                              style: GoogleFonts.poppins(
+                                color: const Color(0xFF0C67B0),
+                                fontSize: MediaQuery.of(context).size.height * 0.025,
+                                fontWeight: FontWeight.w600,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                ),
+                ),
 Container(
-  margin: EdgeInsets.symmetric(horizontal: 10, vertical: 30),
+  margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.010, vertical: MediaQuery.of(context).size.height * 0.030),
   
   child: Row(
     mainAxisAlignment: MainAxisAlignment.center,
@@ -76,7 +92,7 @@ Container(
           child: ElevatedButton(
           style: ButtonStyle(
             backgroundColor:
-            MaterialStateProperty.all<Color>(Color(0XFFE8E112)),
+            MaterialStateProperty.all<Color>(const Color(0xFF0C67B0)),
             ),
             onPressed: () => {
             Navigator.push(
@@ -87,7 +103,7 @@ Container(
             child: Text(
               'Planeación',
               style:  TextStyle(
-                fontSize: 12
+                fontSize: 10
               ),
               ),
           ),
@@ -99,7 +115,7 @@ Container(
           child: ElevatedButton(
           style: ButtonStyle(
             backgroundColor:
-            MaterialStateProperty.all<Color>(Color(0XFFE8E112)),
+            MaterialStateProperty.all<Color>(const Color(0xFF0C67B0)),
             ),
             onPressed: () => {
             Navigator.push(
@@ -117,7 +133,7 @@ Container(
           child: ElevatedButton(
             style: ButtonStyle(
             backgroundColor:
-            MaterialStateProperty.all<Color>(Color(0XFFE8E112)),
+            MaterialStateProperty.all<Color>(const Color(0xFF0C67B0)),
             ),
             onPressed: () => {
             Navigator.push(
@@ -135,7 +151,7 @@ Container(
           child: ElevatedButton(
             style: ButtonStyle(
             backgroundColor:
-            MaterialStateProperty.all<Color>(Color(0XFFE8E112)),
+            MaterialStateProperty.all<Color>(const Color(0xFF0C67B0)),
             ),
             onPressed: () => {
             Navigator.push(
@@ -146,7 +162,7 @@ Container(
             child: Text(
               'Finca Raíz',
               style: TextStyle(
-                fontSize: 13
+                fontSize: 11
               ),
               ),
           ),
