@@ -2,12 +2,15 @@ import 'dart:convert';
 import 'package:edeal/formularioPlanFinanciero/controlFinanzas.dart';
 import 'package:edeal/formularioPlanFinanciero/informacionPersonal.dart';
 import 'package:edeal/formularioPlanFinanciero/paso2/gastos.dart';
+import 'package:edeal/formularioPlanFinanciero/paso3/metasFinancieras.dart';
 import 'package:edeal/views/homeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:velocity_x/velocity_x.dart';
+import 'package:intl/intl.dart';
+import 'package:edeal/widgets/thumb.dart';
 
 class Hogar extends StatefulWidget {
   final String token;
@@ -21,26 +24,31 @@ class Hogar extends StatefulWidget {
 class _HogarState extends State<Hogar> {
   late String userId;
   Map<String, dynamic> userData = {};
-  final TextEditingController _creditoHipotecarioController = TextEditingController();
-  final TextEditingController _arriendoController = TextEditingController();
-  final TextEditingController _serviciosPublicosController = TextEditingController();
-  final TextEditingController _internetController = TextEditingController();
-  final TextEditingController _planCelularController = TextEditingController();
-  final TextEditingController _mantenimientoHogarController = TextEditingController();
-  final TextEditingController _segurosHogarController = TextEditingController();
-  final TextEditingController _mercadoController = TextEditingController();
-  final TextEditingController _otrosGastosHogar = TextEditingController();
+  double _alquiler = 0;
+  double _serviciosPublicos = 0;
+  double _mercado = 0;
+  double _otrosGastosHogar = 0;
+  double _gasolina = 0;
+  double _mantenimientoVehiculo = 0;
+  double _transportePublico = 0;
+  double _viajes = 0;
+  double _restaurantes = 0;
+  double _eventosConciertos = 0;
+  double _cuotaCreditoVivienda = 0;
+  double _cuotaCreditoVehiculo = 0;
+  double _cuotaTarjetaCredito = 0;
+  double _cuotaOtrosCreditos = 0;
+  double _seguroVehiculo = 0;
+  double _seguroSalud = 0;
+  double _seguroVida = 0;
+  double _creditoUsd = 0;
+  double _otrosGastosFinancieros = 0;
+  double _renta = 0;
+  double _predial = 0;
+  double _impuestoVehiculos = 0;
 
 
-  double valorCreditoHipotecario= 0.0; 
-  double valorArriendo = 0.0; 
-  double valorServiciosPublicos = 0.0;
-  double valorInternet = 0.0;
-  double valorPlanCelular = 0.0;
-  double valorMantenimientoHogar = 0.0;
-  double valorSegurosHogar = 0.0;
-  double valorMercado = 0.0;
-  double valorOtrosGastosHogar = 0.0;
+
 
   @override
   void initState() {
@@ -50,59 +58,6 @@ class _HogarState extends State<Hogar> {
     fetchUserData();
     
 
-    _creditoHipotecarioController.addListener(() {
-      setState(() {
-        valorCreditoHipotecario = double.tryParse(_creditoHipotecarioController.text) ?? 0.0;
-      });
-    });
-
-    _arriendoController.addListener(() {
-      setState(() {
-        valorArriendo = double.tryParse(_arriendoController.text) ?? 0.0;
-      });
-    });
-
-    _serviciosPublicosController.addListener(() {
-      setState(() {
-        valorServiciosPublicos = double.tryParse(_serviciosPublicosController.text) ?? 0.0;
-      });
-    });
-
-    _internetController.addListener(() {
-      setState(() {
-        valorInternet = double.tryParse(_internetController.text) ?? 0.0;
-      });
-    });
-
-    _planCelularController.addListener(() { 
-      setState(() {
-        valorPlanCelular = double.tryParse(_planCelularController.text) ?? 0.0;
-      });
-    });
-
-     _mantenimientoHogarController.addListener(() { 
-      setState(() {
-        valorMantenimientoHogar = double.tryParse(_mantenimientoHogarController.text) ?? 0.0;
-      });
-    });
-
-     _segurosHogarController.addListener(() { 
-      setState(() {
-        valorSegurosHogar = double.tryParse(_segurosHogarController.text) ?? 0.0;
-      });
-    });
-
-     _mercadoController.addListener(() { 
-      setState(() {
-        valorMercado = double.tryParse(_mercadoController.text) ?? 0.0;
-      });
-    });
-
-     _otrosGastosHogar.addListener(() { 
-      setState(() {
-        valorOtrosGastosHogar = double.tryParse(_otrosGastosHogar.text) ?? 0.0;
-      });
-    });
 
 
 
@@ -125,29 +80,55 @@ class _HogarState extends State<Hogar> {
     var response = await http.put(
       Uri.parse('https://edeal-app.onrender.com/gastosHogar/$userId'),
       body: {
-        'creditoHipotecario': _creditoHipotecarioController.text,
-        'arriendo': _arriendoController.text,
-        'serviciosPublicos': _serviciosPublicosController.text,
-        'internet': _internetController.text,
-        'planCelular': _planCelularController.text,
-        'mantenimientoHogar': _mantenimientoHogarController.text,
-        'segurosHogar': _segurosHogarController.text,
-        'mercado': _mercadoController.text,
-        'otrosGastosHogar': _otrosGastosHogar.text
+        'alquiler': _alquiler.toInt().toString(),
+        'serviciosPublicos': _serviciosPublicos.toInt().toString(),
+        'mercado': _mercado.toInt().toString(),
+        'otrosGastosHogar': _otrosGastosHogar.toInt().toString(),
+        'gasolina': _gasolina.toInt().toString(),
+        'mantenimientoCarro': _mantenimientoVehiculo.toInt().toString(),
+        'transportePublico': _transportePublico.toInt().toString(),
+        'viajes': _viajes.toInt().toString(),
+        'restaurantes': _restaurantes.toInt().toString(),
+        'conciertos': _eventosConciertos.toInt().toString(),
+        'cuotaCreditoVivienda': _cuotaCreditoVivienda.toInt().toString(),
+        'cuotaCreditoVehiculo': _cuotaCreditoVehiculo.toInt().toString(),
+        'cuotaTarjetaCredito': _cuotaTarjetaCredito.toInt().toString(),
+        'cuotaOtrosCreditos': _cuotaOtrosCreditos.toInt().toString(),
+        'seguroCarro': _seguroVehiculo.toInt().toString(),
+        'seguroSalud': _seguroSalud.toInt().toString(),
+        'seguroVida': _seguroSalud.toInt().toString(),
+        'creditoUsd': _creditoUsd.toInt().toString(),
+        'otrosGastosFinancieros': _otrosGastosFinancieros.toInt().toString(),
+        'renta': _renta.toInt().toString(),
+        'predial': _predial.toInt().toString(),
+        'impuestoVehiculos': _impuestoVehiculos.toInt().toString(),
       },
     );
 
     if (response.statusCode == 200) {
       setState(() {
-        userData['creditoHipotecario'] = _creditoHipotecarioController.text;
-        userData['arriendo'] = _arriendoController.text;
-        userData['serviciosPublicos'] = _serviciosPublicosController.text;
-        userData['internet'] = _internetController.text;
-        userData['mantenimientoHogar'] = _mantenimientoHogarController.text;
-        userData['segurosHogar'] = _segurosHogarController.text;
-        userData['mercado'] = _mercadoController.text;
-        userData['planCelular'] = _planCelularController.text;
-        userData['otrosGastosHogar'] = _otrosGastosHogar.text;
+        userData['alquiler'] = _alquiler.toInt().toString();
+        userData['serviciosPublicos'] = _serviciosPublicos.toInt().toString();
+        userData['mercado'] = _mercado.toInt().toString();
+        userData['otrosGastosHogar'] = _otrosGastosHogar.toInt().toString();
+        userData['gasolina'] = _gasolina.toInt().toString();
+        userData['mantenimientoCarro'] = _mantenimientoVehiculo.toInt().toString();
+        userData['transportePublico'] = _transportePublico.toInt().toString();
+        userData['viajes'] = _viajes.toInt().toString();
+        userData['restaurantes'] = _restaurantes.toInt().toString();
+        userData['conciertos'] = _eventosConciertos.toInt().toString();
+        userData['cuotaCreditoVivienda'] = _cuotaCreditoVivienda.toInt().toString();
+        userData['cuotaCreditoVehiculo'] = _cuotaCreditoVehiculo.toInt().toString();
+        userData['cuotaTarjetaCredito'] = _cuotaTarjetaCredito.toInt().toString();
+        userData['cuotaOtrosCreditos'] = _cuotaOtrosCreditos.toInt().toString();
+        userData['seguroCarro'] = _seguroVehiculo.toInt().toString();
+        userData['seguroSalud'] = _seguroSalud.toInt().toString();
+        userData['seguroVida'] = _seguroSalud.toInt().toString();
+        userData['creditoUsd'] = _creditoUsd.toInt().toString();
+        userData['otrosGastosFinancieros'] = _otrosGastosFinancieros.toInt().toString();
+        userData['renta'] = _renta.toInt().toString();
+        userData['predial'] = _predial.toInt().toString();
+        userData['impuestoVehiculos'] = _impuestoVehiculos.toInt().toString();
       });
 
       showDialog(
@@ -159,7 +140,7 @@ class _HogarState extends State<Hogar> {
             actions: [
               TextButton(
                   onPressed: (){
-                   Navigator.push(context, MaterialPageRoute(builder: (context)=>Gastos(token: widget.token)));
+                   Navigator.push(context, MaterialPageRoute(builder: (context)=>MetasFinancieras(token: widget.token)));
                   },
                 child: Text('Aceptar'),
               ),
@@ -179,27 +160,27 @@ class _HogarState extends State<Hogar> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-               Row(
+                          Row(
               children: [
               Container(
               margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.080, left: MediaQuery.of(context).size.height * 0.040),
               child: Column(
                 children: [
                   Text(
-                ' Agrega              ',
+                'Agrega tus             ',
                 style: GoogleFonts.poppins(
                   color: const Color(0xFF444C52),
-                  fontSize: MediaQuery.of(context).size.height * 0.035,
+                  fontSize: MediaQuery.of(context).size.height * 0.030,
                   fontWeight: FontWeight.w600,
                   height: 1.5,
                   letterSpacing: -0.01
                 )
               ),
               Text(
-                ' tus gastos       ',
+                ' gastos del hogar  ',
                 style: GoogleFonts.poppins(
                   color: const Color(0xFF444C52),
-                  fontSize: MediaQuery.of(context).size.height * 0.035,
+                  fontSize: MediaQuery.of(context).size.height * 0.030,
                   fontWeight: FontWeight.w600,
                   height: 1.5,
                   letterSpacing: -0.01
@@ -209,7 +190,7 @@ class _HogarState extends State<Hogar> {
               )
             ),
             Container(
-              margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.040, bottom: MediaQuery.of(context).size.height * 0.035 ),
+              margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.010, bottom: MediaQuery.of(context).size.height * 0.035 ),
               child:Text(
                 '3/4',
                 style: GoogleFonts.inter(
@@ -223,10 +204,10 @@ class _HogarState extends State<Hogar> {
             )
               ],
             ),
-                    Container(
+          Container(
               margin: EdgeInsets.only(top: 20, left: MediaQuery.of(context).size.height * 0.050, right: MediaQuery.of(context).size.height * 0.050 ),
               child: Text(
-                'Por favor indiquenos la siguiente información de sus gastos',
+                'Por favor indiquenos la siguiente información de sus gastos del hogar',
                 style: GoogleFonts.inter(
                   color: const Color(0xFF817F7F),
                   fontSize: MediaQuery.of(context).size.height * 0.020,
@@ -236,8 +217,8 @@ class _HogarState extends State<Hogar> {
                 )
               ),
             ),
-                      Container(
-                    margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.030 ),
+            Container(
+                    margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.030, ),
                     child: Column(
                       children: [ 
                         Container(
@@ -255,179 +236,1462 @@ class _HogarState extends State<Hogar> {
                             ),
                           ) ,
                         ), 
-                        Container(
-                          margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.010 ),
-                          child: TextField(
-                      controller: _creditoHipotecarioController,
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.white,
-                        hintText: "Alquiler",
-                        hintStyle: const TextStyle(
-                          color: Color(0xFFABB3B8)
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(
-                            color: Color(0xFF0C67B0),
-                            width: 1
+                         Container(
+                        margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.035, right:MediaQuery.of(context).size.height * 0.035, bottom:MediaQuery.of(context).size.height * 0.045 ),
+                         child: Column(
+                           children: [
+                               Text(
+                              NumberFormat('#,###,###').format(_alquiler),
+                               style: const TextStyle(fontSize: 12),
+                             ),
+                          SliderTheme(
+                          data: SliderTheme.of(context).copyWith(
+                          activeTrackColor: const Color(0xFF0C67B0),
+                          inactiveTrackColor: const Color(0xFFE8E112),
+                          thumbColor: Colors.white,
+                          trackHeight: 4.0,
+                          thumbShape: const CustomSliderThumbShape(
+                          thumbRadius: 8.0, 
+                          borderThickness: 2.0, 
+                          borderColor: Colors.blue),
+                          overlayColor: const Color(0x00FFFFFF),
+                          overlayShape: const RoundSliderOverlayShape(overlayRadius: 16.0),
                           ),
-                        ),
-                        enabledBorder:  OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(
-                            color: Color(0xFF0C67B0),
-                            width: 1
-                          ),
-                        ),
+                         child: Slider(
+                          min: 0,
+                          max: 20000000,
+                          divisions: 20,
+                          value: _alquiler,
+                          onChanged: (value) {
+                         setState(() {
+                          _alquiler = value;
+                         });
+                        },
+                       ),
+                       ),
+                       ],
                       ),
-                    ).p4().px24(),
-                        ),
+                      ),
+                      ],
+                    )
+                  ),
+            Container(
+                    margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.010, bottom: 20 ),
+                    child: Column(
+                      children: [ 
+                        Container(
+                          margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.050, right:MediaQuery.of(context).size.height * 0.050, bottom: MediaQuery.of(context).size.height * 0.020 ),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Servicios públicos', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.016,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                          ) ,
+                        ), 
+                      Container(
+                        margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.035, right:MediaQuery.of(context).size.height * 0.035, bottom:MediaQuery.of(context).size.height * 0.020 ),
+                         child: Column(
+                           children: [
+                               Text(
+                              NumberFormat('#,###,###').format(_serviciosPublicos),
+                               style: const TextStyle(fontSize: 12),
+                             ),
+                          SliderTheme(
+                          data: SliderTheme.of(context).copyWith(
+                          activeTrackColor: const Color(0xFF0C67B0),
+                          inactiveTrackColor: const Color(0xFFE8E112),
+                          thumbColor: Colors.white,
+                          trackHeight: 4.0,
+                          thumbShape: const CustomSliderThumbShape(
+                          thumbRadius: 8.0, 
+                          borderThickness: 2.0, 
+                          borderColor: Colors.blue),
+                          overlayColor: const Color(0x00FFFFFF),
+                          overlayShape: const RoundSliderOverlayShape(overlayRadius: 16.0),
+                          ),
+                         child: Slider(
+                          min: 0,
+                          max: 20000000,
+                          divisions: 20,
+                          value: _serviciosPublicos,
+                          onChanged: (value) {
+                         setState(() {
+                          _serviciosPublicos = value;
+                         });
+                        },
+                       ),
+                       ),
+                       ],
+                      ),
+                      ),
+
+                      ],
+                    )
+                  ),
+
+              Container(
+                    margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.002, bottom: MediaQuery.of(context).size.height * 0.010 ),
+                    child: Column(
+                      children: [ 
+                        Container(
+                          margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.050, right:MediaQuery.of(context).size.height * 0.050, bottom: MediaQuery.of(context).size.height * 0.020 ),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Mercado', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.016,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                          ) ,
+                        ), 
+                      Container(
+                        margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.035, right:MediaQuery.of(context).size.height * 0.035, bottom:MediaQuery.of(context).size.height * 0.040 ),
+                         child: Column(
+                           children: [
+                               Text(
+                              NumberFormat('#,###,###').format(_mercado),
+                               style: const TextStyle(fontSize: 12),
+                             ),
+                          SliderTheme(
+                          data: SliderTheme.of(context).copyWith(
+                          activeTrackColor: const Color(0xFF0C67B0),
+                          inactiveTrackColor: const Color(0xFFE8E112),
+                          thumbColor: Colors.white,
+                          trackHeight: 4.0,
+                          thumbShape: const CustomSliderThumbShape(
+                          thumbRadius: 8.0, 
+                          borderThickness: 2.0, 
+                          borderColor: Colors.blue),
+                          overlayColor: const Color(0x00FFFFFF),
+                          overlayShape: const RoundSliderOverlayShape(overlayRadius: 16.0),
+                          ),
+                         child: Slider(
+                          min: 0,
+                          max: 20000000,
+                          divisions: 20,
+                          value: _mercado,
+                          onChanged: (value) {
+                         setState(() {
+                          _mercado = value;
+                         });
+                        },
+                       ),
+                       ),
+                       ],
+                      ),
+                      ),
+
                       ],
                     )
                   ),
               Container(
-                margin: const EdgeInsets.only(top: 40),
-                child: const Text(
-                  'Mis gastos del hogar',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 30,
+                    margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.002, bottom: MediaQuery.of(context).size.height * 0.010 ),
+                    child: Column(
+                      children: [ 
+                        Container(
+                          margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.050, right:MediaQuery.of(context).size.height * 0.050, bottom: MediaQuery.of(context).size.height * 0.020 ),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Otros', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.016,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                          ) ,
+                        ), 
+                      Container(
+                        margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.035, right:MediaQuery.of(context).size.height * 0.035, bottom:MediaQuery.of(context).size.height * 0.040 ),
+                         child: Column(
+                           children: [
+                               Text(
+                              NumberFormat('#,###,###').format(_otrosGastosHogar),
+                               style: const TextStyle(fontSize: 12),
+                             ),
+                          SliderTheme(
+                          data: SliderTheme.of(context).copyWith(
+                          activeTrackColor: const Color(0xFF0C67B0),
+                          inactiveTrackColor: const Color(0xFFE8E112),
+                          thumbColor: Colors.white,
+                          trackHeight: 4.0,
+                          thumbShape: const CustomSliderThumbShape(
+                          thumbRadius: 8.0, 
+                          borderThickness: 2.0, 
+                          borderColor: Colors.blue),
+                          overlayColor: const Color(0x00FFFFFF),
+                          overlayShape: const RoundSliderOverlayShape(overlayRadius: 16.0),
+                          ),
+                         child: Slider(
+                          min: 0,
+                          max: 20000000,
+                          divisions: 20,
+                          value: _otrosGastosHogar,
+                          onChanged: (value) {
+                         setState(() {
+                          _otrosGastosHogar = value;
+                         });
+                        },
+                       ),
+                       ),
+                       ],
+                      ),
+                      ),
+
+                      ],
+                    )
                   ),
-                ),
+                  Container(
+                    margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.040 ),
+                    child: Column(
+                children: [
+                  Text(
+                'Agrega tus gastos',
+                style: GoogleFonts.poppins(
+                  color: const Color(0xFF444C52),
+                  fontSize: MediaQuery.of(context).size.height * 0.035,
+                  fontWeight: FontWeight.w600,
+                  height: 1.5,
+                  letterSpacing: -0.01
+                )
               ),
+              Text(
+                'de transporte          ',
+                style: GoogleFonts.poppins(
+                  color: const Color(0xFF444C52),
+                  fontSize: MediaQuery.of(context).size.height * 0.035,
+                  fontWeight: FontWeight.w600,
+                  height: 1.5,
+                  letterSpacing: -0.01
+                )
+              )
+                ],
+              ),
+                  ),
+            Container(
+              margin: EdgeInsets.only(top: 20, left: MediaQuery.of(context).size.height * 0.050, right: MediaQuery.of(context).size.height * 0.050, bottom:MediaQuery.of(context).size.height * 0.030  ),
+              child: Text(
+                'Por favor indiquenos la siguiente información de sus gastos en transporte',
+                style: GoogleFonts.inter(
+                  color: const Color(0xFF817F7F),
+                  fontSize: MediaQuery.of(context).size.height * 0.020,
+                  fontWeight: FontWeight.w600,
+                  height: 1.5,
+                  letterSpacing: -0.01
+                )
+              ),
+            ),
+                          Container(
+                    margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.002, bottom: MediaQuery.of(context).size.height * 0.010 ),
+                    child: Column(
+                      children: [ 
+                        Container(
+                          margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.050, right:MediaQuery.of(context).size.height * 0.050, bottom: MediaQuery.of(context).size.height * 0.020 ),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Gasolina', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.016,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                          ) ,
+                        ), 
+                      Container(
+                        margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.035, right:MediaQuery.of(context).size.height * 0.035, bottom:MediaQuery.of(context).size.height * 0.040 ),
+                         child: Column(
+                           children: [
+                               Text(
+                              NumberFormat('#,###,###').format(_gasolina),
+                               style: const TextStyle(fontSize: 12),
+                             ),
+                          SliderTheme(
+                          data: SliderTheme.of(context).copyWith(
+                          activeTrackColor: const Color(0xFF0C67B0),
+                          inactiveTrackColor: const Color(0xFFE8E112),
+                          thumbColor: Colors.white,
+                          trackHeight: 4.0,
+                          thumbShape: const CustomSliderThumbShape(
+                          thumbRadius: 8.0, 
+                          borderThickness: 2.0, 
+                          borderColor: Colors.blue),
+                          overlayColor: const Color(0x00FFFFFF),
+                          overlayShape: const RoundSliderOverlayShape(overlayRadius: 16.0),
+                          ),
+                         child: Slider(
+                          min: 0,
+                          max: 20000000,
+                          divisions: 20,
+                          value: _gasolina,
+                          onChanged: (value) {
+                         setState(() {
+                          _gasolina = value;
+                         });
+                        },
+                       ),
+                       ),
+                       ],
+                      ),
+                      ),
+
+                      ],
+                    )
+                  ),
+            Container(
+                    margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.002, bottom: MediaQuery.of(context).size.height * 0.010 ),
+                    child: Column(
+                      children: [ 
+                        Container(
+                          margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.050, right:MediaQuery.of(context).size.height * 0.050, bottom: MediaQuery.of(context).size.height * 0.020 ),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Mantenimiento de vehículo', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.016,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                          ) ,
+                        ), 
+                      Container(
+                        margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.035, right:MediaQuery.of(context).size.height * 0.035, bottom:MediaQuery.of(context).size.height * 0.040 ),
+                         child: Column(
+                           children: [
+                               Text(
+                              NumberFormat('#,###,###').format(_mantenimientoVehiculo),
+                               style: const TextStyle(fontSize: 12),
+                             ),
+                          SliderTheme(
+                          data: SliderTheme.of(context).copyWith(
+                          activeTrackColor: const Color(0xFF0C67B0),
+                          inactiveTrackColor: const Color(0xFFE8E112),
+                          thumbColor: Colors.white,
+                          trackHeight: 4.0,
+                          thumbShape: const CustomSliderThumbShape(
+                          thumbRadius: 8.0, 
+                          borderThickness: 2.0, 
+                          borderColor: Colors.blue),
+                          overlayColor: const Color(0x00FFFFFF),
+                          overlayShape: const RoundSliderOverlayShape(overlayRadius: 16.0),
+                          ),
+                         child: Slider(
+                          min: 0,
+                          max: 20000000,
+                          divisions: 20,
+                          value: _mantenimientoVehiculo,
+                          onChanged: (value) {
+                         setState(() {
+                          _mantenimientoVehiculo = value;
+                         });
+                        },
+                       ),
+                       ),
+                       ],
+                      ),
+                      ),
+
+                      ],
+                    )
+                  ),
+        Container(
+                    margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.002, bottom: MediaQuery.of(context).size.height * 0.010 ),
+                    child: Column(
+                      children: [ 
+                        Container(
+                          margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.050, right:MediaQuery.of(context).size.height * 0.050, bottom: MediaQuery.of(context).size.height * 0.020 ),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Transporte público', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.016,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                          ) ,
+                        ), 
+                      Container(
+                        margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.035, right:MediaQuery.of(context).size.height * 0.035, bottom:MediaQuery.of(context).size.height * 0.040 ),
+                         child: Column(
+                           children: [
+                               Text(
+                              NumberFormat('#,###,###').format(_transportePublico),
+                               style: const TextStyle(fontSize: 12),
+                             ),
+                          SliderTheme(
+                          data: SliderTheme.of(context).copyWith(
+                          activeTrackColor: const Color(0xFF0C67B0),
+                          inactiveTrackColor: const Color(0xFFE8E112),
+                          thumbColor: Colors.white,
+                          trackHeight: 4.0,
+                          thumbShape: const CustomSliderThumbShape(
+                          thumbRadius: 8.0, 
+                          borderThickness: 2.0, 
+                          borderColor: Colors.blue),
+                          overlayColor: const Color(0x00FFFFFF),
+                          overlayShape: const RoundSliderOverlayShape(overlayRadius: 16.0),
+                          ),
+                         child: Slider(
+                          min: 0,
+                          max: 20000000,
+                          divisions: 20,
+                          value: _transportePublico,
+                          onChanged: (value) {
+                         setState(() {
+                          _transportePublico = value;
+                         });
+                        },
+                       ),
+                       ),
+                       ],
+                      ),
+                      ),
+
+                      ],
+                    )
+                  ),
               Container(
-                margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
-                child: TextField(
-                  controller: _creditoHipotecarioController,
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                    hintText: 'Crédito hipotecario',
-                    hintStyle: TextStyle(color: Colors.white),
-                  ),
-                  style: const TextStyle(color: Colors.white),
-                ),
+                    margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.040 ),
+                    child: Column(
+                children: [
+                  Text(
+                'Agrega tus gastos ',
+                style: GoogleFonts.poppins(
+                  color: const Color(0xFF444C52),
+                  fontSize: MediaQuery.of(context).size.height * 0.035,
+                  fontWeight: FontWeight.w600,
+                  height: 1.5,
+                  letterSpacing: -0.01
+                )
               ),
+              Text(
+                'en vacaciones         ',
+                style: GoogleFonts.poppins(
+                  color: const Color(0xFF444C52),
+                  fontSize: MediaQuery.of(context).size.height * 0.035,
+                  fontWeight: FontWeight.w600,
+                  height: 1.5,
+                  letterSpacing: -0.01
+                )
+              ),
+              Text(
+                'y entretenimiento ',
+                style: GoogleFonts.poppins(
+                  color: const Color(0xFF444C52),
+                  fontSize: MediaQuery.of(context).size.height * 0.035,
+                  fontWeight: FontWeight.w600,
+                  height: 1.5,
+                  letterSpacing: -0.01
+                )
+              )
+                ],
+              ),
+                  ),
+            Container(
+              margin: EdgeInsets.only(top: 20, left: MediaQuery.of(context).size.height * 0.050, right: MediaQuery.of(context).size.height * 0.050, bottom:MediaQuery.of(context).size.height * 0.030  ),
+              child: Text(
+                'Por favor indiquenos la siguiente información de sus gastos en vacaciones y entretenimiento',
+                style: GoogleFonts.inter(
+                  color: const Color(0xFF817F7F),
+                  fontSize: MediaQuery.of(context).size.height * 0.020,
+                  fontWeight: FontWeight.w600,
+                  height: 1.5,
+                  letterSpacing: -0.01
+                )
+              ),
+            ),
+                          Container(
+                    margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.002, bottom: MediaQuery.of(context).size.height * 0.010 ),
+                    child: Column(
+                      children: [ 
+                        Container(
+                          margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.050, right:MediaQuery.of(context).size.height * 0.050, bottom: MediaQuery.of(context).size.height * 0.020 ),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Viajes', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.016,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                          ) ,
+                        ), 
+                      Container(
+                        margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.035, right:MediaQuery.of(context).size.height * 0.035, bottom:MediaQuery.of(context).size.height * 0.040 ),
+                         child: Column(
+                           children: [
+                               Text(
+                              NumberFormat('#,###,###').format(_viajes),
+                               style: const TextStyle(fontSize: 12),
+                             ),
+                          SliderTheme(
+                          data: SliderTheme.of(context).copyWith(
+                          activeTrackColor: const Color(0xFF0C67B0),
+                          inactiveTrackColor: const Color(0xFFE8E112),
+                          thumbColor: Colors.white,
+                          trackHeight: 4.0,
+                          thumbShape: const CustomSliderThumbShape(
+                          thumbRadius: 8.0, 
+                          borderThickness: 2.0, 
+                          borderColor: Colors.blue),
+                          overlayColor: const Color(0x00FFFFFF),
+                          overlayShape: const RoundSliderOverlayShape(overlayRadius: 16.0),
+                          ),
+                         child: Slider(
+                          min: 0,
+                          max: 20000000,
+                          divisions: 20,
+                          value: _viajes,
+                          onChanged: (value) {
+                         setState(() {
+                          _viajes = value;
+                         });
+                        },
+                       ),
+                       ),
+                       ],
+                      ),
+                      ),
+
+                      ],
+                    )
+                  ),
+            Container(
+                    margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.002, bottom: MediaQuery.of(context).size.height * 0.010 ),
+                    child: Column(
+                      children: [ 
+                        Container(
+                          margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.050, right:MediaQuery.of(context).size.height * 0.050, bottom: MediaQuery.of(context).size.height * 0.020 ),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Restaurantes', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.016,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                          ) ,
+                        ), 
+                      Container(
+                        margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.035, right:MediaQuery.of(context).size.height * 0.035, bottom:MediaQuery.of(context).size.height * 0.040 ),
+                         child: Column(
+                           children: [
+                               Text(
+                              NumberFormat('#,###,###').format(_restaurantes),
+                               style: const TextStyle(fontSize: 12),
+                             ),
+                          SliderTheme(
+                          data: SliderTheme.of(context).copyWith(
+                          activeTrackColor: const Color(0xFF0C67B0),
+                          inactiveTrackColor: const Color(0xFFE8E112),
+                          thumbColor: Colors.white,
+                          trackHeight: 4.0,
+                          thumbShape: const CustomSliderThumbShape(
+                          thumbRadius: 8.0, 
+                          borderThickness: 2.0, 
+                          borderColor: Colors.blue),
+                          overlayColor: const Color(0x00FFFFFF),
+                          overlayShape: const RoundSliderOverlayShape(overlayRadius: 16.0),
+                          ),
+                         child: Slider(
+                          min: 0,
+                          max: 20000000,
+                          divisions: 20,
+                          value: _restaurantes,
+                          onChanged: (value) {
+                         setState(() {
+                          _restaurantes = value;
+                         });
+                        },
+                       ),
+                       ),
+                       ],
+                      ),
+                      ),
+
+                      ],
+                    )
+                  ),
+        Container(
+                    margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.002, bottom: MediaQuery.of(context).size.height * 0.010 ),
+                    child: Column(
+                      children: [ 
+                        Container(
+                          margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.050, right:MediaQuery.of(context).size.height * 0.050, bottom: MediaQuery.of(context).size.height * 0.020 ),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Eventos y conciertos', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.016,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                          ) ,
+                        ), 
+                      Container(
+                        margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.035, right:MediaQuery.of(context).size.height * 0.035, bottom:MediaQuery.of(context).size.height * 0.040 ),
+                         child: Column(
+                           children: [
+                               Text(
+                              NumberFormat('#,###,###').format(_eventosConciertos),
+                               style: const TextStyle(fontSize: 12),
+                             ),
+                          SliderTheme(
+                          data: SliderTheme.of(context).copyWith(
+                          activeTrackColor: const Color(0xFF0C67B0),
+                          inactiveTrackColor: const Color(0xFFE8E112),
+                          thumbColor: Colors.white,
+                          trackHeight: 4.0,
+                          thumbShape: const CustomSliderThumbShape(
+                          thumbRadius: 8.0, 
+                          borderThickness: 2.0, 
+                          borderColor: Colors.blue),
+                          overlayColor: const Color(0x00FFFFFF),
+                          overlayShape: const RoundSliderOverlayShape(overlayRadius: 16.0),
+                          ),
+                         child: Slider(
+                          min: 0,
+                          max: 20000000,
+                          divisions: 20,
+                          value: _eventosConciertos,
+                          onChanged: (value) {
+                         setState(() {
+                          _eventosConciertos = value;
+                         });
+                        },
+                       ),
+                       ),
+                       ],
+                      ),
+                      ),
+
+                      ],
+                    )
+                  ),
+
+            Container(
+                    margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.040 ),
+                    child: Column(
+                children: [
+                  Text(
+                'Agrega tus gastos',
+                style: GoogleFonts.poppins(
+                  color: const Color(0xFF444C52),
+                  fontSize: MediaQuery.of(context).size.height * 0.035,
+                  fontWeight: FontWeight.w600,
+                  height: 1.5,
+                  letterSpacing: -0.01
+                )
+              ),
+              Text(
+                'financieros              ',
+                style: GoogleFonts.poppins(
+                  color: const Color(0xFF444C52),
+                  fontSize: MediaQuery.of(context).size.height * 0.035,
+                  fontWeight: FontWeight.w600,
+                  height: 1.5,
+                  letterSpacing: -0.01
+                )
+              )
+                ],
+              ),
+                  ),
+            Container(
+              margin: EdgeInsets.only(top: 20, left: MediaQuery.of(context).size.height * 0.050, right: MediaQuery.of(context).size.height * 0.050, bottom:MediaQuery.of(context).size.height * 0.030  ),
+              child: Text(
+                'Por favor indiquenos la siguiente información de sus gastos financieros',
+                style: GoogleFonts.inter(
+                  color: const Color(0xFF817F7F),
+                  fontSize: MediaQuery.of(context).size.height * 0.020,
+                  fontWeight: FontWeight.w600,
+                  height: 1.5,
+                  letterSpacing: -0.01
+                )
+              ),
+            ),
+                          Container(
+                    margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.002, bottom: MediaQuery.of(context).size.height * 0.010 ),
+                    child: Column(
+                      children: [ 
+                        Container(
+                          margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.050, right:MediaQuery.of(context).size.height * 0.050, bottom: MediaQuery.of(context).size.height * 0.020 ),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Cuota crédito de vivienda', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.016,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                          ) ,
+                        ), 
+                      Container(
+                        margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.035, right:MediaQuery.of(context).size.height * 0.035, bottom:MediaQuery.of(context).size.height * 0.040 ),
+                         child: Column(
+                           children: [
+                               Text(
+                              NumberFormat('#,###,###').format(_cuotaCreditoVivienda),
+                               style: const TextStyle(fontSize: 12),
+                             ),
+                          SliderTheme(
+                          data: SliderTheme.of(context).copyWith(
+                          activeTrackColor: const Color(0xFF0C67B0),
+                          inactiveTrackColor: const Color(0xFFE8E112),
+                          thumbColor: Colors.white,
+                          trackHeight: 4.0,
+                          thumbShape: const CustomSliderThumbShape(
+                          thumbRadius: 8.0, 
+                          borderThickness: 2.0, 
+                          borderColor: Colors.blue),
+                          overlayColor: const Color(0x00FFFFFF),
+                          overlayShape: const RoundSliderOverlayShape(overlayRadius: 16.0),
+                          ),
+                         child: Slider(
+                          min: 0,
+                          max: 20000000,
+                          divisions: 20,
+                          value: _cuotaCreditoVivienda,
+                          onChanged: (value) {
+                         setState(() {
+                          _cuotaCreditoVivienda = value;
+                         });
+                        },
+                       ),
+                       ),
+                       ],
+                      ),
+                      ),
+
+                      ],
+                    )
+                  ),
+            Container(
+                    margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.002, bottom: MediaQuery.of(context).size.height * 0.010 ),
+                    child: Column(
+                      children: [ 
+                        Container(
+                          margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.050, right:MediaQuery.of(context).size.height * 0.050, bottom: MediaQuery.of(context).size.height * 0.020 ),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Cuota crédito vehículo', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.016,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                          ) ,
+                        ), 
+                      Container(
+                        margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.035, right:MediaQuery.of(context).size.height * 0.035, bottom:MediaQuery.of(context).size.height * 0.040 ),
+                         child: Column(
+                           children: [
+                               Text(
+                              NumberFormat('#,###,###').format(_cuotaCreditoVehiculo),
+                               style: const TextStyle(fontSize: 12),
+                             ),
+                          SliderTheme(
+                          data: SliderTheme.of(context).copyWith(
+                          activeTrackColor: const Color(0xFF0C67B0),
+                          inactiveTrackColor: const Color(0xFFE8E112),
+                          thumbColor: Colors.white,
+                          trackHeight: 4.0,
+                          thumbShape: const CustomSliderThumbShape(
+                          thumbRadius: 8.0, 
+                          borderThickness: 2.0, 
+                          borderColor: Colors.blue),
+                          overlayColor: const Color(0x00FFFFFF),
+                          overlayShape: const RoundSliderOverlayShape(overlayRadius: 16.0),
+                          ),
+                         child: Slider(
+                          min: 0,
+                          max: 20000000,
+                          divisions: 20,
+                          value: _cuotaCreditoVehiculo,
+                          onChanged: (value) {
+                         setState(() {
+                          _cuotaCreditoVehiculo = value;
+                         });
+                        },
+                       ),
+                       ),
+                       ],
+                      ),
+                      ),
+
+                      ],
+                    )
+                  ),
+        Container(
+                    margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.002, bottom: MediaQuery.of(context).size.height * 0.010 ),
+                    child: Column(
+                      children: [ 
+                        Container(
+                          margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.050, right:MediaQuery.of(context).size.height * 0.050, bottom: MediaQuery.of(context).size.height * 0.020 ),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Cuota tarjeta de crédito', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.016,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                          ) ,
+                        ), 
+                      Container(
+                        margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.035, right:MediaQuery.of(context).size.height * 0.035, bottom:MediaQuery.of(context).size.height * 0.040 ),
+                         child: Column(
+                           children: [
+                               Text(
+                              NumberFormat('#,###,###').format(_cuotaTarjetaCredito),
+                               style: const TextStyle(fontSize: 12),
+                             ),
+                          SliderTheme(
+                          data: SliderTheme.of(context).copyWith(
+                          activeTrackColor: const Color(0xFF0C67B0),
+                          inactiveTrackColor: const Color(0xFFE8E112),
+                          thumbColor: Colors.white,
+                          trackHeight: 4.0,
+                          thumbShape: const CustomSliderThumbShape(
+                          thumbRadius: 8.0, 
+                          borderThickness: 2.0, 
+                          borderColor: Colors.blue),
+                          overlayColor: const Color(0x00FFFFFF),
+                          overlayShape: const RoundSliderOverlayShape(overlayRadius: 16.0),
+                          ),
+                         child: Slider(
+                          min: 0,
+                          max: 20000000,
+                          divisions: 20,
+                          value: _cuotaTarjetaCredito,
+                          onChanged: (value) {
+                         setState(() {
+                          _cuotaTarjetaCredito = value;
+                         });
+                        },
+                       ),
+                       ),
+                       ],
+                      ),
+                      ),
+
+                      ],
+                    )
+                  ),
+          Container(
+                    margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.002, bottom: MediaQuery.of(context).size.height * 0.010 ),
+                    child: Column(
+                      children: [ 
+                        Container(
+                          margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.050, right:MediaQuery.of(context).size.height * 0.050, bottom: MediaQuery.of(context).size.height * 0.020 ),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Cuota otros créditos', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.016,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                          ) ,
+                        ), 
+                      Container(
+                        margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.035, right:MediaQuery.of(context).size.height * 0.035, bottom:MediaQuery.of(context).size.height * 0.040 ),
+                         child: Column(
+                           children: [
+                               Text(
+                              NumberFormat('#,###,###').format(_cuotaOtrosCreditos),
+                               style: const TextStyle(fontSize: 12),
+                             ),
+                          SliderTheme(
+                          data: SliderTheme.of(context).copyWith(
+                          activeTrackColor: const Color(0xFF0C67B0),
+                          inactiveTrackColor: const Color(0xFFE8E112),
+                          thumbColor: Colors.white,
+                          trackHeight: 4.0,
+                          thumbShape: const CustomSliderThumbShape(
+                          thumbRadius: 8.0, 
+                          borderThickness: 2.0, 
+                          borderColor: Colors.blue),
+                          overlayColor: const Color(0x00FFFFFF),
+                          overlayShape: const RoundSliderOverlayShape(overlayRadius: 16.0),
+                          ),
+                         child: Slider(
+                          min: 0,
+                          max: 20000000,
+                          divisions: 20,
+                          value: _cuotaOtrosCreditos,
+                          onChanged: (value) {
+                         setState(() {
+                          _cuotaOtrosCreditos = value;
+                         });
+                        },
+                       ),
+                       ),
+                       ],
+                      ),
+                      ),
+
+                      ],
+                    )
+                  ),
+          Container(
+                    margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.002, bottom: MediaQuery.of(context).size.height * 0.010 ),
+                    child: Column(
+                      children: [ 
+                        Container(
+                          margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.050, right:MediaQuery.of(context).size.height * 0.050, bottom: MediaQuery.of(context).size.height * 0.020 ),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Seguro de vehículo', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.016,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                          ) ,
+                        ), 
+                      Container(
+                        margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.035, right:MediaQuery.of(context).size.height * 0.035, bottom:MediaQuery.of(context).size.height * 0.040 ),
+                         child: Column(
+                           children: [
+                               Text(
+                              NumberFormat('#,###,###').format(_seguroVehiculo),
+                               style: const TextStyle(fontSize: 12),
+                             ),
+                          SliderTheme(
+                          data: SliderTheme.of(context).copyWith(
+                          activeTrackColor: const Color(0xFF0C67B0),
+                          inactiveTrackColor: const Color(0xFFE8E112),
+                          thumbColor: Colors.white,
+                          trackHeight: 4.0,
+                          thumbShape: const CustomSliderThumbShape(
+                          thumbRadius: 8.0, 
+                          borderThickness: 2.0, 
+                          borderColor: Colors.blue),
+                          overlayColor: const Color(0x00FFFFFF),
+                          overlayShape: const RoundSliderOverlayShape(overlayRadius: 16.0),
+                          ),
+                         child: Slider(
+                          min: 0,
+                          max: 20000000,
+                          divisions: 20,
+                          value: _seguroVehiculo,
+                          onChanged: (value) {
+                         setState(() {
+                          _seguroVehiculo = value;
+                         });
+                        },
+                       ),
+                       ),
+                       ],
+                      ),
+                      ),
+
+                      ],
+                    )
+                  ),
+          Container(
+                    margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.002, bottom: MediaQuery.of(context).size.height * 0.010 ),
+                    child: Column(
+                      children: [ 
+                        Container(
+                          margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.050, right:MediaQuery.of(context).size.height * 0.050, bottom: MediaQuery.of(context).size.height * 0.020 ),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Seguro de salud', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.016,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                          ) ,
+                        ), 
+                      Container(
+                        margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.035, right:MediaQuery.of(context).size.height * 0.035, bottom:MediaQuery.of(context).size.height * 0.040 ),
+                         child: Column(
+                           children: [
+                               Text(
+                              NumberFormat('#,###,###').format(_seguroSalud),
+                               style: const TextStyle(fontSize: 12),
+                             ),
+                          SliderTheme(
+                          data: SliderTheme.of(context).copyWith(
+                          activeTrackColor: const Color(0xFF0C67B0),
+                          inactiveTrackColor: const Color(0xFFE8E112),
+                          thumbColor: Colors.white,
+                          trackHeight: 4.0,
+                          thumbShape: const CustomSliderThumbShape(
+                          thumbRadius: 8.0, 
+                          borderThickness: 2.0, 
+                          borderColor: Colors.blue),
+                          overlayColor: const Color(0x00FFFFFF),
+                          overlayShape: const RoundSliderOverlayShape(overlayRadius: 16.0),
+                          ),
+                         child: Slider(
+                          min: 0,
+                          max: 20000000,
+                          divisions: 20,
+                          value: _seguroSalud,
+                          onChanged: (value) {
+                         setState(() {
+                          _seguroSalud = value;
+                         });
+                        },
+                       ),
+                       ),
+                       ],
+                      ),
+                      ),
+
+                      ],
+                    )
+                  ),
+        Container(
+                    margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.002, bottom: MediaQuery.of(context).size.height * 0.010 ),
+                    child: Column(
+                      children: [ 
+                        Container(
+                          margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.050, right:MediaQuery.of(context).size.height * 0.050, bottom: MediaQuery.of(context).size.height * 0.020 ),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Seguro de vida', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.016,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                          ) ,
+                        ), 
+                      Container(
+                        margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.035, right:MediaQuery.of(context).size.height * 0.035, bottom:MediaQuery.of(context).size.height * 0.040 ),
+                         child: Column(
+                           children: [
+                               Text(
+                              NumberFormat('#,###,###').format(_seguroVida),
+                               style: const TextStyle(fontSize: 12),
+                             ),
+                          SliderTheme(
+                          data: SliderTheme.of(context).copyWith(
+                          activeTrackColor: const Color(0xFF0C67B0),
+                          inactiveTrackColor: const Color(0xFFE8E112),
+                          thumbColor: Colors.white,
+                          trackHeight: 4.0,
+                          thumbShape: const CustomSliderThumbShape(
+                          thumbRadius: 8.0, 
+                          borderThickness: 2.0, 
+                          borderColor: Colors.blue),
+                          overlayColor: const Color(0x00FFFFFF),
+                          overlayShape: const RoundSliderOverlayShape(overlayRadius: 16.0),
+                          ),
+                         child: Slider(
+                          min: 0,
+                          max: 20000000,
+                          divisions: 20,
+                          value: _seguroVida,
+                          onChanged: (value) {
+                         setState(() {
+                          _seguroVida = value;
+                         });
+                        },
+                       ),
+                       ),
+                       ],
+                      ),
+                      ),
+
+                      ],
+                    )
+                  ),
+            Container(
+                    margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.002, bottom: MediaQuery.of(context).size.height * 0.010 ),
+                    child: Column(
+                      children: [ 
+                        Container(
+                          margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.050, right:MediaQuery.of(context).size.height * 0.050, bottom: MediaQuery.of(context).size.height * 0.020 ),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Seguro de vida', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.016,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                          ) ,
+                        ), 
+                      Container(
+                        margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.035, right:MediaQuery.of(context).size.height * 0.035, bottom:MediaQuery.of(context).size.height * 0.040 ),
+                         child: Column(
+                           children: [
+                               Text(
+                              NumberFormat('#,###,###').format(_creditoUsd),
+                               style: const TextStyle(fontSize: 12),
+                             ),
+                          SliderTheme(
+                          data: SliderTheme.of(context).copyWith(
+                          activeTrackColor: const Color(0xFF0C67B0),
+                          inactiveTrackColor: const Color(0xFFE8E112),
+                          thumbColor: Colors.white,
+                          trackHeight: 4.0,
+                          thumbShape: const CustomSliderThumbShape(
+                          thumbRadius: 8.0, 
+                          borderThickness: 2.0, 
+                          borderColor: Colors.blue),
+                          overlayColor: const Color(0x00FFFFFF),
+                          overlayShape: const RoundSliderOverlayShape(overlayRadius: 16.0),
+                          ),
+                         child: Slider(
+                          min: 0,
+                          max: 20000000,
+                          divisions: 20,
+                          value: _creditoUsd,
+                          onChanged: (value) {
+                         setState(() {
+                          _creditoUsd = value;
+                         });
+                        },
+                       ),
+                       ),
+                       ],
+                      ),
+                      ),
+
+                      ],
+                    )
+                  ),
+          Container(
+                    margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.002, bottom: MediaQuery.of(context).size.height * 0.010 ),
+                    child: Column(
+                      children: [ 
+                        Container(
+                          margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.050, right:MediaQuery.of(context).size.height * 0.050, bottom: MediaQuery.of(context).size.height * 0.020 ),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Otros gastos financieros', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.016,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                          ) ,
+                        ), 
+                      Container(
+                        margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.035, right:MediaQuery.of(context).size.height * 0.035, bottom:MediaQuery.of(context).size.height * 0.040 ),
+                         child: Column(
+                           children: [
+                               Text(
+                              NumberFormat('#,###,###').format(_otrosGastosFinancieros),
+                               style: const TextStyle(fontSize: 12),
+                             ),
+                          SliderTheme(
+                          data: SliderTheme.of(context).copyWith(
+                          activeTrackColor: const Color(0xFF0C67B0),
+                          inactiveTrackColor: const Color(0xFFE8E112),
+                          thumbColor: Colors.white,
+                          trackHeight: 4.0,
+                          thumbShape: const CustomSliderThumbShape(
+                          thumbRadius: 8.0, 
+                          borderThickness: 2.0, 
+                          borderColor: Colors.blue),
+                          overlayColor: const Color(0x00FFFFFF),
+                          overlayShape: const RoundSliderOverlayShape(overlayRadius: 16.0),
+                          ),
+                         child: Slider(
+                          min: 0,
+                          max: 20000000,
+                          divisions: 20,
+                          value: _otrosGastosFinancieros,
+                          onChanged: (value) {
+                         setState(() {
+                          _otrosGastosFinancieros = value;
+                         });
+                        },
+                       ),
+                       ),
+                       ],
+                      ),
+                      ),
+
+                      ],
+                    )
+                  ),
               Container(
-                margin: const EdgeInsets.only(top: 20, left:20, right: 20),
-                child: TextField(
-                  controller: _arriendoController,
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                    hintText: 'Arriendo',
-                    hintStyle: TextStyle(color: Colors.white),
-                  ),
-                  style: const TextStyle(color: Colors.white),
-                ),
+                    margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.040 ),
+                    child: Column(
+                children: [
+                  Text(
+                'Agrega tus gastos',
+                style: GoogleFonts.poppins(
+                  color: const Color(0xFF444C52),
+                  fontSize: MediaQuery.of(context).size.height * 0.035,
+                  fontWeight: FontWeight.w600,
+                  height: 1.5,
+                  letterSpacing: -0.01
+                )
               ),
-              Container(
-                margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
-                child: TextField(
-                  controller: _serviciosPublicosController,
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                    hintText: 'Servicios publicos',
-                    hintStyle: TextStyle(color: Colors.white),
-                  ),
-                  style: const TextStyle(color: Colors.white),
-                ),
+              Text(
+                'en impuestos          ',
+                style: GoogleFonts.poppins(
+                  color: const Color(0xFF444C52),
+                  fontSize: MediaQuery.of(context).size.height * 0.035,
+                  fontWeight: FontWeight.w600,
+                  height: 1.5,
+                  letterSpacing: -0.01
+                )
+              )
+                ],
               ),
-              Container(
-                margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
-                child: TextField(
-                  controller: _internetController,
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                    hintText: 'Internet',
-                    hintStyle: TextStyle(color: Colors.white),
                   ),
-                  style: const TextStyle(color: Colors.white),
-                ),
+            Container(
+              margin: EdgeInsets.only(top: 20, left: MediaQuery.of(context).size.height * 0.050, right: MediaQuery.of(context).size.height * 0.050, bottom:MediaQuery.of(context).size.height * 0.030  ),
+              child: Text(
+                'Por favor indiquenos la siguiente información de sus gastos en impuestos',
+                style: GoogleFonts.inter(
+                  color: const Color(0xFF817F7F),
+                  fontSize: MediaQuery.of(context).size.height * 0.020,
+                  fontWeight: FontWeight.w600,
+                  height: 1.5,
+                  letterSpacing: -0.01
+                )
               ),
-              Container(
-                margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
-                child: TextField(
-                  controller: _planCelularController,
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                    hintText: 'Plan de celular',
-                    hintStyle: TextStyle(color: Colors.white),
+            ),
+                          Container(
+                    margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.002, bottom: MediaQuery.of(context).size.height * 0.010 ),
+                    child: Column(
+                      children: [ 
+                        Container(
+                          margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.050, right:MediaQuery.of(context).size.height * 0.050, bottom: MediaQuery.of(context).size.height * 0.020 ),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Renta', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.016,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                          ) ,
+                        ), 
+                      Container(
+                        margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.035, right:MediaQuery.of(context).size.height * 0.035, bottom:MediaQuery.of(context).size.height * 0.040 ),
+                         child: Column(
+                           children: [
+                               Text(
+                              NumberFormat('#,###,###').format(_renta),
+                               style: const TextStyle(fontSize: 12),
+                             ),
+                          SliderTheme(
+                          data: SliderTheme.of(context).copyWith(
+                          activeTrackColor: const Color(0xFF0C67B0),
+                          inactiveTrackColor: const Color(0xFFE8E112),
+                          thumbColor: Colors.white,
+                          trackHeight: 4.0,
+                          thumbShape: const CustomSliderThumbShape(
+                          thumbRadius: 8.0, 
+                          borderThickness: 2.0, 
+                          borderColor: Colors.blue),
+                          overlayColor: const Color(0x00FFFFFF),
+                          overlayShape: const RoundSliderOverlayShape(overlayRadius: 16.0),
+                          ),
+                         child: Slider(
+                          min: 0,
+                          max: 20000000,
+                          divisions: 20,
+                          value: _renta,
+                          onChanged: (value) {
+                         setState(() {
+                          _renta = value;
+                         });
+                        },
+                       ),
+                       ),
+                       ],
+                      ),
+                      ),
+
+                      ],
+                    )
                   ),
-                  style: const TextStyle(color: Colors.white),
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
-                child: TextField(
-                  controller: _mantenimientoHogarController,
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                    hintText: 'Mantenimiento del hogar',
-                    hintStyle: TextStyle(color: Colors.white),
+            Container(
+                    margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.002, bottom: MediaQuery.of(context).size.height * 0.010 ),
+                    child: Column(
+                      children: [ 
+                        Container(
+                          margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.050, right:MediaQuery.of(context).size.height * 0.050, bottom: MediaQuery.of(context).size.height * 0.020 ),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Predial', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.016,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                          ) ,
+                        ), 
+                      Container(
+                        margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.035, right:MediaQuery.of(context).size.height * 0.035, bottom:MediaQuery.of(context).size.height * 0.040 ),
+                         child: Column(
+                           children: [
+                               Text(
+                              NumberFormat('#,###,###').format(_predial),
+                               style: const TextStyle(fontSize: 12),
+                             ),
+                          SliderTheme(
+                          data: SliderTheme.of(context).copyWith(
+                          activeTrackColor: const Color(0xFF0C67B0),
+                          inactiveTrackColor: const Color(0xFFE8E112),
+                          thumbColor: Colors.white,
+                          trackHeight: 4.0,
+                          thumbShape: const CustomSliderThumbShape(
+                          thumbRadius: 8.0, 
+                          borderThickness: 2.0, 
+                          borderColor: Colors.blue),
+                          overlayColor: const Color(0x00FFFFFF),
+                          overlayShape: const RoundSliderOverlayShape(overlayRadius: 16.0),
+                          ),
+                         child: Slider(
+                          min: 0,
+                          max: 20000000,
+                          divisions: 20,
+                          value: _predial,
+                          onChanged: (value) {
+                         setState(() {
+                          _predial = value;
+                         });
+                        },
+                       ),
+                       ),
+                       ],
+                      ),
+                      ),
+
+                      ],
+                    )
                   ),
-                  style: const TextStyle(color: Colors.white),
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
-                child: TextField(
-                  controller: _segurosHogarController,
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                    hintText: 'Segutos del hogar',
-                    hintStyle: TextStyle(color: Colors.white),
+        Container(
+                    margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.002, bottom: MediaQuery.of(context).size.height * 0.010 ),
+                    child: Column(
+                      children: [ 
+                        Container(
+                          margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.050, right:MediaQuery.of(context).size.height * 0.050, bottom: MediaQuery.of(context).size.height * 0.020 ),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Vehículos', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.016,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                          ) ,
+                        ), 
+                      Container(
+                        margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.035, right:MediaQuery.of(context).size.height * 0.035, bottom:MediaQuery.of(context).size.height * 0.040 ),
+                         child: Column(
+                           children: [
+                               Text(
+                              NumberFormat('#,###,###').format(_impuestoVehiculos),
+                               style: const TextStyle(fontSize: 12),
+                             ),
+                          SliderTheme(
+                          data: SliderTheme.of(context).copyWith(
+                          activeTrackColor: const Color(0xFF0C67B0),
+                          inactiveTrackColor: const Color(0xFFE8E112),
+                          thumbColor: Colors.white,
+                          trackHeight: 4.0,
+                          thumbShape: const CustomSliderThumbShape(
+                          thumbRadius: 8.0, 
+                          borderThickness: 2.0, 
+                          borderColor: Colors.blue),
+                          overlayColor: const Color(0x00FFFFFF),
+                          overlayShape: const RoundSliderOverlayShape(overlayRadius: 16.0),
+                          ),
+                         child: Slider(
+                          min: 0,
+                          max: 20000000,
+                          divisions: 20,
+                          value: _impuestoVehiculos,
+                          onChanged: (value) {
+                         setState(() {
+                          _impuestoVehiculos = value;
+                         });
+                        },
+                       ),
+                       ),
+                       ],
+                      ),
+                      ),
+
+                      ],
+                    )
                   ),
-                  style: const TextStyle(color: Colors.white),
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
-                child: TextField(
-                  controller: _mercadoController,
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                    hintText: 'Mercado',
-                    hintStyle: TextStyle(color: Colors.white),
-                  ),
-                  style: const TextStyle(color: Colors.white),
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
-                child: TextField(
-                  controller: _otrosGastosHogar,
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                    hintText: 'Otros',
-                    hintStyle: TextStyle(color: Colors.white),
-                  ),
-                  style: const TextStyle(color: Colors.white),
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(top: 20),
-                child: Text(
-                  'Total - Mis gastos del hogar \$${(valorCreditoHipotecario + valorArriendo + valorServiciosPublicos + valorInternet + valorPlanCelular + valorMantenimientoHogar + valorSegurosHogar + valorMercado + valorOtrosGastosHogar).toStringAsFixed(2)}',
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 20
-                  ),
-                ),
-              ),
               Container(
                 margin: const EdgeInsets.only(top: 30, bottom: 30, left: 20, right: 20),
                 child: ElevatedButton(
                   onPressed: () => {
-               if (_creditoHipotecarioController.text.isEmpty ||
-        _arriendoController.text.isEmpty ||
-        _serviciosPublicosController.text.isEmpty ||
-        _internetController.text.isEmpty ||
-        _planCelularController.text.isEmpty ||
-        _mantenimientoHogarController.text.isEmpty ||
-        _segurosHogarController.text.isEmpty ||
-        _mercadoController.text.isEmpty || 
-        _otrosGastosHogar.text.isEmpty
+                    if (
+                      _eventosConciertos == 0 
         ) {
       showDialog(
         context: context,

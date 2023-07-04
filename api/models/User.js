@@ -218,6 +218,9 @@ const userSchema = mongoose.Schema({
     mantenimientoCarro: {
         type: String
     },
+    viajes: {
+        type: String
+    },
     restaurantes: {
         type: String
     },
@@ -255,6 +258,21 @@ const userSchema = mongoose.Schema({
         type: String
     },
     gastosViaje: {
+        type: String
+    },
+    cuotaCreditoVivienda: {
+        type: String
+    },
+    cuotaCreditoVehiculo: {
+        type: String
+    },
+    cuotaTarjetaCredito: {
+        type: String
+    },
+    cuotaOtrosCreditos: {
+        type: String
+    },
+    otrosGastosFinancieros: {
         type: String
     },
     renta: {
