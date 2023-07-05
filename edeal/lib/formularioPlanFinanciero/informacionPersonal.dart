@@ -7,7 +7,6 @@ import 'package:http/http.dart' as http;
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:velocity_x/velocity_x.dart';
-import 'package:dropdown_search/dropdown_search.dart';
 
 
 class InformacionPersonal extends StatefulWidget {

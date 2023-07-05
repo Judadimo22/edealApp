@@ -1,11 +1,21 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:edeal/formularioPlanFinanciero/definirObjetivos.dart';
+import 'package:edeal/formularioPlanFinanciero/perfilRiesgo.dart';
 import 'package:edeal/views/homeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:jwt_decoder/jwt_decoder.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:velocity_x/velocity_x.dart';
+import 'package:intl/intl.dart';
+import 'package:edeal/widgets/thumb.dart';
+import 'package:edeal/widgets/barraSeleccion.dart';
+import 'package:edeal/widgets/sliderPalabras.dart';
+import 'package:edeal/widgets/subtitulo.dart';
+import 'package:edeal/widgets/seleccion.dart';
+import 'package:edeal/widgets/sliderMeses.dart';
+import 'package:edeal/widgets/input.dart';
 
 class MetasFinancieras extends StatefulWidget {
   final String token;
@@ -20,7 +30,6 @@ class _MetasFinancierasState extends State<MetasFinancieras> {
   late String userId;
   Map<String, dynamic> userData = {};
 
-  final _formKey = GlobalKey<FormState>();
   TextEditingController _plazoVacacionesViajesController = TextEditingController();
   TextEditingController _valorVacacionesViajesController = TextEditingController();
   TextEditingController _importanciaVacacionesViajesController = TextEditingController();
@@ -51,6 +60,47 @@ class _MetasFinancierasState extends State<MetasFinancieras> {
   TextEditingController _plazoOtrosController = TextEditingController();
   TextEditingController _valorOtrosController = TextEditingController();
   TextEditingController _importanciaOtrosController = TextEditingController();
+  TextEditingController _numeroHijosController = TextEditingController();
+  TextEditingController _nombreEstudianteController  = TextEditingController();
+  TextEditingController _anoIniciariaController = TextEditingController();
+  TextEditingController _anosEstudiariaController = TextEditingController();
+  TextEditingController _nombreInstitucionController = TextEditingController();
+  
+  double _plazoVacaciones = 1;
+  double _valorVacaciones = 0;
+  String _importanciaVacaciones = 'No me importa';
+  double _plazoAutomovil = 1;
+  double _valorAutomovil = 0;
+  String _importanciaAutomovil = 'No me importa';
+  double _plazoEducacion = 1;
+  double _valorEducacion = 0;
+  String _importanciaEducacion = 'No me importa';
+  double _plazoInmuebleColombia = 1;
+  double _valorInmuebleColombia = 0;
+  String _importanciaInmuebleColombia = 'No me importa';
+  double _plazoInmuebleUsa = 1;
+  double _valorInmuebleUsa = 0;
+  String _importanciaInmuebleUsa = 'No me importa';
+  double _plazoTratamientosMedicos = 1;
+  double _valorTratamientosMedicos = 0;
+  String _importanciaTratamientosMedicos = 'No me importa';
+  double _plazoTecnologia = 1;
+  double _valorTecnologia = 0;
+  String _importanciaTecnologia = 'No me importa';
+  double _plazoEntretenimiento = 1;
+  double _valorEntretenimiento = 0;
+  String _importanciaEntretenimiento = 'No me importa';
+  double _plazoEventosDeportivos = 1;
+  double _valorEventosDeportivos = 0;
+  String _importanciaEventosDeportivos = 'No me importa';
+  double _plazoOtros = 1;
+  double _valorOtros = 0;
+  String _importanciaOtros = 'No me importa';
+  double _importanciaEdtudio = 1;
+  double _montoEstimadoEstudio = 0;
+  
+
+
 
   String _vacionesViajes = 'Vacaciones/viajes';
   String _automovil = 'Automovil';
@@ -59,9 +109,13 @@ class _MetasFinancierasState extends State<MetasFinancieras> {
   String _inmuebleUsa = 'Inmueble en USA';
   String _tratamientosMedicos = 'Tratamientos medicos y esteticos';
   String _tecnologia = 'Tecnologia';
-  String _entretenimiento = 'Entretenimiento - conciertos y festivales';
+  String _entretenimiento = 'Entretenimiento';
   String _eventosDeportivos = 'Eventos deportivos internacionales';
   String _otros = 'Otros';
+  String _formEducacion = 'Pagar programa';
+  String _tipoInstitucion = 'Tipo de institucion educativa';
+  String _ubicacion = 'Ubicacion';
+
 
 
   bool _showTextFieldVacacionesViajes= false;
@@ -74,6 +128,7 @@ class _MetasFinancierasState extends State<MetasFinancieras> {
   bool _showTextFieldEntretenimiento = false;
   bool _showTextFieldEventosDeportivos = false;
   bool _showTextFieldOtros = false;
+  bool _showTextFieldFormEducacion = false;
 
   @override
   void initState() {
@@ -100,7 +155,7 @@ class _MetasFinancierasState extends State<MetasFinancieras> {
   void updateVacacionesViajes(String? newVacacionesViajes) {
     setState(() {
       _vacionesViajes = newVacacionesViajes!;
-      if (newVacacionesViajes == 'Vacaciones/viajes: Si') {
+      if (newVacacionesViajes == 'Si') {
         _showTextFieldVacacionesViajes = true;
       } else {
         _showTextFieldVacacionesViajes = false;
@@ -111,7 +166,7 @@ class _MetasFinancierasState extends State<MetasFinancieras> {
   void updateAutomovil(String? newAutomovil) {
     setState(() {
       _automovil = newAutomovil!;
-      if (newAutomovil == 'Automovil: Si') {
+      if (newAutomovil == 'Si') {
         _showTextFieldAutomovil = true;
       } else {
         _showTextFieldAutomovil = false;
@@ -122,7 +177,7 @@ class _MetasFinancierasState extends State<MetasFinancieras> {
   void updateEducacion(String? newEducacion) {
     setState(() {
       _educacion = newEducacion!;
-      if (newEducacion == 'Educacion: Si') {
+      if (newEducacion == 'Si') {
         _showTextFieldEducacion = true;
       } else {
         _showTextFieldEducacion = false;
@@ -133,7 +188,7 @@ class _MetasFinancierasState extends State<MetasFinancieras> {
   void updateInmuebleColombia(String? newInmuebleColombia) {
     setState(() {
       _inmuebleColombia = newInmuebleColombia!;
-      if (newInmuebleColombia == 'Inmueble en Colombia: Si') {
+      if (newInmuebleColombia == 'Si') {
         _showTextFieldInmuebleColombia = true;
       } else {
         _showTextFieldInmuebleColombia = false;
@@ -144,7 +199,7 @@ class _MetasFinancierasState extends State<MetasFinancieras> {
   void updateInmuebleUsa(String? newInmuebleUsa) {
     setState(() {
       _inmuebleUsa = newInmuebleUsa!;
-      if (newInmuebleUsa == 'Inmueble en USA: Si') {
+      if (newInmuebleUsa == 'Si') {
         _showTextFieldInmuebleUsa = true;
       } else {
         _showTextFieldInmuebleUsa = false;
@@ -155,7 +210,7 @@ class _MetasFinancierasState extends State<MetasFinancieras> {
   void updateTratamientosMedicos(String? newTratamientosMedicos) {
     setState(() {
       _tratamientosMedicos = newTratamientosMedicos!;
-      if (newTratamientosMedicos == 'Tratamientos medicos y esteticos: Si') {
+      if (newTratamientosMedicos == 'Si') {
         _showTextFieldTratamientosMedicos = true;
       } else {
         _showTextFieldTratamientosMedicos = false;
@@ -166,7 +221,7 @@ class _MetasFinancierasState extends State<MetasFinancieras> {
   void updateTecnologia(String? newTecnologia) {
     setState(() {
       _tecnologia = newTecnologia!;
-      if (newTecnologia == 'Tecnologia: Si') {
+      if (newTecnologia == 'Si') {
         _showTextFieldTecnologia = true;
       } else {
         _showTextFieldTecnologia = false;
@@ -177,7 +232,7 @@ class _MetasFinancierasState extends State<MetasFinancieras> {
   void updateEntretenimiento(String? newEntretenimiento) {
     setState(() {
       _entretenimiento = newEntretenimiento!;
-      if (newEntretenimiento == 'Entretenimiento - conciertos y festivales: Si') {
+      if (newEntretenimiento == 'Si') {
         _showTextFieldEntretenimiento = true;
       } else {
         _showTextFieldEntretenimiento = false;
@@ -188,7 +243,7 @@ class _MetasFinancierasState extends State<MetasFinancieras> {
   void updateEventosDeportivos(String? newEventosDeportivos) {
     setState(() {
       _eventosDeportivos = newEventosDeportivos!;
-      if (newEventosDeportivos == 'Eventos deportivos internacionales: Si') {
+      if (newEventosDeportivos == 'Si') {
         _showTextFieldEventosDeportivos = true;
       } else {
         _showTextFieldEventosDeportivos = false;
@@ -199,13 +254,38 @@ class _MetasFinancierasState extends State<MetasFinancieras> {
   void updateOtros(String? newOtros) {
     setState(() {
       _otros = newOtros!;
-      if (newOtros == 'Otros: Si') {
+      if (newOtros == 'Si') {
         _showTextFieldOtros = true;
       } else {
         _showTextFieldOtros = false;
       }
     });
   }
+
+    void updateFormEducacion(String? newFormEducacion) {
+    setState(() {
+      _formEducacion = newFormEducacion!;
+      if (newFormEducacion == 'Si') {
+        _showTextFieldFormEducacion = true;
+      } else {
+        _showTextFieldFormEducacion = false;
+      }
+    });
+  }
+
+  void updateInstitucionEducativa(String? newInstitucionEducativa) {
+    setState(() {
+      _tipoInstitucion = newInstitucionEducativa!;
+    });
+  }
+
+  void updateUbicacion(String? newUbicacion) {
+    setState(() {
+      _ubicacion = newUbicacion!;
+    });
+  }
+
+
 
   void saveMetasFinancieras() async {
 
@@ -288,7 +368,7 @@ class _MetasFinancierasState extends State<MetasFinancieras> {
             actions: [
               TextButton(
                   onPressed: (){
-                   Navigator.push(context, MaterialPageRoute(builder: (context)=>DefinirObjetivo(token: widget.token)));
+                   Navigator.push(context, MaterialPageRoute(builder: (context)=>PerfilRiesgo(token: widget.token)));
                   },
                 child: Text('Aceptar'),
               ),
@@ -305,1339 +385,906 @@ class _MetasFinancierasState extends State<MetasFinancieras> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor:Color(0XFF524898) ,
-      ),
-      backgroundColor: Color(0XFF524898),
+      backgroundColor: Colors.white,
       body:SingleChildScrollView(
-        child:  Center(
+        child: Container(
+          margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.050 ),
+          child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(height: 20),
-            Form(
-              key: _formKey,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Container(
-                  color: Color(0XFF524898),
-                  padding: EdgeInsets.symmetric(vertical: 50),
-                  child: Column(
-                  children: [
-                    Container(
-                      margin: EdgeInsets.only(bottom: 50),
-                      child: Text(
-                        'Mis metas financieras',
-                        style: TextStyle(
-                          fontSize: 30,
-                          color: Colors.white
-                        ),
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(bottom: 50, left: 20, right: 20),
-                      child: Text(
-                        'Además de los objetivos principales, como su retiro, educación y la atención médica, es posible que tenga otros objetivos que desee incluir.  Utilice esta sección para enumerar estas otras necesidades, deseos futuros ',
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.white
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 20),
-                    Container(
-                      width: 374,
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      color: Color(0XFF524898),
-                      child: DropdownButton<String>(
-                        dropdownColor: Color(0XFF524898),
-                        value: _vacionesViajes,
-                        onChanged: updateVacacionesViajes,
-                        items: <String>[
-                          'Vacaciones/viajes',
-                          'Vacaciones/viajes: Si',
-                          'Vacaciones/viajes: No'
-                        ].map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(
-                              value,
-                              style: TextStyle(
-                                color: Colors.white
-                              ),
-                            ),
-                          );
-                        }).toList(),
-                        icon: Icon(
-                          Icons.arrow_drop_down,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                    if (_showTextFieldVacacionesViajes)
+            Row(
+              children: [
+              Container(
+              margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.080, left: MediaQuery.of(context).size.height * 0.040),
+              child: Column(
+                children: [
+                  Text(
+                'Metas                  ',
+                style: GoogleFonts.poppins(
+                  color: const Color(0xFF444C52),
+                  fontSize: MediaQuery.of(context).size.height * 0.035,
+                  fontWeight: FontWeight.w600,
+                  height: 1.5,
+                  letterSpacing: -0.01
+                )
+              ),
+              Text(
+                ' financieras        ',
+                style: GoogleFonts.poppins(
+                  color: const Color(0xFF444C52),
+                  fontSize: MediaQuery.of(context).size.height * 0.035,
+                  fontWeight: FontWeight.w600,
+                  height: 1.5,
+                  letterSpacing: -0.01
+                )
+              )
+                ],
+              )
+            ),
+            Container(
+              margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.020, bottom: MediaQuery.of(context).size.height * 0.035 ),
+              child:Text(
+                '1/4',
+                style: GoogleFonts.inter(
+                  color: const Color(0xFF444C52),
+                  fontSize: MediaQuery.of(context).size.height * 0.015,
+                  fontWeight: FontWeight.w600,
+                  height: 1.5,
+                  letterSpacing: -0.01
+                )
+              ),
+            )
+              ],
+            ),
+          Container(
+              margin: EdgeInsets.only(top: 20, left: MediaQuery.of(context).size.height * 0.050, right: MediaQuery.of(context).size.height * 0.050 ),
+              child: Text(
+                'Por favor indiquenos la siguiente información sobre sus metas financieras',
+                style: GoogleFonts.inter(
+                  color: const Color(0xFF817F7F),
+                  fontSize: MediaQuery.of(context).size.height * 0.020,
+                  fontWeight: FontWeight.w600,
+                  height: 1.5,
+                  letterSpacing: -0.01
+                )
+              ),
+            ),
+            CustomTextWidget(
+              text: 'Vacaciones/ viajes', 
+              fontSize: MediaQuery.of(context).size.height * 0.016, 
+              fontWeight: FontWeight.w500
+              ),
+                    CustomDropdownWidget(
+                      value: _vacionesViajes, 
+                      onChanged: updateVacacionesViajes, 
+                      items: const [
+                        'Vacaciones/viajes',
+                        'Si',
+                        'No'
+                      ]), 
+      if (_showTextFieldVacacionesViajes)
                     Column(
                       children: [
-                      Container(
-                        width: 374,
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: TextFormField(
-                          controller: _plazoVacacionesViajesController,
-                          decoration: InputDecoration(
-                            hintText: 'Plazo de las meta (meses y años)',
-                            hintStyle: TextStyle(color: Colors.white),
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
+            Container(
+                    margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.030, ),
+                    child: Column(
+                      children: [ 
+                        CustomTextWidget(
+                          text: 'Plazo de la meta', 
+                          fontSize: MediaQuery.of(context).size.height * 0.016, 
+                          fontWeight: FontWeight.w500
                           ),
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Por favor, ingrese el objetivo de ahorro';
-                            }
-                            return null;
+                        SliderMeses(
+                          value: _plazoVacaciones,
+                          min: 1,
+                          max: 24,
+                          divisions: 20,
+                          onChanged: (value) {
+                            setState(() {
+                              _plazoVacaciones = value;
+                            });
                           },
-                        ),
-                      ),
-                      Container(
-                        width: 374,
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: TextFormField(
-                          keyboardType: TextInputType.number,
-                          controller: _valorVacacionesViajesController,
-                          decoration: InputDecoration(
-                            hintText: 'Valor de la meta',
-                            hintStyle: TextStyle(color: Colors.white),
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
+                          ) 
+                      ],
+                    )
+                  ),
+              Container(
+                    margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.000, ),
+                    child: Column(
+                      children: [ 
+                        CustomTextWidget(
+                          text: 'Valor de las meta', 
+                          fontSize: MediaQuery.of(context).size.height * 0.016, 
+                          fontWeight: FontWeight.w500
                           ),
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Por favor, ingrese el objetivo de ahorro';
-                            }
-                            return null;
+                        CustomSliderWidget(
+                          value: _valorVacaciones, 
+                          min: 0, 
+                          max: 20000000, 
+                          divisions: 20, 
+                          onChanged: (value) {
+                            setState(() {
+                              _valorVacaciones = value;
+                            });
                           },
-                        ),
-                      ),
-                      Container(
-                        width: 374,
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: TextFormField(
-                          keyboardType: TextInputType.number,
-                          controller: _importanciaVacacionesViajesController,
-                          decoration: InputDecoration(
-                            hintText: 'Nivel de importancia',
-                            hintStyle: TextStyle(color: Colors.white),
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
+                          )
+                      ],
+                    )
+                  ),
+                  Container(
+                          margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.050, right:MediaQuery.of(context).size.height * 0.050, bottom: MediaQuery.of(context).size.height * 0.015 ),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Importancia de la meta', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.016,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
                             ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                          ),
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Por favor, ingrese el objetivo de ahorro';
-                            }
-                            return null;
+                          ) ,
+                        ), 
+                     CustomWordSliderWidget(
+                      value: _importanciaVacaciones, 
+                      words: const ['No me importa', 'Me importa poco', 'Me importa', 'Me importa mucho', 'Indispensable'], 
+                      onChanged: (value) {
+                            setState(() {
+                              _importanciaVacaciones = value;
+                            });
                           },
-                        ),
                       ),
                       ],
                     ),
-
-
-                    SizedBox(height: 20),
-
-                    Container(
-                      width: 374,
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      color: Color(0XFF524898),
-                      child: DropdownButton<String>(
-                        dropdownColor: Color(0XFF524898),
-                        value: _automovil,
-                        onChanged: updateAutomovil,
-                        items: <String>[
-                          'Automovil',
-                          'Automovil: Si',
-                          'Automovil: No'
-                        ].map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(
-                              value,
-                              style: TextStyle(
-                                color: Colors.white
-                              ),
-                            ),
-                          );
-                        }).toList(),
-                        icon: Icon(
-                          Icons.arrow_drop_down,
-                          color: Colors.white,
-                        ),
-                      ),
+                    CustomTextWidget(
+                      text: 'Automovil', 
+                      fontSize: MediaQuery.of(context).size.height * 0.016 , 
+                      fontWeight: FontWeight.w500
                     ),
-                    if (_showTextFieldAutomovil)
-                    Column(
-                      children: [
-                      Container(
-                        width: 374,
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: TextFormField(
-                          controller: _plazoAutomovilController,
-                          decoration: InputDecoration(
-                            hintText: 'Plazo de las meta (meses y años)',
-                            hintStyle: TextStyle(color: Colors.white),
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                          ),
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Por favor, ingrese el objetivo de ahorro';
-                            }
-                            return null;
+                    CustomDropdownWidget(
+                      value: _automovil, 
+                      onChanged: updateAutomovil, 
+                      items: const [
+                        'Automovil', 
+                        'Si',
+                        'No'
+                      ]),
+                if(_showTextFieldAutomovil)
+                 Column(
+                    children: [
+                  CustomTextWidget(
+                  text: 'PLazo de la meta', 
+                  fontSize: MediaQuery.of(context).size.height * 0.016 , 
+                  fontWeight: FontWeight.w500
+                  ),
+                SliderMeses(
+                  value: _plazoAutomovil, 
+                  min: 1, 
+                  max: 24, 
+                  divisions: 24, 
+                  onChanged: (value) {
+                    setState(() {
+                      _plazoAutomovil = value;
+                    });
+                },),
+                CustomTextWidget(
+                  text: 'Valor de la meta', 
+                  fontSize: MediaQuery.of(context).size.height * 0.016 , 
+                  fontWeight: FontWeight.w500
+                  ),
+                CustomSliderWidget(
+                  value: _valorAutomovil, 
+                  min: 0, 
+                  max: 20000000, 
+                  divisions: 20, 
+                  onChanged: (value) {
+                    setState(() {
+                      _valorAutomovil = value;
+                    });
+                }),
+                CustomTextWidget(
+                  text: 'Importancia de la meta', 
+                  fontSize: MediaQuery.of(context).size.height * 0.016 , 
+                  fontWeight: FontWeight.w500
+                  ),
+                CustomWordSliderWidget(
+                  value: _importanciaAutomovil, 
+                  words: const ['No me importa', 'Me importa poco', 'Me importa', 'Me importa mucho', 'Indispensable'], 
+                  onChanged: (value) {
+                            setState(() {
+                              _importanciaAutomovil = value;
+                            });
                           },
-                        ),
-                      ),
-                      Container(
-                        width: 374,
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: TextFormField(
-                          keyboardType: TextInputType.number,
-                          controller: _valorAutomovilController,
-                          decoration: InputDecoration(
-                            hintText: 'Valor de la meta',
-                            hintStyle: TextStyle(color: Colors.white),
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                          ),
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Por favor, ingrese el objetivo de ahorro';
-                            }
-                            return null;
-                          },
-                        ),
-                      ),
-                      Container(
-                        width: 374,
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: TextFormField(
-                          keyboardType: TextInputType.number,
-                          controller: _importanciaAutomovilController,
-                          decoration: InputDecoration(
-                            hintText: 'Nivel de importancia',
-                            hintStyle: TextStyle(color: Colors.white),
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                          ),
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Por favor, ingrese el objetivo de ahorro';
-                            }
-                            return null;
-                          },
-                        ),
-                      ),
-                      ],
+                  )
+                    ],
+                  ),
+              
+              CustomTextWidget(
+                text: 'Educacion', 
+                fontSize: MediaQuery.of(context).size.height * 0.016 , 
+                fontWeight: FontWeight.w500
+                ),
+              CustomDropdownWidget(
+                value: _educacion, 
+                onChanged: updateEducacion, 
+                items: const [
+                  'Educacion',
+                  'Si',
+                  'No'
+                ]
+                ),
+              if(_showTextFieldEducacion)
+              Column(
+                children: [
+                  CustomTextWidget(
+                    text: 'Plazo de la meta', 
+                    fontSize: MediaQuery.of(context).size.height * 0.016, 
+                    fontWeight: FontWeight.w500
                     ),
-
-
-                    SizedBox(height: 20),
-
-
-                    Container(
-                      width: 374,
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      color: Color(0XFF524898),
-                      child: DropdownButton<String>(
-                        dropdownColor: Color(0XFF524898),
-                        value: _educacion,
-                        onChanged: updateEducacion,
-                        items: <String>[
-                          'Educacion',
-                          'Educacion: Si',
-                          'Educacion: No'
-                        ].map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(
-                              value,
-                              style: TextStyle(
-                                color: Colors.white
-                              ),
-                            ),
-                          );
-                        }).toList(),
-                        icon: Icon(
-                          Icons.arrow_drop_down,
-                          color: Colors.white,
-                        ),
-                      ),
+                  SliderMeses(
+                    value: _plazoEducacion, 
+                    min: 1, 
+                    max: 24, 
+                    divisions: 24, 
+                    onChanged: (value) {
+                    setState(() {
+                      _plazoEducacion = value;
+                    });
+                },
                     ),
-                    if (_showTextFieldEducacion)
-                    Column(
-                      children: [
-                      Container(
-                        width: 374,
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: TextFormField(
-                          controller: _plazoEducacionController,
-                          decoration: InputDecoration(
-                            hintText: 'Plazo de las meta (meses y años)',
-                            hintStyle: TextStyle(color: Colors.white),
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                          ),
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Por favor, ingrese el objetivo de ahorro';
-                            }
-                            return null;
-                          },
-                        ),
-                      ),
-                      Container(
-                        width: 374,
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: TextFormField(
-                          keyboardType: TextInputType.number,
-                          controller: _valorEducacionController,
-                          decoration: InputDecoration(
-                            hintText: 'Valor de la meta',
-                            hintStyle: TextStyle(color: Colors.white),
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                          ),
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Por favor, ingrese el objetivo de ahorro';
-                            }
-                            return null;
-                          },
-                        ),
-                      ),
-                      Container(
-                        width: 374,
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: TextFormField(
-                          keyboardType: TextInputType.number,
-                          controller: _importanciaEducacionController,
-                          decoration: InputDecoration(
-                            hintText: 'Nivel de importancia',
-                            hintStyle: TextStyle(color: Colors.white),
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                          ),
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Por favor, ingrese el objetivo de ahorro';
-                            }
-                            return null;
-                          },
-                        ),
-                      ),
-                      ],
+                  CustomTextWidget(
+                    text: 'Valor de la meta', 
+                    fontSize: MediaQuery.of(context).size.height * 0.016, 
+                    fontWeight: FontWeight.w500
                     ),
-
-
-                    SizedBox(height: 20),
-
-
-                    Container(
-                      width: 374,
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      color: Color(0XFF524898),
-                      child: DropdownButton<String>(
-                        dropdownColor: Color(0XFF524898),
-                        value: _inmuebleColombia,
-                        onChanged: updateInmuebleColombia,
-                        items: <String>[
-                          'Inmueble en Colombia',
-                          'Inmueble en Colombia: Si',
-                          'Inmueble en Colombia: No'
-                        ].map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(
-                              value,
-                              style: TextStyle(
-                                color: Colors.white
-                              ),
-                            ),
-                          );
-                        }).toList(),
-                        icon: Icon(
-                          Icons.arrow_drop_down,
-                          color: Colors.white,
-                        ),
-                      ),
+                  CustomSliderWidget(
+                    value: _valorEducacion, 
+                    min: 0, 
+                    max: 20000000, 
+                    divisions: 20, 
+                    onChanged: (value) {
+                    setState(() {
+                      _valorEducacion = value;
+                    });
+                }
                     ),
-                    if (_showTextFieldInmuebleColombia)
-                    Column(
-                      children: [
-                      Container(
-                        width: 374,
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: TextFormField(
-                          controller: _plazoInmuebleColombiaController,
-                          decoration: InputDecoration(
-                            hintText: 'Plazo de las meta (meses y años)',
-                            hintStyle: TextStyle(color: Colors.white),
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                          ),
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Por favor, ingrese el objetivo de ahorro';
-                            }
-                            return null;
-                          },
-                        ),
-                      ),
-                      Container(
-                        width: 374,
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: TextFormField(
-                          keyboardType: TextInputType.number,
-                          controller: _valorInmuebleColombiaController,
-                          decoration: InputDecoration(
-                            hintText: 'Valor de la meta',
-                            hintStyle: TextStyle(color: Colors.white),
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                          ),
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Por favor, ingrese el objetivo de ahorro';
-                            }
-                            return null;
-                          },
-                        ),
-                      ),
-                      Container(
-                        width: 374,
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: TextFormField(
-                          keyboardType: TextInputType.number,
-                          controller: _importanciaInmuebleColombiaController,
-                          decoration: InputDecoration(
-                            hintText: 'Nivel de importancia',
-                            hintStyle: TextStyle(color: Colors.white),
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                          ),
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Por favor, ingrese el objetivo de ahorro';
-                            }
-                            return null;
-                          },
-                        ),
-                      ),
-                      ],
+                  CustomTextWidget(
+                    text: 'Importancia de la meta', 
+                    fontSize: MediaQuery.of(context).size.height * 0.016, 
+                    fontWeight: FontWeight.w500
                     ),
-
-
-                    SizedBox(height: 20),
-
-
-                    Container(
-                      width: 374,
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      color: Color(0XFF524898),
-                      child: DropdownButton<String>(
-                        dropdownColor: Color(0XFF524898),
-                        value: _inmuebleUsa,
-                        onChanged: updateInmuebleUsa,
-                        items: <String>[
-                          'Inmueble en USA',
-                          'Inmueble en USA: Si',
-                          'Inmueble en USA: No'
-                        ].map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(
-                              value,
-                              style: TextStyle(
-                                color: Colors.white
-                              ),
-                            ),
-                          );
-                        }).toList(),
-                        icon: Icon(
-                          Icons.arrow_drop_down,
-                          color: Colors.white,
-                        ),
-                      ),
+                  CustomWordSliderWidget(
+                    value: _importanciaEducacion, 
+                    words: const ['No me importa', 'Me importa poco', 'Me importa', 'Me importa mucho', 'Indispensable'], 
+                    onChanged: (value) {
+                      setState(() {
+                      _importanciaEducacion = value;
+                     });
+                   },
+                    )
+                ],
+              ),
+              CustomTextWidget(
+                text: 'Inmueble en Colombia', 
+                fontSize: MediaQuery.of(context).size.height * 0.016, 
+                fontWeight: FontWeight.w500
+                ),
+              CustomDropdownWidget(
+                value: _inmuebleColombia, 
+                onChanged: updateInmuebleColombia, 
+                items: const [
+                  'Inmueble en Colombia',
+                  'Si',
+                  'No'
+                ]
+                ),
+              if(_showTextFieldInmuebleColombia)
+              Column(
+                children: [
+                  CustomTextWidget(
+                    text: 'Plazo de la meta', 
+                    fontSize: MediaQuery.of(context).size.height * 0.016, 
+                    fontWeight: FontWeight.w500
                     ),
-                    if (_showTextFieldInmuebleUsa)
-                    Column(
-                      children: [
-                      Container(
-                        width: 374,
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: TextFormField(
-                          controller: _plazoInmuebleUsaController,
-                          decoration: InputDecoration(
-                            hintText: 'Plazo de las meta (meses y años)',
-                            hintStyle: TextStyle(color: Colors.white),
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                          ),
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Por favor, ingrese el objetivo de ahorro';
-                            }
-                            return null;
-                          },
-                        ),
-                      ),
-                      Container(
-                        width: 374,
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: TextFormField(
-                          keyboardType: TextInputType.number,
-                          controller: _valorInmuebleUsaController,
-                          decoration: InputDecoration(
-                            hintText: 'Valor de la meta',
-                            hintStyle: TextStyle(color: Colors.white),
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                          ),
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Por favor, ingrese el objetivo de ahorro';
-                            }
-                            return null;
-                          },
-                        ),
-                      ),
-                      Container(
-                        width: 374,
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: TextFormField(
-                          keyboardType: TextInputType.number,
-                          controller: _importanciaInmuebleUsaController,
-                          decoration: InputDecoration(
-                            hintText: 'Nivel de importancia',
-                            hintStyle: TextStyle(color: Colors.white),
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                          ),
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Por favor, ingrese el objetivo de ahorro';
-                            }
-                            return null;
-                          },
-                        ),
-                      ),
-                      ],
+                  SliderMeses(
+                    value: _plazoInmuebleColombia, 
+                    min: 1, 
+                    max: 24, 
+                    divisions: 24,
+                     onChanged: (value) {
+                    setState(() {
+                      _plazoInmuebleColombia = value;
+                    });
+                },
+                     ),
+                  CustomTextWidget(
+                    text: 'Valor de la meta', 
+                    fontSize: MediaQuery.of(context).size.height * 0.016 , 
+                    fontWeight: FontWeight.w500
                     ),
-
-
-                    SizedBox(height: 20),
-
-
-                    Container(
-                      width: 374,
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      color: Color(0XFF524898),
-                      child: DropdownButton<String>(
-                        dropdownColor: Color(0XFF524898),
-                        value: _tratamientosMedicos,
-                        onChanged: updateTratamientosMedicos,
-                        items: <String>[
-                          'Tratamientos medicos y esteticos',
-                          'Tratamientos medicos y esteticos: Si',
-                          'TratamientosMedicos y esteticos: No'
-                        ].map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(
-                              value,
-                              style: TextStyle(
-                                color: Colors.white
-                              ),
-                            ),
-                          );
-                        }).toList(),
-                        icon: Icon(
-                          Icons.arrow_drop_down,
-                          color: Colors.white,
-                        ),
-                      ),
+                  CustomSliderWidget(
+                    value: _valorInmuebleColombia, 
+                    min: 0, 
+                    max: 20000000, 
+                    divisions: 20, 
+                    onChanged: (value) {
+                    setState(() {
+                      _valorInmuebleColombia = value;
+                    });
+                } 
                     ),
-                    if (_showTextFieldTratamientosMedicos)
-                    Column(
-                      children: [
-                      Container(
-                        width: 374,
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: TextFormField(
-                          controller: _plazoTratamientosMedicosController,
-                          decoration: InputDecoration(
-                            hintText: 'Plazo de las meta (meses y años)',
-                            hintStyle: TextStyle(color: Colors.white),
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                          ),
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Por favor, ingrese el objetivo de ahorro';
-                            }
-                            return null;
-                          },
-                        ),
-                      ),
-                      Container(
-                        width: 374,
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: TextFormField(
-                          keyboardType: TextInputType.number,
-                          controller: _valorTratamientosMedicosController,
-                          decoration: InputDecoration(
-                            hintText: 'Valor de la meta',
-                            hintStyle: TextStyle(color: Colors.white),
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                          ),
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Por favor, ingrese el objetivo de ahorro';
-                            }
-                            return null;
-                          },
-                        ),
-                      ),
-                      Container(
-                        width: 374,
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: TextFormField(
-                          keyboardType: TextInputType.number,
-                          controller: _importanciaTratamientosMedicosController,
-                          decoration: InputDecoration(
-                            hintText: 'Nivel de importancia',
-                            hintStyle: TextStyle(color: Colors.white),
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                          ),
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Por favor, ingrese el objetivo de ahorro';
-                            }
-                            return null;
-                          },
-                        ),
-                      ),
-                      ],
+                  CustomTextWidget(
+                    text: 'Importancia de la meta', 
+                    fontSize: MediaQuery.of(context).size.height * 0.016, 
+                    fontWeight: FontWeight.w500
                     ),
-
-
-                    SizedBox(height: 20),
-
-
-                    Container(
-                      width: 374,
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      color: Color(0XFF524898),
-                      child: DropdownButton<String>(
-                        dropdownColor: Color(0XFF524898),
-                        value: _tecnologia,
-                        onChanged: updateTecnologia,
-                        items: <String>[
-                          'Tecnologia',
-                          'Tecnologia: Si',
-                          'Tecnologia: No'
-                        ].map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(
-                              value,
-                              style: TextStyle(
-                                color: Colors.white
-                              ),
-                            ),
-                          );
-                        }).toList(),
-                        icon: Icon(
-                          Icons.arrow_drop_down,
-                          color: Colors.white,
-                        ),
-                      ),
+                  CustomWordSliderWidget(
+                    value: _importanciaInmuebleColombia, 
+                    words: const ['No me importa', 'Me importa poco', 'Me importa', 'Me importa mucho', 'Indispensable'] , 
+                    onChanged: (value) {
+                      setState(() {
+                      _importanciaInmuebleColombia = value;
+                     });
+                   },
+                    )
+                ],
+              ),
+              CustomTextWidget(
+                text: 'Inmueble en Usa', 
+                fontSize: MediaQuery.of(context).size.height * 0.016, 
+                fontWeight: FontWeight.w500
+                ),
+              CustomDropdownWidget(
+                value: _inmuebleUsa, 
+                onChanged: updateInmuebleUsa, 
+                items: const [
+                  'Inmueble en USA',
+                  'Si',
+                  'No'
+                ]
+                ),
+              if(_showTextFieldInmuebleUsa)
+              Column(
+                children: [
+                  CustomTextWidget(
+                    text: 'Plazo de la meta', 
+                    fontSize: MediaQuery.of(context).size.height * 0.016, 
+                    fontWeight: FontWeight.w500
                     ),
-                    if (_showTextFieldTecnologia)
-                    Column(
-                      children: [
-                      Container(
-                        width: 374,
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: TextFormField(
-                          controller: _plazoTecnologiaController,
-                          decoration: InputDecoration(
-                            hintText: 'Plazo de las meta (meses y años)',
-                            hintStyle: TextStyle(color: Colors.white),
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                          ),
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Por favor, ingrese el objetivo de ahorro';
-                            }
-                            return null;
-                          },
-                        ),
-                      ),
-                      Container(
-                        width: 374,
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: TextFormField(
-                          keyboardType: TextInputType.number,
-                          controller: _valorTecnologiaController,
-                          decoration: InputDecoration(
-                            hintText: 'Valor de la meta',
-                            hintStyle: TextStyle(color: Colors.white),
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                          ),
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Por favor, ingrese el objetivo de ahorro';
-                            }
-                            return null;
-                          },
-                        ),
-                      ),
-                      Container(
-                        width: 374,
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: TextFormField(
-                          keyboardType: TextInputType.number,
-                          controller: _importanciaTecnologiaController,
-                          decoration: InputDecoration(
-                            hintText: 'Nivel de importancia',
-                            hintStyle: TextStyle(color: Colors.white),
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                          ),
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Por favor, ingrese el objetivo de ahorro';
-                            }
-                            return null;
-                          },
-                        ),
-                      ),
-                      ],
+                  SliderMeses(
+                    value: _plazoInmuebleUsa, 
+                    min: 1, 
+                    max: 24, 
+                    divisions: 24, 
+                    onChanged: (value) {
+                    setState(() {
+                      _plazoInmuebleUsa = value;
+                    });
+                },
                     ),
-
-
-                    SizedBox(height: 20),
-
-
-                    Container(
-                      width: 374,
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      color: Color(0XFF524898),
-                      child: DropdownButton<String>(
-                        dropdownColor: Color(0XFF524898),
-                        value: _entretenimiento,
-                        onChanged: updateEntretenimiento,
-                        items: <String>[
-                          'Entretenimiento - conciertos y festivales',
-                          'Entretenimiento - conciertos y festivales: Si',
-                          'Entretenimiento - conciertos y festivales: No'
-                        ].map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(
-                              value,
-                              style: TextStyle(
-                                color: Colors.white
-                              ),
-                            ),
-                          );
-                        }).toList(),
-                        icon: Icon(
-                          Icons.arrow_drop_down,
-                          color: Colors.white,
-                        ),
-                      ),
+                  CustomTextWidget(
+                    text: 'Valor de la meta', 
+                    fontSize: MediaQuery.of(context).size.height * 0.016, 
+                    fontWeight: FontWeight.w500
                     ),
-                    if (_showTextFieldEntretenimiento)
-                    Column(
-                      children: [
-                      Container(
-                        width: 374,
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: TextFormField(
-                          controller: _plazoEntretenimientoController,
-                          decoration: InputDecoration(
-                            hintText: 'Plazo de las meta (meses y años)',
-                            hintStyle: TextStyle(color: Colors.white),
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                          ),
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Por favor, ingrese el objetivo de ahorro';
-                            }
-                            return null;
-                          },
-                        ),
-                      ),
-                      Container(
-                        width: 374,
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: TextFormField(
-                          keyboardType: TextInputType.number,
-                          controller: _valorEntretenimientoController,
-                          decoration: InputDecoration(
-                            hintText: 'Valor de la meta',
-                            hintStyle: TextStyle(color: Colors.white),
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                          ),
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Por favor, ingrese el objetivo de ahorro';
-                            }
-                            return null;
-                          },
-                        ),
-                      ),
-                      Container(
-                        width: 374,
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: TextFormField(
-                          keyboardType: TextInputType.number,
-                          controller: _importanciaEntretenimientoController,
-                          decoration: InputDecoration(
-                            hintText: 'Nivel de importancia',
-                            hintStyle: TextStyle(color: Colors.white),
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                          ),
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Por favor, ingrese el objetivo de ahorro';
-                            }
-                            return null;
-                          },
-                        ),
-                      ),
-                      ],
+                  CustomSliderWidget(
+                    value: _valorInmuebleUsa, 
+                    min: 0, 
+                    max: 20000000, 
+                    divisions: 20, 
+                    onChanged: (value) {
+                    setState(() {
+                      _valorInmuebleUsa = value;
+                    });
+                } 
                     ),
-
-
-                    SizedBox(height: 20),
-
-
-                    Container(
-                      width: 374,
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      color: Color(0XFF524898),
-                      child: DropdownButton<String>(
-                        dropdownColor: Color(0XFF524898),
-                        value: _eventosDeportivos,
-                        onChanged: updateEventosDeportivos,
-                        items: <String>[
-                          'Eventos deportivos internacionales',
-                          'Eventos deportivos internacionales: Si',
-                          'Eventos deportivos internacionales: No'
-                        ].map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(
-                              value,
-                              style: TextStyle(
-                                color: Colors.white
-                              ),
-                            ),
-                          );
-                        }).toList(),
-                        icon: Icon(
-                          Icons.arrow_drop_down,
-                          color: Colors.white,
-                        ),
-                      ),
+                  CustomTextWidget(
+                    text: 'Importancia de la meta', 
+                    fontSize: MediaQuery.of(context).size.height * 0.016, 
+                    fontWeight: FontWeight.w500
                     ),
-                    if (_showTextFieldEventosDeportivos)
-                    Column(
-                      children: [
-                      Container(
-                        width: 374,
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: TextFormField(
-                          controller: _plazoEventosDeportivosController,
-                          decoration: InputDecoration(
-                            hintText: 'Plazo de las meta (meses y años)',
-                            hintStyle: TextStyle(color: Colors.white),
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                          ),
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Por favor, ingrese el objetivo de ahorro';
-                            }
-                            return null;
-                          },
-                        ),
-                      ),
-                      Container(
-                        width: 374,
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: TextFormField(
-                          keyboardType: TextInputType.number,
-                          controller: _valorEventosDeportivosController,
-                          decoration: InputDecoration(
-                            hintText: 'Valor de la meta',
-                            hintStyle: TextStyle(color: Colors.white),
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                          ),
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Por favor, ingrese el objetivo de ahorro';
-                            }
-                            return null;
-                          },
-                        ),
-                      ),
-                      Container(
-                        width: 374,
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: TextFormField(
-                          keyboardType: TextInputType.number,
-                          controller: _importanciaEventosDeportivosController,
-                          decoration: InputDecoration(
-                            hintText: 'Nivel de importancia',
-                            hintStyle: TextStyle(color: Colors.white),
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                          ),
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Por favor, ingrese el objetivo de ahorro';
-                            }
-                            return null;
-                          },
-                        ),
-                      ),
-                      ],
-                    ),
+                  CustomWordSliderWidget(
+                    value: _importanciaInmuebleUsa, 
+                    words: const ['No me importa', 'Me importa poco', 'Me importa', 'Me importa mucho', 'Indispensable']  , 
+                    onChanged: (value) {
+                      setState(() {
+                      _importanciaInmuebleUsa = value;
+                     });
+                   },
+                    )
 
+                ],
+              ),
+            CustomTextWidget(
+              text: 'Tratamientos médicos y estéticos', 
+              fontSize: MediaQuery.of(context).size.height * 0.016, 
+              fontWeight: FontWeight.w500
+              ),
+            CustomDropdownWidget(
+              value: _tratamientosMedicos, 
+              onChanged: updateTratamientosMedicos, 
+              items: const[
+                'Tratamientos medicos y esteticos',
+                'Si',
+                'No'
+              ] 
+              ),
+            if(_showTextFieldTratamientosMedicos)
+            Column(
+              children: [
+                CustomTextWidget(
+                  text: 'Plazo de la meta', 
+                  fontSize: MediaQuery.of(context).size.height * 0.016, 
+                  fontWeight: FontWeight.w500
+                  ),
+                SliderMeses(
+                  value: _plazoTratamientosMedicos, 
+                  min: 1, 
+                  max: 24, 
+                  divisions: 24, 
+                  onChanged: (value) {
+                    setState(() {
+                      _plazoTratamientosMedicos = value;
+                    });
+                },
+                  ),
+                CustomTextWidget(
+                  text: 'Valor de la meta', 
+                  fontSize: MediaQuery.of(context).size.height * 0.016, 
+                  fontWeight: FontWeight.w500
+                  ),
+                CustomSliderWidget(
+                  value: _valorTratamientosMedicos, 
+                  min: 0, 
+                  max: 20000000, 
+                  divisions: 20, 
+                  onChanged: (value) {
+                    setState(() {
+                      _valorTratamientosMedicos = value;
+                    });
+                } 
+                  ),
+                CustomTextWidget(
+                  text: 'Importancia de la meta', 
+                  fontSize: MediaQuery.of(context).size.height * 0.016, 
+                  fontWeight: FontWeight.w500
+                  ),
+                CustomWordSliderWidget(
+                  value: _importanciaTratamientosMedicos, 
+                  words: const ['No me importa', 'Me importa poco', 'Me importa', 'Me importa mucho', 'Indispensable'], 
+                  onChanged: (value) {
+                      setState(() {
+                      _importanciaTratamientosMedicos = value;
+                     });
+                   },
+                  )
+              ],
+            ),
+            CustomTextWidget(
+              text: 'Tecnologia', 
+              fontSize: MediaQuery.of(context).size.height * 0.016, 
+              fontWeight: FontWeight.w500
+              ),
+            CustomDropdownWidget(
+              value: _tecnologia, 
+              onChanged: updateTecnologia, 
+              items: const[
+                'Tecnologia',
+                'Si',
+                'No'
+              ]
+              ),
+            if(_showTextFieldTecnologia)
+            Column(
+              children: [
+                CustomTextWidget(
+                  text: 'Plazo de la meta', 
+                  fontSize: MediaQuery.of(context).size.height * 0.016, 
+                  fontWeight: FontWeight.w500
+                  ),
+                SliderMeses(
+                  value: _plazoTecnologia, 
+                  min: 1, 
+                  max: 24, 
+                  divisions: 24, 
+                  onChanged: (value) {
+                    setState(() {
+                      _plazoTecnologia = value;
+                    });
+                },
+                  ),
+                CustomTextWidget(
+                  text: 'Valor de la meta', 
+                  fontSize: MediaQuery.of(context).size.height * 0.016, 
+                  fontWeight: FontWeight.w500
+                  ),
+                CustomSliderWidget(
+                  value: _valorTecnologia, 
+                  min: 0, 
+                  max: 20000000, 
+                  divisions: 20, 
+                  onChanged: (value) {
+                    setState(() {
+                      _valorTecnologia = value;
+                    });
+                } 
+                  ),
+                CustomTextWidget(
+                  text: 'Importancia de la meta', 
+                  fontSize: MediaQuery.of(context).size.height * 0.016, 
+                  fontWeight: FontWeight.w500
+                  ),
+                CustomWordSliderWidget(
+                  value: _importanciaTecnologia, 
+                  words: const ['No me importa', 'Me importa poco', 'Me importa', 'Me importa mucho', 'Indispensable'],  
+                  onChanged: (value) {
+                      setState(() {
+                      _importanciaTecnologia = value;
+                     });
+                   },
+                  )
+              ],
+            ),
+            CustomTextWidget(
+              text: 'Entretenimiento - Conciertos y festivales', 
+              fontSize: MediaQuery.of(context).size.height * 0.016, 
+              fontWeight: FontWeight.w500
+              ),
+            CustomDropdownWidget(
+              value: _entretenimiento, 
+              onChanged: updateEntretenimiento, 
+              items: const [
+                'Entretenimiento',
+                'Si',
+                'No'
+              ]
+              ),
+            if(_showTextFieldEntretenimiento)
+            Column(
+              children: [
+                CustomTextWidget(
+                  text: 'Plazo de la meta', 
+                  fontSize: MediaQuery.of(context).size.height * 0.016, 
+                  fontWeight: FontWeight.w500
+                  ),
+                SliderMeses(
+                  value: _plazoEntretenimiento, 
+                  min: 1, 
+                  max: 24, 
+                  divisions: 24, 
+                  onChanged: (value) {
+                    setState(() {
+                      _plazoEntretenimiento = value;
+                    });
+                },
+                  ),
+                CustomTextWidget(
+                  text: 'Valor de la meta', 
+                  fontSize: MediaQuery.of(context).size.height * 0.016, 
+                  fontWeight: FontWeight.w500
+                  ),
+                CustomSliderWidget(
+                  value: _valorEntretenimiento, 
+                  min: 0, 
+                  max: 20000000, 
+                  divisions: 20, 
+                  onChanged: (value) {
+                    setState(() {
+                      _valorEntretenimiento = value;
+                    });
+                } 
+                  ),
+                CustomTextWidget(
+                  text: 'Importancia de la meta', 
+                  fontSize: MediaQuery.of(context).size.height * 0.016, 
+                  fontWeight: FontWeight.w500
+                  ),
+                CustomWordSliderWidget(
+                  value: _importanciaEntretenimiento, 
+                  words: const ['No me importa', 'Me importa poco', 'Me importa', 'Me importa mucho', 'Indispensable'], 
+                  onChanged: (value) {
+                      setState(() {
+                      _importanciaEntretenimiento = value;
+                     });
+                   },
+                  )
+              ],
+            ),
+            CustomTextWidget(
+              text: 'Eventos deportivos internacionales', 
+              fontSize: MediaQuery.of(context).size.height * 0.016, 
+              fontWeight: FontWeight.w500
+              ),
+            CustomDropdownWidget(
+              value: _eventosDeportivos, 
+              onChanged: updateEventosDeportivos, 
+              items: const [
+                'Eventos deportivos internacionales',
+                'Si',
+                'No'
+              ] 
+              ),
+            if(_showTextFieldEventosDeportivos)
+            Column(
+              children: [
+                CustomTextWidget(
+                  text: 'Plazo de la meta', 
+                  fontSize: MediaQuery.of(context).size.height * 0.016, 
+                  fontWeight: FontWeight.w500
+                  ),
+                SliderMeses(
+                  value: _plazoEventosDeportivos, 
+                  min: 1, 
+                  max: 24, 
+                  divisions: 24, 
+                  onChanged: (value) {
+                    setState(() {
+                      _plazoEventosDeportivos = value;
+                    });
+                },
+                  ),
+                CustomTextWidget(
+                  text: 'Valor de la meta', 
+                  fontSize: MediaQuery.of(context).size.height * 0.016, 
+                  fontWeight: FontWeight.w500
+                  ),
+                CustomSliderWidget(
+                  value: _valorEventosDeportivos, 
+                  min: 0, 
+                  max: 20000000, 
+                  divisions: 20, 
+                  onChanged: (value) {
+                    setState(() {
+                      _valorEventosDeportivos = value;
+                    });
+                } 
+                  ),
+                CustomTextWidget(
+                  text: 'Importancia de la meta', 
+                  fontSize: MediaQuery.of(context).size.height * 0.016, 
+                  fontWeight: FontWeight.w500
+                  ),
+                CustomWordSliderWidget(
+                  value: _importanciaEventosDeportivos, 
+                  words: const ['No me importa', 'Me importa poco', 'Me importa', 'Me importa mucho', 'Indispensable'], 
+                  onChanged: (value) {
+                      setState(() {
+                      _importanciaEventosDeportivos= value;
+                     });
+                   },
+                  )
 
-                    SizedBox(height: 20),
-
-
-                    Container(
-                      width: 374,
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      color: Color(0XFF524898),
-                      child: DropdownButton<String>(
-                        dropdownColor: Color(0XFF524898),
-                        value: _otros,
-                        onChanged: updateOtros,
-                        items: <String>[
-                          'Otros',
-                          'Otros: Si',
-                          'Otros: No'
-                        ].map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(
-                              value,
-                              style: TextStyle(
-                                color: Colors.white
-                              ),
-                            ),
-                          );
-                        }).toList(),
-                        icon: Icon(
-                          Icons.arrow_drop_down,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                    if (_showTextFieldOtros)
-                    Column(
-                      children: [
-                      Container(
-                        width: 374,
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: TextFormField(
-                          controller: _plazoOtrosController,
-                          decoration: InputDecoration(
-                            hintText: 'Plazo de las meta (meses y años)',
-                            hintStyle: TextStyle(color: Colors.white),
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                          ),
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Por favor, ingrese el objetivo de ahorro';
-                            }
-                            return null;
-                          },
-                        ),
-                      ),
-                      Container(
-                        width: 374,
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: TextFormField(
-                          keyboardType: TextInputType.number,
-                          controller: _valorOtrosController,
-                          decoration: InputDecoration(
-                            hintText: 'Valor de la meta',
-                            hintStyle: TextStyle(color: Colors.white),
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                          ),
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Por favor, ingrese el objetivo de ahorro';
-                            }
-                            return null;
-                          },
-                        ),
-                      ),
-                      Container(
-                        width: 374,
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: TextFormField(
-                          keyboardType: TextInputType.number,
-                          controller: _importanciaOtrosController,
-                          decoration: InputDecoration(
-                            hintText: 'Nivel de importancia',
-                            hintStyle: TextStyle(color: Colors.white),
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.white),
-                            ),
-                          ),
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Por favor, ingrese el objetivo de ahorro';
-                            }
-                            return null;
-                          },
-                        ),
-                      ),
-                      ],
-                    ),
-
-
-                    SizedBox(height: 40),
-
-
-
-                    ElevatedButton(
-                      onPressed: (){
-              if (_vacionesViajes == 'Vacaciones/viajes' ||
-              _automovil == 'Automovil' ||
-                _educacion == 'Educacion' ||
-                _inmuebleColombia == 'Inmueble en Colombia' ||
-                _inmuebleUsa == 'Inmueble en USA' || 
-                _tratamientosMedicos == 'Tratamientos medicos y esteticos' ||
-                _tecnologia == 'Tecnologia' ||
-                _entretenimiento == 'Entretenimiento-conciertos y festivales' ||
-                _eventosDeportivos == 'Eventos deportivos internacionales' ||
-                _otros == 'Otros'
-        ) {
+              ],
+            ),
+            CustomTextWidget(
+              text: 'Otros', 
+              fontSize: MediaQuery.of(context).size.height * 0.016, 
+              fontWeight: FontWeight.w500
+              ),
+            CustomDropdownWidget(
+              value: _otros, 
+              onChanged: updateOtros, 
+              items: const [
+                'Otros',
+                'Si',
+                'No'
+              ]
+              ),
+            if(_showTextFieldOtros)
+            Column(
+              children: [
+                CustomTextWidget(
+                  text: 'Plazo de la meta', 
+                  fontSize: MediaQuery.of(context).size.height * 0.016, 
+                  fontWeight: FontWeight.w500
+                  ),
+                SliderMeses(
+                  value: _plazoOtros, 
+                  min: 1, 
+                  max: 24, 
+                  divisions: 24, 
+                  onChanged: (value) {
+                    setState(() {
+                      _plazoOtros = value;
+                    });
+                },
+                  ),
+                CustomTextWidget(
+                  text: 'Valor de la meta', 
+                  fontSize: MediaQuery.of(context).size.height * 0.016, 
+                  fontWeight: FontWeight.w500
+                  ),
+                CustomSliderWidget(
+                  value: _valorOtros, 
+                  min: 0, 
+                  max: 20000000, 
+                  divisions: 20, 
+                  onChanged: (value) {
+                    setState(() {
+                      _valorOtros = value;
+                    });
+                } 
+                  ),
+                CustomTextWidget(
+                  text: 'Importancia de la meta', 
+                  fontSize: MediaQuery.of(context).size.height * 0.016, 
+                  fontWeight: FontWeight.w500
+                ),
+                CustomWordSliderWidget(
+                  value: _importanciaOtros, 
+                  words: const ['No me importa', 'Me importa poco', 'Me importa', 'Me importa mucho', 'Indispensable'], 
+                  onChanged: (value) {
+                      setState(() {
+                      _importanciaOtros= value;
+                     });
+                   },)
+              ],
+            ),
+            Container(
+              margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.050 ),
+              child: Text(
+                'Educación                     ',
+                style: GoogleFonts.poppins(
+                  color: const Color(0xFF444C52),
+                  fontSize: MediaQuery.of(context).size.height * 0.035,
+                  fontWeight: FontWeight.w600,
+                  height: 1.5,
+                  letterSpacing: -0.01
+                )
+              ),
+            ),
+          Container(
+              margin: EdgeInsets.only(top: 20, left: MediaQuery.of(context).size.height * 0.050, right: MediaQuery.of(context).size.height * 0.050, bottom: MediaQuery.of(context).size.height * 0.010  ),
+              child: Text(
+                'Complete esta sección de objetivos si planea pagar la totalidad o parte de una universidad u otro programa educativo para un hijo, nieto u otra persona.',
+                style: GoogleFonts.inter(
+                  color: const Color(0xFF817F7F),
+                  fontSize: MediaQuery.of(context).size.height * 0.020,
+                  fontWeight: FontWeight.w600,
+                  height: 1.5,
+                  letterSpacing: -0.01
+                )
+              ),
+            ),
+          CustomTextWidget(
+            text: 'Desea pagar algún programa educativo', 
+            fontSize: MediaQuery.of(context).size.height * 0.016, 
+            fontWeight: FontWeight.w500
+            ),
+          CustomDropdownWidget(
+            value: _formEducacion, 
+            onChanged: updateFormEducacion, 
+            items: const [
+              'Pagar programa',
+              'Si',
+              'No'
+            ]
+            ),
+          if(_showTextFieldFormEducacion)
+          Column(
+            children: [
+              CustomTextWidget(
+                text: 'Numero de hijos o personas a cargo de su educación', 
+                fontSize: MediaQuery.of(context).size.height * 0.016, 
+                fontWeight: FontWeight.w500
+                ),
+              CustomTextField(
+                controller: _numeroHijosController, 
+                keyboardType: TextInputType.number, 
+                hintText: 'Número de personas a cargo de su educación'
+                ),
+              CustomTextWidget(
+                text: 'Nombre del estudiante', 
+                fontSize: MediaQuery.of(context).size.height * 0.016, 
+                fontWeight: FontWeight.w500
+                ),
+              CustomTextField(
+                controller: _nombreEstudianteController, 
+                keyboardType: TextInputType.text, 
+                hintText: 'Nombre del estudiante'
+                ),
+              CustomTextWidget(
+                text: 'Año en el que iniciaría', 
+                fontSize: MediaQuery.of(context).size.height * 0.016 , 
+                fontWeight: FontWeight.w500
+                ),
+              CustomTextField(
+                controller: _anoIniciariaController, 
+                keyboardType: TextInputType.number, 
+                hintText: 'Año en el que iniciaría'
+                ),
+              CustomTextWidget(
+                text: 'Número de años que estudiaría', 
+                fontSize: MediaQuery.of(context).size.height * 0.016, 
+                fontWeight: FontWeight.w500
+                ),
+              CustomTextField(
+                controller: _anosEstudiariaController, 
+                keyboardType: TextInputType.number, 
+                hintText: 'Años que estudiaría'
+                ),
+              CustomTextWidget(
+                text: 'Importancia: mayor - menor (10-1)', 
+                fontSize: MediaQuery.of(context).size.height * 0.016, 
+                fontWeight: FontWeight.w500
+                ),
+              CustomSliderWidget(
+                value: _importanciaEdtudio, 
+                min: 1, 
+                max: 10, 
+                divisions: 9, 
+                onChanged: (value) {
+                    setState(() {
+                      _importanciaEdtudio = value;
+                    });
+                }
+                ),
+              CustomTextWidget(
+                text: 'Monto estimado anual', 
+                fontSize: MediaQuery.of(context).size.height * 0.016, 
+                fontWeight: FontWeight.w500
+                ),
+              CustomSliderWidget(
+                value: _montoEstimadoEstudio, 
+                min: 0, 
+                max: 20000000, 
+                divisions: 20, 
+                onChanged: (value) {
+                    setState(() {
+                      _montoEstimadoEstudio = value;
+                    });
+                }
+                ),
+              CustomTextWidget(
+                text: 'Tipo de institucion educativa', 
+                fontSize: MediaQuery.of(context).size.height * 0.016, 
+                fontWeight: FontWeight.w500
+                ),
+              CustomDropdownWidget(
+                value: _tipoInstitucion, 
+                onChanged: updateInstitucionEducativa, 
+                items: const [
+                  'Tipo de institucion educativa',
+                  'Publica',
+                  'Privada'
+                ]
+                ),
+              CustomTextWidget(
+                text: 'Ubicacion', 
+                fontSize: MediaQuery.of(context).size.height * 0.016, 
+                fontWeight: FontWeight.w500
+                ),
+              CustomDropdownWidget(
+                value: _ubicacion, 
+                onChanged: updateUbicacion, 
+                items: const [
+                  'Ubicacion',
+                  'Dentro de mi ciudad',
+                  'Fuera de mi ciudad',
+                  'Fuera de mi país'
+                ]
+                ),
+              CustomTextWidget(
+                text: 'Nombre de la institucion educativa', 
+                fontSize: MediaQuery.of(context).size.height * 0.016, 
+                fontWeight: FontWeight.w500
+                ),
+              CustomTextField(
+                controller: _nombreInstitucionController, 
+                keyboardType: TextInputType.text, 
+                hintText: 'Nombre de la institución'
+                ),
+              
+            ],
+          ),
+          Center(
+                    child: Container(
+                      margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.030, bottom:MediaQuery.of(context).size.height * 0.020,),
+                      child: ElevatedButton(
+                        onPressed: (){
+                          if (_vacionesViajes == 'Vacaciones/viajes') {
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -1653,30 +1300,42 @@ class _MetasFinancierasState extends State<MetasFinancieras> {
               ),
             ],
           );
-        },
+        } ,
       );
     } else {
       saveMetasFinancieras();
     }
-                        
-                      },
-                      child: Text('Guardar metas financieras', style: TextStyle(fontSize: 18)),
-                      style: ElevatedButton.styleFrom(
-                        primary: Color(0XFFE8E112),
-                        padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
+                        } ,
+                        style: ButtonStyle(
+                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                            const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(10))
+                            )
+                          ),
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                            const Color(0xFF0C67B0)
+                          ),
+                          padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                              EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.33, vertical: MediaQuery.of(context).size.height * 0.005),
+                          ),
                         ),
-                      ),
+                         child: Text(
+                              'Siguiente', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.width * 0.05,
+                                fontWeight: FontWeight.w400,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                      )
                     ),
-                  ],
-                ),
-                ),
-              ),
-            ),
+                  ),
           ],
         ),
+      
       ),
+        )
       )
     );
   }
