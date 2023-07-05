@@ -7,6 +7,13 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:velocity_x/velocity_x.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:edeal/widgets/barraSeleccion.dart';
+import 'package:edeal/widgets/sliderPalabras.dart';
+import 'package:edeal/widgets/subtitulo.dart';
+import 'package:edeal/widgets/seleccion.dart';
+import 'package:edeal/widgets/sliderMeses.dart';
+import 'package:edeal/widgets/input.dart';
 
 class FuentesAdicionales extends StatefulWidget {
   final String token;
@@ -29,10 +36,23 @@ class _FuentesAdicionalesState extends State<FuentesAdicionales> {
   String _ahorrarMas = 'Enumere la opcion';
   String _gastarMenos = 'Enumere la opcion';
   String _viviendaPropia = 'Tiene vivienda propia';
+  String _venderiaPropiedad = 'Venderia esta propiedad';
   String _productosGustaria= 'Productos que me gustaria tener';
   String _analisisAsegurabilidad = 'Analisis de asegurabilidad';
   String _migracion = 'Migracion (estoy pensando migrar)';
   String _planHerencia = 'Plan de herencia';
+  String _seguroVida = 'Seguro de vida';
+  String _seguroMedico = 'Seguro medico';
+  String _seguroIncapacidad = 'Seguro de incapacidad';
+  String _heredarPatrimonio = 'Heredar mi patrimonio';
+
+  double _opcionTrabajarMas = 1;
+  double _opcionAhorrarMas = 1;
+  double _opcionGastarMenos = 1;
+
+  bool _showTextFieldOtrosProductos= false;
+
+  TextEditingController _otrosProductoController = TextEditingController();
 
 
   @override
@@ -94,9 +114,21 @@ class _FuentesAdicionalesState extends State<FuentesAdicionales> {
     });
   }
 
+  void updateVenderiaPropiedad(String? newVenderiaPropiedad) {
+    setState(() {
+      _venderiaPropiedad = newVenderiaPropiedad!;
+    });
+  }
+
+
   void updateProductosGustaria(String? newProductosGustaria) {
     setState(() {
       _productosGustaria = newProductosGustaria!;
+      if (newProductosGustaria == 'Cuenta en USD') {
+        _showTextFieldOtrosProductos == true;
+      } else {
+        _showTextFieldOtrosProductos = false;
+      }
     });
   }
 
@@ -115,6 +147,30 @@ class _FuentesAdicionalesState extends State<FuentesAdicionales> {
   void updatePlanHerencia(String? newPlanHerencia) {
     setState(() {
       _planHerencia = newPlanHerencia!;
+    });
+  }
+
+  void updateSeguroVida(String? newSeguroVida) {
+    setState(() {
+      _seguroVida = newSeguroVida!;
+    });
+  }
+
+  void updateSeguroMedico(String? newSeguroMedico) {
+    setState(() {
+      _seguroMedico = newSeguroMedico!;
+    });
+  }
+
+  void updateSeguroIncapacidad(String? newSeguroIncapacidad) {
+    setState(() {
+      _seguroIncapacidad= newSeguroIncapacidad!;
+    });
+  }
+  
+  void updateHeredarPatrimonio(String? newHeredarPatrimonio) {
+    setState(() {
+      _heredarPatrimonio= newHeredarPatrimonio!;
     });
   }
 
@@ -179,437 +235,347 @@ class _FuentesAdicionalesState extends State<FuentesAdicionales> {
   Widget build(BuildContext context) {
      double porcentajeAvance = 90;
     return Scaffold(
-      backgroundColor: Color(0XFF524898),
-      body: Center(
+      backgroundColor: Colors.white,
+      body: Container(
+        margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.050 ),
+        child: Center(
         child: SingleChildScrollView(
           child:  Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(height: 20),
-            Container(
-              margin: EdgeInsets.only(top: 40),
-              child:LinearProgressIndicator(
-          value: porcentajeAvance / 100,
-        ),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 20),
-              child:Text('Has completado el ${porcentajeAvance.toStringAsFixed(1)}% del formulario'),
-            ),
-            Form(
-              key: _formKey,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Container(
-                  color: Color(0XFF524898),
-                  padding: EdgeInsets.symmetric(vertical: 50),
-                  child: Column(
-                  children: [
-                    Container(
-                      margin: EdgeInsets.only(bottom: 50, left: 20, right: 20),
-                      child: Text(
-                        'Paso 5: Fuentes adicionales de ingresos',
-                        style: TextStyle(
-                          fontSize: 30,
-                          color: Colors.white
-                        ),
-                      ),
-                    ),
-                     Container(
-                      margin: EdgeInsets.only(bottom: 50, left: 10, right: 10),
-                      child: Text(
-                        'Si sus activos actuales y sus fuentes de ingresos no alcanzan sus objetivos, exploremos algunas formas en las que podría compensar la diferencia.',
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.white
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 50),
-                   Container(
-              margin: const EdgeInsets.only(top: 30, left: 20, right: 20),
-              child: const Text(
-                'Por favor enumere (1 al 3)  cual de las siguientes opciones  para aumentar ingresos.  1 la opcion mas viable al 3 la menos viable',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18
-                ),
-              ),
-            ),
             Row(
               children: [
-                   Container(
-              margin: const EdgeInsets.only(top: 30, left: 20, right: 20),
-              child: const Text(
-                'Trabajar más',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 15
-                ),
+              Container(
+              margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.080, left: MediaQuery.of(context).size.height * 0.040),
+              child: Column(
+                children: [
+                  Text(
+                ' Fuentes                     ',
+                style: GoogleFonts.poppins(
+                  color: const Color(0xFF444C52),
+                  fontSize: MediaQuery.of(context).size.height * 0.035,
+                  fontWeight: FontWeight.w600,
+                  height: 1.5,
+                  letterSpacing: -0.01
+                )
               ),
+              Text(
+                ' de ingreso                ',
+                style: GoogleFonts.poppins(
+                  color: const Color(0xFF444C52),
+                  fontSize: MediaQuery.of(context).size.height * 0.035,
+                  fontWeight: FontWeight.w600,
+                  height: 1.5,
+                  letterSpacing: -0.01
+                )
+              )
+                ],
+              )
             ),
-               Container(
-                      padding: EdgeInsets.only(top: 30),
-                      color: Color(0XFF524898),
-                      child: DropdownButton<String>(
-                        dropdownColor: Color(0XFF524898),
-                        value: _trabajarMas,
-                        onChanged: updateTrabajarMas,
-                        items: <String>[
-                          'Enumere la opcion',
-                          '1',
-                          '2',
-                          '3',
-                        ].map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(
-                              value,
-                              style: TextStyle(
-                                color: Colors.white
-                              ),
-                            ),
-                          );
-                        }).toList(),
-                        icon: Icon(
-                          Icons.arrow_drop_down,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-
+            Container(
+              margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.020, bottom: MediaQuery.of(context).size.height * 0.035 ),
+              child:Text(
+                '1/4',
+                style: GoogleFonts.inter(
+                  color: const Color(0xFF444C52),
+                  fontSize: MediaQuery.of(context).size.height * 0.015,
+                  fontWeight: FontWeight.w600,
+                  height: 1.5,
+                  letterSpacing: -0.01
+                )
+              ),
+            )
               ],
             ),
-            Row(
-              children: [
-                   Container(
-                    width: 180,
-              margin: const EdgeInsets.only(top: 30, left: 20, right: 20),
-              child: const Text(
-                'Ahorrar más',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 15
-                ),
+            Container(
+              margin: EdgeInsets.only(top: 20, left: MediaQuery.of(context).size.height * 0.050, right: MediaQuery.of(context).size.height * 0.050 ),
+              child: Text(
+                'Si sus activos actuales y sus fuentes de ingresos no alcanzan sus objetivos, exploremos algunas formas en las que podría compensar la diferencia. ',
+                style: GoogleFonts.inter(
+                  color: const Color(0xFF817F7F),
+                  fontSize: MediaQuery.of(context).size.height * 0.020,
+                  fontWeight: FontWeight.w600,
+                  height: 1.5,
+                  letterSpacing: -0.01
+                )
               ),
             ),
-               Container(
-                      padding: EdgeInsets.only(top: 30),
-                      color: Color(0XFF524898),
-                      child: DropdownButton<String>(
-                        dropdownColor: Color(0XFF524898),
-                        value: _ahorrarMas,
-                        onChanged: updateAhorrarMas,
-                        items: <String>[
-                          'Enumere la opcion',
-                          '1',
-                          '2',
-                          '3',
-                        ].map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(
-                              value,
-                              style: TextStyle(
-                                color: Colors.white
-                              ),
-                            ),
-                          );
-                        }).toList(),
-                        icon: Icon(
-                          Icons.arrow_drop_down,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-
-              ],
-            ),
-                        Row(
-              children: [
-                   Container(
-              margin: const EdgeInsets.only(top: 30, left: 20, right: 20),
-              child: const Text(
-                'Gastar menos',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 15
-                ),
+            Container(
+              margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.070, left: MediaQuery.of(context).size.height * 0.050, right: MediaQuery.of(context).size.height * 0.050 ),
+              child: Text(
+                'Por favor enumere (1 al 3)  cual de las siguientes opciones  para aumentar ingresos.  1 la opcion mas viable al 3 la menos viable ',
+                style: GoogleFonts.inter(
+                  color: const Color(0xFF817F7F),
+                  fontSize: MediaQuery.of(context).size.height * 0.020,
+                  fontWeight: FontWeight.w600,
+                  height: 1.5,
+                  letterSpacing: -0.01
+                )
               ),
             ),
-               Container(
-                      padding: EdgeInsets.only(top: 30),
-                      color: Color(0XFF524898),
-                      child: DropdownButton<String>(
-                        dropdownColor: Color(0XFF524898),
-                        value: _gastarMenos,
-                        onChanged: updateGastarMenos,
-                        items: <String>[
-                          'Enumere la opcion',
-                          '1',
-                          '2',
-                          '3',
-                        ].map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(
-                              value,
-                              style: TextStyle(
-                                color: Colors.white
-                              ),
-                            ),
-                          );
-                        }).toList(),
-                        icon: Icon(
-                          Icons.arrow_drop_down,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-
-              ],
-            ),
-                    SizedBox(height: 150),
-                Container(
-                      width: 374,
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      color: Color(0XFF524898),
-                      child: DropdownButton<String>(
-                        dropdownColor: Color(0XFF524898),
-                        value: _habilidadEspecial,
-                        onChanged: updateHabilidadEspecial,
-                        items: <String>[
-                          'Habilidad para generar ingresos',
-                          'Si',
-                          'No',
-                        ].map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(
-                              value,
-                              style: TextStyle(
-                                color: Colors.white
-                              ),
-                            ),
-                          );
-                        }).toList(),
-                        icon: Icon(
-                          Icons.arrow_drop_down,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                                        SizedBox(height: 20),
-                    Container(
-                      width: 374,
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      color: Color(0XFF524898),
-                      child: DropdownButton<String>(
-                        dropdownColor: Color(0XFF524898),
-                        value: _desarrollarHabilidades,
-                        onChanged: updateDesarrollarHabilidades,
-                        items: <String>[
-                          'Desarrollar habilidades',
-                          'Si',
-                          'No'
-                        ].map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(
-                              value,
-                              style: TextStyle(
-                                color: Colors.white
-                              ),
-                            ),
-                          );
-                        }).toList(),
-                        icon: Icon(
-                          Icons.arrow_drop_down,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-            SizedBox(height: 20),
-                Container(
-                      width: 374,
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      color: Color(0XFF524898),
-                      child: DropdownButton<String>(
-                        dropdownColor: Color(0XFF524898),
-                        value: _viviendaPropia,
-                        onChanged: updateViviendaPropia,
-                        items: <String>[
-                          'Tiene vivienda propia',
-                          'Si',
-                          'No',
-                        ].map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(
-                              value,
-                              style: TextStyle(
-                                color: Colors.white
-                              ),
-                            ),
-                          );
-                        }).toList(),
-                        icon: Icon(
-                          Icons.arrow_drop_down,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                                SizedBox(height: 20),
-                                       Container(
-              margin: const EdgeInsets.only(top: 10, left: 20, right: 20),
-              child: const Text(
-                'Consideraciones especiales',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18
-                ),
+            CustomTextWidget(
+              text: 'Trabajar más', 
+              fontSize: MediaQuery.of(context).size.height * 0.016, 
+              fontWeight: FontWeight.w500
               ),
-            ),
-                Container(
-                      width: 374,
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      margin: EdgeInsets.only(top: 10),
-                      color: Color(0XFF524898),
-                      child: DropdownButton<String>(
-                        dropdownColor: Color(0XFF524898),
-                        value: _productosGustaria,
-                        onChanged: updateProductosGustaria,
-                        items: <String>[
-                          'Productos que me gustaria tener',
-                          'Cuenta en USD',
-                          'Plan de ahorros en USD',
-                          'Tarjeta de credito en USD',
-                        ].map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(
-                              value,
-                              style: TextStyle(
-                                color: Colors.white
-                              ),
-                            ),
-                          );
-                        }).toList(),
-                        icon: Icon(
-                          Icons.arrow_drop_down,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                     Container(
-                      width: 374,
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      margin: EdgeInsets.only(top: 10),
-                      color: Color(0XFF524898),
-                      child: DropdownButton<String>(
-                        dropdownColor: Color(0XFF524898),
-                        value: _analisisAsegurabilidad,
-                        onChanged: updateAnalisisAsegurabilidad,
-                        items: <String>[
-                          'Analisis de asegurabilidad',
-                          'Seguro de vida',
-                          'Seguro medico',
-                          'Long Term Care Analysis',
-                        ].map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(
-                              value,
-                              style: TextStyle(
-                                color: Colors.white
-                              ),
-                            ),
-                          );
-                        }).toList(),
-                        icon: Icon(
-                          Icons.arrow_drop_down,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                     Container(
-                      width: 374,
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      margin: EdgeInsets.only(top: 10),
-                      color: Color(0XFF524898),
-                      child: DropdownButton<String>(
-                        dropdownColor: Color(0XFF524898),
-                        value: _migracion,
-                        onChanged: updateMigracion,
-                        items: <String>[
-                          'Migracion (estoy pensando migrar)',
-                          'Estados Unidos',
-                          'Panama',
-                          'Europa',
-                          'Canada'
-                        ].map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(
-                              value,
-                              style: TextStyle(
-                                color: Colors.white
-                              ),
-                            ),
-                          );
-                        }).toList(),
-                        icon: Icon(
-                          Icons.arrow_drop_down,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                    Container(
-                      width: 374,
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      margin: EdgeInsets.only(top: 10),
-                      color: Color(0XFF524898),
-                      child: DropdownButton<String>(
-                        dropdownColor: Color(0XFF524898),
-                        value: _planHerencia,
-                        onChanged: updatePlanHerencia,
-                        items: <String>[
-                          'Plan de herencia',
-                          'Formas de heredar mi patrimonio',
-                          'Estrategia para heredar mi patrimonio',
-                        ].map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(
-                              value,
-                              style: TextStyle(
-                                color: Colors.white
-                              ),
-                            ),
-                          );
-                        }).toList(),
-                        icon: Icon(
-                          Icons.arrow_drop_down,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-
-
-                    SizedBox(height: 20),
-                    ElevatedButton(
-                      onPressed: (){
-                  if (_trabajarMas== 'Enumere la opcion' ||
-                _ahorrarMas == 'Enumere la opcion' ||
-                _gastarMenos == 'Enumere la opcion' ||
-                _habilidadEspecial == 'Habilidad para generar ingresos' ||
-                _desarrollarHabilidades == 'Desarrollar habilidades' ||
-                _viviendaPropia == 'Tener vivienda propia' ||
-                _productosGustaria == 'Productos que me gustaria tener' ||
-                _analisisAsegurabilidad == 'Analisis de asegurabilidad' ||
-                _migracion == 'Migracion (estoy pensando migrar)' ||
-                _planHerencia == 'Plan de herencia'
-        ) {
+            CustomSliderWidget(
+              value: _opcionTrabajarMas, 
+              min: 1, 
+              max: 3, 
+              divisions: 3, 
+              onChanged: (value) {
+                    setState(() {
+                      _opcionTrabajarMas = value;
+                    });
+                }
+              ),
+            CustomTextWidget(
+              text: 'Ahorrar más', 
+              fontSize: MediaQuery.of(context).size.height * 0.016, 
+              fontWeight: FontWeight.w500
+              ),
+            CustomSliderWidget(
+              value: _opcionAhorrarMas, 
+              min: 1, 
+              max: 3, 
+              divisions: 3, 
+              onChanged: (value) {
+                    setState(() {
+                      _opcionAhorrarMas = value;
+                    });
+                }
+              ),
+            CustomTextWidget(
+              text: 'Gastar menos', 
+              fontSize: MediaQuery.of(context).size.height * 0.016, 
+              fontWeight: FontWeight.w500
+              ),
+            CustomSliderWidget(
+              value: _opcionGastarMenos, 
+              min: 1, 
+              max: 3, 
+              divisions: 3, 
+              onChanged: (value) {
+                    setState(() {
+                      _opcionGastarMenos= value;
+                    });
+                }
+              ),
+            CustomTextWidget(
+              text: 'Creo que tengo una habilidad especial que puediera permitirme generar ingresos ', 
+              fontSize: MediaQuery.of(context).size.height * 0.016, 
+              fontWeight: FontWeight.w500
+              ),
+            CustomDropdownWidget(
+              value: _habilidadEspecial, 
+              onChanged: updateHabilidadEspecial, 
+              items: const [
+                'Habilidad para generar ingresos',
+                'Si',
+                'No'
+                ]
+              ),
+            CustomTextWidget(
+              text: 'Quisiera desarrollar nuevas habilidades que me permitieran para generar ingresos  ', 
+              fontSize: MediaQuery.of(context).size.height * 0.016, 
+              fontWeight: FontWeight.w500
+              ),
+            CustomDropdownWidget(
+              value: _desarrollarHabilidades, 
+              onChanged: updateDesarrollarHabilidades, 
+              items: const [
+                'Desarrollar habilidades',
+                'Si',
+                'No'
+                ]
+              ),
+            CustomTextWidget(
+              text: 'Posee vivienda propia  ', 
+              fontSize: MediaQuery.of(context).size.height * 0.016, 
+              fontWeight: FontWeight.w500
+              ),
+            CustomDropdownWidget(
+              value: _viviendaPropia, 
+              onChanged: updateViviendaPropia, 
+              items: const [
+                'Tiene vivienda propia',
+                'Si',
+                'No'
+                ]
+              ),
+            CustomTextWidget(
+              text: 'Venderia esta propiedad para cubrir sus necesidades financieras futuras ', 
+              fontSize: MediaQuery.of(context).size.height * 0.016, 
+              fontWeight: FontWeight.w500
+              ),
+            CustomDropdownWidget(
+              value: _venderiaPropiedad, 
+              onChanged: updateVenderiaPropiedad, 
+              items: const [
+                'Venderia esta propiedad',
+                'Si',
+                'No'
+                ]
+              ),
+            Container(
+                    margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.040 ),
+                    child: Column(
+                children: [
+                  Text(
+                'Consideraciones        ',
+                style: GoogleFonts.poppins(
+                  color: const Color(0xFF444C52),
+                  fontSize: MediaQuery.of(context).size.height * 0.035,
+                  fontWeight: FontWeight.w600,
+                  height: 1.5,
+                  letterSpacing: -0.01
+                )
+              ),
+              Text(
+                'especiales                     ',
+                style: GoogleFonts.poppins(
+                  color: const Color(0xFF444C52),
+                  fontSize: MediaQuery.of(context).size.height * 0.035,
+                  fontWeight: FontWeight.w600,
+                  height: 1.5,
+                  letterSpacing: -0.01
+                )
+              )
+                ],
+              ),
+                  ),
+              CustomTextWidget(
+              text: 'Producto financiero que me gustaría tener', 
+              fontSize: MediaQuery.of(context).size.height * 0.016, 
+              fontWeight: FontWeight.w500
+              ),
+              CustomDropdownWidget(
+              value: _productosGustaria, 
+              onChanged: updateProductosGustaria, 
+              items: const [
+                'Productos que me gustaria tener',
+                'Cuenta en USD',
+                'Plan de ahorro en USD',
+                'Tarjeta de credito en USD',
+                'Otros'
+                ]
+              ),
+            Container(
+                    margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.040 ),
+                    child: Column(
+                children: [
+                  Text(
+                'Análisis de                     ',
+                style: GoogleFonts.poppins(
+                  color: const Color(0xFF444C52),
+                  fontSize: MediaQuery.of(context).size.height * 0.035,
+                  fontWeight: FontWeight.w600,
+                  height: 1.5,
+                  letterSpacing: -0.01
+                )
+              ),
+              Text(
+                'asegurabilidad           ',
+                style: GoogleFonts.poppins(
+                  color: const Color(0xFF444C52),
+                  fontSize: MediaQuery.of(context).size.height * 0.035,
+                  fontWeight: FontWeight.w600,
+                  height: 1.5,
+                  letterSpacing: -0.01
+                )
+              )
+                ],
+              ),
+                  ),
+              CustomTextWidget(
+              text: 'Seguro de vida', 
+              fontSize: MediaQuery.of(context).size.height * 0.016, 
+              fontWeight: FontWeight.w500
+              ),
+              CustomDropdownWidget(
+                value: _seguroVida, 
+                onChanged: updateSeguroVida, 
+                items: const [
+                  'Seguro de vida',
+                  'Si me gustaría',
+                  'No me gustaría'
+                ]
+                ),
+              CustomTextWidget(
+              text: 'Seguro médico', 
+              fontSize: MediaQuery.of(context).size.height * 0.016, 
+              fontWeight: FontWeight.w500
+              ),
+              CustomDropdownWidget(
+                value: _seguroMedico, 
+                onChanged: updateSeguroMedico, 
+                items: const [
+                  'Seguro medico',
+                  'Si me gustaría',
+                  'No me gustaría'
+                ]
+                ),
+              CustomTextWidget(
+              text: 'Seguro de incapacidad', 
+              fontSize: MediaQuery.of(context).size.height * 0.016, 
+              fontWeight: FontWeight.w500
+              ),
+              CustomDropdownWidget(
+                value: _seguroIncapacidad, 
+                onChanged: updateSeguroIncapacidad, 
+                items: const [
+                  'Seguro de incapacidad',
+                  'Si me gustaría',
+                  'No me gustaría'
+                ]
+                ),
+            Container(
+                    margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.040 ),
+                    child: Column(
+                children: [
+                  Text(
+                'Plan de                             ',
+                style: GoogleFonts.poppins(
+                  color: const Color(0xFF444C52),
+                  fontSize: MediaQuery.of(context).size.height * 0.035,
+                  fontWeight: FontWeight.w600,
+                  height: 1.5,
+                  letterSpacing: -0.01
+                )
+              ),
+              Text(
+                'herencia                          ',
+                style: GoogleFonts.poppins(
+                  color: const Color(0xFF444C52),
+                  fontSize: MediaQuery.of(context).size.height * 0.035,
+                  fontWeight: FontWeight.w600,
+                  height: 1.5,
+                  letterSpacing: -0.01
+                )
+              )
+                ],
+              ),
+                  ),
+              CustomTextWidget(
+              text: 'Alternativas para heredar mi patrimonio', 
+              fontSize: MediaQuery.of(context).size.height * 0.016, 
+              fontWeight: FontWeight.w500
+              ),
+              CustomDropdownWidget(
+                value: _heredarPatrimonio, 
+                onChanged: updateHeredarPatrimonio, 
+                items: const [
+                  'Heredar mi patrimonio',
+                  'Si me gustaría',
+                  'No me gustaría'
+                ]
+                ),
+            Center(
+                    child: Container(
+                      margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.030, bottom:MediaQuery.of(context).size.height * 0.020,),
+                      child: ElevatedButton(
+                        onPressed: (){
+                          if (_habilidadEspecial == 'Habilidad para generar ingresos') {
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -625,31 +591,43 @@ class _FuentesAdicionalesState extends State<FuentesAdicionales> {
               ),
             ],
           );
-        },
+        } ,
       );
     } else {
       saveFuentesAdicionales();
     }
-                        
-                      },
-                      child: Text('Finalizar', style: TextStyle(fontSize: 18)),
-                      style: ElevatedButton.styleFrom(
-                        primary: Color(0XFFE8E112),
-                        padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
+                        } ,
+                        style: ButtonStyle(
+                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                            const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(10))
+                            )
+                          ),
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                            const Color(0xFF0C67B0)
+                          ),
+                          padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                              EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.33, vertical: MediaQuery.of(context).size.height * 0.005),
+                          ),
                         ),
-                      ),
+                         child: Text(
+                              'Siguiente', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.width * 0.05,
+                                fontWeight: FontWeight.w400,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                      )
                     ),
-                  ],
-                ),
-                ),
-              ),
-            ),
+                  ),
+              
           ],
         ),
         )
       ),
+      )
     );
   }
 }
