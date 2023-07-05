@@ -6,6 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:velocity_x/velocity_x.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:edeal/widgets/barraSeleccion.dart';
+import 'package:edeal/widgets/sliderPalabras.dart';
+import 'package:edeal/widgets/subtitulo.dart';
+import 'package:edeal/widgets/seleccion.dart';
+import 'package:edeal/widgets/sliderMeses.dart';
+import 'package:edeal/widgets/input.dart';
 
 class PerfilRiesgo extends StatefulWidget {
   final String token;
@@ -22,8 +29,8 @@ class _PerfilRiesgoState extends State<PerfilRiesgo> {
 
   final _formKey = GlobalKey<FormState>();
 
-  String _experienciaInversiones= 'Cual es su nivel de experiencia en inversiones';
-  String _poseo = 'He invertido o actualmente poseo algun activo';
+  String _experienciaInversiones= 'Cual es su nivel de experiencia';
+  String _poseo = 'He invertido o poseo algun activo';
   String _generarIngresos = 'Enumere la opcion';
   String _arriesgarCapital = 'Enumere la opcion';
   String _incrementarPatrimonio = 'Enumere la opcion';
@@ -34,6 +41,15 @@ class _PerfilRiesgoState extends State<PerfilRiesgo> {
   String _tiempoRetiros = 'Seleccione tiempo retiros';
   // String _valorAhorro = 'Valor del ahorro(millones):';
   String _plazo= 'Plazo(meses):';
+
+  double _importanciaGenerarIngresos = 1;
+  double _importanciaArriesgarCapital = 1;
+  double _importanciaIncrementarPatrimonio = 1;
+  double _importanciaProtegerPatrimonio = 1;
+  String _perfilInversionista = 'Especulacion';
+  String _prioridadFinanciera = 'Como aumentar mi patrimonio';
+  String _iniciarRetiros = 'Corto plazo (menos de 2 años)';
+  String _continuarRetiros = 'Corto plazo (menos de 2 años)';
 
 
   @override
@@ -195,485 +211,294 @@ class _PerfilRiesgoState extends State<PerfilRiesgo> {
 
   @override
   Widget build(BuildContext context) {
-     double porcentajeAvance = 80; 
     return Scaffold(
-      backgroundColor: Color(0XFF524898),
-      body: Center(
+      backgroundColor: Colors.white,
+      body: Container(
+        margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.050),
+        child: Center(
         child: SingleChildScrollView(
           child:  Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(height: 20),
-            Container(
-              margin: EdgeInsets.only(top: 40),
-              child:LinearProgressIndicator(
-          value: porcentajeAvance / 100, 
-        ),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 20),
-              child:Text('Has completado el ${porcentajeAvance.toStringAsFixed(1)}% del formulario'),
-            ),
-            Form(
-              key: _formKey,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Container(
-                  color: Color(0XFF524898),
-                  padding: EdgeInsets.symmetric(vertical: 50),
-                  child: Column(
-                  children: [
-                    Container(
-                      margin: EdgeInsets.only(bottom: 50),
-                      child: Text(
-                        'Paso 4: perfil de riesgo',
-                        style: TextStyle(
-                          fontSize: 30,
-                          color: Colors.white
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 20),
-                    Container(
-                      width: 374,
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      color: Color(0XFF524898),
-                      child: DropdownButton<String>(
-                        dropdownColor: Color(0XFF524898),
-                        value: _experienciaInversiones,
-                        onChanged: updateExperienciaInversiones,
-                        items: <String>[
-                          'Cual es su nivel de experiencia en inversiones',
-                          'Alta',
-                          'Media',
-                          'Baja',
-                        ].map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(
-                              value,
-                              style: TextStyle(
-                                color: Colors.white
-                              ),
-                            ),
-                          );
-                        }).toList(),
-                        icon: Icon(
-                          Icons.arrow_drop_down,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 20),
-                    Container(
-                      width: 374,
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      color: Color(0XFF524898),
-                      child: DropdownButton<String>(
-                        dropdownColor: Color(0XFF524898),
-                        value: _poseo,
-                        onChanged: updatePoseo,
-                        items: <String>[
-                          'He invertido o actualmente poseo algun activo',
-                          'CDT',
-                          'Bonos',
-                          'Acciones',
-                          'Inmuebles'
-                        ].map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(
-                              value,
-                              style: TextStyle(
-                                color: Colors.white
-                              ),
-                            ),
-                          );
-                        }).toList(),
-                        icon: Icon(
-                          Icons.arrow_drop_down,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                   Container(
-              margin: const EdgeInsets.only(top: 30, left: 20, right: 20),
-              child: const Text(
-                'Pregunta 1: Enumere de 1 al 4 las siguientes objeticos de inversión desde el mas importante (1) al menos improtante (4) para usted',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20
-                ),
-              ),
-            ),
             Row(
               children: [
-                   Container(
-              margin: const EdgeInsets.only(top: 30, left: 20, right: 20),
-              child: const Text(
-                'Generar ingresos',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 15
-                ),
+              Container(
+              margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.080, left: MediaQuery.of(context).size.height * 0.040),
+              child: Column(
+                children: [
+                  Text(
+                ' Perfil de                     ',
+                style: GoogleFonts.poppins(
+                  color: const Color(0xFF444C52),
+                  fontSize: MediaQuery.of(context).size.height * 0.035,
+                  fontWeight: FontWeight.w600,
+                  height: 1.5,
+                  letterSpacing: -0.01
+                )
               ),
+              Text(
+                ' riesgo                         ',
+                style: GoogleFonts.poppins(
+                  color: const Color(0xFF444C52),
+                  fontSize: MediaQuery.of(context).size.height * 0.035,
+                  fontWeight: FontWeight.w600,
+                  height: 1.5,
+                  letterSpacing: -0.01
+                )
+              )
+                ],
+              )
             ),
-               Container(
-                      padding: EdgeInsets.only(top: 30),
-                      color: Color(0XFF524898),
-                      child: DropdownButton<String>(
-                        dropdownColor: Color(0XFF524898),
-                        value: _generarIngresos,
-                        onChanged: updateGenrarIngresos,
-                        items: <String>[
-                          'Enumere la opcion',
-                          '1',
-                          '2',
-                          '3',
-                          '4'
-                        ].map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(
-                              value,
-                              style: TextStyle(
-                                color: Colors.white
-                              ),
-                            ),
-                          );
-                        }).toList(),
-                        icon: Icon(
-                          Icons.arrow_drop_down,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-
+            Container(
+              margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.020, bottom: MediaQuery.of(context).size.height * 0.035 ),
+              child:Text(
+                '1/4',
+                style: GoogleFonts.inter(
+                  color: const Color(0xFF444C52),
+                  fontSize: MediaQuery.of(context).size.height * 0.015,
+                  fontWeight: FontWeight.w600,
+                  height: 1.5,
+                  letterSpacing: -0.01
+                )
+              ),
+            )
               ],
             ),
-            Row(
-              children: [
-                   Container(
-                    width: 180,
-              margin: const EdgeInsets.only(top: 30, left: 20, right: 20),
-              child: const Text(
-                'Arriesgar mi capital para tener posibiliades de altas ganancias',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 15
-                ),
+          Container(
+              margin: EdgeInsets.only(top: 20, left: MediaQuery.of(context).size.height * 0.050, right: MediaQuery.of(context).size.height * 0.050 ),
+              child: Text(
+                'Por favor indiquenos la siguiente información sobre su perfil de riesgo ',
+                style: GoogleFonts.inter(
+                  color: const Color(0xFF817F7F),
+                  fontSize: MediaQuery.of(context).size.height * 0.020,
+                  fontWeight: FontWeight.w600,
+                  height: 1.5,
+                  letterSpacing: -0.01
+                )
               ),
             ),
-               Container(
-                      padding: EdgeInsets.only(top: 30),
-                      color: Color(0XFF524898),
-                      child: DropdownButton<String>(
-                        dropdownColor: Color(0XFF524898),
-                        value: _arriesgarCapital,
-                        onChanged: updateArriesgarCapital,
-                        items: <String>[
-                          'Enumere la opcion',
-                          '1',
-                          '2',
-                          '3',
-                          '4'
-                        ].map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(
-                              value,
-                              style: TextStyle(
-                                color: Colors.white
-                              ),
-                            ),
-                          );
-                        }).toList(),
-                        icon: Icon(
-                          Icons.arrow_drop_down,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-
-              ],
-            ),
-                        Row(
-              children: [
-                   Container(
-              margin: const EdgeInsets.only(top: 30, left: 20, right: 20),
-              child: const Text(
-                'Incrementar patrimonio',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 15
-                ),
+            CustomTextWidget(
+              text: 'Cual es su nivel de experiencia en inversiones', 
+              fontSize: MediaQuery.of(context).size.height * 0.016, 
+              fontWeight: FontWeight.w500
+              ),
+            CustomDropdownWidget(
+              value: _experienciaInversiones, 
+              onChanged: updateExperienciaInversiones, 
+              items: const [
+                'Cual es su nivel de experiencia',
+                'Alta',
+                'Media',
+                'Baja'
+                ]
+              ),
+            CustomTextWidget(
+              text: 'He invertido o poseo algún activo', 
+              fontSize: MediaQuery.of(context).size.height * 0.016, 
+              fontWeight: FontWeight.w500
+              ),
+            CustomDropdownWidget(
+              value: _poseo, 
+              onChanged: updatePoseo, 
+              items: const [
+                'He invertido o poseo algun activo',
+                'CDT',
+                'Bonos',
+                'Acciones',
+                'Inmueble'
+              ]
+              ),
+            Container(
+              margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.040, left: MediaQuery.of(context).size.height * 0.050, right: MediaQuery.of(context).size.height * 0.050 ),
+              child: Text(
+                'Enumere del mas importante (1) al menos importante (4) cuales de los siguientes objetivos de inversión son mas importantes para usted',
+                style: GoogleFonts.inter(
+                  color: const Color(0xFF817F7F),
+                  fontSize: MediaQuery.of(context).size.height * 0.020,
+                  fontWeight: FontWeight.w600,
+                  height: 1.5,
+                  letterSpacing: -0.01
+                )
               ),
             ),
-               Container(
-                      padding: EdgeInsets.only(top: 30),
-                      color: Color(0XFF524898),
-                      child: DropdownButton<String>(
-                        dropdownColor: Color(0XFF524898),
-                        value: _incrementarPatrimonio,
-                        onChanged: updateIncrementarPatrimonio,
-                        items: <String>[
-                          'Enumere la opcion',
-                          '1',
-                          '2',
-                          '3',
-                          '4'
-                        ].map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(
-                              value,
-                              style: TextStyle(
-                                color: Colors.white
-                              ),
-                            ),
-                          );
-                        }).toList(),
-                        icon: Icon(
-                          Icons.arrow_drop_down,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-
-              ],
-            ),
-                        Row(
-              children: [
-                   Container(
-              margin: const EdgeInsets.only(top: 30, left: 20, right: 20),
-              child: const Text(
-                'Proteger mi patrimonio',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 15
-                ),
+            CustomTextWidget(
+              text: 'Arriesgar mi capital para tener posibiliades de altas ganancias', 
+              fontSize: MediaQuery.of(context).size.height * 0.016, 
+              fontWeight: FontWeight.w500
+              ),
+            CustomSliderWidget(
+              value: _importanciaArriesgarCapital, 
+              min: 1, 
+              max: 4, 
+              divisions: 3, 
+              onChanged: (value) {
+                    setState(() {
+                      _importanciaArriesgarCapital = value;
+                    });
+                }
+              ),
+            CustomTextWidget(
+              text: 'Generar ingresos', 
+              fontSize: MediaQuery.of(context).size.height * 0.016, 
+              fontWeight: FontWeight.w500
+              ),
+            CustomSliderWidget(
+              value: _importanciaGenerarIngresos, 
+              min: 1, 
+              max: 4, 
+              divisions: 3, 
+              onChanged: (value) {
+                    setState(() {
+                      _importanciaGenerarIngresos = value;
+                    });
+                }
+              ),
+            CustomTextWidget(
+              text: 'Incrementar mi patrimonio', 
+              fontSize: MediaQuery.of(context).size.height * 0.016, 
+              fontWeight: FontWeight.w500
+              ),
+            CustomSliderWidget(
+              value: _importanciaIncrementarPatrimonio, 
+              min: 1, 
+              max: 4, 
+              divisions: 3, 
+              onChanged: (value) {
+                    setState(() {
+                      _importanciaIncrementarPatrimonio = value;
+                    });
+                }
+              ),
+            CustomTextWidget(
+              text: 'Proteger mi patrimonio', 
+              fontSize: MediaQuery.of(context).size.height * 0.016, 
+              fontWeight: FontWeight.w500
+              ),
+            CustomSliderWidget(
+              value: _importanciaProtegerPatrimonio, 
+              min: 1, 
+              max: 4, 
+              divisions: 3, 
+              onChanged: (value) {
+                    setState(() {
+                      _importanciaProtegerPatrimonio = value;
+                    });
+                }
+              ),
+            Container(
+              margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.040, left: MediaQuery.of(context).size.height * 0.050, right: MediaQuery.of(context).size.height * 0.050 ),
+              child: Text(
+                'Seleccione cual perfil considera usted que describe si actitud como inversionista',
+                style: GoogleFonts.inter(
+                  color: const Color(0xFF817F7F),
+                  fontSize: MediaQuery.of(context).size.height * 0.020,
+                  fontWeight: FontWeight.w600,
+                  height: 1.5,
+                  letterSpacing: -0.01
+                )
               ),
             ),
-               Container(
-                      padding: EdgeInsets.only(top: 30),
-                      color: Color(0XFF524898),
-                      child: DropdownButton<String>(
-                        dropdownColor: Color(0XFF524898),
-                        value: _protegerPatrimonio,
-                        onChanged: updateProtegerPatrimonio,
-                        items: <String>[
-                          'Enumere la opcion',
-                          '1',
-                          '2',
-                          '3',
-                          '4'
-                        ].map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(
-                              value,
-                              style: TextStyle(
-                                color: Colors.white
-                              ),
-                            ),
-                          );
-                        }).toList(),
-                        icon: Icon(
-                          Icons.arrow_drop_down,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-
-              ],
+          CustomTextWidget(
+              text: 'Cual perfil lo describe como inversionista', 
+              fontSize: MediaQuery.of(context).size.height * 0.016, 
+              fontWeight: FontWeight.w500
+              ),
+          CustomWordSliderWidget(
+            value: _perfilInversionista, 
+            words: const ['Especulacion', 'Conservador', 'Moderado', 'Agresivo'], 
+            onChanged: (value) {
+                            setState(() {
+                              _perfilInversionista = value;
+                            });
+                          },
             ),
-                    SizedBox(height: 20),
-                                       Container(
-              margin: const EdgeInsets.only(top: 30, left: 20, right: 20),
-              child: const Text(
-                'Pregunta 2. Seleccione cual perfil considera usted que describe si actitud como inversionista',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20
-                ),
+            Container(
+              margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.020, left: MediaQuery.of(context).size.height * 0.050, right: MediaQuery.of(context).size.height * 0.050 ),
+              child: Text(
+                'Selecciones cuales es la prioridad financiera que desearia revisar con este analisis',
+                style: GoogleFonts.inter(
+                  color: const Color(0xFF817F7F),
+                  fontSize: MediaQuery.of(context).size.height * 0.020,
+                  fontWeight: FontWeight.w600,
+                  height: 1.5,
+                  letterSpacing: -0.01
+                )
               ),
             ),
-                Container(
-                      width: 374,
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      color: Color(0XFF524898),
-                      child: DropdownButton<String>(
-                        dropdownColor: Color(0XFF524898),
-                        value: _perfil,
-                        onChanged: updatePerfil,
-                        items: <String>[
-                          'Seleccione perfil',
-                          'Especulacion',
-                          'Conservador',
-                          'Moderado',
-                          'Agresivo'
-                        ].map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(
-                              value,
-                              style: TextStyle(
-                                color: Colors.white
-                              ),
-                            ),
-                          );
-                        }).toList(),
-                        icon: Icon(
-                          Icons.arrow_drop_down,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                                        SizedBox(height: 20),
-                                       Container(
-              margin: const EdgeInsets.only(top: 30, left: 20, right: 20),
-              child: const Text(
-                'Pregunta 3. Selecciones cuales son las prioridades financieras que desearia revisar con este analisis',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20
-                ),
+            CustomTextWidget(
+              text: 'Prioridad financiera', 
+              fontSize: MediaQuery.of(context).size.height * 0.016, 
+              fontWeight: FontWeight.w500
+              ),
+            CustomWordSliderWidget(
+            value: _prioridadFinanciera, 
+            words: const ['Como aumentar mi patrimonio', 'Como crear un Plan de ahorro para mi retiro', 'Generar Ingresos en USD', 'Como cubrir las necesidades de mi familia con un seguro de vida', 'Como invertir en bienes raices en USD', 'Filantropia'], 
+            onChanged: (value) {
+                            setState(() {
+                              _prioridadFinanciera = value;
+                            });
+                          },
+            ),
+          Container(
+              margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.020, left: MediaQuery.of(context).size.height * 0.050, right: MediaQuery.of(context).size.height * 0.050 ),
+              child: Text(
+                'En aproximadamente cuantos años espera que iniciara retiros para sus principal necesidad financiera a cubrir',
+                style: GoogleFonts.inter(
+                  color: const Color(0xFF817F7F),
+                  fontSize: MediaQuery.of(context).size.height * 0.020,
+                  fontWeight: FontWeight.w600,
+                  height: 1.5,
+                  letterSpacing: -0.01
+                )
               ),
             ),
-                Container(
-                      width: 374,
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      color: Color(0XFF524898),
-                      child: DropdownButton<String>(
-                        dropdownColor: Color(0XFF524898),
-                        value: _prioridades,
-                        onChanged: updatePrioridades,
-                        items: <String>[
-                          'Seleccione prioridades',
-                          'Como aumentar mi patrimonio',
-                          'Como crear un Plan de ahorro para mi retiro',
-                          'Como cubrir necesidades de familia',
-                          'Como invertir en bienes raices en USD',
-                          'Filantropia'
-                        ].map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(
-                              value,
-                              style: TextStyle(
-                                color: Colors.white
-                              ),
-                            ),
-                          );
-                        }).toList(),
-                        icon: Icon(
-                          Icons.arrow_drop_down,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-            SizedBox(height: 20),
-                                       Container(
-              margin: const EdgeInsets.only(top: 30, left: 20, right: 20),
-              child: const Text(
-                'Pregunta 4. En aproximadamente cuantos años espera que iniciara retiros para sus principal necesidad financiera a cubrir',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20
-                ),
+          CustomTextWidget(
+              text: 'En cuantos años espera iniciar sus retiros', 
+              fontSize: MediaQuery.of(context).size.height * 0.016, 
+              fontWeight: FontWeight.w500
+              ),
+          CustomWordSliderWidget(
+            value: _iniciarRetiros, 
+            words: const ['Corto plazo (menos de 2 años)', 'Mediano plazo (2-5 años)', 'Mediano plazo (6-10 años)', 'Largo plazo (11-20 años)', 'Largo plazo (más de 20 años)'], 
+            onChanged: (value) {
+                            setState(() {
+                              _iniciarRetiros = value;
+                            });
+                          },
+            ),
+          Container(
+              margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.020, left: MediaQuery.of(context).size.height * 0.050, right: MediaQuery.of(context).size.height * 0.050 ),
+              child: Text(
+                'Una vez que comience a retirar fondos para su necesidad financiera principal, ¿durante cuánto tiempo planea que continuarán los retiros?',
+                style: GoogleFonts.inter(
+                  color: const Color(0xFF817F7F),
+                  fontSize: MediaQuery.of(context).size.height * 0.020,
+                  fontWeight: FontWeight.w600,
+                  height: 1.5,
+                  letterSpacing: -0.01
+                )
               ),
             ),
-                Container(
-                      width: 374,
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      color: Color(0XFF524898),
-                      child: DropdownButton<String>(
-                        dropdownColor: Color(0XFF524898),
-                        value: _anosRetiros,
-                        onChanged: updateAnosRetiros,
-                        items: <String>[
-                          'Seleccione años retiros',
-                          'Menos de 2 años',
-                          '2–5 Años',
-                          '6–10 Años',
-                          '11–20 Años',
-                          'Más de 20 años'
-                        ].map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(
-                              value,
-                              style: TextStyle(
-                                color: Colors.white
-                              ),
-                            ),
-                          );
-                        }).toList(),
-                        icon: Icon(
-                          Icons.arrow_drop_down,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                                SizedBox(height: 20),
-                                       Container(
-              margin: const EdgeInsets.only(top: 30, left: 20, right: 20),
-              child: const Text(
-                'Preguntas 5. Una vez que comience a retirar fondos para su necesidad financiera principal, ¿durante cuánto tiempo planea que continuarán los retiros?',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20
-                ),
+            CustomTextWidget(
+              text: 'Durante cuanto tiempo planea continuar los retiros', 
+              fontSize: MediaQuery.of(context).size.height * 0.016, 
+              fontWeight: FontWeight.w500
               ),
+            CustomWordSliderWidget(
+            value: _continuarRetiros, 
+            words: const ['Corto plazo (menos de 2 años)', 'Mediano plazo (2-5 años)', 'Mediano plazo (6-10 años)', 'Largo plazo (11-20 años)', 'Largo plazo (más de 20 años)'], 
+            onChanged: (value) {
+                            setState(() {
+                              _continuarRetiros = value;
+                            });
+                          },
             ),
-                Container(
-                      width: 374,
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      color: Color(0XFF524898),
-                      child: DropdownButton<String>(
-                        dropdownColor: Color(0XFF524898),
-                        value: _tiempoRetiros,
-                        onChanged: updateTiempoRetiros,
-                        items: <String>[
-                          'Seleccione tiempo retiros',
-                          'Menos de 2 años',
-                          '2–5 Años',
-                          '6–10 Años',
-                          '11–20 Años',
-                          'Más de 20 años'
-                        ].map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(
-                              value,
-                              style: TextStyle(
-                                color: Colors.white
-                              ),
-                            ),
-                          );
-                        }).toList(),
-                        icon: Icon(
-                          Icons.arrow_drop_down,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-
-
-                    SizedBox(height: 20),
-                    ElevatedButton(
-                      onPressed: (){
-                  if (_experienciaInversiones == 'Cual es si nivel de experiencia en inversiones' ||
-                _poseo == 'He invertido o actualmente poseo algun activo' ||
-                _generarIngresos == 'Enumere la opcion' ||
-                _arriesgarCapital == 'Enumere la opcion' ||
-                _incrementarPatrimonio == 'Enumere la opcion' ||
-                _protegerPatrimonio == 'Enumere la opcion' ||
-                _perfil == 'Seleccione perfil' ||
-                _prioridades == 'Seleccione prioridades' ||
-                _anosRetiros == 'Seleccione años retiros' ||
-                _tiempoRetiros == 'Seleccione tiempo retiros'
-        ) {
+          Center(
+                    child: Container(
+                      margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.030, bottom:MediaQuery.of(context).size.height * 0.020,),
+                      child: ElevatedButton(
+                        onPressed: (){
+                          if (_experienciaInversiones == 'Cual es su nivel de experiencia') {
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -689,31 +514,45 @@ class _PerfilRiesgoState extends State<PerfilRiesgo> {
               ),
             ],
           );
-        },
+        } ,
       );
     } else {
       savePerfilRiesgo();
     }
-                        
-                      },
-                      child: Text('Continuar', style: TextStyle(fontSize: 18)),
-                      style: ElevatedButton.styleFrom(
-                        primary: Color(0XFFE8E112),
-                        padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
+                        } ,
+                        style: ButtonStyle(
+                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                            const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(10))
+                            )
+                          ),
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                            const Color(0xFF0C67B0)
+                          ),
+                          padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                              EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.33, vertical: MediaQuery.of(context).size.height * 0.005),
+                          ),
                         ),
-                      ),
+                         child: Text(
+                              'Siguiente', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.width * 0.05,
+                                fontWeight: FontWeight.w400,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                      )
                     ),
-                  ],
-                ),
-                ),
-              ),
-            ),
+                  ),
           ],
         ),
+        
+        
         )
       ),
+      
+      )
     );
   }
 }
