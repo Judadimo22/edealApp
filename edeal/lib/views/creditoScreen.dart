@@ -8,6 +8,15 @@ import 'package:http/http.dart' as http;
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'dart:math';
+import 'package:velocity_x/velocity_x.dart';
+import 'package:intl/intl.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:edeal/widgets/barraSeleccion.dart';
+import 'package:edeal/widgets/sliderPalabras.dart';
+import 'package:edeal/widgets/subtitulo.dart';
+import 'package:edeal/widgets/seleccion.dart';
+import 'package:edeal/widgets/sliderMeses.dart';
+import 'package:edeal/widgets/input.dart';
 
 
 class CreditoScreen extends StatefulWidget {
@@ -26,11 +35,30 @@ class _CreditoScreenState extends State<CreditoScreen> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController _newDataController = TextEditingController();
   TextEditingController _montoCreditoController = TextEditingController();
+  TextEditingController _otroTipoSeguroController = TextEditingController();
+  TextEditingController _otraCompraController = TextEditingController();
+
   String _creditoPara = 'Me gustaría un crédito para:';
   String _tarjetaCredito = 'Tengo tarjeta de crédito:';
   String _banco = 'Con cual banco:';
   String _plazoCredito = 'Plazo del crédito en meses';
+  String _tipoSeguro = 'Tipo de seguro';
+  String _tipoCompra = 'Que tipo de compra';
+  String _dondeViajar = 'A donde quisiera viajar';
+  String _cuandoViajar = 'Cuando quisiera viajar';
+
   bool _mostrarCampoBanco = false;
+  bool _mostrarTarjetaCredito = false;
+  bool _mostrarSeguro = false;
+  bool _mostrarRealizarCompra = false;
+  bool _mostrarViajar = false;
+  bool _mostrarComprarUsd = false;
+  bool _mostrarOtroTipoSeguro = false;
+  bool _mostrarOtraCompra = false;
+
+  double _montoTarjetaCredito = 0;
+  double _tasaAnualTarjetaCredito = 0;
+
 
 
   @override
@@ -146,6 +174,50 @@ void saveUserData() async {
     setState(() {
       _creditoPara = newValue!;
     });
+    if(newValue == 'Pagar mi tarjeta de credito'){
+      _mostrarTarjetaCredito = true;
+      _mostrarSeguro = false;
+      _mostrarRealizarCompra = false;
+      _mostrarViajar = false;
+      _mostrarComprarUsd = false;
+    }
+    else if(newValue == 'Comprar un seguro'){
+      _mostrarSeguro = true;
+      _mostrarTarjetaCredito = false;
+      _mostrarRealizarCompra = false;
+      _mostrarViajar = false;
+      _mostrarComprarUsd = false;
+
+    }
+    else if(newValue == 'Realizar una compra'){
+      _mostrarRealizarCompra = true;
+      _mostrarSeguro = false;
+      _mostrarTarjetaCredito = false;
+      _mostrarViajar = false;
+      _mostrarComprarUsd = false;
+    }
+    else if(newValue == 'Viajar'){
+      _mostrarViajar = true;
+      _mostrarRealizarCompra = false;
+      _mostrarSeguro = false;
+      _mostrarTarjetaCredito = false;
+      _mostrarComprarUsd = false;
+    }
+    else if(newValue == 'Comprar USD'){
+      _mostrarComprarUsd = true;
+      _mostrarRealizarCompra = false;
+      _mostrarSeguro = false;
+      _mostrarTarjetaCredito = false;
+      _mostrarViajar = false;
+    }
+    else {
+      _mostrarTarjetaCredito = false;
+      _mostrarComprarUsd = false;
+      _mostrarRealizarCompra = false;
+      _mostrarSeguro = false;
+      _mostrarTarjetaCredito = false;
+      _mostrarViajar = false;
+    }
   }
 
   void updateTarjetaOption(String? newTarjeta){
@@ -155,6 +227,28 @@ void saveUserData() async {
         _mostrarCampoBanco = true;
       } else {
         _mostrarCampoBanco = false;
+      }
+    });
+  }
+
+  void updateTipoSeguro(String? newTipoSeguro){
+    setState(() {
+    _tipoSeguro = newTipoSeguro!;
+      if (newTipoSeguro == 'Otro') {
+        _mostrarOtroTipoSeguro = true;
+      } else {
+        _mostrarOtroTipoSeguro = false;
+      }
+    });
+  }
+
+  void updateTipoCompra(String? newTipoCompra){
+    setState(() {
+    _tipoCompra = newTipoCompra!;
+      if (newTipoCompra == 'Otro') {
+        _mostrarOtraCompra = true;
+      } else {
+        _mostrarOtraCompra = false;
       }
     });
   }
@@ -171,345 +265,80 @@ void saveUserData() async {
     });
   }
 
+  void updateDondeViajar(String? newDondeViajar){
+    setState(() {
+    _dondeViajar = newDondeViajar!;
+    });
+  }
+
+  void updateCuandoViajar(String? newCuandoViajar){
+    setState(() {
+    _cuandoViajar = newCuandoViajar!;
+    });
+  }
+
 
 
   @override
   Widget build(BuildContext context) {
-    if(userData['credito'] != null
-    && userData['montoCredito'] != null
-    && userData['plazoCredito'] != null
-    && userData['tarjetaDeCredito'] != null
-    && userData['credito2'] == null
-    && userData['montoCredito2'] == null
-    && userData['plazoCredito2'] == null
-    && userData['tarjetaDeCredito2'] == null
-    ){
-    double montoCredito = double.parse(userData['montoCredito']);
-    int plazoCredito = int.parse(userData['plazoCredito']);
-    double valorCuota = (montoCredito * (0.018 * pow(1 + 0.018, plazoCredito))) /
-    (pow(1 + 0.018, plazoCredito) - 1);
+    
     return Scaffold(
-      backgroundColor: Color(0XFF524898),
-      body: Center(
-        child: Column (
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Credito 1',
-              style: TextStyle(
-                fontSize: 24,
-                color: Colors.white
-              )
-            ),
-            SizedBox(height: 20,),
-            ElevatedButton(
-              onPressed: (){
-                showDialog(
-                  context: context, 
-                  builder: (BuildContext context){
-                    return AlertDialog(
-                      title: Text('Información crédito 1'),
-                      content: SingleChildScrollView(
-                        child: ConstrainedBox(
-                        constraints: BoxConstraints(maxHeight: 150),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Valor del crédito: ${userData['montoCredito']}'),
-                            SizedBox(height: 10,),
-                            Text('Objetivo del credito: ${userData['credito']}'),
-                            SizedBox(height: 10,),
-                            Text('Tiene tarjeta de credito: ${userData['tarjetaDeCredito']}'),
-                            SizedBox(height: 10,),
-                            Text('Plazo del crédito: ${userData['plazoCredito']} meses'),
-                            SizedBox(height: 10,),
-                            Text('Valor mensual de la cuota: \$${valorCuota.toStringAsFixed(2)}'),
-                          ],
-                        ),
-                      ), 
-                    ),
-                    actions: [
-                      TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        }, 
-                        child: Text('Aceptar')
-                        ),
-                    ],
-                    );
-                  }
-                  );
-            
-              },
-              child: Text('Ver información')
-              ),
-              SizedBox(height: 70,),
-              ElevatedButton(
-                onPressed: (){
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Credito2Screen(token: widget.token))
-                  );
-                }, 
-                child: Text('Crear nuevo crédito'))
-          ]
-          
-        )
-      ),
-    );
-    }
-
-
-    else if(userData['credito'] != null
-    && userData['montoCredito'] != null
-    && userData['plazoCredito'] != null
-    && userData['tarjetaDeCredito'] != null
-    && userData['credito2'] != null
-    && userData['montoCredito2'] != null
-    && userData['plazoCredito2'] != null
-    && userData['tarjetaDeCredito2'] != null
-    && userData['credito3'] == null
-    && userData['montoCredito3'] == null
-    && userData['plazoCredito3'] == null
-    && userData['tarjetaCredito3'] == null
-    ){
-    double montoCredito = double.parse(userData['montoCredito']);
-    int plazoCredito = int.parse(userData['plazoCredito']);
-    double valorCuota = (montoCredito * (0.018 * pow(1 + 0.018, plazoCredito))) /
-    (pow(1 + 0.018, plazoCredito) - 1);
-
-    double montoCredito2 = double.parse(userData['montoCredito2']);
-    int plazoCredito2 = int.parse(userData['plazoCredito2']);
-    double valorCuota2 = (montoCredito2 * (0.018 * pow(1 + 0.018, plazoCredito2))) /
-    (pow(1 + 0.018, plazoCredito2) - 1);
-
-    return Scaffold(
-      backgroundColor: Color(0XFF524898),
-      body: Center(
-        child: Column (
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Credito 1',
-              style: TextStyle(
-                fontSize: 24,
-                color: Colors.white
-              )
-            ),
-            SizedBox(height: 20,),
-            ElevatedButton(
-              onPressed: (){
-                showDialog(
-                  context: context, 
-                  builder: (BuildContext context){
-                    return AlertDialog(
-                      title: Text('Información crédito 1'),
-                      content: SingleChildScrollView(
-                        child: ConstrainedBox(
-                        constraints: BoxConstraints(maxHeight: 150),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Valor del crédito: ${userData['montoCredito']}'),
-                            SizedBox(height: 10,),
-                            Text('Objetivo del credito: ${userData['credito']}'),
-                            SizedBox(height: 10,),
-                            Text('Tiene tarjeta de credito: ${userData['tarjetaDeCredito']}'),
-                            SizedBox(height: 10,),
-                            Text('Plazo del crédito: ${userData['plazoCredito']} meses'),
-                            SizedBox(height: 10,),
-                            Text('Valor mensual de la cuota: \$${valorCuota.toStringAsFixed(2)}'),
-                          ],
-                        ),
-                      ), 
-                    ),
-                    actions: [
-                      TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        }, 
-                        child: Text('Aceptar')
-                        ),
-                    ],
-                    );
-                  }
-                  );
-            
-              },
-              child: Text('Ver información')
-              ),
-
-              SizedBox(height: 10,),
-
-              Text(
-              'Credito 2',
-              style: TextStyle(
-                fontSize: 24,
-                color: Colors.white
-              )
-            ),
-            SizedBox(height: 20,),
-            ElevatedButton(
-              onPressed: (){
-                showDialog(
-                  context: context, 
-                  builder: (BuildContext context){
-                    return AlertDialog(
-                      title: Text('Información crédito 2'),
-                      content: SingleChildScrollView(
-                        child: ConstrainedBox(
-                        constraints: BoxConstraints(maxHeight: 150),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Valor del crédito: ${userData['montoCredito2']}'),
-                            SizedBox(height: 10,),
-                            Text('Objetivo del credito: ${userData['credito2']}'),
-                            SizedBox(height: 10,),
-                            Text('Tiene tarjeta de credito: ${userData['tarjetaDeCredito2']}'),
-                            SizedBox(height: 10,),
-                            Text('Plazo del crédito: ${userData['plazoCredito2']} meses'),
-                            SizedBox(height: 10,),
-                            Text('Valor mensual de la cuota: \$${valorCuota2.toStringAsFixed(2)}'),
-                          ],
-                        ),
-                      ), 
-                    ),
-                    actions: [
-                      TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        }, 
-                        child: Text('Aceptar')
-                        ),
-                    ],
-                    );
-                  }
-                  );
-            
-              },
-              child: Text('Ver información')
-              ),
-
-              SizedBox(height: 70,),
-              ElevatedButton(
-                onPressed: (){
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Credito3Screen(token: widget.token))
-                  );
-                }, 
-                child: Text('Crear nuevo crédito'))
-          ]
-          
-        )
-      ),
-    );
-    }
-
-    else {
-          return Scaffold(
-      backgroundColor: Color(0XFF524898),
-      body: Center(
-        child: SingleChildScrollView(
+      backgroundColor: Colors.white,
+      body: SingleChildScrollView(
+        child: Container(margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.075),
           child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(height: 20),
-            Form(
-              key: _formKey,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Container(
-                  color: Color(0XFF524898),
-                  padding: EdgeInsets.symmetric(vertical: 50),
-                  child: Column(
-                  children: [
-                    Container(
-                      margin: EdgeInsets.only(bottom: 50),
-                      child:
-                      Text(
-                        'Crédito',
-                        style: TextStyle(
-                          fontSize: 30,
-                          color: Colors.white
-                        ),
-                        ),),
-                    SizedBox(height: 20),
-                    Container(
-                      width: 374,
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      color: Color(0XFF524898),
-                      child: DropdownButton<String>(
-                      dropdownColor: Color(0XFF524898) ,
-                      value: _creditoPara,
-                      onChanged: updateSelectedOption,
-                      items: <String>[
-                        'Me gustaría un crédito para:',
-                        'Gastos Personales',
-                        'Celular',
-                        'Bajar la tase de interés de mi trajeta de crédito',
-                        'Hacer mercado',
-                        'Pagar deudas'
-                      ].map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(
-                            value,
-                            style: TextStyle(
-                              color: Colors.white,
-                          ),
-                          ),
-                        );
-                      }).toList(),
-                      icon:  Icon(
-                        Icons.arrow_drop_down,
-                        color: Colors.white,
-                      ),
-                    ),
-                    ),
-                    SizedBox(height: 20),
-                    Container(
-                      width: 374,
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      color: Color(0XFF524898),
-                      child: Expanded(
-                        child: DropdownButton<String>(
-                      dropdownColor: Color(0XFF524898) ,
-                      value: _tarjetaCredito,
-                      onChanged: updateTarjetaOption,
-                      items: <String>[
-                        'Tengo tarjeta de crédito:',
-                        'Si',
-                        'No'
-                      ].map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(
-                            value,
-                            style: TextStyle(
-                              color: Colors.white
-                            ),
-                            ),
-                        );
-                      }).toList(),
-                      icon:  Icon(
-                        Icons.arrow_drop_down,
-                        color: Colors.white,
-                      ),
-                    ),)
-                    ),
-                    SizedBox(height: 20),
-                    if(_mostrarCampoBanco)
-                                        Container(
-                      width: 374,
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      child: DropdownButton<String>(
-                      dropdownColor: Color(0XFF524898) ,
-                      value: _banco,
-                      onChanged: updateBancoOption,
-                      items: <String>[
-                        'Con cual banco:',
+            children: [
+              Text(
+                'Quiero un                       ',
+                style: GoogleFonts.poppins(
+                  color: const Color(0xFF444C52),
+                  fontSize: MediaQuery.of(context).size.height * 0.035,
+                  fontWeight: FontWeight.w600,
+                  height: 1.5,
+                  letterSpacing: -0.01
+                )
+              ),
+              Text(
+                'crédito                            ',
+                style: GoogleFonts.poppins(
+                  color: const Color(0xFF444C52),
+                  fontSize: MediaQuery.of(context).size.height * 0.035,
+                  fontWeight: FontWeight.w600,
+                  height: 1.5,
+                  letterSpacing: -0.01
+                )
+              ),
+            CustomTextWidget(
+              text: 'Quiero un crédito para: ', 
+              fontSize: MediaQuery.of(context).size.height * 0.016, 
+              fontWeight: FontWeight.w500
+              ),
+            CustomDropdownWidget(
+              value: _creditoPara, 
+              onChanged: updateSelectedOption, 
+              items: const [
+                'Me gustaría un crédito para:',
+                'Pagar mi tarjeta de credito',
+                'Comprar un seguro',
+                'Realizar una compra',
+                'Viajar',
+                'Comprar USD'
+
+              ]
+              ),
+            if(_mostrarTarjetaCredito)
+            Column(
+              children: [
+                CustomTextWidget(
+              text: 'Con cual banco', 
+              fontSize: MediaQuery.of(context).size.height * 0.016, 
+              fontWeight: FontWeight.w500
+              ),
+              CustomDropdownWidget(
+                value: _banco, 
+                onChanged: updateBancoOption, 
+                items: const[
+                  'Con cual banco:',
                         'Banco de Bogotá',
                         'Banco Popular',
                         'Coorbanca',
@@ -531,108 +360,238 @@ void saveUserData() async {
                         'Banco Falabella',
                         'Coltefinanciera',
                         'Coopcentral'
-                      ].map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(
-                            value,
-                            style: TextStyle(
-                              color: Colors.white
-                            ),
-                            ),
-                        );
-                      }).toList(),
-                      icon:  Icon(
-                        Icons.arrow_drop_down,
-                        color: Colors.white,
-                      ),
-                    ),
-                    ),
-                   Container(
-                      width: 374,
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      child: DropdownButton<String>(
-                      dropdownColor: Color(0XFF524898) ,
-                      value: _plazoCredito,
-                      onChanged: updateplazoCreditoOption,
-                      items: <String>[
-                        'Plazo del crédito en meses',
-                          '1 ',
-                          '2',
-                          '3',
-                          '4',
-                          '5',
-                          '6',
-                          '7',
-                          '8',
-                          '9',
-                          '10',
-                          '11',
-                          '12',
-                          '13',
-                          '14',
-                          '15',
-                          '16',
-                          '17',
-                          '18',
-                          '19',
-                          '20'
-                      ].map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(
-                            value,
-                            style: TextStyle(
-                              color: Colors.white
-                            ),
-                            ),
-                        );
-                      }).toList(),
-                      icon:  Icon(
-                        Icons.arrow_drop_down,
-                        color: Colors.white,
-                      ),
-                    ),
-                    ),
-                SizedBox(height: 20),
-Container(
-  margin: EdgeInsets.only(bottom: 20),
-  child: TextField(
-    controller: _montoCreditoController,
-    keyboardType: TextInputType.number,
-    style: TextStyle(color: Colors.white),
-    decoration: InputDecoration(
-      errorStyle: TextStyle(color: Colors.white),
-      hintText: "Monto del crédito",
-      hintStyle: TextStyle(color: Colors.white),
-      border: UnderlineInputBorder(
-        borderSide: BorderSide(color: Colors.red),
-      ),
-    ),
-  ).p4().px12(),
-),
-
-                    SizedBox(height: 20),
-                    ElevatedButton(
-                    style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all<Color>(Color(0XFFE8E112)),
-                    ),
-                      onPressed: saveUserData,
-                      child: Text('Solicitar crédito'),
-                    ),
-                  ],
-                ),)
+                ]
+                ),
+              CustomTextWidget(
+              text: 'Monto', 
+              fontSize: MediaQuery.of(context).size.height * 0.016, 
+              fontWeight: FontWeight.w500
               ),
+              CustomSliderWidget(
+                value: _montoTarjetaCredito, 
+                min: 0, 
+                max: 20000000, 
+                divisions: 20, 
+                onChanged: (value) {
+                    setState(() {
+                      _montoTarjetaCredito = value;
+                    });
+                } 
+                ),
+              CustomTextWidget(
+              text: 'Tasa anual (si la sabe)', 
+              fontSize: MediaQuery.of(context).size.height * 0.016, 
+              fontWeight: FontWeight.w500
+              ),
+              CustomSliderWidget(
+                value: _tasaAnualTarjetaCredito, 
+                min: 0, 
+                max: 20000000, 
+                divisions: 20, 
+                onChanged: (value) {
+                    setState(() {
+                      _tasaAnualTarjetaCredito = value;
+                    });
+                } 
+                ),
+              ],
             ),
-          ],
+           if(_mostrarSeguro)
+           Column(
+            children: [
+              CustomTextWidget(
+              text: 'Tipo de seguro', 
+              fontSize: MediaQuery.of(context).size.height * 0.016, 
+              fontWeight: FontWeight.w500
+              ),
+              CustomDropdownWidget(
+                value: _tipoSeguro, 
+                onChanged: updateTipoSeguro, 
+                items: const[
+                  'Tipo de seguro',
+                  'Seguro de vehículo',
+                  'Seguro de vida',
+                  'Seguro de salud',
+                  'Otro'
+                ]
+                ),
+              if(_mostrarOtroTipoSeguro)
+              Column(
+                children: [
+                  CustomTextWidget(
+                    text: 'Ingresa otro tipo de seguro', 
+                    fontSize: MediaQuery.of(context).size.height * 0.016, 
+                    fontWeight: FontWeight.w500
+                    ),
+                  CustomTextField(
+                controller: _otroTipoSeguroController, 
+                keyboardType: TextInputType.text,
+                hintText: 'Ingresa el tipo de seguro '
+                )
+                ],
+              )
+            
+            ],
+           ),
+           if(_mostrarRealizarCompra)
+           Column(
+            children: [
+              CustomTextWidget(
+              text: 'Que tipo de compra', 
+              fontSize: MediaQuery.of(context).size.height * 0.016, 
+              fontWeight: FontWeight.w500
+              ),
+              CustomDropdownWidget(
+                value: _tipoCompra, 
+                onChanged: updateTipoCompra, 
+                items: const[
+                  'Que tipo de compra',
+                  'Un celular',
+                  'Una computadora',
+                  'Seguro de salud',
+                  'Otro'
+                ]
+                ),
+              if(_mostrarOtraCompra)
+              Column(
+                children: [
+                  CustomTextWidget(
+                    text: 'Ingresa otro tipo de compra', 
+                    fontSize: MediaQuery.of(context).size.height * 0.016, 
+                    fontWeight: FontWeight.w500
+                    ),
+                  CustomTextField(
+                controller: _otraCompraController, 
+                keyboardType: TextInputType.text,
+                hintText: 'Ingresa el tipo de compra '
+                )
+                ],
+              )
+            
+            ],
+           ),
+           if(_mostrarViajar)
+           Column(
+            children: [
+              CustomTextWidget(
+                    text: 'A donde quisiera viajar', 
+                    fontSize: MediaQuery.of(context).size.height * 0.016, 
+                    fontWeight: FontWeight.w500
+              ),
+              CustomDropdownWidget(
+                value: _dondeViajar, 
+                onChanged: updateDondeViajar, 
+                items: const[
+                  'A donde quisiera viajar',
+                  'Francia',
+                  'España',
+                  'Suecia',
+                  'Marruecos',
+                  'Islandia',
+                  'Mexico'
+                ]
+                ),
+              CustomTextWidget(
+                    text: 'Cuando quisiera viajar', 
+                    fontSize: MediaQuery.of(context).size.height * 0.016, 
+                    fontWeight: FontWeight.w500
+              ),
+              CustomDropdownWidget(
+                value: _cuandoViajar, 
+                onChanged: updateCuandoViajar, 
+                items: const[
+                  'Cuando quisiera viajar',
+                  'Este año',
+                  'El próximo año',
+                  'En los 2 próximos años',
+                ]
+                ),
+              
+            ],
+           ),
+           if(_mostrarComprarUsd)
+           Column(
+            children: [
+              Container(
+                margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.035) ,
+                child: Text(
+                'Proximamente',
+                style: GoogleFonts.poppins(
+                  color: const Color(0xFF444C52),
+                  fontSize: MediaQuery.of(context).size.height * 0.035,
+                  fontWeight: FontWeight.w600,
+                  height: 1.5,
+                  letterSpacing: -0.01
+                )
+              ),
+              ),
+              CustomTextWidget(
+                    text: 'Hacer un pre registro para recibir información del lanzamiento de este producto', 
+                    fontSize: MediaQuery.of(context).size.height * 0.016, 
+                    fontWeight: FontWeight.w500
+              ),
+              
+            ],
+           ),
+           Center(
+                    child: Container(
+                      margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.030, bottom:MediaQuery.of(context).size.height * 0.020,),
+                      child: ElevatedButton(
+                        onPressed: (){
+                          if (_creditoPara == 'Me gustaría un crédito para:') {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Completa todos los campos antes de continuar'),
+            content: Text('Por favor completa todos los campos antes de continuar'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('Aceptar'),
+              ),
+            ],
+          );
+        } ,
+      );
+    } else {
+      saveUserData();
+    }
+                        } ,
+                        style: ButtonStyle(
+                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                            const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(10))
+                            )
+                          ),
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                            const Color(0xFF0C67B0)
+                          ),
+                          padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                              EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.20, vertical: MediaQuery.of(context).size.height * 0.005),
+                          ),
+                        ),
+                         child: Text(
+                              'Solicitar crédito', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.width * 0.05,
+                                fontWeight: FontWeight.w400,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                      )
+                    ),
+                  ),
+           
+            ],
+          ),
         ),
-        )
-      ),
+      )
     );
     }
-
-  }
 }
 
 

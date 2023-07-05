@@ -29,7 +29,7 @@ class _InformacionPersonalState extends State<InformacionPersonal> {
   final TextEditingController _phoneController = TextEditingController();
   DateTime ? selectedDate;
   String _planCobertura = 'Cuenta con un plan de salud';
-  String _tipoPlan = 'Que tipo de plan';
+  String _tipoPlan = 'Que tipo de plan de cobertura';
   String _porcentajeCobertura = 'Porcentaje de cobertura';
   String _relacionDependiente = 'Relacion';
 
@@ -1604,9 +1604,11 @@ class _InformacionPersonalState extends State<InformacionPersonal> {
                     value: _tipoPlan,
                     onChanged: updateTipoPlan,
                     items: <String>[
-                      'Que tipo de plan',
-                      'Publico',
-                      'Privado',
+                      'Que tipo de plan de cobertura',
+                      'EPS',
+                      'Plan complementario',
+                      'Medicina prepagada',
+                      'Poliza de salud'
                     ].map<DropdownMenuItem<String>>((String value){
                       return DropdownMenuItem<String>(
                         value: value,
@@ -1630,70 +1632,7 @@ class _InformacionPersonalState extends State<InformacionPersonal> {
                   )
                   ),
                 )
-              ),
-              Container(
-                          margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.050, right: MediaQuery.of(context).size.height * 0.050, top: MediaQuery.of(context).size.height * 0.020 ),
-                          child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              'Porcentaje de cobertura de su plan', 
-                              style: GoogleFonts.poppins(
-                                fontSize: MediaQuery.of(context).size.height * 0.016,
-                                fontWeight: FontWeight.w500,
-                                height: 1.5,
-                                letterSpacing: -0.01
-                              ),                   
-                            ),
-                          ) ,
-                        ), 
-                                Container(
-                width: MediaQuery.of(context).size.height * 1,
-                margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.005, left: MediaQuery.of(context).size.height * 0.045, right: MediaQuery.of(context).size.height * 0.045),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(
-                    color: const Color(0xFF0C67B0),
-                    width: 1
-                  )
-                ),
-                child: Container(
-                  padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height * 0.008, horizontal: MediaQuery.of(context).size.height * 0.010),
-                  child: DropdownButtonHideUnderline(
-                  child: DropdownButton<String>(
-                    dropdownColor: Colors.white,
-                    value: _porcentajeCobertura,
-                    onChanged: updatePorcentajeCobertura,
-                    items: <String>[
-                      'Porcentaje de cobertura',
-                      '0 a 25 %',
-                      '25 a 50 %',
-                      '50 a 75 %',
-                      '100%'
-                    ].map<DropdownMenuItem<String>>((String value){
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.002),
-                          child: Text(
-                            value,
-                            style: const TextStyle(
-                              color: Color(0xFFABB3B8),
-                            ),
-                          ),
-                          )
-                          ,
-                      );
-                    }).toList(),
-                    underline: null,
-                    icon: const Icon(
-                      Icons.arrow_drop_down,
-                      color: Color(0xFF0C67B0)
-                    ),
-                  )
-                  ),
-                )
-              ),
-
+              ),                                
                       ],
                     ),
 
