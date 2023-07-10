@@ -180,9 +180,9 @@ class _FuentesAdicionalesState extends State<FuentesAdicionales> {
     var response = await http.put(
       Uri.parse('https://edeal-app.onrender.com/fuentesAdicionales/$userId'),
       body: {
-        'trabajarMas': _trabajarMas,
-        'ahorrarMas': _ahorrarMas,
-        'gastarMenos': _gastarMenos,
+        'trabajarMas': _opcionTrabajarMas.toInt().toString(),
+        'ahorrarMas': _opcionAhorrarMas.toInt().toString(),
+        'gastarMenos': _opcionGastarMenos.toInt().toString(),
         'habilidadGenerarIngresos': _habilidadEspecial,
         'desarrollarHabilidades': _desarrollarHabilidades,
         'viviendaPropia': _viviendaPropia,
@@ -195,9 +195,9 @@ class _FuentesAdicionalesState extends State<FuentesAdicionales> {
 
     if (response.statusCode == 200) {
       setState(() {
-        userData['trabajarMas'] = _trabajarMas;
-        userData['ahorrarMas'] = _ahorrarMas;
-        userData['gastarMenos'] = _gastarMenos;
+        userData['trabajarMas'] = _opcionTrabajarMas.toInt().toString();
+        userData['ahorrarMas'] = _opcionAhorrarMas.toInt().toString();
+        userData['gastarMenos'] = _opcionGastarMenos.toInt().toString();
         userData['habilidadGenerarIngresos'] = _habilidadEspecial;
         userData['desarrollarHabilidades'] = _desarrollarHabilidades;
         userData['viviendaPropia'] = _viviendaPropia;
@@ -250,20 +250,20 @@ class _FuentesAdicionalesState extends State<FuentesAdicionales> {
               child: Column(
                 children: [
                   Text(
-                ' Fuentes                     ',
+                ' Fuentes adcionales ',
                 style: GoogleFonts.poppins(
                   color: const Color(0xFF444C52),
-                  fontSize: MediaQuery.of(context).size.height * 0.035,
+                  fontSize: MediaQuery.of(context).size.height * 0.030,
                   fontWeight: FontWeight.w600,
                   height: 1.5,
                   letterSpacing: -0.01
                 )
               ),
               Text(
-                ' de ingreso                ',
+                ' de ingreso                     ',
                 style: GoogleFonts.poppins(
                   color: const Color(0xFF444C52),
-                  fontSize: MediaQuery.of(context).size.height * 0.035,
+                  fontSize: MediaQuery.of(context).size.height * 0.030,
                   fontWeight: FontWeight.w600,
                   height: 1.5,
                   letterSpacing: -0.01
@@ -275,7 +275,7 @@ class _FuentesAdicionalesState extends State<FuentesAdicionales> {
             Container(
               margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.020, bottom: MediaQuery.of(context).size.height * 0.035 ),
               child:Text(
-                '1/4',
+                '5/5',
                 style: GoogleFonts.inter(
                   color: const Color(0xFF444C52),
                   fontSize: MediaQuery.of(context).size.height * 0.015,
