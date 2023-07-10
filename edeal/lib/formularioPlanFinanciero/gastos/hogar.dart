@@ -1360,7 +1360,7 @@ class _HogarState extends State<Hogar> {
                           child: Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
-                              'Seguro de vida', 
+                              'Crédito en USD', 
                               style: GoogleFonts.poppins(
                                 fontSize: MediaQuery.of(context).size.height * 0.016,
                                 fontWeight: FontWeight.w500,

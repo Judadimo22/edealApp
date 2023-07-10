@@ -176,22 +176,10 @@ const userSchema = mongoose.Schema({
     creditoHipotecario: {
         type: String
     },
-    arriendo: {
+    alquiler: {
         type:String
     },
     serviciosPublicos: {
-        type: String
-    },
-    internet: {
-        type: String
-    },
-    planCelular: {
-        type: String
-    },
-    mantenimientoHogar: {
-        type: String
-    },
-    segurosHogar: {
         type: String
     },
     mercado: {
@@ -200,19 +188,13 @@ const userSchema = mongoose.Schema({
     otrosGastosHogar: {
         type: String
     },
-    cuotaCarro: {
-        type: String
-    },
-    seguroCarro: {
-        type: String
-    },
     gasolina: {
         type: String
     },
-    transportePublico: {
+    mantenimientoVehiculo: {
         type: String
     },
-    mantenimientoCarro: {
+    transportePublico: {
         type: String
     },
     viajes: {
@@ -221,40 +203,7 @@ const userSchema = mongoose.Schema({
     restaurantes: {
         type: String
     },
-    cine: {
-        type: String
-    },
     conciertos: {
-        type: String
-    },
-    eventosDeportivos: {
-        type: String
-    },
-    salidasFiestas: {
-        type: String
-    },
-    seguroSalud: {
-        type: String
-    },
-    seguroVida: {
-        type: String
-    },
-    gastoTarjetaCredito: {
-        type: String
-    },
-    creditoLibreInversion: {
-        type:String
-    },
-    creditoUsd: {
-        type: String
-    },
-    tiquetesAereos: {
-        type: String
-    },
-    hoteles: {
-        type: String
-    },
-    gastosViaje: {
         type: String
     },
     cuotaCreditoVivienda: {
@@ -267,6 +216,18 @@ const userSchema = mongoose.Schema({
         type: String
     },
     cuotaOtrosCreditos: {
+        type: String
+    },
+    seguroVehiculo:{
+        type: String
+    },
+    seguroSalud: {
+        type: String
+    },
+    seguroVida: {
+        type: String
+    },
+    creditoUsd: {
         type: String
     },
     otrosGastosFinancieros: {

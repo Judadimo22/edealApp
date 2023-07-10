@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:edeal/formularioPlanFinanciero/informacionPersonal.dart';
+import 'package:edeal/formularioPlanFinanciero/paso2/ingresos.dart';
 import 'package:edeal/views/ahorroPage.dart';
 import 'package:edeal/views/creditoScreen.dart';
 import 'package:edeal/views/fincaRaizPage.dart';
@@ -57,10 +58,23 @@ class _DashboardState extends State<Dashboard> {
   int _selectedTab = 0;
 
   void _changeTab(int index) {
-    setState(() {
-      _selectedTab = index;
-    });
-  }
+  Widget selectedWidget;
+
+  setState(() {
+    _selectedTab = index;
+
+    if (_selectedTab == 1) {
+      if (userData['fechaNacimiento'] != null) {
+        selectedWidget = Ingresos(token: widget.token);
+      } else {
+        selectedWidget = InformacionPersonal(token: widget.token);
+      }
+
+      _pages[1] = selectedWidget;
+    }
+  });
+}
+
 
   @override
   Widget build(BuildContext context) {

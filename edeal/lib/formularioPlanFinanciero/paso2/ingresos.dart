@@ -84,7 +84,7 @@ class _IngresosState extends State<Ingresos> {
         'otrosIngresos': _otrosIngresos.toInt().toString(),
         'fondoEmergencia': _fondoEmergencia.toInt().toString(),
         'fondoAhorro': _fondoAhorro.toInt().toString(),
-        'fondoRetiro:': _fondoRetiro.toInt().toString(),
+        'fondoRetiro': _fondoRetiro.toInt().toString(),
         'inversiones': _inversiones.toInt().toString(),
         'otrosAhorros': _otrosAhorros.toInt().toString()
       },
@@ -167,7 +167,7 @@ class _IngresosState extends State<Ingresos> {
             Container(
               margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.040, bottom: MediaQuery.of(context).size.height * 0.035 ),
               child:Text(
-                '2/4',
+                '2/5',
                 style: GoogleFonts.inter(
                   color: const Color(0xFF444C52),
                   fontSize: MediaQuery.of(context).size.height * 0.015,
@@ -345,8 +345,8 @@ class _IngresosState extends State<Ingresos> {
                           ),
                          child: Slider(
                           min: 0,
-                          max: 20000000,
-                          divisions: 20,
+                          max: 100000,
+                          divisions: 50,
                           value: _inversionesUsd,
                           onChanged: (value) {
                          setState(() {
@@ -604,7 +604,7 @@ class _IngresosState extends State<Ingresos> {
                     child: Column(
                 children: [
                   Text(
-                'Agrega                     ',
+                'Agrega                           ',
                 style: GoogleFonts.poppins(
                   color: const Color(0xFF444C52),
                   fontSize: MediaQuery.of(context).size.height * 0.035,
@@ -614,7 +614,7 @@ class _IngresosState extends State<Ingresos> {
                 )
               ),
               Text(
-                'tus ahorros            ',
+                'tus ahorros                  ',
                 style: GoogleFonts.poppins(
                   color: const Color(0xFF444C52),
                   fontSize: MediaQuery.of(context).size.height * 0.035,
