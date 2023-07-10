@@ -140,14 +140,14 @@ class _PerfilRiesgoState extends State<PerfilRiesgo> {
       body: {
         'experienciaInversiones': _experienciaInversiones,
         'poseoAlgunActivo': _poseo,
-        'generarIngresos': _generarIngresos,
-        'arriesgarMiCapital': _arriesgarCapital,
-        'incrementarPatrimonio': _incrementarPatrimonio,
-        'protegerPatrimonio': _protegerPatrimonio,
-        'perfilActitudInversionista': _perfil,
-        'prioridadesFinancieras': _prioridades,
-        'iniciarRetiros': _anosRetiros,
-        'continuarRetiros': _tiempoRetiros
+        'generarIngresos': _importanciaGenerarIngresos.toInt().toString(),
+        'arriesgarMiCapital': _importanciaArriesgarCapital.toInt().toString(),
+        'incrementarPatrimonio': _importanciaIncrementarPatrimonio.toInt().toString(),
+        'protegerPatrimonio': _importanciaProtegerPatrimonio.toInt().toString(),
+        'perfilActitudInversionista': _perfilInversionista,
+        'prioridadesFinancieras': _prioridadFinanciera,
+        'iniciarRetiros': _iniciarRetiros,
+        'continuarRetiros': _continuarRetiros
       },
     );
 
@@ -252,7 +252,7 @@ class _PerfilRiesgoState extends State<PerfilRiesgo> {
             Container(
               margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.020, bottom: MediaQuery.of(context).size.height * 0.035 ),
               child:Text(
-                '1/4',
+                '4/5',
                 style: GoogleFonts.inter(
                   color: const Color(0xFF444C52),
                   fontSize: MediaQuery.of(context).size.height * 0.015,
