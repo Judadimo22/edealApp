@@ -1,14 +1,9 @@
 import 'dart:convert';
-import 'package:edeal/formularioPlanFinanciero/controlFinanzas.dart';
-import 'package:edeal/formularioPlanFinanciero/informacionPersonal.dart';
-import 'package:edeal/formularioPlanFinanciero/paso2/gastos.dart';
 import 'package:edeal/formularioPlanFinanciero/paso3/metasFinancieras.dart';
-import 'package:edeal/views/homeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:velocity_x/velocity_x.dart';
 import 'package:intl/intl.dart';
 import 'package:edeal/widgets/thumb.dart';
 
@@ -78,14 +73,14 @@ class _HogarState extends State<Hogar> {
   void saveGastosHogar() async {
 
     var response = await http.put(
-      Uri.parse('https://edeal-app.onrender.com/gastosHogar/$userId'),
+      Uri.parse('https://edeal-app.onrender.com/gastos/$userId'),
       body: {
         'alquiler': _alquiler.toInt().toString(),
         'serviciosPublicos': _serviciosPublicos.toInt().toString(),
         'mercado': _mercado.toInt().toString(),
         'otrosGastosHogar': _otrosGastosHogar.toInt().toString(),
         'gasolina': _gasolina.toInt().toString(),
-        'mantenimientoCarro': _mantenimientoVehiculo.toInt().toString(),
+        'mantenimientoVehiculo': _mantenimientoVehiculo.toInt().toString(),
         'transportePublico': _transportePublico.toInt().toString(),
         'viajes': _viajes.toInt().toString(),
         'restaurantes': _restaurantes.toInt().toString(),
@@ -94,7 +89,7 @@ class _HogarState extends State<Hogar> {
         'cuotaCreditoVehiculo': _cuotaCreditoVehiculo.toInt().toString(),
         'cuotaTarjetaCredito': _cuotaTarjetaCredito.toInt().toString(),
         'cuotaOtrosCreditos': _cuotaOtrosCreditos.toInt().toString(),
-        'seguroCarro': _seguroVehiculo.toInt().toString(),
+        'seguroVehiculo': _seguroVehiculo.toInt().toString(),
         'seguroSalud': _seguroSalud.toInt().toString(),
         'seguroVida': _seguroSalud.toInt().toString(),
         'creditoUsd': _creditoUsd.toInt().toString(),
@@ -121,7 +116,7 @@ class _HogarState extends State<Hogar> {
         userData['cuotaCreditoVehiculo'] = _cuotaCreditoVehiculo.toInt().toString();
         userData['cuotaTarjetaCredito'] = _cuotaTarjetaCredito.toInt().toString();
         userData['cuotaOtrosCreditos'] = _cuotaOtrosCreditos.toInt().toString();
-        userData['seguroCarro'] = _seguroVehiculo.toInt().toString();
+        userData['seguroVehiculo'] = _seguroVehiculo.toInt().toString();
         userData['seguroSalud'] = _seguroSalud.toInt().toString();
         userData['seguroVida'] = _seguroSalud.toInt().toString();
         userData['creditoUsd'] = _creditoUsd.toInt().toString();
@@ -135,8 +130,26 @@ class _HogarState extends State<Hogar> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Gastos del hogar actualizados'),
-            content: Text('Tus gastos del hogar han sido actualizados'),
+            title: Text(
+                'Gastos actualizados',
+                style: GoogleFonts.poppins(
+                  color: Colors.black,
+                  fontSize: MediaQuery.of(context).size.height * 0.020,
+                  fontWeight: FontWeight.w600,
+                  height: 1.5,
+                  letterSpacing: -0.01
+                )
+              ),
+            content: Text(
+                'Tus gastos han sido actualizados de manera correcta.',
+                style: GoogleFonts.poppins(
+                  color: const Color(0xFF444C52),
+                  fontSize: MediaQuery.of(context).size.height * 0.020,
+                  fontWeight: FontWeight.w500,
+                  height: 1.5,
+                  letterSpacing: -0.01
+                )
+              ),
             actions: [
               TextButton(
                   onPressed: (){
@@ -192,7 +205,7 @@ class _HogarState extends State<Hogar> {
             Container(
               margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.010, bottom: MediaQuery.of(context).size.height * 0.035 ),
               child:Text(
-                '3/4',
+                '3/5',
                 style: GoogleFonts.inter(
                   color: const Color(0xFF444C52),
                   fontSize: MediaQuery.of(context).size.height * 0.015,
@@ -458,7 +471,7 @@ class _HogarState extends State<Hogar> {
                     child: Column(
                 children: [
                   Text(
-                'Agrega tus gastos',
+                'Agrega tus gastos     ',
                 style: GoogleFonts.poppins(
                   color: const Color(0xFF444C52),
                   fontSize: MediaQuery.of(context).size.height * 0.035,
@@ -468,7 +481,7 @@ class _HogarState extends State<Hogar> {
                 )
               ),
               Text(
-                'de transporte          ',
+                'de transporte               ',
                 style: GoogleFonts.poppins(
                   color: const Color(0xFF444C52),
                   fontSize: MediaQuery.of(context).size.height * 0.035,
@@ -675,7 +688,7 @@ class _HogarState extends State<Hogar> {
                     child: Column(
                 children: [
                   Text(
-                'Agrega tus gastos ',
+                'Agrega tus gastos      ',
                 style: GoogleFonts.poppins(
                   color: const Color(0xFF444C52),
                   fontSize: MediaQuery.of(context).size.height * 0.035,
@@ -685,7 +698,7 @@ class _HogarState extends State<Hogar> {
                 )
               ),
               Text(
-                'en vacaciones         ',
+                'en vacaciones              ',
                 style: GoogleFonts.poppins(
                   color: const Color(0xFF444C52),
                   fontSize: MediaQuery.of(context).size.height * 0.035,
@@ -695,7 +708,7 @@ class _HogarState extends State<Hogar> {
                 )
               ),
               Text(
-                'y entretenimiento ',
+                'y entretenimiento      ',
                 style: GoogleFonts.poppins(
                   color: const Color(0xFF444C52),
                   fontSize: MediaQuery.of(context).size.height * 0.035,
@@ -903,7 +916,7 @@ class _HogarState extends State<Hogar> {
                     child: Column(
                 children: [
                   Text(
-                'Agrega tus gastos',
+                'Agrega tus gastos     ',
                 style: GoogleFonts.poppins(
                   color: const Color(0xFF444C52),
                   fontSize: MediaQuery.of(context).size.height * 0.035,
@@ -913,7 +926,7 @@ class _HogarState extends State<Hogar> {
                 )
               ),
               Text(
-                'financieros              ',
+                'financieros                    ',
                 style: GoogleFonts.poppins(
                   color: const Color(0xFF444C52),
                   fontSize: MediaQuery.of(context).size.height * 0.035,
@@ -1393,8 +1406,8 @@ class _HogarState extends State<Hogar> {
                           ),
                          child: Slider(
                           min: 0,
-                          max: 20000000,
-                          divisions: 20,
+                          max: 100000,
+                          divisions: 50,
                           value: _creditoUsd,
                           onChanged: (value) {
                          setState(() {
@@ -1474,7 +1487,7 @@ class _HogarState extends State<Hogar> {
                     child: Column(
                 children: [
                   Text(
-                'Agrega tus gastos',
+                'Agrega tus gastos     ',
                 style: GoogleFonts.poppins(
                   color: const Color(0xFF444C52),
                   fontSize: MediaQuery.of(context).size.height * 0.035,
@@ -1484,7 +1497,7 @@ class _HogarState extends State<Hogar> {
                 )
               ),
               Text(
-                'en impuestos          ',
+                'en impuestos               ',
                 style: GoogleFonts.poppins(
                   color: const Color(0xFF444C52),
                   fontSize: MediaQuery.of(context).size.height * 0.035,

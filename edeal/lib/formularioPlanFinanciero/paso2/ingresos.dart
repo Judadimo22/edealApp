@@ -110,8 +110,26 @@ class _IngresosState extends State<Ingresos> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Ingresos actualizados'),
-            content: Text('Tus ingresos han sido actualizados'),
+            title: Text(
+                'Ingresos y ahorros actualizados',
+                style: GoogleFonts.poppins(
+                  color: Colors.black,
+                  fontSize: MediaQuery.of(context).size.height * 0.020,
+                  fontWeight: FontWeight.w600,
+                  height: 1.5,
+                  letterSpacing: -0.01
+                )
+              ),
+            content: Text(
+                'Tus ingresos y ahorros han sido actualizados de manera correcta.',
+                style: GoogleFonts.poppins(
+                  color: const Color(0xFF444C52),
+                  fontSize: MediaQuery.of(context).size.height * 0.020,
+                  fontWeight: FontWeight.w500,
+                  height: 1.5,
+                  letterSpacing: -0.01
+                )
+              ),
             actions: [
               TextButton(
                   onPressed: (){
