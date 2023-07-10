@@ -27,41 +27,13 @@ class _MetasFinancierasState extends State<MetasFinancieras> {
   late String userId;
   Map<String, dynamic> userData = {};
 
-  TextEditingController _plazoVacacionesViajesController = TextEditingController();
-  TextEditingController _valorVacacionesViajesController = TextEditingController();
-  TextEditingController _importanciaVacacionesViajesController = TextEditingController();
-  TextEditingController _plazoAutomovilController = TextEditingController();
-  TextEditingController _valorAutomovilController = TextEditingController();
-  TextEditingController _importanciaAutomovilController = TextEditingController();
-  TextEditingController _plazoEducacionController = TextEditingController();
-  TextEditingController _valorEducacionController = TextEditingController();
-  TextEditingController _importanciaEducacionController = TextEditingController();
-  TextEditingController _plazoInmuebleColombiaController = TextEditingController();
-  TextEditingController _valorInmuebleColombiaController = TextEditingController();
-  TextEditingController _importanciaInmuebleColombiaController = TextEditingController();
-  TextEditingController _plazoInmuebleUsaController = TextEditingController();
-  TextEditingController _valorInmuebleUsaController = TextEditingController();
-  TextEditingController _importanciaInmuebleUsaController = TextEditingController();
-  TextEditingController _plazoTratamientosMedicosController = TextEditingController();
-  TextEditingController _valorTratamientosMedicosController = TextEditingController();
-  TextEditingController _importanciaTratamientosMedicosController = TextEditingController();
-  TextEditingController _plazoTecnologiaController = TextEditingController();
-  TextEditingController _valorTecnologiaController = TextEditingController();
-  TextEditingController _importanciaTecnologiaController = TextEditingController();
-  TextEditingController _plazoEntretenimientoController = TextEditingController();
-  TextEditingController _valorEntretenimientoController = TextEditingController();
-  TextEditingController _importanciaEntretenimientoController = TextEditingController();
-  TextEditingController _plazoEventosDeportivosController = TextEditingController();
-  TextEditingController _valorEventosDeportivosController = TextEditingController();
-  TextEditingController _importanciaEventosDeportivosController = TextEditingController();
-  TextEditingController _plazoOtrosController = TextEditingController();
-  TextEditingController _valorOtrosController = TextEditingController();
-  TextEditingController _importanciaOtrosController = TextEditingController();
-  TextEditingController _numeroHijosController = TextEditingController();
-  TextEditingController _nombreEstudianteController  = TextEditingController();
-  TextEditingController _anoIniciariaController = TextEditingController();
-  TextEditingController _anosEstudiariaController = TextEditingController();
-  TextEditingController _nombreInstitucionController = TextEditingController();
+  final TextEditingController _anoIniciariaController = TextEditingController();
+  final TextEditingController _anosEstudiariaController = TextEditingController();
+  final TextEditingController _nombreInstitucionController = TextEditingController();
+  final TextEditingController _numeroHijosController = TextEditingController();
+  final TextEditingController _nombreEstudianteController = TextEditingController();
+
+ 
   
   double _plazoVacaciones = 1;
   double _valorVacaciones = 0;
@@ -289,71 +261,80 @@ class _MetasFinancierasState extends State<MetasFinancieras> {
     var response = await http.put(
       Uri.parse('https://edeal-app.onrender.com/metasFinancieras/$userId'),
       body: {
-        'plazoVacaciones': _plazoVacacionesViajesController.text,
-        'valorVacaciones': _valorVacacionesViajesController.text,
-        'importanciaVacaciones': _importanciaVacacionesViajesController.text,
-        'plazoAutomovil': _plazoAutomovilController.text,
-        'valorAutomovil': _valorAutomovilController.text,
-        'importanciaAutomovil': _importanciaAutomovilController.text,
-        'plazoEducacion': _plazoEducacionController.text,
-        'valorEducacion': _valorEducacionController.text,
-        'importanciaEducacion': _importanciaEducacionController.text,
-        'plazoInmuebleColombia': _plazoInmuebleColombiaController.text,
-        'valorInmuebleColombia': _valorInmuebleColombiaController.text,
-        'importanciaInmuebleColombia': _importanciaInmuebleColombiaController.text,
-        'plazoInmuebleUsa': _plazoInmuebleUsaController.text,
-        'valorInmuebleUsa': _valorInmuebleUsaController.text,
-        'importanciaInmuebleUsa': _importanciaInmuebleUsaController.text,
-        'plazoTratamientosMedicos': _plazoTratamientosMedicosController.text,
-        'valorTratamientosMedicos': _valorTratamientosMedicosController.text,
-        'importanciaTratamientosMedicos': _importanciaTratamientosMedicosController.text,
-        'plazoTecnologia': _plazoTecnologiaController.text,
-        'valorTecnologia': _valorTecnologiaController.text,
-        'importanciaTecnologia': _importanciaTecnologiaController.text,
-        'plazoEntretenimiento': _plazoEntretenimientoController.text,
-        'valorEntretenimiento': _valorEntretenimientoController.text,
-        'importanciaEntretenimiento': _importanciaEntretenimientoController.text,
-        'plazoEventosDeportivos': _plazoEventosDeportivosController.text,
-        'valorEventosDeportivos': _valorEventosDeportivosController.text,
-        'importanciaEventosDeportivos': _importanciaEventosDeportivosController.text,
-        'plazoOtros': _plazoOtrosController.text,
-        'valorOtros': _valorOtrosController.text,
-        'importanciaOtros': _importanciaOtrosController.text
+        'plazoVacaciones': _plazoVacaciones.toInt().toString(),
+        'valorVacaciones': _valorVacaciones.toInt().toString(),
+        'importanciaVacaciones': _importanciaVacaciones,
+        'plazoAutomovil': _plazoAutomovil.toInt().toString(),
+        'valorAutomovil': _valorAutomovil.toInt().toString(),
+        'importanciaAutomovil': _importanciaAutomovil,
+        'plazoEducacion': _plazoEducacion.toInt().toString(),
+        'valorEducacion': _valorEducacion.toInt().toString(),
+        'importanciaEducacion': _importanciaEducacion,
+        'plazoInmuebleColombia': _plazoInmuebleColombia.toInt().toString(),
+        'valorInmuebleColombia': _valorInmuebleColombia.toInt().toString(),
+        'importanciaInmuebleColombia': _importanciaInmuebleColombia,
+        'plazoInmuebleUsa': _plazoInmuebleUsa.toInt().toString(),
+        'valorInmuebleUsa': _valorInmuebleUsa.toInt().toString(),
+        'importanciaInmuebleUsa': _importanciaInmuebleUsa,
+        'plazoTratamientosMedicos': _plazoTratamientosMedicos.toInt().toString(),
+        'valorTratamientosMedicos': _valorTratamientosMedicos.toInt().toString(),
+        'importanciaTratamientosMedicos': _importanciaTratamientosMedicos,
+        'plazoTecnologia': _plazoTecnologia.toInt().toString(),
+        'valorTecnologia': _valorTecnologia.toInt().toString(),
+        'importanciaTecnologia': _importanciaTecnologia,
+        'plazoEntretenimiento': _plazoEntretenimiento.toInt().toString(),
+        'valorEntretenimiento': _valorEntretenimiento.toInt().toString(),
+        'importanciaEntretenimiento': _importanciaEntretenimiento,
+        'plazoEventosDeportivos': _plazoEventosDeportivos.toInt().toString(),
+        'valorEventosDeportivos': _valorEventosDeportivos.toInt().toString(),
+        'importanciaEventosDeportivos': _importanciaEventosDeportivos,
+        'plazoOtros': _plazoOtros.toInt().toString(),
+        'valorOtros': _valorOtros.toInt().toString(),
+        'importanciaOtros': _importanciaOtros,
+        'numeroHijos': _numeroHijosController.text,
+        'nombreEstudiante1': _nombreEstudianteController.text,
+        'añoIniciara': _anoIniciariaController.text,
+        'añosEstudiaria': _anosEstudiariaController.text,
+        'importanciaEducacionEstudiante1': _importanciaEdtudio.toInt().toString(),
+        'montoEstimadoEducacion': _montoEstimadoEstudio.toInt().toString(),
+        'tipoInstitucionEducativa': _tipoInstitucion,
+        'ubicacionEstudiante1': _ubicacion,
+        'nombreInstitucionEducativa': _nombreInstitucionController.text
       },
     );
 
     if (response.statusCode == 200) {
       setState(() {
-        userData['plazoVacaciones'] = _plazoVacacionesViajesController.text;
-        userData['valorVacaciones'] = _valorVacacionesViajesController.text;
-        userData['importanciaVacaciones'] = _importanciaVacacionesViajesController.text;
-        userData['plazoAutomovil'] = _plazoAutomovilController.text;
-        userData['valorAutomovil'] = _valorAutomovilController.text;
-        userData['importanciaAutomovil'] = _importanciaAutomovilController.text;
-        userData['plazoEducacion'] = _plazoEducacionController.text;
-        userData['valorEducacion'] = _valorEducacionController.text;
-        userData['importanciaEducacion'] = _importanciaEducacionController.text;
-        userData['plazoInmuebleColombia'] = _plazoInmuebleColombiaController.text;
-        userData['valorInmuebleColombia'] = _valorInmuebleColombiaController.text;
-        userData['importanciaInmuebleColombia'] = _importanciaInmuebleColombiaController.text;
-        userData['plazoInmuebleUsa'] = _plazoInmuebleUsaController.text;
-        userData['valorInmuebleUsa'] = _valorInmuebleUsaController.text;
-        userData['importanciaInmuebleUsa'] = _importanciaInmuebleUsaController.text;
-        userData['plazoTratamientosMedicos'] = _plazoTratamientosMedicosController.text;
-        userData['valorTratamientosMedicos'] = _valorTratamientosMedicosController.text;
-        userData['importanciaTratamientosMedicos'] = _importanciaTratamientosMedicosController.text;
-        userData['plazoTecnologia'] = _plazoTecnologiaController.text;
-        userData['valorTecnologia'] = _valorTecnologiaController.text;
-        userData['importanciaTecnologia'] = _importanciaTecnologiaController.text;
-        userData['plazoEntretenimiento'] = _plazoEntretenimientoController.text;
-        userData['valorEntretenimiento'] = _valorEntretenimientoController.text;
-        userData['importanciaEntretenimiento'] = _importanciaEntretenimientoController.text;
-        userData['plazoEventosDeportivos'] = _plazoEventosDeportivosController.text;
-        userData['valorEventosDeportivos'] = _valorEventosDeportivosController.text;
-        userData['importanciaEventosDeportivos'] = _importanciaEventosDeportivosController.text;
-        userData['plazoOtros'] = _plazoOtrosController.text;
-        userData['valorOtros'] = _valorOtrosController.text;
-        userData['importanciaOtros'] = _importanciaOtrosController.text;
+        userData['plazoVacaciones'] = _plazoVacaciones.toInt().toString();
+        userData['valorVacaciones'] = _valorVacaciones.toInt().toString();
+        userData['importanciaVacaciones'] = _importanciaVacaciones;
+        userData['plazoAutomovil'] = _plazoAutomovil.toInt().toString();
+        userData['valorAutomovil'] = _valorAutomovil.toInt().toString();
+        userData['importanciaAutomovil'] = _importanciaAutomovil;
+        userData['plazoEducacion'] = _plazoEducacion.toInt().toString();
+        userData['valorEducacion'] = _valorEducacion.toInt().toString();
+        userData['importanciaEducacion'] = _importanciaEducacion;
+        userData['plazoInmuebleColombia'] = _plazoInmuebleColombia.toInt().toString();
+        userData['valorInmuebleColombia'] = _valorInmuebleColombia.toInt().toString();
+        userData['importanciaInmuebleColombia'] = _importanciaInmuebleColombia;
+        userData['plazoInmuebleUsa'] = _plazoInmuebleUsa.toInt().toString();
+        userData['valorInmuebleUsa'] = _valorInmuebleUsa.toInt().toString();
+        userData['importanciaInmuebleUsa'] = _importanciaInmuebleUsa;
+        userData['plazoTratamientosMedicos'] = _plazoTratamientosMedicos.toInt().toString();
+        userData['valorTratamientosMedicos'] = _valorTratamientosMedicos.toInt().toString();
+        userData['importanciaTratamientosMedicos'] = _importanciaTratamientosMedicos;
+        userData['plazoTecnologia'] = _plazoTecnologia.toInt().toString();
+        userData['valorTecnologia'] = _valorTecnologia.toInt().toString();
+        userData['importanciaTecnologia'] = _importanciaTecnologia;
+        userData['plazoEntretenimiento'] = _plazoEntretenimiento.toInt().toString();
+        userData['valorEntretenimiento'] = _valorEntretenimiento.toInt().toString();
+        userData['importanciaEntretenimiento'] = _importanciaEntretenimiento;
+        userData['plazoEventosDeportivos'] = _plazoEventosDeportivos.toInt().toString();
+        userData['valorEventosDeportivos'] = _valorEventosDeportivos.toInt().toString();
+        userData['importanciaEventosDeportivos'] = _importanciaEventosDeportivos;
+        userData['plazoOtros'] = _plazoOtros.toInt().toString();
+        userData['valorOtros'] = _valorOtros.toInt().toString();
+        userData['importanciaOtros'] = _importanciaOtros;
       });
 
       showDialog(

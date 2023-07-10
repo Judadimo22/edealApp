@@ -607,7 +607,7 @@ const getUsers = async (req, res) => {
   const putMetasFinancieras= async (req, res) => {
     const { id } = req.params;
   
-    const { plazoVacaciones, valorVacaciones, importanciaVacaciones, plazoAutomovil, valorAutomovil, importanciaAutomovil, plazoEducacion, valorEducacion, importanciaEducacion, plazoInmuebleColombia, valorInmuebleColombia, importanciaInmuebleColombia, plazoInmuebleUsa, valorInmuebleUsa, importanciaInmuebleUsa, plazoTratamientosMedicos, valorTratamientosMedicos, importanciaTratamientosMedicos, plazoTecnologia, valorTecnologia, importanciaTecnologia, plazoEntretenimiento, valorEntretenimiento, importanciaEntretenimiento, plazoEventosDeportivos, valorEventosDeportivos, importanciaEventosDeportivos, plazoOtros, valorOtros, importanciaOtros } =
+    const { plazoVacaciones, valorVacaciones, importanciaVacaciones, plazoAutomovil, valorAutomovil, importanciaAutomovil, plazoEducacion, valorEducacion, importanciaEducacion, plazoInmuebleColombia, valorInmuebleColombia, importanciaInmuebleColombia, plazoInmuebleUsa, valorInmuebleUsa, importanciaInmuebleUsa, plazoTratamientosMedicos, valorTratamientosMedicos, importanciaTratamientosMedicos, plazoTecnologia, valorTecnologia, importanciaTecnologia, plazoEntretenimiento, valorEntretenimiento, importanciaEntretenimiento, plazoEventosDeportivos, valorEventosDeportivos, importanciaEventosDeportivos, plazoOtros, valorOtros, importanciaOtros, numeroHijos, nombreEstudiante1, añoIniciara, añosEstudiaria, importanciaEducacionEstudiante1, montoEstimadoEducacion, tipoInstitucionEducativa, ubicacionEstudiante1, nombreInstitucionEducativa } =
       req.body;
   
     userSchema
@@ -644,7 +644,17 @@ const getUsers = async (req, res) => {
             importanciaEventosDeportivos,
             plazoOtros,
             valorOtros,
-            importanciaOtros
+            importanciaOtros,
+            numeroHijos,
+            añoIniciara,
+            nombreEstudiante1,
+            añosEstudiaria,
+            importanciaEducacionEstudiante1,
+            montoEstimadoEducacion,
+            tipoInstitucionEducativa,
+            ubicacionEstudiante1,
+            nombreInstitucionEducativa
+
           },
         }
       )
