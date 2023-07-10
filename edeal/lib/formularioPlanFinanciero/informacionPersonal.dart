@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:edeal/formularioPlanFinanciero/controlFinanzas.dart';
 import 'package:edeal/formularioPlanFinanciero/paso2/ingresos.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
@@ -7,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:velocity_x/velocity_x.dart';
+import 'package:edeal/widgets/subtitulo.dart';
 
 
 class InformacionPersonal extends StatefulWidget {
@@ -25,9 +25,10 @@ class _InformacionPersonalState extends State<InformacionPersonal> {
   final TextEditingController _lugarResidencia = TextEditingController();
   final TextEditingController _nombreDependiente = TextEditingController();
   final TextEditingController _fechaNacimientoDependienteController = TextEditingController();
-  final TextEditingController _relacionDependienteController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
+
   DateTime ? selectedDate;
+  
   String _planCobertura = 'Cuenta con un plan de salud';
   String _tipoPlan = 'Que tipo de plan de cobertura';
   String _porcentajeCobertura = 'Porcentaje de cobertura';
@@ -172,8 +173,26 @@ class _InformacionPersonalState extends State<InformacionPersonal> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Información personal actualizada'),
-            content: Text('Gracias por completar el paso núnero 1.'),
+            title: Text(
+                'Información personal actualizada',
+                style: GoogleFonts.poppins(
+                  color: Colors.black,
+                  fontSize: MediaQuery.of(context).size.height * 0.020,
+                  fontWeight: FontWeight.w600,
+                  height: 1.5,
+                  letterSpacing: -0.01
+                )
+              ),
+            content: Text(
+                'Gracias por completar el paso número 1, tus datos han sido almacenados de manera correcta.',
+                style: GoogleFonts.poppins(
+                  color: const Color(0xFF444C52),
+                  fontSize: MediaQuery.of(context).size.height * 0.020,
+                  fontWeight: FontWeight.w500,
+                  height: 1.5,
+                  letterSpacing: -0.01
+                )
+              ),
             actions: [
               TextButton(
                   onPressed: (){
@@ -433,9 +452,9 @@ class _InformacionPersonalState extends State<InformacionPersonal> {
               )
             ),
             Container(
-              margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.040, bottom: MediaQuery.of(context).size.height * 0.035 ),
+              margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.080, bottom: MediaQuery.of(context).size.height * 0.030 ),
               child:Text(
-                '1/4',
+                '1/5',
                 style: GoogleFonts.inter(
                   color: const Color(0xFF444C52),
                   fontSize: MediaQuery.of(context).size.height * 0.015,
@@ -464,21 +483,11 @@ class _InformacionPersonalState extends State<InformacionPersonal> {
                     margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.040 ),
                     child: Column(
                       children: [ 
-                        Container(
-                          margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.050),
-                          child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              'Fecha de nacimiento', 
-                              style: GoogleFonts.poppins(
-                                fontSize: MediaQuery.of(context).size.height * 0.016,
-                                fontWeight: FontWeight.w500,
-                                height: 1.5,
-                                letterSpacing: -0.01
-                              ),                   
-                            ),
-                          ) ,
-                        ), 
+                       CustomTextWidget(
+                        text: 'Fecha de nacimiento', 
+                        fontSize: MediaQuery.of(context).size.height * 0.016, 
+                        fontWeight: FontWeight.w500
+                        ),
                         Container(
                           margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.010 ),
                           child: TextField(
@@ -522,21 +531,11 @@ class _InformacionPersonalState extends State<InformacionPersonal> {
                     )
                   ),
             Column(children: [
-              Container(
-                          margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.050, right: MediaQuery.of(context).size.height * 0.050, top: MediaQuery.of(context).size.height * 0.020 ),
-                          child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              'Estatus civil', 
-                              style: GoogleFonts.poppins(
-                                fontSize: MediaQuery.of(context).size.height * 0.016,
-                                fontWeight: FontWeight.w500,
-                                height: 1.5,
-                                letterSpacing: -0.01
-                              ),                   
-                            ),
-                          ) ,
-                        ), 
+              CustomTextWidget(
+                text: 'Estatus civil ', 
+                fontSize: MediaQuery.of(context).size.height * 0.016,
+                fontWeight: FontWeight.w500
+                ),
               Container(
                 width: MediaQuery.of(context).size.height * 1,
                 margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.005, left: MediaQuery.of(context).size.height * 0.045, right: MediaQuery.of(context).size.height * 0.045, bottom: MediaQuery.of(context).size.height * 0.009 ),
@@ -749,10 +748,138 @@ class _InformacionPersonalState extends State<InformacionPersonal> {
                       ],
                     )
                   ),
+                 Container(
+              margin: EdgeInsets.only(top:MediaQuery.of(context).size.width * 0.05, left: MediaQuery.of(context).size.width * 0.1, right: MediaQuery.of(context).size.width * 0.1, bottom: MediaQuery.of(context).size.width * 0.01),
+              child: Text(
+                'Familia y otros dependientes',
+                style: GoogleFonts.poppins(
+                  color: const Color(0xFF444C52),
+                  fontSize: MediaQuery.of(context).size.height * 0.020,
+                  fontWeight: FontWeight.w600,
+                  height: 1.5,
+                  letterSpacing: -0.01
+                )
+              ),
+            ),
+            if(userData['nombreDependiente'] != null)
+            Container(
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: const Color(0xFFEDE5E5),
+                  width: 0.5
+                ),
+                borderRadius: BorderRadius.circular(12)
+              ),
+              padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.03, right: MediaQuery.of(context).size.width * 0.03, top: MediaQuery.of(context).size.width * 0.03, bottom: MediaQuery.of(context).size.width * 0.03  ) ,
+              margin: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.1, right: MediaQuery.of(context).size.width * 0.1  ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                   Text(
+                    '${userData['nombreDependiente']}', 
+                    style: GoogleFonts.poppins(
+                    fontSize: MediaQuery.of(context).size.width * 0.03,
+                    fontWeight: FontWeight.w400,
+                    height: 1.5,
+                    letterSpacing: -0.01,
+                    color: const Color(0xFF444C52)
+                    ),                   
+                  ),
+                  Text(
+                    '${userData['relacionDependiente']}', 
+                    style: GoogleFonts.poppins(
+                    fontSize: MediaQuery.of(context).size.width * 0.025,
+                    fontWeight: FontWeight.w400,
+                    height: 1.5,
+                    letterSpacing: -0.01,
+                    color: const Color(0xFF444C52)
+                    ),                   
+                  ),
+                ],
+              )
+              
+            ),
+            if(userData['nombreDependiente2'] != null)
+            Container(
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: const Color(0xFFEDE5E5),
+                  width: 0.5
+                ),
+                borderRadius: BorderRadius.circular(12)
+              ),
+              padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.03, right: MediaQuery.of(context).size.width * 0.03, top: MediaQuery.of(context).size.width * 0.03, bottom: MediaQuery.of(context).size.width * 0.03  ) ,
+              margin: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.1, right: MediaQuery.of(context).size.width * 0.1, top: MediaQuery.of(context).size.width * 0.01   ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                   Text(
+                    '${userData['nombreDependiente2']}', 
+                    style: GoogleFonts.poppins(
+                    fontSize: MediaQuery.of(context).size.width * 0.03,
+                    fontWeight: FontWeight.w400,
+                    height: 1.5,
+                    letterSpacing: -0.01,
+                    color: const Color(0xFF444C52)
+                    ),                   
+                  ),
+                  Text(
+                    '${userData['relacionDependiente2']}', 
+                    style: GoogleFonts.poppins(
+                    fontSize: MediaQuery.of(context).size.width * 0.025,
+                    fontWeight: FontWeight.w400,
+                    height: 1.5,
+                    letterSpacing: -0.01,
+                    color: const Color(0xFF444C52)
+                    ),                   
+                  ),
+                ],
+              )
+              
+            ),
+            if(userData['nombreDependiente3'] != null)
+            Container(
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: const Color(0xFFEDE5E5),
+                  width: 0.5
+                ),
+                borderRadius: BorderRadius.circular(12)
+              ),
+              padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.03, right: MediaQuery.of(context).size.width * 0.03, top: MediaQuery.of(context).size.width * 0.03, bottom: MediaQuery.of(context).size.width * 0.03  ) ,
+              margin: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.1, right: MediaQuery.of(context).size.width * 0.1, top: MediaQuery.of(context).size.width * 0.01   ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                   Text(
+                    '${userData['nombreDependiente3']}', 
+                    style: GoogleFonts.poppins(
+                    fontSize: MediaQuery.of(context).size.width * 0.03,
+                    fontWeight: FontWeight.w400,
+                    height: 1.5,
+                    letterSpacing: -0.01,
+                    color: const Color(0xFF444C52)
+                    ),                   
+                  ),
+                  Text(
+                    '${userData['relacionDependiente3']}', 
+                    style: GoogleFonts.poppins(
+                    fontSize: MediaQuery.of(context).size.width * 0.025,
+                    fontWeight: FontWeight.w400,
+                    height: 1.5,
+                    letterSpacing: -0.01,
+                    color: const Color(0xFF444C52)
+                    ),                   
+                  ),
+                ],
+              )
+              
+            ),
                   Container(
-                    margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.010 , right: MediaQuery.of(context).size.height * 0.050, top: MediaQuery.of(context).size.height * 0.020  ),
+                    margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.050 , right: MediaQuery.of(context).size.height * 0.050, top: MediaQuery.of(context).size.height * 0.020  ),
                     alignment: Alignment.centerRight,
-                    child: ElevatedButton(
+                    child: Center(
+                      child: ElevatedButton(
                         onPressed: (){
                           if(userData['nombreDependiente'] == null) {
                           showDialog(
@@ -1367,134 +1494,8 @@ class _InformacionPersonalState extends State<InformacionPersonal> {
                               ),                   
                             ),
                       )
+                    )
                   ),
-            Container(
-              margin: EdgeInsets.only(top:MediaQuery.of(context).size.width * 0.05, left: MediaQuery.of(context).size.width * 0.1, right: MediaQuery.of(context).size.width * 0.1, bottom: MediaQuery.of(context).size.width * 0.03),
-              child: Text(
-                'Familia y otros dependientes',
-                style: GoogleFonts.poppins(
-                  color: const Color(0xFF444C52),
-                  fontSize: MediaQuery.of(context).size.height * 0.020,
-                  fontWeight: FontWeight.w600,
-                  height: 1.5,
-                  letterSpacing: -0.01
-                )
-              ),
-            ),
-            if(userData['nombreDependiente'] != null)
-            Container(
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: const Color(0xFFEDE5E5),
-                  width: 0.5
-                ),
-                borderRadius: BorderRadius.circular(12)
-              ),
-              padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.03, right: MediaQuery.of(context).size.width * 0.03, top: MediaQuery.of(context).size.width * 0.03, bottom: MediaQuery.of(context).size.width * 0.03  ) ,
-              margin: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.1, right: MediaQuery.of(context).size.width * 0.1  ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                   Text(
-                    '${userData['nombreDependiente']}', 
-                    style: GoogleFonts.poppins(
-                    fontSize: MediaQuery.of(context).size.width * 0.03,
-                    fontWeight: FontWeight.w400,
-                    height: 1.5,
-                    letterSpacing: -0.01,
-                    color: const Color(0xFF444C52)
-                    ),                   
-                  ),
-                  Text(
-                    '${userData['relacionDependiente']}', 
-                    style: GoogleFonts.poppins(
-                    fontSize: MediaQuery.of(context).size.width * 0.025,
-                    fontWeight: FontWeight.w400,
-                    height: 1.5,
-                    letterSpacing: -0.01,
-                    color: const Color(0xFF444C52)
-                    ),                   
-                  ),
-                ],
-              )
-              
-            ),
-            if(userData['nombreDependiente2'] != null)
-            Container(
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: const Color(0xFFEDE5E5),
-                  width: 0.5
-                ),
-                borderRadius: BorderRadius.circular(12)
-              ),
-              padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.03, right: MediaQuery.of(context).size.width * 0.03, top: MediaQuery.of(context).size.width * 0.03, bottom: MediaQuery.of(context).size.width * 0.03  ) ,
-              margin: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.1, right: MediaQuery.of(context).size.width * 0.1, top: MediaQuery.of(context).size.width * 0.01   ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                   Text(
-                    '${userData['nombreDependiente2']}', 
-                    style: GoogleFonts.poppins(
-                    fontSize: MediaQuery.of(context).size.width * 0.03,
-                    fontWeight: FontWeight.w400,
-                    height: 1.5,
-                    letterSpacing: -0.01,
-                    color: const Color(0xFF444C52)
-                    ),                   
-                  ),
-                  Text(
-                    '${userData['relacionDependiente2']}', 
-                    style: GoogleFonts.poppins(
-                    fontSize: MediaQuery.of(context).size.width * 0.025,
-                    fontWeight: FontWeight.w400,
-                    height: 1.5,
-                    letterSpacing: -0.01,
-                    color: const Color(0xFF444C52)
-                    ),                   
-                  ),
-                ],
-              )
-              
-            ),
-            if(userData['nombreDependiente3'] != null)
-            Container(
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: const Color(0xFFEDE5E5),
-                  width: 0.5
-                ),
-                borderRadius: BorderRadius.circular(12)
-              ),
-              padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.03, right: MediaQuery.of(context).size.width * 0.03, top: MediaQuery.of(context).size.width * 0.03, bottom: MediaQuery.of(context).size.width * 0.03  ) ,
-              margin: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.1, right: MediaQuery.of(context).size.width * 0.1, top: MediaQuery.of(context).size.width * 0.01   ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                   Text(
-                    '${userData['nombreDependiente3']}', 
-                    style: GoogleFonts.poppins(
-                    fontSize: MediaQuery.of(context).size.width * 0.03,
-                    fontWeight: FontWeight.w400,
-                    height: 1.5,
-                    letterSpacing: -0.01,
-                    color: const Color(0xFF444C52)
-                    ),                   
-                  ),
-                  Text(
-                    '${userData['relacionDependiente3']}', 
-                    style: GoogleFonts.poppins(
-                    fontSize: MediaQuery.of(context).size.width * 0.025,
-                    fontWeight: FontWeight.w400,
-                    height: 1.5,
-                    letterSpacing: -0.01,
-                    color: const Color(0xFF444C52)
-                    ),                   
-                  ),
-                ],
-              )
-              
-            ),
             Container(
               margin: EdgeInsets.only(top:MediaQuery.of(context).size.width * 0.09, left: MediaQuery.of(context).size.width * 0.02, right: MediaQuery.of(context).size.width * 0.02, bottom: MediaQuery.of(context).size.width * 0.01),
               child: Text(

@@ -504,6 +504,7 @@ void saveUserData() async {
                   'Este año',
                   'El próximo año',
                   'En los 2 próximos años',
+                  'Aún no lo sé'
                 ]
                 ),
               

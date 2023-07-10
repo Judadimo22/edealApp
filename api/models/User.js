@@ -158,16 +158,13 @@ const userSchema = mongoose.Schema({
     otrosIngresos: {
         type: String
     },
-    totalIngresos: {
+    fondoEmergencia: {
         type: String
     },
-    aportesEmergencia: {
+    fondoAhorro: {
         type: String
     },
-    aportesAhorro: {
-        type: String
-    },
-    aportesRetiro: {
+    fondoRetiro: {
         type: String
     },
     inversiones: {

@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:velocity_x/velocity_x.dart';
 import 'package:intl/intl.dart';
 
 
@@ -83,6 +82,11 @@ class _IngresosState extends State<Ingresos> {
         'dividendos': _dividendos.toInt().toString(),
         'pensiones': _pensiones.toInt().toString(),
         'otrosIngresos': _otrosIngresos.toInt().toString(),
+        'fondoEmergencia': _fondoEmergencia.toInt().toString(),
+        'fondoAhorro': _fondoAhorro.toInt().toString(),
+        'fondoRetiro:': _fondoRetiro.toInt().toString(),
+        'inversiones': _inversiones.toInt().toString(),
+        'otrosAhorros': _otrosAhorros.toInt().toString()
       },
     );
 
@@ -95,6 +99,11 @@ class _IngresosState extends State<Ingresos> {
         userData['dividendos'] = _dividendos.toInt().toString();
         userData['pensiones'] = _pensiones.toInt().toString();
         userData['otrosIngresos'] = _otrosIngresos.toInt().toString();
+        userData['fondoEmergencia'] = _fondoEmergencia.toInt().toString();
+        userData['fondoAhorro'] = _fondoAhorro.toInt().toString();
+        userData['fondoRetiro'] = _fondoRetiro.toInt().toString();
+        userData['inversiones'] = _inversiones.toInt().toString();
+        userData['otrosAhorros'] = _otrosAhorros.toInt().toString();
       });
 
       showDialog(

@@ -327,7 +327,7 @@ const getUsers = async (req, res) => {
   const putIngresos = async (req, res) => {
     const { id } = req.params;
   
-    const { salario, inversionesPesos, inversionesUsd,alquileresInmobiliarios,dividendos,pensiones,otrosIngresos,totalIngresos} =
+    const { salario, inversionesPesos, inversionesUsd,alquileresInmobiliarios,dividendos,pensiones,otrosIngresos,fondoEmergencia, fondoAhorro, fondoRetiro, inversiones, otrosAhorros} =
       req.body;
   
     userSchema
@@ -342,7 +342,11 @@ const getUsers = async (req, res) => {
             dividendos,
             pensiones,
             otrosIngresos,
-            totalIngresos
+            fondoEmergencia,
+            fondoAhorro,
+            fondoRetiro,
+            inversiones,
+            otrosAhorros
           },
         }
       )

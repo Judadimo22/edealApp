@@ -47,7 +47,7 @@ class FirstPageState extends State<FirstPage> {
                 Container(
                   margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.02, left: MediaQuery.of(context).size.height * 0.045, right: MediaQuery.of(context).size.height * 0.045, ),
                   child: Text(
-                    'Get Started',
+                    'Bienvenido',
                     style: GoogleFonts.poppins(
                       color: const Color(0xFF444C52),
                       fontSize: MediaQuery.of(context).size.height * 0.035,
@@ -60,7 +60,7 @@ class FirstPageState extends State<FirstPage> {
                 Container(
                   margin: EdgeInsets.only(top:MediaQuery.of(context).size.height * 0.030, left:MediaQuery.of(context).size.height * 0.045, right:MediaQuery.of(context).size.height * 0.045),
                   child: Text(
-                    'Reference site about Lorem Ipsum,\ninformation on its origins, as well as\nrandom Lipsum generator.',
+                    'Conoce la herramienta tecnológica al servicio de tus finanzas. ',
                     style: GoogleFonts.poppins(
                       color: const Color(0xFF817F7F),
                       fontSize: MediaQuery.of(context).size.height * 0.021,
@@ -94,7 +94,7 @@ class FirstPageState extends State<FirstPage> {
                               EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.065),
                           ),
                         ),
-                        child: const Text('Start now'),
+                        child: const Text('Iniciemos'),
                       )
                   ),
                 )
