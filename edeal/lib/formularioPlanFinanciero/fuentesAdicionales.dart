@@ -14,6 +14,8 @@ import 'package:edeal/widgets/subtitulo.dart';
 import 'package:edeal/widgets/seleccion.dart';
 import 'package:edeal/widgets/sliderMeses.dart';
 import 'package:edeal/widgets/input.dart';
+import 'package:edeal/widgets/enumeracion.dart';
+import 'package:edeal/widgets/seleccionMultiple.dart';
 
 class FuentesAdicionales extends StatefulWidget {
   final String token;
@@ -45,6 +47,14 @@ class _FuentesAdicionalesState extends State<FuentesAdicionales> {
   String _seguroMedico = 'Seguro medico';
   String _seguroIncapacidad = 'Seguro de incapacidad';
   String _heredarPatrimonio = 'Heredar mi patrimonio';
+
+  final List<String> options = [
+    'Cuenta en USD',
+    'Plan de ahorro en USD',
+    'Tarjeta de credito en USD',
+    'Otros',
+  ];
+
 
   double _opcionTrabajarMas = 1;
   double _opcionAhorrarMas = 1;
@@ -275,7 +285,7 @@ class _FuentesAdicionalesState extends State<FuentesAdicionales> {
             Container(
               margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.020, bottom: MediaQuery.of(context).size.height * 0.035 ),
               child:Text(
-                '5/5',
+                '6/6',
                 style: GoogleFonts.inter(
                   color: const Color(0xFF444C52),
                   fontSize: MediaQuery.of(context).size.height * 0.015,
@@ -318,7 +328,7 @@ class _FuentesAdicionalesState extends State<FuentesAdicionales> {
               fontSize: MediaQuery.of(context).size.height * 0.016, 
               fontWeight: FontWeight.w500
               ),
-            CustomSliderWidget(
+            Enumeracion(
               value: _opcionTrabajarMas, 
               min: 1, 
               max: 3, 
@@ -334,7 +344,7 @@ class _FuentesAdicionalesState extends State<FuentesAdicionales> {
               fontSize: MediaQuery.of(context).size.height * 0.016, 
               fontWeight: FontWeight.w500
               ),
-            CustomSliderWidget(
+            Enumeracion(
               value: _opcionAhorrarMas, 
               min: 1, 
               max: 3, 
@@ -350,7 +360,7 @@ class _FuentesAdicionalesState extends State<FuentesAdicionales> {
               fontSize: MediaQuery.of(context).size.height * 0.016, 
               fontWeight: FontWeight.w500
               ),
-            CustomSliderWidget(
+            Enumeracion(
               value: _opcionGastarMenos, 
               min: 1, 
               max: 3, 
@@ -445,21 +455,17 @@ class _FuentesAdicionalesState extends State<FuentesAdicionales> {
               ),
                   ),
               CustomTextWidget(
-              text: 'Producto financiero que me gustaría tener', 
+              text: 'Productos financieros que me gustaría tener', 
               fontSize: MediaQuery.of(context).size.height * 0.016, 
               fontWeight: FontWeight.w500
               ),
-              CustomDropdownWidget(
-              value: _productosGustaria, 
-              onChanged: updateProductosGustaria, 
-              items: const [
-                'Productos que me gustaria tener',
-                'Cuenta en USD',
-                'Plan de ahorro en USD',
-                'Tarjeta de credito en USD',
-                'Otros'
-                ]
-              ),
+              MultiSelectWidget(
+                options: options, 
+                selectedOptions: [], 
+                onChanged: (selectedOptions){
+                  print(selectedOptions);
+                }
+                ),
             Container(
                     margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.040 ),
                     child: Column(
