@@ -60,9 +60,9 @@ class _HomeState extends State<Home> {
     child: Column(children: [
                   Center(
                     child: Container(
-                    margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.020, top: MediaQuery.of(context).size.height * 0.060),
+                    margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.020, top: MediaQuery.of(context).size.height * 0.030),
                     width: 200,
-                    child:Image.asset('assets/logo_base.png'), 
+                    child:Image.asset('assets/logoEdealAzul.png'), 
                   ),
                   ),
                 Center(
@@ -83,34 +83,38 @@ class _HomeState extends State<Home> {
 Container(
   margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.010, vertical: MediaQuery.of(context).size.height * 0.030),
   
-  child: Row(
+  child: Column(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
-      Expanded(
-        child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 2),
-          child: ElevatedButton(
-          style: ButtonStyle(
-            backgroundColor:
-            MaterialStateProperty.all<Color>(const Color(0xFF0C67B0)),
-            ),
-            onPressed: () => {
+        GestureDetector(
+          onTap: () => {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => InformacionPersonal(token: widget.token)),
             )
             },
-            child: Text(
-              'Planeación',
-              style:  TextStyle(
-                fontSize: 10
+          child: Container(
+          padding: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.010, right: MediaQuery.of(context).size.height * 0.030, top:MediaQuery.of(context).size.height * 0.030, bottom: MediaQuery.of(context).size.height * 0.030 ),
+          margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.010, right: MediaQuery.of(context).size.height * 0.030),
+          color: Colors.red,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                margin: EdgeInsets.symmetric(horizontal:MediaQuery.of(context).size.height * 0.050 ),
+                child: CircleAvatar(
+                  child: Icon(Icons.place_outlined),
+                ),
               ),
-              ),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal:MediaQuery.of(context).size.height * 0.050 ), 
+                child: Text('Planeación'),
+              )
+            ],
           ),
         ),
-      ),
-      Expanded(
-        child: Container(
+        ),
+ Container(
           margin: EdgeInsets.symmetric(horizontal: 2),
           child: ElevatedButton(
           style: ButtonStyle(
@@ -126,9 +130,7 @@ Container(
             child: Text('Ahorro'),
           ),
         ),
-      ),
-      Expanded(
-        child: Container(
+ Container(
         margin: EdgeInsets.symmetric(horizontal: 2),
           child: ElevatedButton(
             style: ButtonStyle(
@@ -144,9 +146,7 @@ Container(
             child: Text('Crédito'),
           ),
         ),
-      ),
-            Expanded(
-        child: Container(
+             Container(
         margin: EdgeInsets.symmetric(horizontal: 2),
           child: ElevatedButton(
             style: ButtonStyle(
@@ -167,7 +167,6 @@ Container(
               ),
           ),
         ),
-      ),
     ],
   ),
 ),

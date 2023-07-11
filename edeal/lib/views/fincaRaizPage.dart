@@ -17,6 +17,8 @@ import 'package:edeal/widgets/sliderMeses.dart';
 import 'package:edeal/widgets/input.dart';
 import 'package:edeal/widgets/grafico.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:edeal/widgets/sliderUsd.dart';
+import 'dart:math';
 
 
 class FincaRaizScreen extends StatefulWidget {
@@ -49,6 +51,8 @@ class FincaRaizScreenState extends State<FincaRaizScreen> {
 
   double _precioPropiedad = 100000;
   double _montoInvertir = 1000;
+  
+
 
 
   bool _showTextField = false;
@@ -201,6 +205,12 @@ class FincaRaizScreenState extends State<FincaRaizScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double _montoAno1 = ((_montoInvertir*0.06) + (_montoInvertir));
+    double _montoAno2 = ((_montoAno1) + (_montoInvertir*0.06));
+    double _valorVenta = _montoInvertir * pow(1 + 0.06, 3);
+    double _ingresoVenta = ((_valorVenta) - (_montoInvertir));
+    double _montoAno3 = ((_montoAno2) + (_montoAno2*0.06) + (_ingresoVenta) );
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -279,7 +289,7 @@ class FincaRaizScreenState extends State<FincaRaizScreen> {
               fontSize: MediaQuery.of(context).size.height * 0.016, 
               fontWeight: FontWeight.w500
               ),
-            CustomSliderWidget(
+            SliderUsd(
               value: _precioPropiedad, 
               min: 100000, 
               max: 10000000, 
@@ -387,7 +397,7 @@ class FincaRaizScreenState extends State<FincaRaizScreen> {
               fontSize: MediaQuery.of(context).size.height * 0.016, 
               fontWeight: FontWeight.w500
               ), 
-          CustomSliderWidget(
+          SliderUsd(
               value: _montoInvertir, 
               min: 1000, 
               max: 10000000, 
@@ -451,10 +461,520 @@ class FincaRaizScreenState extends State<FincaRaizScreen> {
                     ),
                   ),
                 Container(
-              height: 400, // Altura fija para el gráfico de barras
+              height: 400, 
               padding: EdgeInsets.all(16),
               child: BarChartWidget(getChartData(_montoInvertir), animate: animate, montoInvertir: _montoInvertir,),
             ),
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.010),
+              child: Table(
+  children: [
+    TableRow(
+      children: [
+        TableCell(
+          child: Container(
+            padding: EdgeInsets.all(8),
+            color: Color(0xFF0C67B0),
+            child: Text(
+                              '.', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.013,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01,
+                                color: Color(0xFF0C67B0)
+                              ),                   
+                            ),
+          ),
+        ),
+        TableCell(
+          child: Container(
+            padding: EdgeInsets.all(8),
+            color: Color(0xFF0C67B0),
+            child: Text(
+                              'Inicial', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.013,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01,
+                                color: Colors.white
+                              ),                   
+                            ),
+          ),
+        ),
+        TableCell(
+          child: Container(
+            padding: EdgeInsets.all(8),
+            color: Color(0xFF0C67B0),
+            child: Text(
+                              'Año 1', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.013,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01,
+                                color: Colors.white
+                              ),                   
+                            ),
+          ),
+        ),
+        TableCell(
+          child: Container(
+            padding: EdgeInsets.all(8),
+            color: Color(0xFF0C67B0),
+            child: Text(
+                              'Año 2', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.013,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01,
+                                color: Colors.white
+                              ),                   
+                            ),
+          ),
+        ),
+        TableCell(
+          child: Container(
+            padding: EdgeInsets.all(8),
+            color: Color(0xFF0C67B0),
+            child: Text(
+                              'Año 3', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.013,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01,
+                                color: Colors.white
+                              ),                   
+                            ),
+          ),
+        ),
+      ],
+    ),
+    TableRow(
+      children: [
+        TableCell(
+          child: Container(
+            padding: EdgeInsets.all(8),
+            color: Color(0xFF0C67B0),
+            child: Text(
+                              'Balance', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.013,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01,
+                                color: Colors.white
+                              ),                   
+                            ),
+          ),
+        ),
+        TableCell(
+          child: Container(
+            padding: EdgeInsets.all(8),
+            color: Color(0xFF0C67B0),
+            child:Text(
+                              '${_montoInvertir.toInt()} USD', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.013,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01,
+                                color: Colors.white
+                              ),                   
+                            ),
+          ),
+        ),
+        TableCell(
+          child: Container(
+            padding: EdgeInsets.all(8),
+            color: Color(0xFF0C67B0),
+            child: Text(
+                              '${_montoAno1.toInt()} USD', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.013,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01,
+                                color: Colors.white
+                              ),                   
+                            ),
+          ),
+        ),
+        TableCell(
+          child: Container(
+            padding: EdgeInsets.all(8),
+            color: Color(0xFF0C67B0),
+            child: Text(
+                              '${_montoAno2.toInt()} USD', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.013,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01,
+                                color: Colors.white
+                              ),                   
+                            ),
+          ),
+        ),
+        TableCell(
+          child: Container(
+            padding: EdgeInsets.all(8),
+            color: Color(0xFF0C67B0),
+            child: Text(
+                              '${_montoAno3.toInt()} USD', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.013,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01,
+                                color: Colors.white
+                              ),                   
+                            ),
+          ),
+        ),
+      ],
+    ),
+    TableRow(
+      children: [
+        TableCell(
+          child: Container(
+            padding: EdgeInsets.all(8),
+            color: Color(0xFF0C67B0),
+            child: Text(
+                              'Ingreso', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.013,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01,
+                                color: Colors.white
+                              ),                   
+                            ),
+          ),
+        ),
+        TableCell(
+          child: Container(
+            padding: EdgeInsets.all(8),
+            color: Color(0xFF0C67B0),
+            child: Text(
+                              '.', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.013,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01,
+                                color: Color(0xFF0C67B0),
+                              ),                   
+                            ),
+          ),
+        ),
+        TableCell(
+          child: Container(
+            padding: EdgeInsets.all(8),
+            color: Color(0xFF0C67B0),
+            child: Text(
+                              '${(_montoInvertir*0.06).toInt()} USD', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.013,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01,
+                                color: Colors.white,
+                              ),                   
+                            ),
+          ),
+        ),
+        TableCell(
+          child: Container(
+            padding: EdgeInsets.all(8),
+            color: Color(0xFF0C67B0),
+            child: Text(
+                              '${(_montoAno1*0.06).toInt()} USD', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.013,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01,
+                                color: Colors.white,
+                              ),                   
+                            ),
+          ),
+        ),
+        TableCell(
+          child: Container(
+            padding: EdgeInsets.all(8),
+            color: Color(0xFF0C67B0),
+            child: Text(
+                              '${(_montoAno2*0.06).toInt()} USD', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.013,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01,
+                                color: Colors.white,
+                              ),                   
+                            ),
+          ),
+        ),
+      ],
+    ),
+    TableRow(
+      children: [
+        TableCell(
+          child: Container(
+            padding: EdgeInsets.all(8),
+            color: Color(0xFF0C67B0),
+            child: Text(
+                              'Venta', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.013,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01,
+                                color: Colors.white,
+                              ),                   
+                            ),
+          ),
+        ),
+        TableCell(
+          child: Container(
+            padding: EdgeInsets.all(8),
+            color: Color(0xFF0C67B0),
+            child: Text(
+                              '.', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.013,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01,
+                                color: Color(0xFF0C67B0),
+                              ),                   
+                            ),
+          ),
+        ),
+        TableCell(
+          child: Container(
+            padding: EdgeInsets.all(8),
+            color: Color(0xFF0C67B0),
+            child: Text(
+                              '.', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.013,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01,
+                                color: Color(0xFF0C67B0),
+                              ),                   
+                            ),
+          ),
+        ),
+        TableCell(
+          child: Container(
+            padding: EdgeInsets.all(8),
+            color: Color(0xFF0C67B0),
+            child: Text(
+                              '.', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.013,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01,
+                                color: Color(0xFF0C67B0),
+                              ),                   
+                            ),
+          ),
+        ),
+        TableCell(
+          child: Container(
+            padding: EdgeInsets.all(8),
+            color: Color(0xFF0C67B0),
+            child: Text(
+                              '${_valorVenta.toInt()} USD', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.013,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01,
+                                color: Colors.white,
+                              ),                   
+                            ),
+          ),
+        ),
+      ],
+    ),
+  ],
+)
+            ),
+
+
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.010, vertical: MediaQuery.of(context).size.height * 0.020),
+              child: Table(
+  children: [
+    TableRow(
+      children: [
+        TableCell(
+          child: Container(
+            padding: EdgeInsets.all(8),
+            color: Color(0xFF0C67B0),
+            child: Text(
+                              'Valor final', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.013,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01,
+                                color: Colors.white
+                              ),                   
+                            ),
+          ),
+        ),
+        TableCell(
+          child: Container(
+            padding: EdgeInsets.all(8),
+            color: Color(0xFF0C67B0),
+            child: Text(
+                              '${_montoAno3.toInt()} USD', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.013,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01,
+                                color: Colors.white
+                              ),                   
+                            ),
+          ),
+        ),
+        
+      ],
+    ),
+    TableRow(
+      children: [
+        TableCell(
+          child: Container(
+            padding: EdgeInsets.all(8),
+            color: Color(0xFF0C67B0),
+            child: Text(
+                              'Ganancia', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.013,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01,
+                                color: Colors.white
+                              ),                   
+                            ),
+          ),
+        ),
+        TableCell(
+          child: Container(
+            padding: EdgeInsets.all(8),
+            color: Color(0xFF0C67B0),
+            child: Text(
+                              '${((_montoAno3) - (_montoInvertir)).toInt()} USD', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.013,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01,
+                                color: Colors.white,
+                              ),                   
+                            ),
+          ),
+        ),
+      
+      ],
+    ),
+  
+  ],
+)
+            ),
+
+      Container(
+              margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.010,),
+              child: Table(
+  children: [
+    TableRow(
+      children: [
+        TableCell(
+          child: Container(
+            padding: EdgeInsets.all(8),
+            color: Color(0xFF0C67B0),
+            child: Text(
+                              'Rentabilidad neta', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.013,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01,
+                                color: Colors.white
+                              ),                   
+                            ),
+          ),
+        ),
+        TableCell(
+          child: Container(
+            padding: EdgeInsets.all(8),
+            color: Color(0xFF0C67B0),
+            child: Text(
+                              '${(((_montoAno3 - _montoInvertir) / _montoInvertir) * 100).toStringAsFixed(2)}%', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.013,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01,
+                                color: Colors.white
+                              ),                   
+                            ),
+          ),
+        ),
+        
+      ],
+    ),
+    TableRow(
+      children: [
+        TableCell(
+          child: Container(
+            padding: EdgeInsets.all(8),
+            color: Color(0xFF0C67B0),
+            child: Text(
+                              'Rentabilidad promedio anual', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.013,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01,
+                                color: Colors.white
+                              ),                   
+                            ),
+          ),
+        ),
+        TableCell(
+          child: Container(
+            padding: EdgeInsets.all(8),
+            color: Color(0xFF0C67B0),
+            child: Text(
+                              '${((((_montoAno3 - _montoInvertir) / _montoInvertir)) / 4 * 100).toStringAsFixed(2)}%', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.013,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01,
+                                color: Colors.white,
+                              ),                   
+                            ),
+          ),
+        ),
+      
+      ],
+    ),
+  
+  ],
+)
+            )
             ],
           ),
         

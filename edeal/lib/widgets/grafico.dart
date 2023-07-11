@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
+import 'dart:math';
 
 class SalesData {
   final String year;
@@ -11,10 +12,12 @@ class SalesData {
 List<charts.Series<SalesData, String>> getChartData(double montoInvertir) {
   final List<SalesData> chartData = [
     SalesData('Hoy', montoInvertir.toInt()),
-    SalesData('Año 1', 0),
-    SalesData('Año 2', 0),
-    SalesData('Año 3', 0),
+    SalesData('Año 1', ((montoInvertir*0.06)+ montoInvertir).toInt()),
+    SalesData('Año 2', (((montoInvertir*0.06)+ montoInvertir) + montoInvertir*0.06).toInt()),
+    SalesData('Año 3', (((montoInvertir*0.06)+ montoInvertir) + montoInvertir*0.06 ).toInt()),
   ];
+
+ 
 
   return [
     charts.Series<SalesData, String>(
