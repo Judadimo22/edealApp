@@ -454,7 +454,7 @@ class _InformacionPersonalState extends State<InformacionPersonal> {
             Container(
               margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.080, bottom: MediaQuery.of(context).size.height * 0.030 ),
               child:Text(
-                '1/5',
+                '1/6',
                 style: GoogleFonts.inter(
                   color: const Color(0xFF444C52),
                   fontSize: MediaQuery.of(context).size.height * 0.015,

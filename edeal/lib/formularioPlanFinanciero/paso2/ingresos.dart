@@ -185,7 +185,7 @@ class _IngresosState extends State<Ingresos> {
             Container(
               margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.040, bottom: MediaQuery.of(context).size.height * 0.035 ),
               child:Text(
-                '2/5',
+                '2/6',
                 style: GoogleFonts.inter(
                   color: const Color(0xFF444C52),
                   fontSize: MediaQuery.of(context).size.height * 0.015,
@@ -234,7 +234,7 @@ class _IngresosState extends State<Ingresos> {
                          child: Column(
                            children: [
                                Text(
-                              NumberFormat('#,###,###').format(_salario),
+                              '${NumberFormat('#,###,###').format(_salario)}  COP',
                                style: const TextStyle(fontSize: 12),
                              ),
                           SliderTheme(
@@ -262,6 +262,33 @@ class _IngresosState extends State<Ingresos> {
                         },
                        ),
                        ),
+                       Container(
+                        margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.020 ),
+                        child: Row(
+                          children: [Expanded(
+                              child: Text(
+                              '0', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                              ),
+                              Text(
+                              '20,000,000', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+         
+                          ],
+                        ),
+                       )
                        ],
                       ),
                       ),
@@ -286,7 +313,7 @@ class _IngresosState extends State<Ingresos> {
                          child: Column(
                            children: [
                                Text(
-                              NumberFormat('#,###,###').format(_inversionesPesos),
+                              '${NumberFormat('#,###,###').format(_inversionesPesos)}  COP',
                                style: const TextStyle(fontSize: 12),
                              ),
                           SliderTheme(
@@ -314,6 +341,33 @@ class _IngresosState extends State<Ingresos> {
                         },
                        ),
                        ),
+                       Container(
+                        margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.020 ),
+                        child: Row(
+                          children: [Expanded(
+                              child: Text(
+                              '0', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                              ),
+                              Text(
+                              '20,000,000', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+         
+                          ],
+                        ),
+                       )
                        ],
                       ),
                       ),
@@ -345,7 +399,7 @@ class _IngresosState extends State<Ingresos> {
                          child: Column(
                            children: [
                                Text(
-                              NumberFormat('#,###,###').format(_inversionesUsd),
+                              '${NumberFormat('#,###,###').format(_inversionesUsd)}  USD',
                                style: const TextStyle(fontSize: 12),
                              ),
                           SliderTheme(
@@ -373,6 +427,33 @@ class _IngresosState extends State<Ingresos> {
                         },
                        ),
                        ),
+                      Container(
+                        margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.020 ),
+                        child: Row(
+                          children: [Expanded(
+                              child: Text(
+                              '0', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                              ),
+                              Text(
+                              '100,000', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+         
+                          ],
+                        ),
+                       )
                        ],
                       ),
                       ),
@@ -405,7 +486,7 @@ class _IngresosState extends State<Ingresos> {
                          child: Column(
                            children: [
                                Text(
-                              NumberFormat('#,###,###').format(_alquileresInmobiliarios),
+                              '${NumberFormat('#,###,###').format(_alquileresInmobiliarios)}  COP',
                                style: const TextStyle(fontSize: 12),
                              ),
                           SliderTheme(
@@ -433,6 +514,33 @@ class _IngresosState extends State<Ingresos> {
                         },
                        ),
                        ),
+                    Container(
+                        margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.020 ),
+                        child: Row(
+                          children: [Expanded(
+                              child: Text(
+                              '0', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                              ),
+                              Text(
+                              '20,000,000', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+         
+                          ],
+                        ),
+                       )
                        ],
                       ),
                       ),
@@ -464,7 +572,7 @@ class _IngresosState extends State<Ingresos> {
                          child: Column(
                            children: [
                                Text(
-                              NumberFormat('#,###,###').format(_dividendos),
+                              '${NumberFormat('#,###,###').format(_dividendos)}  COP',
                                style: const TextStyle(fontSize: 12),
                              ),
                           SliderTheme(
@@ -492,6 +600,33 @@ class _IngresosState extends State<Ingresos> {
                         },
                        ),
                        ),
+                      Container(
+                        margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.020 ),
+                        child: Row(
+                          children: [Expanded(
+                              child: Text(
+                              '0', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                              ),
+                              Text(
+                              '20,000,000', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+         
+                          ],
+                        ),
+                       )
                        ],
                       ),
                       ),
@@ -523,7 +658,7 @@ class _IngresosState extends State<Ingresos> {
                          child: Column(
                            children: [
                                Text(
-                              NumberFormat('#,###,###').format(_pensiones),
+                              '${NumberFormat('#,###,###').format(_pensiones)}  COP',
                                style: const TextStyle(fontSize: 12),
                              ),
                           SliderTheme(
@@ -551,6 +686,33 @@ class _IngresosState extends State<Ingresos> {
                         },
                        ),
                        ),
+                      Container(
+                        margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.020 ),
+                        child: Row(
+                          children: [Expanded(
+                              child: Text(
+                              '0', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                              ),
+                              Text(
+                              '20,000,000', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+         
+                          ],
+                        ),
+                       )
                        ],
                       ),
                       ),
@@ -582,7 +744,7 @@ class _IngresosState extends State<Ingresos> {
                          child: Column(
                            children: [
                                Text(
-                              NumberFormat('#,###,###').format(_otrosIngresos),
+                              '${NumberFormat('#,###,###').format(_otrosIngresos)}  COP',
                                style: const TextStyle(fontSize: 12),
                              ),
                           SliderTheme(
@@ -610,6 +772,33 @@ class _IngresosState extends State<Ingresos> {
                         },
                        ),
                        ),
+                      Container(
+                        margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.020 ),
+                        child: Row(
+                          children: [Expanded(
+                              child: Text(
+                              '0', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                              ),
+                              Text(
+                              '20,000,000', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+         
+                          ],
+                        ),
+                       )
                        ],
                       ),
                       ),
@@ -681,7 +870,7 @@ class _IngresosState extends State<Ingresos> {
                          child: Column(
                            children: [
                                Text(
-                              NumberFormat('#,###,###').format(_fondoEmergencia),
+                              '${NumberFormat('#,###,###').format(_fondoEmergencia)}  COP',
                                style: const TextStyle(fontSize: 12),
                              ),
                           SliderTheme(
@@ -709,6 +898,33 @@ class _IngresosState extends State<Ingresos> {
                         },
                        ),
                        ),
+                      Container(
+                        margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.020 ),
+                        child: Row(
+                          children: [Expanded(
+                              child: Text(
+                              '0', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                              ),
+                              Text(
+                              '20,000,000', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+         
+                          ],
+                        ),
+                       )
                        ],
                       ),
                       ),
@@ -740,7 +956,7 @@ class _IngresosState extends State<Ingresos> {
                          child: Column(
                            children: [
                                Text(
-                              NumberFormat('#,###,###').format(_fondoAhorro),
+                              '${NumberFormat('#,###,###').format(_fondoAhorro)}  COP',
                                style: const TextStyle(fontSize: 12),
                              ),
                           SliderTheme(
@@ -768,6 +984,33 @@ class _IngresosState extends State<Ingresos> {
                         },
                        ),
                        ),
+                      Container(
+                        margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.020 ),
+                        child: Row(
+                          children: [Expanded(
+                              child: Text(
+                              '0', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                              ),
+                              Text(
+                              '20,000,000', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+         
+                          ],
+                        ),
+                       )
                        ],
                       ),
                       ),
@@ -799,7 +1042,7 @@ class _IngresosState extends State<Ingresos> {
                          child: Column(
                            children: [
                                Text(
-                              NumberFormat('#,###,###').format(_fondoRetiro),
+                              '${NumberFormat('#,###,###').format(_fondoRetiro)}  COP',
                                style: const TextStyle(fontSize: 12),
                              ),
                           SliderTheme(
@@ -827,6 +1070,33 @@ class _IngresosState extends State<Ingresos> {
                         },
                        ),
                        ),
+                      Container(
+                        margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.020 ),
+                        child: Row(
+                          children: [Expanded(
+                              child: Text(
+                              '0', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                              ),
+                              Text(
+                              '20,000,000', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+         
+                          ],
+                        ),
+                       )
                        ],
                       ),
                       ),
@@ -858,7 +1128,7 @@ class _IngresosState extends State<Ingresos> {
                          child: Column(
                            children: [
                                Text(
-                              NumberFormat('#,###,###').format(_inversiones),
+                              '${NumberFormat('#,###,###').format(_inversiones)}  COP',
                                style: const TextStyle(fontSize: 12),
                              ),
                           SliderTheme(
@@ -886,6 +1156,33 @@ class _IngresosState extends State<Ingresos> {
                         },
                        ),
                        ),
+                      Container(
+                        margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.020 ),
+                        child: Row(
+                          children: [Expanded(
+                              child: Text(
+                              '0', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                              ),
+                              Text(
+                              '20,000,000', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+         
+                          ],
+                        ),
+                       )
                        ],
                       ),
                       ),
@@ -917,7 +1214,7 @@ class _IngresosState extends State<Ingresos> {
                          child: Column(
                            children: [
                                Text(
-                              NumberFormat('#,###,###').format(_otrosAhorros),
+                              '${NumberFormat('#,###,###').format(_otrosAhorros)}  COP',
                                style: const TextStyle(fontSize: 12),
                              ),
                           SliderTheme(
@@ -945,6 +1242,33 @@ class _IngresosState extends State<Ingresos> {
                         },
                        ),
                        ),
+                      Container(
+                        margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.020 ),
+                        child: Row(
+                          children: [Expanded(
+                              child: Text(
+                              '0', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                              ),
+                              Text(
+                              '20,000,000', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+         
+                          ],
+                        ),
+                       )
                        ],
                       ),
                       ),
