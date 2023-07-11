@@ -13,6 +13,8 @@ import 'package:edeal/widgets/subtitulo.dart';
 import 'package:edeal/widgets/seleccion.dart';
 import 'package:edeal/widgets/sliderMeses.dart';
 import 'package:edeal/widgets/input.dart';
+import 'package:edeal/widgets/enumeracion.dart';
+import 'package:edeal/widgets/seleccionMultiple.dart';
 
 class PerfilRiesgo extends StatefulWidget {
   final String token;
@@ -50,6 +52,13 @@ class _PerfilRiesgoState extends State<PerfilRiesgo> {
   String _prioridadFinanciera = 'Como aumentar mi patrimonio';
   String _iniciarRetiros = 'Corto plazo (menos de 2 años)';
   String _continuarRetiros = 'Corto plazo (menos de 2 años)';
+
+  final List<String> options = [
+    'CDT',
+    'Bonos',
+    'Acciones',
+    'Inmueble',
+  ];
 
 
   @override
@@ -252,7 +261,7 @@ class _PerfilRiesgoState extends State<PerfilRiesgo> {
             Container(
               margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.020, bottom: MediaQuery.of(context).size.height * 0.035 ),
               child:Text(
-                '4/5',
+                '5/6',
                 style: GoogleFonts.inter(
                   color: const Color(0xFF444C52),
                   fontSize: MediaQuery.of(context).size.height * 0.015,
@@ -297,17 +306,13 @@ class _PerfilRiesgoState extends State<PerfilRiesgo> {
               fontSize: MediaQuery.of(context).size.height * 0.016, 
               fontWeight: FontWeight.w500
               ),
-            CustomDropdownWidget(
-              value: _poseo, 
-              onChanged: updatePoseo, 
-              items: const [
-                'He invertido o poseo algun activo',
-                'CDT',
-                'Bonos',
-                'Acciones',
-                'Inmueble'
-              ]
-              ),
+              MultiSelectWidget(
+                options: options, 
+                selectedOptions: [], 
+                onChanged: (selectedOptions){
+                  print(selectedOptions);
+                }
+                ),
             Container(
               margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.040, left: MediaQuery.of(context).size.height * 0.050, right: MediaQuery.of(context).size.height * 0.050 ),
               child: Text(
@@ -326,7 +331,7 @@ class _PerfilRiesgoState extends State<PerfilRiesgo> {
               fontSize: MediaQuery.of(context).size.height * 0.016, 
               fontWeight: FontWeight.w500
               ),
-            CustomSliderWidget(
+            Enumeracion(
               value: _importanciaArriesgarCapital, 
               min: 1, 
               max: 4, 
@@ -342,7 +347,7 @@ class _PerfilRiesgoState extends State<PerfilRiesgo> {
               fontSize: MediaQuery.of(context).size.height * 0.016, 
               fontWeight: FontWeight.w500
               ),
-            CustomSliderWidget(
+            Enumeracion(
               value: _importanciaGenerarIngresos, 
               min: 1, 
               max: 4, 
@@ -358,7 +363,7 @@ class _PerfilRiesgoState extends State<PerfilRiesgo> {
               fontSize: MediaQuery.of(context).size.height * 0.016, 
               fontWeight: FontWeight.w500
               ),
-            CustomSliderWidget(
+            Enumeracion(
               value: _importanciaIncrementarPatrimonio, 
               min: 1, 
               max: 4, 
@@ -374,7 +379,7 @@ class _PerfilRiesgoState extends State<PerfilRiesgo> {
               fontSize: MediaQuery.of(context).size.height * 0.016, 
               fontWeight: FontWeight.w500
               ),
-            CustomSliderWidget(
+            Enumeracion(
               value: _importanciaProtegerPatrimonio, 
               min: 1, 
               max: 4, 
