@@ -486,7 +486,34 @@ class _MetasFinancierasState extends State<MetasFinancieras> {
                               _valorVacaciones = value;
                             });
                           },
-                          )
+                          ),
+                        Container(
+                        margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.050, right: MediaQuery.of(context).size.height * 0.045, bottom: MediaQuery.of(context).size.height * 0.020   ),
+                        child: Row(
+                          children: [Expanded(
+                              child: Text(
+                              '0', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                              ),
+                              Text(
+                              '20,000,000', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+         
+                          ],
+                        ),
+                       )
                       ],
                     )
                   ),
@@ -562,6 +589,33 @@ class _MetasFinancierasState extends State<MetasFinancieras> {
                       _valorAutomovil = value;
                     });
                 }),
+                Container(
+                        margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.050, right: MediaQuery.of(context).size.height * 0.045, bottom: MediaQuery.of(context).size.height * 0.010   ),
+                        child: Row(
+                          children: [Expanded(
+                              child: Text(
+                              '0', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                              ),
+                              Text(
+                              '20,000,000', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+         
+                          ],
+                        ),
+                       ),
                 CustomTextWidget(
                   text: 'Importancia de la meta', 
                   fontSize: MediaQuery.of(context).size.height * 0.016 , 
@@ -628,6 +682,33 @@ class _MetasFinancierasState extends State<MetasFinancieras> {
                     });
                 }
                     ),
+                  Container(
+                        margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.050, right: MediaQuery.of(context).size.height * 0.045, bottom: MediaQuery.of(context).size.height * 0.010   ),
+                        child: Row(
+                          children: [Expanded(
+                              child: Text(
+                              '0', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                              ),
+                              Text(
+                              '20,000,000', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+         
+                          ],
+                        ),
+                       ),
                   CustomTextWidget(
                     text: 'Importancia de la meta', 
                     fontSize: MediaQuery.of(context).size.height * 0.016, 
@@ -693,6 +774,33 @@ class _MetasFinancierasState extends State<MetasFinancieras> {
                     });
                 } 
                     ),
+                  Container(
+                        margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.050, right: MediaQuery.of(context).size.height * 0.045, bottom: MediaQuery.of(context).size.height * 0.010   ),
+                        child: Row(
+                          children: [Expanded(
+                              child: Text(
+                              '0', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                              ),
+                              Text(
+                              '20,000,000', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+         
+                          ],
+                        ),
+                       ),
                   CustomTextWidget(
                     text: 'Importancia de la meta', 
                     fontSize: MediaQuery.of(context).size.height * 0.016, 
@@ -758,6 +866,33 @@ class _MetasFinancierasState extends State<MetasFinancieras> {
                     });
                 } 
                     ),
+                  Container(
+                        margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.050, right: MediaQuery.of(context).size.height * 0.045, bottom: MediaQuery.of(context).size.height * 0.010   ),
+                        child: Row(
+                          children: [Expanded(
+                              child: Text(
+                              '0', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                              ),
+                              Text(
+                              '20,000,000', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+         
+                          ],
+                        ),
+                       ),
                   CustomTextWidget(
                     text: 'Importancia de la meta', 
                     fontSize: MediaQuery.of(context).size.height * 0.016, 
@@ -824,6 +959,33 @@ class _MetasFinancierasState extends State<MetasFinancieras> {
                     });
                 } 
                   ),
+                Container(
+                        margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.050, right: MediaQuery.of(context).size.height * 0.045, bottom: MediaQuery.of(context).size.height * 0.010   ),
+                        child: Row(
+                          children: [Expanded(
+                              child: Text(
+                              '0', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                              ),
+                              Text(
+                              '20,000,000', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+         
+                          ],
+                        ),
+                       ),
                 CustomTextWidget(
                   text: 'Importancia de la meta', 
                   fontSize: MediaQuery.of(context).size.height * 0.016, 
@@ -889,6 +1051,33 @@ class _MetasFinancierasState extends State<MetasFinancieras> {
                     });
                 } 
                   ),
+                Container(
+                        margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.050, right: MediaQuery.of(context).size.height * 0.045, bottom: MediaQuery.of(context).size.height * 0.010   ),
+                        child: Row(
+                          children: [Expanded(
+                              child: Text(
+                              '0', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                              ),
+                              Text(
+                              '20,000,000', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+         
+                          ],
+                        ),
+                       ),
                 CustomTextWidget(
                   text: 'Importancia de la meta', 
                   fontSize: MediaQuery.of(context).size.height * 0.016, 
@@ -954,6 +1143,33 @@ class _MetasFinancierasState extends State<MetasFinancieras> {
                     });
                 } 
                   ),
+                Container(
+                        margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.050, right: MediaQuery.of(context).size.height * 0.045, bottom: MediaQuery.of(context).size.height * 0.010   ),
+                        child: Row(
+                          children: [Expanded(
+                              child: Text(
+                              '0', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                              ),
+                              Text(
+                              '20,000,000', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+         
+                          ],
+                        ),
+                       ),
                 CustomTextWidget(
                   text: 'Importancia de la meta', 
                   fontSize: MediaQuery.of(context).size.height * 0.016, 
@@ -1019,6 +1235,33 @@ class _MetasFinancierasState extends State<MetasFinancieras> {
                     });
                 } 
                   ),
+                Container(
+                        margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.050, right: MediaQuery.of(context).size.height * 0.045, bottom: MediaQuery.of(context).size.height * 0.010   ),
+                        child: Row(
+                          children: [Expanded(
+                              child: Text(
+                              '0', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                              ),
+                              Text(
+                              '20,000,000', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+         
+                          ],
+                        ),
+                       ),
                 CustomTextWidget(
                   text: 'Importancia de la meta', 
                   fontSize: MediaQuery.of(context).size.height * 0.016, 
@@ -1085,6 +1328,33 @@ class _MetasFinancierasState extends State<MetasFinancieras> {
                     });
                 } 
                   ),
+                Container(
+                        margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.050, right: MediaQuery.of(context).size.height * 0.045, bottom: MediaQuery.of(context).size.height * 0.010   ),
+                        child: Row(
+                          children: [Expanded(
+                              child: Text(
+                              '0', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                              ),
+                              Text(
+                              '20,000,000', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+         
+                          ],
+                        ),
+                       ),
                 CustomTextWidget(
                   text: 'Importancia de la meta', 
                   fontSize: MediaQuery.of(context).size.height * 0.016, 

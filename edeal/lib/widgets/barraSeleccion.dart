@@ -36,12 +36,11 @@ class _CustomSliderWidgetState extends State<CustomSliderWidget> {
       margin: EdgeInsets.only(
         left: MediaQuery.of(context).size.height * 0.035,
         right: MediaQuery.of(context).size.height * 0.035,
-        bottom: MediaQuery.of(context).size.height * 0.025,
       ),
       child: Column(
         children: [
           Text(
-            NumberFormat('#,###,###').format(_sliderValue),
+            '${NumberFormat('#,###,###').format(_sliderValue)}  COP',
             style: const TextStyle(fontSize: 12),
           ),
           SliderTheme(
