@@ -205,7 +205,7 @@ class _HogarState extends State<Hogar> {
             Container(
               margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.010, bottom: MediaQuery.of(context).size.height * 0.035 ),
               child:Text(
-                '3/5',
+                '3/6',
                 style: GoogleFonts.inter(
                   color: const Color(0xFF444C52),
                   fontSize: MediaQuery.of(context).size.height * 0.015,
@@ -254,7 +254,7 @@ class _HogarState extends State<Hogar> {
                          child: Column(
                            children: [
                                Text(
-                              NumberFormat('#,###,###').format(_alquiler),
+                              '${NumberFormat('#,###,###').format(_alquiler)}  COP',
                                style: const TextStyle(fontSize: 12),
                              ),
                           SliderTheme(
@@ -282,6 +282,33 @@ class _HogarState extends State<Hogar> {
                         },
                        ),
                        ),
+                      Container(
+                        margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.020 ),
+                        child: Row(
+                          children: [Expanded(
+                              child: Text(
+                              '0', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                              ),
+                              Text(
+                              '20,000,000', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+         
+                          ],
+                        ),
+                       )
                        ],
                       ),
                       ),
@@ -312,7 +339,7 @@ class _HogarState extends State<Hogar> {
                          child: Column(
                            children: [
                                Text(
-                              NumberFormat('#,###,###').format(_serviciosPublicos),
+                              '${NumberFormat('#,###,###').format(_serviciosPublicos)}  COP',
                                style: const TextStyle(fontSize: 12),
                              ),
                           SliderTheme(
@@ -340,6 +367,33 @@ class _HogarState extends State<Hogar> {
                         },
                        ),
                        ),
+                      Container(
+                        margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.020 ),
+                        child: Row(
+                          children: [Expanded(
+                              child: Text(
+                              '0', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                              ),
+                              Text(
+                              '20,000,000', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+         
+                          ],
+                        ),
+                       )
                        ],
                       ),
                       ),
@@ -372,7 +426,7 @@ class _HogarState extends State<Hogar> {
                          child: Column(
                            children: [
                                Text(
-                              NumberFormat('#,###,###').format(_mercado),
+                              '${NumberFormat('#,###,###').format(_mercado)}  COP',
                                style: const TextStyle(fontSize: 12),
                              ),
                           SliderTheme(
@@ -400,6 +454,33 @@ class _HogarState extends State<Hogar> {
                         },
                        ),
                        ),
+                      Container(
+                        margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.020 ),
+                        child: Row(
+                          children: [Expanded(
+                              child: Text(
+                              '0', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                              ),
+                              Text(
+                              '20,000,000', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+         
+                          ],
+                        ),
+                       )
                        ],
                       ),
                       ),
@@ -431,7 +512,7 @@ class _HogarState extends State<Hogar> {
                          child: Column(
                            children: [
                                Text(
-                              NumberFormat('#,###,###').format(_otrosGastosHogar),
+                              '${NumberFormat('#,###,###').format(_otrosGastosHogar)}  COP',
                                style: const TextStyle(fontSize: 12),
                              ),
                           SliderTheme(
@@ -459,6 +540,33 @@ class _HogarState extends State<Hogar> {
                         },
                        ),
                        ),
+                      Container(
+                        margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.020 ),
+                        child: Row(
+                          children: [Expanded(
+                              child: Text(
+                              '0', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                              ),
+                              Text(
+                              '20,000,000', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+         
+                          ],
+                        ),
+                       )
                        ],
                       ),
                       ),
@@ -530,7 +638,7 @@ class _HogarState extends State<Hogar> {
                          child: Column(
                            children: [
                                Text(
-                              NumberFormat('#,###,###').format(_gasolina),
+                              '${NumberFormat('#,###,###').format(_gasolina)}  COP',
                                style: const TextStyle(fontSize: 12),
                              ),
                           SliderTheme(
@@ -558,6 +666,33 @@ class _HogarState extends State<Hogar> {
                         },
                        ),
                        ),
+                      Container(
+                        margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.020 ),
+                        child: Row(
+                          children: [Expanded(
+                              child: Text(
+                              '0', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                              ),
+                              Text(
+                              '20,000,000', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+         
+                          ],
+                        ),
+                       )
                        ],
                       ),
                       ),
@@ -589,7 +724,7 @@ class _HogarState extends State<Hogar> {
                          child: Column(
                            children: [
                                Text(
-                              NumberFormat('#,###,###').format(_mantenimientoVehiculo),
+                              '${NumberFormat('#,###,###').format(_mantenimientoVehiculo)}  COP',
                                style: const TextStyle(fontSize: 12),
                              ),
                           SliderTheme(
@@ -617,6 +752,33 @@ class _HogarState extends State<Hogar> {
                         },
                        ),
                        ),
+                      Container(
+                        margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.020 ),
+                        child: Row(
+                          children: [Expanded(
+                              child: Text(
+                              '0', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                              ),
+                              Text(
+                              '20,000,000', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+         
+                          ],
+                        ),
+                       )
                        ],
                       ),
                       ),
@@ -648,7 +810,7 @@ class _HogarState extends State<Hogar> {
                          child: Column(
                            children: [
                                Text(
-                              NumberFormat('#,###,###').format(_transportePublico),
+                              '${NumberFormat('#,###,###').format(_transportePublico)}  COP',
                                style: const TextStyle(fontSize: 12),
                              ),
                           SliderTheme(
@@ -676,6 +838,33 @@ class _HogarState extends State<Hogar> {
                         },
                        ),
                        ),
+                      Container(
+                        margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.020 ),
+                        child: Row(
+                          children: [Expanded(
+                              child: Text(
+                              '0', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                              ),
+                              Text(
+                              '20,000,000', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+         
+                          ],
+                        ),
+                       )
                        ],
                       ),
                       ),
@@ -757,7 +946,7 @@ class _HogarState extends State<Hogar> {
                          child: Column(
                            children: [
                                Text(
-                              NumberFormat('#,###,###').format(_viajes),
+                              '${NumberFormat('#,###,###').format(_viajes)}  COP',
                                style: const TextStyle(fontSize: 12),
                              ),
                           SliderTheme(
@@ -785,6 +974,33 @@ class _HogarState extends State<Hogar> {
                         },
                        ),
                        ),
+                      Container(
+                        margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.020 ),
+                        child: Row(
+                          children: [Expanded(
+                              child: Text(
+                              '0', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                              ),
+                              Text(
+                              '20,000,000', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+         
+                          ],
+                        ),
+                       )
                        ],
                       ),
                       ),
@@ -816,7 +1032,7 @@ class _HogarState extends State<Hogar> {
                          child: Column(
                            children: [
                                Text(
-                              NumberFormat('#,###,###').format(_restaurantes),
+                              '${NumberFormat('#,###,###').format(_restaurantes)}  COP',
                                style: const TextStyle(fontSize: 12),
                              ),
                           SliderTheme(
@@ -844,6 +1060,33 @@ class _HogarState extends State<Hogar> {
                         },
                        ),
                        ),
+                      Container(
+                        margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.020 ),
+                        child: Row(
+                          children: [Expanded(
+                              child: Text(
+                              '0', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                              ),
+                              Text(
+                              '20,000,000', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+         
+                          ],
+                        ),
+                       )
                        ],
                       ),
                       ),
@@ -875,7 +1118,7 @@ class _HogarState extends State<Hogar> {
                          child: Column(
                            children: [
                                Text(
-                              NumberFormat('#,###,###').format(_eventosConciertos),
+                              '${NumberFormat('#,###,###').format(_eventosConciertos)} COP',
                                style: const TextStyle(fontSize: 12),
                              ),
                           SliderTheme(
@@ -903,6 +1146,33 @@ class _HogarState extends State<Hogar> {
                         },
                        ),
                        ),
+                      Container(
+                        margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.020 ),
+                        child: Row(
+                          children: [Expanded(
+                              child: Text(
+                              '0', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                              ),
+                              Text(
+                              '20,000,000', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+         
+                          ],
+                        ),
+                       )
                        ],
                       ),
                       ),
@@ -975,7 +1245,7 @@ class _HogarState extends State<Hogar> {
                          child: Column(
                            children: [
                                Text(
-                              NumberFormat('#,###,###').format(_cuotaCreditoVivienda),
+                              '${NumberFormat('#,###,###').format(_cuotaCreditoVivienda)}  COP',
                                style: const TextStyle(fontSize: 12),
                              ),
                           SliderTheme(
@@ -1003,6 +1273,33 @@ class _HogarState extends State<Hogar> {
                         },
                        ),
                        ),
+                      Container(
+                        margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.020 ),
+                        child: Row(
+                          children: [Expanded(
+                              child: Text(
+                              '0', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                              ),
+                              Text(
+                              '20,000,000', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+         
+                          ],
+                        ),
+                       )
                        ],
                       ),
                       ),
@@ -1034,7 +1331,7 @@ class _HogarState extends State<Hogar> {
                          child: Column(
                            children: [
                                Text(
-                              NumberFormat('#,###,###').format(_cuotaCreditoVehiculo),
+                              '${NumberFormat('#,###,###').format(_cuotaCreditoVehiculo)}  COP',
                                style: const TextStyle(fontSize: 12),
                              ),
                           SliderTheme(
@@ -1062,6 +1359,33 @@ class _HogarState extends State<Hogar> {
                         },
                        ),
                        ),
+                      Container(
+                        margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.020 ),
+                        child: Row(
+                          children: [Expanded(
+                              child: Text(
+                              '0', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                              ),
+                              Text(
+                              '20,000,000', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+         
+                          ],
+                        ),
+                       )
                        ],
                       ),
                       ),
@@ -1093,7 +1417,7 @@ class _HogarState extends State<Hogar> {
                          child: Column(
                            children: [
                                Text(
-                              NumberFormat('#,###,###').format(_cuotaTarjetaCredito),
+                              '${NumberFormat('#,###,###').format(_cuotaTarjetaCredito)}  COP',
                                style: const TextStyle(fontSize: 12),
                              ),
                           SliderTheme(
@@ -1121,6 +1445,33 @@ class _HogarState extends State<Hogar> {
                         },
                        ),
                        ),
+                      Container(
+                        margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.020 ),
+                        child: Row(
+                          children: [Expanded(
+                              child: Text(
+                              '0', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                              ),
+                              Text(
+                              '20,000,000', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+         
+                          ],
+                        ),
+                       )
                        ],
                       ),
                       ),
@@ -1152,7 +1503,7 @@ class _HogarState extends State<Hogar> {
                          child: Column(
                            children: [
                                Text(
-                              NumberFormat('#,###,###').format(_cuotaOtrosCreditos),
+                              '${NumberFormat('#,###,###').format(_cuotaOtrosCreditos)}  COP',
                                style: const TextStyle(fontSize: 12),
                              ),
                           SliderTheme(
@@ -1180,6 +1531,33 @@ class _HogarState extends State<Hogar> {
                         },
                        ),
                        ),
+                      Container(
+                        margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.020 ),
+                        child: Row(
+                          children: [Expanded(
+                              child: Text(
+                              '0', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                              ),
+                              Text(
+                              '20,000,000', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+         
+                          ],
+                        ),
+                       )
                        ],
                       ),
                       ),
@@ -1211,7 +1589,7 @@ class _HogarState extends State<Hogar> {
                          child: Column(
                            children: [
                                Text(
-                              NumberFormat('#,###,###').format(_seguroVehiculo),
+                              '${NumberFormat('#,###,###').format(_seguroVehiculo)}  COP',
                                style: const TextStyle(fontSize: 12),
                              ),
                           SliderTheme(
@@ -1239,6 +1617,33 @@ class _HogarState extends State<Hogar> {
                         },
                        ),
                        ),
+                      Container(
+                        margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.020 ),
+                        child: Row(
+                          children: [Expanded(
+                              child: Text(
+                              '0', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                              ),
+                              Text(
+                              '20,000,000', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+         
+                          ],
+                        ),
+                       )
                        ],
                       ),
                       ),
@@ -1270,7 +1675,7 @@ class _HogarState extends State<Hogar> {
                          child: Column(
                            children: [
                                Text(
-                              NumberFormat('#,###,###').format(_seguroSalud),
+                              '${NumberFormat('#,###,###').format(_seguroSalud)}  COP',
                                style: const TextStyle(fontSize: 12),
                              ),
                           SliderTheme(
@@ -1298,6 +1703,33 @@ class _HogarState extends State<Hogar> {
                         },
                        ),
                        ),
+                       Container(
+                        margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.020 ),
+                        child: Row(
+                          children: [Expanded(
+                              child: Text(
+                              '0', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                              ),
+                              Text(
+                              '20,000,000', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+         
+                          ],
+                        ),
+                       )
                        ],
                       ),
                       ),
@@ -1329,7 +1761,7 @@ class _HogarState extends State<Hogar> {
                          child: Column(
                            children: [
                                Text(
-                              NumberFormat('#,###,###').format(_seguroVida),
+                              '${NumberFormat('#,###,###').format(_seguroVida)}  COP',
                                style: const TextStyle(fontSize: 12),
                              ),
                           SliderTheme(
@@ -1357,6 +1789,33 @@ class _HogarState extends State<Hogar> {
                         },
                        ),
                        ),
+                      Container(
+                        margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.020 ),
+                        child: Row(
+                          children: [Expanded(
+                              child: Text(
+                              '0', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                              ),
+                              Text(
+                              '20,000,000', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+         
+                          ],
+                        ),
+                       )
                        ],
                       ),
                       ),
@@ -1388,7 +1847,7 @@ class _HogarState extends State<Hogar> {
                          child: Column(
                            children: [
                                Text(
-                              NumberFormat('#,###,###').format(_creditoUsd),
+                              '${NumberFormat('#,###,###').format(_creditoUsd)}  USD',
                                style: const TextStyle(fontSize: 12),
                              ),
                           SliderTheme(
@@ -1416,6 +1875,33 @@ class _HogarState extends State<Hogar> {
                         },
                        ),
                        ),
+                      Container(
+                        margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.020 ),
+                        child: Row(
+                          children: [Expanded(
+                              child: Text(
+                              '0', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                              ),
+                              Text(
+                              '100,000', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+         
+                          ],
+                        ),
+                       )
                        ],
                       ),
                       ),
@@ -1447,7 +1933,7 @@ class _HogarState extends State<Hogar> {
                          child: Column(
                            children: [
                                Text(
-                              NumberFormat('#,###,###').format(_otrosGastosFinancieros),
+                              '${NumberFormat('#,###,###').format(_otrosGastosFinancieros)}  COP',
                                style: const TextStyle(fontSize: 12),
                              ),
                           SliderTheme(
@@ -1475,6 +1961,33 @@ class _HogarState extends State<Hogar> {
                         },
                        ),
                        ),
+                      Container(
+                        margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.020 ),
+                        child: Row(
+                          children: [Expanded(
+                              child: Text(
+                              '0', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                              ),
+                              Text(
+                              '20,000,000', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+         
+                          ],
+                        ),
+                       )
                        ],
                       ),
                       ),
@@ -1546,7 +2059,7 @@ class _HogarState extends State<Hogar> {
                          child: Column(
                            children: [
                                Text(
-                              NumberFormat('#,###,###').format(_renta),
+                              '${NumberFormat('#,###,###').format(_renta)}  COP',
                                style: const TextStyle(fontSize: 12),
                              ),
                           SliderTheme(
@@ -1574,6 +2087,33 @@ class _HogarState extends State<Hogar> {
                         },
                        ),
                        ),
+                      Container(
+                        margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.020 ),
+                        child: Row(
+                          children: [Expanded(
+                              child: Text(
+                              '0', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                              ),
+                              Text(
+                              '20,000,000', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+         
+                          ],
+                        ),
+                       )
                        ],
                       ),
                       ),
@@ -1605,7 +2145,7 @@ class _HogarState extends State<Hogar> {
                          child: Column(
                            children: [
                                Text(
-                              NumberFormat('#,###,###').format(_predial),
+                              '${NumberFormat('#,###,###').format(_predial)}  COP',
                                style: const TextStyle(fontSize: 12),
                              ),
                           SliderTheme(
@@ -1633,6 +2173,33 @@ class _HogarState extends State<Hogar> {
                         },
                        ),
                        ),
+                      Container(
+                        margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.020 ),
+                        child: Row(
+                          children: [Expanded(
+                              child: Text(
+                              '0', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                              ),
+                              Text(
+                              '20,000,000', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+         
+                          ],
+                        ),
+                       )
                        ],
                       ),
                       ),
@@ -1664,7 +2231,7 @@ class _HogarState extends State<Hogar> {
                          child: Column(
                            children: [
                                Text(
-                              NumberFormat('#,###,###').format(_impuestoVehiculos),
+                              '${NumberFormat('#,###,###').format(_impuestoVehiculos)}  COP',
                                style: const TextStyle(fontSize: 12),
                              ),
                           SliderTheme(
@@ -1692,6 +2259,33 @@ class _HogarState extends State<Hogar> {
                         },
                        ),
                        ),
+                      Container(
+                        margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.020 ),
+                        child: Row(
+                          children: [Expanded(
+                              child: Text(
+                              '0', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                              ),
+                              Text(
+                              '20,000,000', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+         
+                          ],
+                        ),
+                       )
                        ],
                       ),
                       ),
