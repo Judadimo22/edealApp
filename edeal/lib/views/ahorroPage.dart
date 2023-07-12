@@ -96,7 +96,7 @@ class _AhorroScreenState extends State<AhorroScreen> {
         var response = await http.put(
           Uri.parse('https://edeal-app.onrender.com/ahorro/$userId'),
           body: {
-            'ahorroPara': _ahorroPara == 'Otros' ? newData : _ahorroPara,
+            'ahorroPara': _ahorroPara,
             'valorAhorro': _valorAhorroController.text,
             'plazoAhorro': _plazo,
           },
@@ -104,7 +104,7 @@ class _AhorroScreenState extends State<AhorroScreen> {
 
         if (response.statusCode == 200) {
           setState(() {
-            userData['ahorroPara'] = _ahorroPara == 'Otros' ? newData : _ahorroPara;
+            userData['ahorroPara'] = _ahorroPara;
             userData['valorAhorro'] = _valorAhorroController.text;
             userData['plazoAhorro'] = _plazo;
           });
@@ -288,7 +288,7 @@ class _AhorroScreenState extends State<AhorroScreen> {
         } ,
       );
     } else {
-      saveUserData;
+      saveUserData();
     }
                         } ,
                         style: ButtonStyle(
@@ -301,11 +301,11 @@ class _AhorroScreenState extends State<AhorroScreen> {
                             const Color(0xFF0C67B0)
                           ),
                           padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                              EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.33, vertical: MediaQuery.of(context).size.height * 0.005),
+                              EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.25, vertical: MediaQuery.of(context).size.height * 0.005),
                           ),
                         ),
                          child: Text(
-                              'Crear meta ', 
+                              'Crear ahorro', 
                               style: GoogleFonts.poppins(
                                 fontSize: MediaQuery.of(context).size.width * 0.05,
                                 fontWeight: FontWeight.w400,
@@ -379,7 +379,7 @@ class _AhorroScreenState extends State<AhorroScreen> {
         } ,
       );
     } else {
-      saveUserData;
+      saveUserData();
     }
                         } ,
                         style: ButtonStyle(
