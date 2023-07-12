@@ -463,7 +463,34 @@ class _MetasFinancierasState extends State<MetasFinancieras> {
                               _plazoVacaciones = value;
                             });
                           },
-                          ) 
+                          ),
+                        Container(
+                        margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.040, right: MediaQuery.of(context).size.height * 0.040  ),
+                        child: Row(
+                          children: [Expanded(
+                              child: Text(
+                              '1 mes', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                              ),
+                              Text(
+                              '24 meses', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+         
+                          ],
+                        ),
+                       ), 
                       ],
                     )
                   ),
@@ -541,6 +568,7 @@ class _MetasFinancierasState extends State<MetasFinancieras> {
                             });
                           },
                       ),
+                      
                       ],
                     ),
                     CustomTextWidget(

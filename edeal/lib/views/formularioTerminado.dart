@@ -166,7 +166,13 @@ class _FormularioTerminadoState extends State<FormularioTerminado > {
               ),
             ),
           ),
-          SizedBox(height: 400,),
+          Container(
+            margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.1 ),
+            child: Center(
+            child: Image.asset('assets/pulgarArriba.png'),
+          ),
+          ),
+          SizedBox(height: 200,),
           Center(
                     child: Container(
                       margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.030, bottom:MediaQuery.of(context).size.height * 0.020,),

@@ -22,11 +22,12 @@ class ImageCarousel extends StatelessWidget {
         return Builder(
           builder: (BuildContext context) {
             return Container(
+              
               width: MediaQuery.of(context).size.width,
-              margin: EdgeInsets.symmetric(horizontal: 5.0),
+              margin: EdgeInsets.symmetric(horizontal: 0.0),
               decoration: BoxDecoration(
-                color: Colors.grey, 
-              ),
+            color: Colors.white,
+          ),
               child: Image.asset(
                 path,
                 fit: BoxFit.fill,

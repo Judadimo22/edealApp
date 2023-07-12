@@ -121,7 +121,7 @@ class _DashboardState extends State<Dashboard> {
           BottomNavigationBarItem(
               icon: Icon(Icons.credit_score_sharp), label: "Crédito"),
           BottomNavigationBarItem(
-            icon: Icon(Icons.home_work), label: "Finca Raíz EEUU"
+            icon: Icon(Icons.home_work), label: "Inmobiliario"
           )
         ],
 

@@ -400,8 +400,8 @@ class FincaRaizScreenState extends State<FincaRaizScreen> {
           SliderUsd(
               value: _montoInvertir, 
               min: 1000, 
-              max: 10000000, 
-              divisions: 50, 
+              max: 1000000, 
+              divisions: 10, 
               onChanged: (value) {
                             setState(() {
                               _montoInvertir = value;
@@ -508,7 +508,7 @@ class FincaRaizScreenState extends State<FincaRaizScreen> {
             padding: EdgeInsets.all(8),
             color: Color(0xFF0C67B0),
             child: Text(
-                              'Año 1', 
+                              'Año 1 USD', 
                               style: GoogleFonts.poppins(
                                 fontSize: MediaQuery.of(context).size.height * 0.013,
                                 fontWeight: FontWeight.w500,
@@ -524,7 +524,7 @@ class FincaRaizScreenState extends State<FincaRaizScreen> {
             padding: EdgeInsets.all(8),
             color: Color(0xFF0C67B0),
             child: Text(
-                              'Año 2', 
+                              'Año 2 USD', 
                               style: GoogleFonts.poppins(
                                 fontSize: MediaQuery.of(context).size.height * 0.013,
                                 fontWeight: FontWeight.w500,
@@ -540,7 +540,7 @@ class FincaRaizScreenState extends State<FincaRaizScreen> {
             padding: EdgeInsets.all(8),
             color: Color(0xFF0C67B0),
             child: Text(
-                              'Año 3', 
+                              'Año 3 USD', 
                               style: GoogleFonts.poppins(
                                 fontSize: MediaQuery.of(context).size.height * 0.013,
                                 fontWeight: FontWeight.w500,
@@ -576,7 +576,7 @@ class FincaRaizScreenState extends State<FincaRaizScreen> {
             padding: EdgeInsets.all(8),
             color: Color(0xFF0C67B0),
             child:Text(
-                              '${_montoInvertir.toInt()} USD', 
+                              '${_montoInvertir.toInt()}', 
                               style: GoogleFonts.poppins(
                                 fontSize: MediaQuery.of(context).size.height * 0.013,
                                 fontWeight: FontWeight.w500,
@@ -592,7 +592,7 @@ class FincaRaizScreenState extends State<FincaRaizScreen> {
             padding: EdgeInsets.all(8),
             color: Color(0xFF0C67B0),
             child: Text(
-                              '${_montoAno1.toInt()} USD', 
+                              '${_montoAno1.toInt()}', 
                               style: GoogleFonts.poppins(
                                 fontSize: MediaQuery.of(context).size.height * 0.013,
                                 fontWeight: FontWeight.w500,
@@ -608,7 +608,7 @@ class FincaRaizScreenState extends State<FincaRaizScreen> {
             padding: EdgeInsets.all(8),
             color: Color(0xFF0C67B0),
             child: Text(
-                              '${_montoAno2.toInt()} USD', 
+                              '${_montoAno2.toInt()}', 
                               style: GoogleFonts.poppins(
                                 fontSize: MediaQuery.of(context).size.height * 0.013,
                                 fontWeight: FontWeight.w500,
@@ -624,7 +624,7 @@ class FincaRaizScreenState extends State<FincaRaizScreen> {
             padding: EdgeInsets.all(8),
             color: Color(0xFF0C67B0),
             child: Text(
-                              '${_montoAno3.toInt()} USD', 
+                              '${_montoAno3.toInt()}', 
                               style: GoogleFonts.poppins(
                                 fontSize: MediaQuery.of(context).size.height * 0.013,
                                 fontWeight: FontWeight.w500,
@@ -676,7 +676,7 @@ class FincaRaizScreenState extends State<FincaRaizScreen> {
             padding: EdgeInsets.all(8),
             color: Color(0xFF0C67B0),
             child: Text(
-                              '${(_montoInvertir*0.06).toInt()} USD', 
+                              '${(_montoInvertir*0.06).toInt()}', 
                               style: GoogleFonts.poppins(
                                 fontSize: MediaQuery.of(context).size.height * 0.013,
                                 fontWeight: FontWeight.w500,
@@ -692,7 +692,7 @@ class FincaRaizScreenState extends State<FincaRaizScreen> {
             padding: EdgeInsets.all(8),
             color: Color(0xFF0C67B0),
             child: Text(
-                              '${(_montoAno1*0.06).toInt()} USD', 
+                              '${(_montoAno1*0.06).toInt()}', 
                               style: GoogleFonts.poppins(
                                 fontSize: MediaQuery.of(context).size.height * 0.013,
                                 fontWeight: FontWeight.w500,
@@ -708,7 +708,7 @@ class FincaRaizScreenState extends State<FincaRaizScreen> {
             padding: EdgeInsets.all(8),
             color: Color(0xFF0C67B0),
             child: Text(
-                              '${(_montoAno2*0.06).toInt()} USD', 
+                              '${(_montoAno2*0.06).toInt()}', 
                               style: GoogleFonts.poppins(
                                 fontSize: MediaQuery.of(context).size.height * 0.013,
                                 fontWeight: FontWeight.w500,
@@ -792,7 +792,7 @@ class FincaRaizScreenState extends State<FincaRaizScreen> {
             padding: EdgeInsets.all(8),
             color: Color(0xFF0C67B0),
             child: Text(
-                              '${_valorVenta.toInt()} USD', 
+                              '${_valorVenta.toInt()}', 
                               style: GoogleFonts.poppins(
                                 fontSize: MediaQuery.of(context).size.height * 0.013,
                                 fontWeight: FontWeight.w500,

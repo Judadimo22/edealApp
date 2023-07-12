@@ -15,6 +15,7 @@ import 'package:edeal/widgets/subtitulo.dart';
 import 'package:edeal/widgets/seleccion.dart';
 import 'package:edeal/widgets/sliderMeses.dart';
 import 'package:edeal/widgets/input.dart';
+import 'package:edeal/widgets/thumb.dart';
 
 class AhorroScreen extends StatefulWidget {
   final String token;
@@ -36,6 +37,9 @@ class _AhorroScreenState extends State<AhorroScreen> {
   String _ahorroPara = 'Quiero ahorrar para:';
   String _plazo= 'Plazo(meses):';
   bool _showTextField = false;
+
+  double _predial = 0;
+  double _plazoOtros = 1;
 
   @override
   void initState() {
@@ -227,43 +231,144 @@ class _AhorroScreenState extends State<AhorroScreen> {
               fontSize: MediaQuery.of(context).size.height * 0.016, 
               fontWeight: FontWeight.w500
               ),
-            CustomTextField(
-              controller: _valorAhorroController, 
-              keyboardType: TextInputType.number, 
-              hintText: 'Valor meta de ahorro'
-              ),
+            Container(
+                        margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.035, right:MediaQuery.of(context).size.height * 0.035, bottom:MediaQuery.of(context).size.height * 0.002 ),
+                         child: Column(
+                           children: [
+                               Text(
+                              '${NumberFormat('#,###,###').format(_predial)}  COP',
+                               style: const TextStyle(fontSize: 12),
+                             ),
+                          SliderTheme(
+                          data: SliderTheme.of(context).copyWith(
+                          activeTrackColor: const Color(0xFF0C67B0),
+                          inactiveTrackColor: const Color(0xFFE8E112),
+                          thumbColor: Colors.white,
+                          trackHeight: 4.0,
+                          thumbShape: const CustomSliderThumbShape(
+                          thumbRadius: 8.0, 
+                          borderThickness: 2.0, 
+                          borderColor: Colors.blue),
+                          overlayColor: const Color(0x00FFFFFF),
+                          overlayShape: const RoundSliderOverlayShape(overlayRadius: 16.0),
+                          ),
+                         child: Slider(
+                          min: 0,
+                          max: 20000000,
+                          divisions: 20,
+                          value: _predial,
+                          onChanged: (value) {
+                         setState(() {
+                          _predial = value;
+                         });
+                        },
+                       ),
+                       ),
+                      Container(
+                        margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.020 ),
+                        child: Row(
+                          children: [Expanded(
+                              child: Text(
+                              '0', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                              ),
+                              Text(
+                              '20,000,000', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+         
+                          ],
+                        ),
+                       )
+                       ],
+                      ),
+                      ),
+            // CustomTextField(
+            //   controller: _valorAhorroController, 
+            //   keyboardType: TextInputType.number, 
+            //   hintText: 'Valor meta de ahorro'
+            //   ),
              CustomTextWidget(
               text: 'Plazo de mi meta de ahorro', 
               fontSize: MediaQuery.of(context).size.height * 0.016, 
               fontWeight: FontWeight.w500
               ),
-             CustomDropdownWidget(
-              value: _plazo, 
-              onChanged: updatePlazoOption, 
-              items: const [
-                              'Plazo(meses):',
-                              '1',
-                              '2',
-                              '3',
-                              '4',
-                              '5',
-                              '6',
-                              '7',
-                              '8',
-                              '9',
-                              '10',
-                              '11',
-                              '12',
-                              '13',
-                              '14',
-                              '15',
-                              '16',
-                              '17',
-                              '18',
-                              '19',
-                              '20'
-                            ]
-              ),
+            SliderMeses(
+                  value: _plazoOtros, 
+                  min: 1, 
+                  max: 24, 
+                  divisions: 24, 
+                  onChanged: (value) {
+                    setState(() {
+                      _plazoOtros = value;
+                    });
+                },
+                  ),
+               Container(
+                        margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.040, right: MediaQuery.of(context).size.height * 0.040  ),
+                        child: Row(
+                          children: [Expanded(
+                              child: Text(
+                              '1 mes', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                              ),
+                              Text(
+                              '24 meses', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+         
+                          ],
+                        ),
+                       ),
+            //  CustomDropdownWidget(
+            //   value: _plazo, 
+            //   onChanged: updatePlazoOption, 
+            //   items: const [
+            //                   'Plazo(meses):',
+            //                   '1',
+            //                   '2',
+            //                   '3',
+            //                   '4',
+            //                   '5',
+            //                   '6',
+            //                   '7',
+            //                   '8',
+            //                   '9',
+            //                   '10',
+            //                   '11',
+            //                   '12',
+            //                   '13',
+            //                   '14',
+            //                   '15',
+            //                   '16',
+            //                   '17',
+            //                   '18',
+            //                   '19',
+            //                   '20'
+            //                 ]
+            //   ),
             Center(
                     child: Container(
                       margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.030, bottom:MediaQuery.of(context).size.height * 0.020,),
@@ -348,11 +453,74 @@ class _AhorroScreenState extends State<AhorroScreen> {
               fontSize: MediaQuery.of(context).size.height * 0.016, 
               fontWeight: FontWeight.w500
               ),
-          CustomTextField(
-              controller: _valorAhorroVoluntarioController, 
-              keyboardType: TextInputType.number, 
-              hintText: 'Valor meta de mi ahorro voluntario'
-              ),
+          Container(
+                        margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.035, right:MediaQuery.of(context).size.height * 0.035, bottom:MediaQuery.of(context).size.height * 0.002 ),
+                         child: Column(
+                           children: [
+                               Text(
+                              '${NumberFormat('#,###,###').format(_predial)}  COP',
+                               style: const TextStyle(fontSize: 12),
+                             ),
+                          SliderTheme(
+                          data: SliderTheme.of(context).copyWith(
+                          activeTrackColor: const Color(0xFF0C67B0),
+                          inactiveTrackColor: const Color(0xFFE8E112),
+                          thumbColor: Colors.white,
+                          trackHeight: 4.0,
+                          thumbShape: const CustomSliderThumbShape(
+                          thumbRadius: 8.0, 
+                          borderThickness: 2.0, 
+                          borderColor: Colors.blue),
+                          overlayColor: const Color(0x00FFFFFF),
+                          overlayShape: const RoundSliderOverlayShape(overlayRadius: 16.0),
+                          ),
+                         child: Slider(
+                          min: 0,
+                          max: 20000000,
+                          divisions: 20,
+                          value: _predial,
+                          onChanged: (value) {
+                         setState(() {
+                          _predial = value;
+                         });
+                        },
+                       ),
+                       ),
+                      Container(
+                        margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.020 ),
+                        child: Row(
+                          children: [Expanded(
+                              child: Text(
+                              '0', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                              ),
+                              Text(
+                              '20,000,000', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+         
+                          ],
+                        ),
+                       )
+                       ],
+                      ),
+                      ),
+          // CustomTextField(
+          //     controller: _valorAhorroVoluntarioController, 
+          //     keyboardType: TextInputType.number, 
+          //     hintText: 'Valor meta de mi ahorro voluntario'
+          //     ),
           Container(
             margin: EdgeInsets.only(bottom: 20),
             child: Center(

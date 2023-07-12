@@ -73,6 +73,7 @@ class _HomeState extends State<Home> {
                   ),
                   ),
                   Container(
+                    
                     margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.01, right:MediaQuery.of(context).size.height * 0.01 ),
                     child: ImageCarousel(imagePaths: imagePaths,)
                   ),
@@ -118,7 +119,7 @@ Container(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.00, right: MediaQuery.of(context).size.height * 0.1  ),
+                margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.05, right: MediaQuery.of(context).size.height * 0.0,  ),
                 child: CircleAvatar(
                   child: Icon(Icons.access_time_sharp),
                 ),
@@ -126,7 +127,7 @@ Container(
               Container(
                 padding: EdgeInsets.all(1),
                 margin: EdgeInsets.symmetric(horizontal:MediaQuery.of(context).size.height * 0.010 ), 
-                child: Text('Planeación'),
+                child: Text('Planeación financiera'),
               )
             ],
           ),
@@ -153,7 +154,7 @@ Container(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.00, right: MediaQuery.of(context).size.height * 0.1  ),
+                margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.00, right: MediaQuery.of(context).size.height * 0.02 ),
                 child: CircleAvatar(
                   child: Icon(Icons.money),
                 ),
@@ -188,7 +189,7 @@ Container(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.00, right: MediaQuery.of(context).size.height * 0.1  ),
+                margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.00, right: MediaQuery.of(context).size.height * 0.02  ),
                 child: CircleAvatar(
                   child: Icon(Icons.credit_card),
                 ),
@@ -223,7 +224,7 @@ Container(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.00, right: MediaQuery.of(context).size.height * 0.1  ),
+                margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.00, right: MediaQuery.of(context).size.height * 0.02  ),
                 child: CircleAvatar(
                   child: Icon(Icons.house),
                 ),

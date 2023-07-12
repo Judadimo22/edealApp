@@ -36,7 +36,7 @@ class _SliderMesesState extends State<SliderMeses> {
       margin: EdgeInsets.only(
         left: MediaQuery.of(context).size.height * 0.035,
         right: MediaQuery.of(context).size.height * 0.035,
-        bottom: MediaQuery.of(context).size.height * 0.020,
+        bottom: MediaQuery.of(context).size.height * 0.010,
       ),
       child: Column(
         children: [
