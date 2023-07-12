@@ -60,14 +60,14 @@ class _HomeState extends State<Home> {
     child: Column(children: [
                   Center(
                     child: Container(
-                    margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.020, top: MediaQuery.of(context).size.height * 0.030),
+                    margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.000, top: MediaQuery.of(context).size.height * 0.030),
                     width: 200,
                     child:Image.asset('assets/logoEdealAzul.png'), 
                   ),
                   ),
                 Center(
                   child: Container(
-                  margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.020, left: MediaQuery.of(context).size.height * 0.045, right: MediaQuery.of(context).size.height * 0.045, ),
+                  margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.000, left: MediaQuery.of(context).size.height * 0.045, right: MediaQuery.of(context).size.height * 0.045, ),
                   child: Text(
                               'Bienvenido ${userData['name']}', 
                               style: GoogleFonts.poppins(
@@ -94,79 +94,191 @@ Container(
             )
             },
           child: Container(
-          padding: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.010, right: MediaQuery.of(context).size.height * 0.030, top:MediaQuery.of(context).size.height * 0.030, bottom: MediaQuery.of(context).size.height * 0.030 ),
-          margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.010, right: MediaQuery.of(context).size.height * 0.030),
-          color: Colors.red,
+          padding: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.010, right: MediaQuery.of(context).size.height * 0.010, top:MediaQuery.of(context).size.height * 0.015, bottom: MediaQuery.of(context).size.height * 0.015 ),
+          margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.040, right: MediaQuery.of(context).size.height * 0.040, bottom: MediaQuery.of(context).size.height * 0.010 ),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(14),
+            border: Border.all(
+        color: Colors.grey,
+      ),
+          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                margin: EdgeInsets.symmetric(horizontal:MediaQuery.of(context).size.height * 0.050 ),
+                margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.00, right: MediaQuery.of(context).size.height * 0.1  ),
                 child: CircleAvatar(
-                  child: Icon(Icons.place_outlined),
+                  child: Icon(Icons.access_time_sharp),
                 ),
               ),
               Container(
-                margin: EdgeInsets.symmetric(horizontal:MediaQuery.of(context).size.height * 0.050 ), 
+                padding: EdgeInsets.all(1),
+                margin: EdgeInsets.symmetric(horizontal:MediaQuery.of(context).size.height * 0.010 ), 
                 child: Text('Planeación'),
               )
             ],
           ),
         ),
         ),
- Container(
-          margin: EdgeInsets.symmetric(horizontal: 2),
-          child: ElevatedButton(
-          style: ButtonStyle(
-            backgroundColor:
-            MaterialStateProperty.all<Color>(const Color(0xFF0C67B0)),
-            ),
-            onPressed: () => {
+        GestureDetector(
+          onTap: () => {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => AhorroScreen(token: widget.token)),
             )
             },
-            child: Text('Ahorro'),
+          child: Container(
+          padding: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.010, right: MediaQuery.of(context).size.height * 0.010, top:MediaQuery.of(context).size.height * 0.015, bottom: MediaQuery.of(context).size.height * 0.015 ),
+          margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.040, right: MediaQuery.of(context).size.height * 0.040, bottom: MediaQuery.of(context).size.height * 0.010),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(14),
+            border: Border.all(
+        color: Colors.grey,
+      ),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.00, right: MediaQuery.of(context).size.height * 0.1  ),
+                child: CircleAvatar(
+                  child: Icon(Icons.money),
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.all(1),
+                margin: EdgeInsets.symmetric(horizontal:MediaQuery.of(context).size.height * 0.010 ), 
+                child: Text('Ahorro        '),
+              )
+            ],
           ),
         ),
- Container(
-        margin: EdgeInsets.symmetric(horizontal: 2),
-          child: ElevatedButton(
-            style: ButtonStyle(
-            backgroundColor:
-            MaterialStateProperty.all<Color>(const Color(0xFF0C67B0)),
-            ),
-            onPressed: () => {
+        ),
+        GestureDetector(
+          onTap: () => {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => CreditoScreen(token: widget.token)),
             )
             },
-            child: Text('Crédito'),
+          child: Container(
+          padding: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.010, right: MediaQuery.of(context).size.height * 0.010, top:MediaQuery.of(context).size.height * 0.015, bottom: MediaQuery.of(context).size.height * 0.015 ),
+          margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.040, right: MediaQuery.of(context).size.height * 0.040, bottom: MediaQuery.of(context).size.height * 0.010),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(14),
+            border: Border.all(
+        color: Colors.grey,
+      ),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.00, right: MediaQuery.of(context).size.height * 0.1  ),
+                child: CircleAvatar(
+                  child: Icon(Icons.credit_card),
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.all(1),
+                margin: EdgeInsets.symmetric(horizontal:MediaQuery.of(context).size.height * 0.010 ), 
+                child: Text('Credito       '),
+              )
+            ],
           ),
         ),
-             Container(
-        margin: EdgeInsets.symmetric(horizontal: 2),
-          child: ElevatedButton(
-            style: ButtonStyle(
-            backgroundColor:
-            MaterialStateProperty.all<Color>(const Color(0xFF0C67B0)),
-            ),
-            onPressed: () => {
+        ),
+        GestureDetector(
+          onTap: () => {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => FincaRaizScreen(token: widget.token)),
             )
             },
-            child: Text(
-              'Finca Raíz',
-              style: TextStyle(
-                fontSize: 11
+          child: Container(
+          padding: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.010, right: MediaQuery.of(context).size.height * 0.010, top:MediaQuery.of(context).size.height * 0.015, bottom: MediaQuery.of(context).size.height * 0.015, ),
+          margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.040, right: MediaQuery.of(context).size.height * 0.040),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(14),
+            border: Border.all(
+        color: Colors.grey,
+      ),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.00, right: MediaQuery.of(context).size.height * 0.1  ),
+                child: CircleAvatar(
+                  child: Icon(Icons.house),
+                ),
               ),
-              ),
+              Container(
+                padding: EdgeInsets.all(1),
+                margin: EdgeInsets.symmetric(horizontal:MediaQuery.of(context).size.height * 0.010 ), 
+                child: Text('Inmobiliario'),
+              )
+            ],
           ),
         ),
+        ),
+//  Container(
+//           margin: EdgeInsets.symmetric(horizontal: 2),
+//           child: ElevatedButton(
+//           style: ButtonStyle(
+//             backgroundColor:
+//             MaterialStateProperty.all<Color>(const Color(0xFF0C67B0)),
+//             ),
+//             onPressed: () => {
+//             Navigator.push(
+//               context,
+//               MaterialPageRoute(builder: (context) => AhorroScreen(token: widget.token)),
+//             )
+//             },
+//             child: Text('Ahorro'),
+//           ),
+//         ),
+//  Container(
+//         margin: EdgeInsets.symmetric(horizontal: 2),
+//           child: ElevatedButton(
+//             style: ButtonStyle(
+//             backgroundColor:
+//             MaterialStateProperty.all<Color>(const Color(0xFF0C67B0)),
+//             ),
+//             onPressed: () => {
+//             Navigator.push(
+//               context,
+//               MaterialPageRoute(builder: (context) => CreditoScreen(token: widget.token)),
+//             )
+//             },
+//             child: Text('Crédito'),
+//           ),
+//         ),
+        //      Container(
+        // margin: EdgeInsets.symmetric(horizontal: 2),
+        //   child: ElevatedButton(
+        //     style: ButtonStyle(
+        //     backgroundColor:
+        //     MaterialStateProperty.all<Color>(const Color(0xFF0C67B0)),
+        //     ),
+        //     onPressed: () => {
+        //     Navigator.push(
+        //       context,
+        //       MaterialPageRoute(builder: (context) => FincaRaizScreen(token: widget.token)),
+        //     )
+        //     },
+        //     child: Text(
+        //       'Finca Raíz',
+        //       style: TextStyle(
+        //         fontSize: 11
+        //       ),
+        //       ),
+        //   ),
+        // ),
     ],
   ),
 ),

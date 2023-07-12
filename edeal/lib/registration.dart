@@ -151,9 +151,9 @@ void registerUser() async {
                 children: <Widget>[
                   Center(
                     child: Container(
-                    margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.020, top: MediaQuery.of(context).size.height * 0.060),
+                    margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.000, top: MediaQuery.of(context).size.height * 0.040),
                     width: 200,
-                    child:Image.asset('assets/logo_base.png'), 
+                    child:Image.asset('assets/logoEdealAzul.png'), 
                   ),
                   ),
                   Container(

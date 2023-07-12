@@ -40,7 +40,7 @@ class FirstPageState extends State<FirstPage> {
                   child:Container(
                   margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.02, top: MediaQuery.of(context).size.height * 0.2),
                   width: 200,
-                  child: Image.asset('assets/logo_base.png'),
+                  child: Image.asset('assets/logoEdealAzul.png'),
                 ),
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.05),

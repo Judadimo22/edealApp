@@ -103,11 +103,15 @@ class _DashboardState extends State<Dashboard> {
       body: Center(
         child: _pages[_selectedTab],
       ),
-      bottomNavigationBar: BottomNavigationBar(
+      bottomNavigationBar: Theme(
+        data: Theme.of(context).copyWith(
+      canvasColor: Color(0xFF0C67B0), // Color de fondo personalizado
+    ), 
+        child: BottomNavigationBar(
         currentIndex: _selectedTab,
         onTap: _changeTab,
-        unselectedItemColor: Colors.black,
-        selectedItemColor: Colors.blue,
+        unselectedItemColor: Colors.white,
+        selectedItemColor: Colors.white,
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Inicio"),
           BottomNavigationBarItem(
@@ -122,6 +126,7 @@ class _DashboardState extends State<Dashboard> {
         ],
 
     ),
+      )
     );
   }
 

@@ -96,9 +96,9 @@ void loginUser() async {
                 children: <Widget>[
                   Center(
                     child: Container(
-                    margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.02, top: MediaQuery.of(context).size.height * 0.08),
+                    margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.00, top: MediaQuery.of(context).size.height * 0.03),
                     width: MediaQuery.of(context).size.width * 0.5,
-                    child:Image.asset('assets/logo_base.png'), 
+                    child:Image.asset('assets/logoEdealAzul.png'), 
                   ),
                   ),
                   Center(
