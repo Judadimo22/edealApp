@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:edeal/widgets/carrusel.dart';
 
 class Home extends StatefulWidget {
   final String token;
@@ -53,10 +54,16 @@ class _HomeState extends State<Home> {
 
 
   Widget build(BuildContext context) {
+    final List<String> imagePaths = [
+      'assets/1.png',
+      'assets/2.png',
+      'assets/3.png',
+      'assets/4.png',
+    ];
     return Scaffold(
       backgroundColor: Colors.white,
       body:Container(
-    margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.050),
+    margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.000),
     child: Column(children: [
                   Center(
                     child: Container(
@@ -65,14 +72,18 @@ class _HomeState extends State<Home> {
                     child:Image.asset('assets/logoEdealAzul.png'), 
                   ),
                   ),
+                  Container(
+                    margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.01, right:MediaQuery.of(context).size.height * 0.01 ),
+                    child: ImageCarousel(imagePaths: imagePaths,)
+                  ),
                 Center(
                   child: Container(
-                  margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.000, left: MediaQuery.of(context).size.height * 0.045, right: MediaQuery.of(context).size.height * 0.045, ),
+                  margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.01, left: MediaQuery.of(context).size.height * 0.045, right: MediaQuery.of(context).size.height * 0.045, ),
                   child: Text(
                               'Bienvenido ${userData['name']}', 
                               style: GoogleFonts.poppins(
                                 color: const Color(0xFF0C67B0),
-                                fontSize: MediaQuery.of(context).size.height * 0.025,
+                                fontSize: MediaQuery.of(context).size.height * 0.020,
                                 fontWeight: FontWeight.w600,
                                 height: 1.5,
                                 letterSpacing: -0.01
@@ -81,7 +92,7 @@ class _HomeState extends State<Home> {
                 ),
                 ),
 Container(
-  margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.010, vertical: MediaQuery.of(context).size.height * 0.030),
+  margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.010, vertical: MediaQuery.of(context).size.height * 0.025),
   
   child: Column(
     mainAxisAlignment: MainAxisAlignment.center,
