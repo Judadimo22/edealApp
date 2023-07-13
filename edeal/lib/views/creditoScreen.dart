@@ -82,94 +82,56 @@ class _CreditoScreenState extends State<CreditoScreen> {
   }
 
 void saveUserData() async {
-  if (_formKey.currentState!.validate()) {
-    if (_montoCreditoController.text.isEmpty ||
-        _plazoCredito == 'Plazo del crédito en meses' ||
-        _tarjetaCredito == 'Tengo tarjeta de crédito:' ||
-        _creditoPara == 'Me gustaría un crédito para:'
-    ) {
-      String errorMessage = '';
+  var response = await http.put(
+    Uri.parse('https://edeal-app.onrender.com/credit/$userId'),
+    body: {
+      'credito': _creditoPara,
+      'tarjetaDeCredito': _tarjetaCredito,
+      'bancoCredito': _banco,
+      'montoCredito': _montoCreditoController.text,
+      'plazoCredito': _plazoCredito,
+    },
+  );
 
-      if (_creditoPara == 'Me gustaría un crédito para:') {
-        errorMessage = 'Por favor, selecciona una opción en Me gustaría un crédito para';
-      } else if (_tarjetaCredito == 'Tengo tarjeta de crédito:') {
-        errorMessage = 'Por favor, selecciona una opción en Tengo tarjeta de crédito';
-      } else if (_montoCreditoController.text.isEmpty) {
-        errorMessage = 'Por favor, ingresa el monto del crédito';
-      } else if (_plazoCredito == 'Plazo del crédito en meses') {
-        errorMessage = 'Por favor, selecciona una opción en Plazo del crédito';
-      }
+  if (response.statusCode == 200) {
+    setState(() {
+      userData['credit'] = _creditoPara;
+      userData['tarjetaDeCredito'] = _tarjetaCredito;
+      userData['bancoCredito'] = _banco;
+      userData['montoCredito'] = _montoCreditoController.text;
+      userData['plazoCredito'] = _plazoCredito;
+    });
 
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text('Campos incompletos'),
-            content: Text(errorMessage),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: Text('Aceptar'),
-              ),
-            ],
-          );
-        },
-      );
-    } else {
-      var newData = _newDataController.text;
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Información actualizada'),
+          content: Text('Tu información se almacenó correctamente.'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('Aceptar'),
+            ),
+          ],
+        );
+      },
+    );
 
-      var response = await http.put(
-        Uri.parse('https://edeal-app.onrender.com/credit/$userId'),
-        body: {
-          'credito': _creditoPara,
-          'tarjetaDeCredito': _tarjetaCredito,
-          'bancoCredito': _banco,
-          'montoCredito': _montoCreditoController.text,
-          'plazoCredito': _plazoCredito
-          },
-      );
-
-      if (response.statusCode == 200) {
-        setState(() {
-          userData['credit'] = _creditoPara;
-          userData['tarjetaDeCredito'] = _tarjetaCredito;
-          userData['bancoCredito'] = _banco;
-          userData['montoCredito'] = _montoCreditoController.text;
-          userData['plazoCredito'] = _plazoCredito;
-        });
-          showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: Text('Información actualizada'),
-              content: Text('Tu información se almacenó correctamente.'),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Text('Aceptar'),
-                ),
-              ],
-            ) ;
-          },
-        )
-      ;
-        setState(() {
-         _creditoPara = 'Me gustaría un crédito para:';
-         _tarjetaCredito = 'Tengo tarjeta de crédito:';
-         _banco = 'Con cual banco:';
-         _plazoCredito = 'Plazo del crédito en meses';
-         _montoCreditoController.text = '';
-      });
-      } else {
-        print('Error al actualizar la información: ${response.statusCode}');
-      }
-    }
+    setState(() {
+      _creditoPara = 'Me gustaría un crédito para:';
+      _tarjetaCredito = 'Tengo tarjeta de crédito:';
+      _banco = 'Con cual banco:';
+      _plazoCredito = 'Plazo del crédito en meses';
+      _montoCreditoController.text = '';
+    });
+  } else {
+    print('Error al actualizar la información: ${response.statusCode}');
   }
-  }
+}
+
   void updateSelectedOption(String? newValue) {
     setState(() {
       _creditoPara = newValue!;

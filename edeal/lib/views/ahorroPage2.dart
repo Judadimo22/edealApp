@@ -1,13 +1,17 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:edeal/views/ahorroPage.dart';
-import 'package:edeal/views/homeScreen.dart';
+import 'package:edeal/views/ahorroPage2.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:jwt_decoder/jwt_decoder.dart';
-import 'package:velocity_x/velocity_x.dart';
 import 'package:intl/intl.dart';
-import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:edeal/widgets/subtitulo.dart';
+import 'package:edeal/widgets/seleccion.dart';
+import 'package:edeal/widgets/sliderMeses.dart';
+import 'package:edeal/widgets/input.dart';
+import 'package:edeal/widgets/thumb.dart';
 
 class Ahorro2Screen extends StatefulWidget {
   final String token;
@@ -25,9 +29,14 @@ class _Ahorro2ScreenState extends State<Ahorro2Screen> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController _newDataController = TextEditingController();
   TextEditingController _valorAhorroController = TextEditingController();
+  TextEditingController _valorAhorroVoluntarioController = TextEditingController();
   String _ahorroPara = 'Quiero ahorrar para:';
   String _plazo= 'Plazo(meses):';
   bool _showTextField = false;
+
+  double _ahorro = 0;
+  double _ahorroVoluntario = 0;
+  double _plazoAhorro = 1;
 
   @override
   void initState() {
@@ -49,92 +58,54 @@ class _Ahorro2ScreenState extends State<Ahorro2Screen> {
     }
   }
 
-  Future<void> saveUserData() async {
-    if (_formKey.currentState!.validate()) {
-      if (_valorAhorroController.text.isEmpty ||
-          _plazo == 'Plazo(meses):' ||
-          _ahorroPara == 'Quiero ahorrar para:'
-      ) {
-        String errorMessage = '';
+  void saveUserData() async {
+  var response = await http.put(
+    Uri.parse('https://edeal-app.onrender.com/ahorro2/$userId'),
+    body: {
+      'ahorro2Para': _ahorroPara,
+      'valorAhorro2': _ahorro.toInt().toString(),
+      'plazoAhorro2': _plazoAhorro.toInt().toString(),
+    },
+  );
 
-        if (_ahorroPara == 'Quiero ahorrar para:') {
-          errorMessage = 'Por favor, selecciona una opción en Quiero ahorrar para';
-        } else if (_valorAhorroController.text.isEmpty) {
-          errorMessage = 'Por favor, ingresa el monto del ahorro';
-        } else if (_plazo == 'Plazo(meses):') {
-          errorMessage = 'Por favor, selecciona una opción en Plazo';
-        }
+  if (response.statusCode == 200) {
+    setState(() {
+      userData['ahorro2Para'] = _ahorroPara;
+      userData['valorAhorro2'] = _ahorro.toInt().toString();
+      userData['plazoAhorro2'] = _plazoAhorro.toInt().toString();
+    });
 
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: Text('Campos incompletos'),
-              content: Text(errorMessage),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Text('Aceptar'),
-                ),
-              ],
-            );
-          },
-        );
-      } else {
-        var newData = _newDataController.text;
-
-        var response = await http.put(
-          Uri.parse('https://edeal-app.onrender.com/ahorro2/$userId'),
-          body: {
-            'ahorro2Para': _ahorroPara == 'Otros' ? newData : _ahorroPara,
-            'valorAhorro2': _valorAhorroController.text,
-            'plazoAhorro2': _plazo,
-          },
-        );
-
-        if (response.statusCode == 200) {
-          setState(() {
-            userData['ahorro2Para'] = _ahorroPara == 'Otros' ? newData : _ahorroPara;
-            userData['valorAhorro2'] = _valorAhorroController.text;
-            userData['plazoAhorro2'] = _plazo;
-          });
-
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                title: Text('Información actualizada'),
-                content: Text('Tu información se almacenó correctamente.'),
-                actions: [
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => AhorroScreen(token: widget.token),
-                        ),
-                      );
-                    },
-                    child: Text('Aceptar'),
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Información actualizada'),
+          content: Text('Tu información se almacenó correctamente.'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AhorroScreen(token: widget.token),
                   ),
-                ],
-              );
-            },
-          );
+                );
+              },
+              child: Text('Aceptar'),
+            ),
+          ],
+        );
+      },
+    );
 
-          setState(() {
-            _ahorroPara = 'Quiero ahorrar para:';
-            _plazo = 'Plazo(meses):';
-          });
-        } else {
-          print('Error al actualizar la información: ${response.statusCode}');
-        }
-      }
-    }
+    setState(() {
+      _ahorroPara = 'Quiero ahorrar para:';
+    });
+  } else {
+    print('Error al actualizar la información: ${response.statusCode}');
   }
+}
 
   void updateSelectedOption(String? newValue) {
     setState(() {
@@ -155,181 +126,243 @@ class _Ahorro2ScreenState extends State<Ahorro2Screen> {
     }
   }
 
+
+
   @override
   Widget build(BuildContext context) {
-      return Scaffold(
-        backgroundColor: Color(0XFF524898),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(height: 20),
-              Form(
-                key: _formKey,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: Container(
-                    color: Color(0XFF524898),
-                    padding: EdgeInsets.symmetric(vertical: 50),
-                    child: Column(
-                      children: [
-                        Container(
-                          margin: EdgeInsets.only(bottom: 50),
-                          child: Text(
-                            'Ahorro',
-                            style: TextStyle(
-                                fontSize: 30, color: Colors.white),
-                          ),
-                        ),
-                        SizedBox(height: 20),
-                        Container(
-                          width: 374,
-                          padding: EdgeInsets.symmetric(horizontal: 10),
-                          color: Color(0XFF524898),
-                          child: DropdownButton<String>(
-                            dropdownColor: Color(0XFF524898),
-                            value: _ahorroPara,
-                            onChanged: updateSelectedOption,
-                            items: <String>[
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Container(
+          margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.075),
+        child: Column(
+          children: [
+            Text(
+                'Mi meta                        ',
+                style: GoogleFonts.poppins(
+                  color: const Color(0xFF444C52),
+                  fontSize: MediaQuery.of(context).size.height * 0.035,
+                  fontWeight: FontWeight.w600,
+                  height: 1.5,
+                  letterSpacing: -0.01
+                )
+              ),
+              Text(
+                ' de ahorro                      ',
+                style: GoogleFonts.poppins(
+                  color: const Color(0xFF444C52),
+                  fontSize: MediaQuery.of(context).size.height * 0.035,
+                  fontWeight: FontWeight.w600,
+                  height: 1.5,
+                  letterSpacing: -0.01
+                )
+              ),
+              Column(
+                children: [
+                   CustomTextWidget(
+              text: 'Quiero ahorrar para', 
+              fontSize: MediaQuery.of(context).size.height * 0.016, 
+              fontWeight: FontWeight.w500
+              ),
+            CustomDropdownWidget(
+              value: _ahorroPara, 
+              onChanged: updateSelectedOption, 
+              items: const [
                               'Quiero ahorrar para:',
                               'Viaje',
                               'Celular',
                               'Evento',
                               'Estudios',
                               'Carro',
+                              'Comprar un inmueble en COL',
+                              'Comprar inmueble en EEUU',
                               'Otros'
-                            ].map<DropdownMenuItem<String>>(
-                                (String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(
-                                  value,
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              );
-                            }).toList(),
-                            icon: Icon(
-                              Icons.arrow_drop_down,
-                              color: Colors.white,
-                            ),
+                            ]
+              ),
+             if(_showTextField)
+             Column(
+              children: [
+                CustomTextWidget(
+              text: 'Cual', 
+              fontSize: MediaQuery.of(context).size.height * 0.016, 
+              fontWeight: FontWeight.w500
+              ),
+            CustomTextField(
+              controller: _newDataController, 
+              keyboardType: TextInputType.text, 
+              hintText: 'Ingrese el objetivo del ahorro'
+              )
+              ],
+             ),
+            CustomTextWidget(
+              text: 'Valor de mi meta de ahorro', 
+              fontSize: MediaQuery.of(context).size.height * 0.016, 
+              fontWeight: FontWeight.w500
+              ),
+            Container(
+                        margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.035, right:MediaQuery.of(context).size.height * 0.035, bottom:MediaQuery.of(context).size.height * 0.002 ),
+                         child: Column(
+                           children: [
+                               Text(
+                              '${NumberFormat('#,###,###').format(_ahorro)}  COP',
+                               style: const TextStyle(fontSize: 12),
+                             ),
+                          SliderTheme(
+                          data: SliderTheme.of(context).copyWith(
+                          activeTrackColor: const Color(0xFF0C67B0),
+                          inactiveTrackColor: const Color(0xFFE8E112),
+                          thumbColor: Colors.white,
+                          trackHeight: 4.0,
+                          thumbShape: const CustomSliderThumbShape(
+                          thumbRadius: 8.0, 
+                          borderThickness: 2.0, 
+                          borderColor: Colors.blue),
+                          overlayColor: const Color(0x00FFFFFF),
+                          overlayShape: const RoundSliderOverlayShape(overlayRadius: 16.0),
                           ),
-                        ),
-                        if (_showTextField)
-                          Container(
-                            width: 374,
-                            padding: EdgeInsets.symmetric(horizontal: 10),
-                            child: TextFormField(
-                              controller: _newDataController,
-                              decoration: InputDecoration(
-                                hintText: 'Ingrese el objetivo de ahorro',
-                                hintStyle: TextStyle(color: Colors.white),
-                                border: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.white),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.white),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.white),
-                                ),
+                         child: Slider(
+                          min: 0,
+                          max: 20000000,
+                          divisions: 20,
+                          value: _ahorro,
+                          onChanged: (value) {
+                         setState(() {
+                          _ahorro = value;
+                         });
+                        },
+                       ),
+                       ),
+                      Container(
+                        margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.020 ),
+                        child: Row(
+                          children: [Expanded(
+                              child: Text(
+                              '0', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
                               ),
-                              style: TextStyle(
-                                color: Colors.white,
+                              Text(
+                              '20,000,000', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+         
+                          ],
+                        ),
+                       )
+                       ],
+                      ),
+                      ),
+             CustomTextWidget(
+              text: 'Plazo de mi meta de ahorro', 
+              fontSize: MediaQuery.of(context).size.height * 0.016, 
+              fontWeight: FontWeight.w500
+              ),
+            SliderMeses(
+                  value: _plazoAhorro, 
+                  min: 1, 
+                  max: 24, 
+                  divisions: 24, 
+                  onChanged: (value) {
+                    setState(() {
+                      _plazoAhorro = value;
+                    });
+                },
+                  ),
+               Container(
+                        margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.040, right: MediaQuery.of(context).size.height * 0.040  ),
+                        child: Row(
+                          children: [Expanded(
+                              child: Text(
+                              '1 mes', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
                               ),
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'Por favor, ingrese el objetivo de ahorro';
-                                }
-                                return null;
-                              },
+                              Text(
+                              '24 meses', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
                             ),
-                          ),
-                        SizedBox(height: 20),
-                        Container(
-                          margin: EdgeInsets.only(bottom: 20),
-                          child: TextField(
-                            controller: _valorAhorroController,
-                            keyboardType: TextInputType.number,
-                            style: TextStyle(color: Colors.white),
-                            decoration: InputDecoration(
-                              errorStyle: TextStyle(color: Colors.white),
-                              hintText: "Monto del ahorro",
-                              hintStyle: TextStyle(color: Colors.white),
-                              border: UnderlineInputBorder(
-                                borderSide: BorderSide(color: Colors.red),
-                              ),
-                            ),
-                          ).p4().px12(),
+         
+                          ],
                         ),
-                        SizedBox(height: 20),
-                        Container(
-                          width: 374,
-                          padding: EdgeInsets.symmetric(horizontal: 10),
-                          child: DropdownButton<String>(
-                            dropdownColor: Color(0XFF524898),
-                            value: _plazo,
-                            onChanged: updatePlazoOption,
-                            items: <String>[
-                              'Plazo(meses):',
-                              '1',
-                              '2',
-                              '3',
-                              '4',
-                              '5',
-                              '6',
-                              '7',
-                              '8',
-                              '9',
-                              '10',
-                              '11',
-                              '12',
-                              '13',
-                              '14',
-                              '15',
-                              '16',
-                              '17',
-                              '18',
-                              '19',
-                              '20'
-                            ].map<DropdownMenuItem<String>>(
-                                (String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(
-                                  value,
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              );
-                            }).toList(),
-                            icon: Icon(
-                              Icons.arrow_drop_down,
-                              color: Colors.white,
-                            ),
+                       ),
+            Center(
+                    child: Container(
+                      margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.030, bottom:MediaQuery.of(context).size.height * 0.020,),
+                      child: ElevatedButton(
+                        onPressed: (){
+                          if (_ahorroPara == 'Quiero ahorrar para:') {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Completa todos los campos antes de continuar'),
+            content: Text('Por favor completa todos los campos antes de continuar'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('Aceptar'),
+              ),
+            ],
+          );
+        } ,
+      );
+    } else {
+      saveUserData();
+    }
+                        } ,
+                        style: ButtonStyle(
+                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                            const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(10))
+                            )
+                          ),
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                            const Color(0xFF0C67B0)
+                          ),
+                          padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                              EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.25, vertical: MediaQuery.of(context).size.height * 0.005),
                           ),
                         ),
-                        SizedBox(height: 20),
-                        ElevatedButton(
-                          onPressed: saveUserData,
-                          child: Text('Crear mi meta de ahorro',
-                              style: TextStyle(fontSize: 18)),
-                          style: ElevatedButton.styleFrom(
-                            primary: Color(0XFFE8E112),
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 40, vertical: 10),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
+                         child: Text(
+                              'Crear ahorro', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.width * 0.05,
+                                fontWeight: FontWeight.w400,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
                             ),
-                          ),
-                        ),
-                      ],
+                      )
                     ),
                   ),
-                ),
+                ],
               ),
             ],
           ),
+        
         ),
-      );
-    }
+      )
+        );
   }
-
+}
