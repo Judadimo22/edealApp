@@ -34,9 +34,9 @@ class _FuentesAdicionalesState extends State<FuentesAdicionales> {
 
   String _habilidadEspecial = 'Habilidad para generar ingresos';
   String _desarrollarHabilidades = 'Desarrollar habilidades';
-  String _trabajarMas = 'Enumere la opcion';
-  String _ahorrarMas = 'Enumere la opcion';
-  String _gastarMenos = 'Enumere la opcion';
+  String _trabajarMas = 'Muy viable';
+  String _ahorrarMas = 'Muy viable';
+  String _gastarMenos = 'muy viable';
   String _viviendaPropia = 'Tiene vivienda propia';
   String _venderiaPropiedad = 'Venderia esta propiedad';
   String _productosGustaria= 'Productos que me gustaria tener';
@@ -48,12 +48,21 @@ class _FuentesAdicionalesState extends State<FuentesAdicionales> {
   String _seguroIncapacidad = 'Seguro de incapacidad';
   String _heredarPatrimonio = 'Heredar mi patrimonio';
 
+  TextEditingController _habilidadEspecialController = TextEditingController();
+  TextEditingController _otrosProductosController = TextEditingController();
+
+  bool _showTextFieldHabilidadEspecial = false;
+  
+
   final List<String> options = [
     'Cuenta en USD',
     'Plan de ahorro en USD',
     'Tarjeta de credito en USD',
     'Otros',
   ];
+
+  List<String> selectedOptions = [];
+  bool showTextFieldOtros = false;
 
 
   double _opcionTrabajarMas = 1;
@@ -90,6 +99,11 @@ class _FuentesAdicionalesState extends State<FuentesAdicionales> {
   void updateHabilidadEspecial(String? newHabilidadEspecial) {
     setState(() {
       _habilidadEspecial = newHabilidadEspecial!;
+      if (newHabilidadEspecial == 'Si') {
+        _showTextFieldHabilidadEspecial = true;
+      } else {
+        _showTextFieldHabilidadEspecial = false;
+      }
     });
   }
 
@@ -313,7 +327,7 @@ class _FuentesAdicionalesState extends State<FuentesAdicionales> {
             Container(
               margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.070, left: MediaQuery.of(context).size.height * 0.050, right: MediaQuery.of(context).size.height * 0.050 ),
               child: Text(
-                'Por favor enumere (1 al 3)  cual de las siguientes opciones  para aumentar ingresos.  1 la opcion mas viable al 3 la menos viable ',
+                'Enumere en nivel de viabilidad de las siguientes posibles para aumentar ingresos.  ',
                 style: GoogleFonts.inter(
                   color: const Color(0xFF817F7F),
                   fontSize: MediaQuery.of(context).size.height * 0.020,
@@ -328,49 +342,73 @@ class _FuentesAdicionalesState extends State<FuentesAdicionales> {
               fontSize: MediaQuery.of(context).size.height * 0.016, 
               fontWeight: FontWeight.w500
               ),
-            Enumeracion(
-              value: _opcionTrabajarMas, 
-              min: 1, 
-              max: 3, 
-              divisions: 3, 
-              onChanged: (value) {
-                    setState(() {
-                      _opcionTrabajarMas = value;
-                    });
-                }
-              ),
+            CustomWordSliderWidget(
+            value: _trabajarMas, 
+            words: const ['Muy viable', 'Lo contemplaría', 'No muy viable'], 
+            onChanged: (value) {
+                            setState(() {
+                              _trabajarMas = value;
+                            });
+                          },
+            ),
+            Container(
+            margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.040),
+            child: Row(
+  children: [
+    Expanded(child: Text('Muy viable')),
+    Expanded(child: Text('Lo contemplaría')),
+    Expanded(child: Text('   No muy viable')),
+  ],
+),
+          ),
             CustomTextWidget(
               text: 'Ahorrar más', 
               fontSize: MediaQuery.of(context).size.height * 0.016, 
               fontWeight: FontWeight.w500
               ),
-            Enumeracion(
-              value: _opcionAhorrarMas, 
-              min: 1, 
-              max: 3, 
-              divisions: 3, 
-              onChanged: (value) {
-                    setState(() {
-                      _opcionAhorrarMas = value;
-                    });
-                }
-              ),
+            CustomWordSliderWidget(
+            value: _ahorrarMas, 
+            words: const ['Muy viable', 'Lo contemplaría', 'No muy viable'], 
+            onChanged: (value) {
+                            setState(() {
+                              _ahorrarMas = value;
+                            });
+                          },
+            ),
+            Container(
+            margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.040),
+            child: Row(
+  children: [
+    Expanded(child: Text('Muy viable')),
+    Expanded(child: Text('Lo contemplaría')),
+    Expanded(child: Text('   No muy viable')),
+  ],
+),
+          ),
             CustomTextWidget(
               text: 'Gastar menos', 
               fontSize: MediaQuery.of(context).size.height * 0.016, 
               fontWeight: FontWeight.w500
               ),
-            Enumeracion(
-              value: _opcionGastarMenos, 
-              min: 1, 
-              max: 3, 
-              divisions: 3, 
-              onChanged: (value) {
-                    setState(() {
-                      _opcionGastarMenos= value;
-                    });
-                }
-              ),
+            CustomWordSliderWidget(
+            value: _trabajarMas, 
+            words: const ['Muy viable', 'Lo contemplaría', 'No muy viable'], 
+            onChanged: (value) {
+                            setState(() {
+                              _trabajarMas = value;
+                            });
+                          },
+            ),
+            Container(
+            margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.040),
+            child: Row(
+  children: [
+    Expanded(child: Text('Muy viable')),
+    Expanded(child: Text('Lo contemplaría')),
+    Expanded(child: Text('   No muy viable')),
+  ],
+),
+          ),
             CustomTextWidget(
               text: 'Creo que tengo una habilidad especial que puediera permitirme generar ingresos ', 
               fontSize: MediaQuery.of(context).size.height * 0.016, 
@@ -385,6 +423,21 @@ class _FuentesAdicionalesState extends State<FuentesAdicionales> {
                 'No'
                 ]
               ),
+            if(_showTextFieldHabilidadEspecial)
+            Column(
+              children: [
+                CustomTextWidget(
+              text: 'Cual habilidad especial tengo ? ', 
+              fontSize: MediaQuery.of(context).size.height * 0.016, 
+              fontWeight: FontWeight.w500
+              ),
+              CustomTextField(
+                controller: _habilidadEspecialController, 
+                keyboardType: TextInputType.text, 
+                hintText: 'Cual habilidad especial'
+                )
+              ],
+            ),
             CustomTextWidget(
               text: 'Quisiera desarrollar nuevas habilidades que me permitieran para generar ingresos  ', 
               fontSize: MediaQuery.of(context).size.height * 0.016, 
@@ -461,11 +514,28 @@ class _FuentesAdicionalesState extends State<FuentesAdicionales> {
               ),
               MultiSelectWidget(
                 options: options, 
-                selectedOptions: [], 
-                onChanged: (selectedOptions){
-                  print(selectedOptions);
+                selectedOptions: selectedOptions, 
+                onChanged: (selected){
+                  setState(() {
+                    selectedOptions = selected;
+                    showTextFieldOtros = selected.contains('Otros');
+                  });
                 }
                 ),
+              if(showTextFieldOtros)
+              Column(
+                children: [
+                  CustomTextWidget(
+              text: 'Cuál otro producto te gustaría ?', 
+              fontSize: MediaQuery.of(context).size.height * 0.016, 
+              fontWeight: FontWeight.w500
+              ),
+                  CustomTextField(
+                controller: _otrosProductosController, 
+                keyboardType: TextInputType.text, 
+                hintText: 'Cual otro producto'),
+                ],
+              ),
             Container(
                     margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.040 ),
                     child: Column(
