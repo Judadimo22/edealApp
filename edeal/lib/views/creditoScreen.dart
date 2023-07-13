@@ -2,6 +2,8 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:edeal/views/creditoScreen2.dart';
 import 'package:edeal/views/creditoScreen3.dart';
+import 'package:edeal/views/formularioCreditoTerminado.dart';
+import 'package:edeal/views/formularioTerminado.dart';
 import 'package:edeal/views/homeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -250,6 +252,9 @@ void saveUserData() async {
         child: Container(margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.075),
           child: Column(
             children: [
+            if(userData['credito'] == null)
+            Column(
+              children: [
               Text(
                 'Quiero un                       ',
                 style: GoogleFonts.poppins(
@@ -269,8 +274,8 @@ void saveUserData() async {
                   height: 1.5,
                   letterSpacing: -0.01
                 )
-              ),
-            CustomTextWidget(
+              ),  
+                CustomTextWidget(
               text: 'Quiero un crédito para: ', 
               fontSize: MediaQuery.of(context).size.height * 0.016, 
               fontWeight: FontWeight.w500
@@ -548,7 +553,52 @@ void saveUserData() async {
                       )
                     ),
                   ),
-           
+              ],
+            ),
+          if(userData['credito'] != null)
+          Container(
+          margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.090),
+        child: Column(
+          children: [
+            Center(
+              child:
+              Text(
+                'Formulario completado ',
+                style: GoogleFonts.poppins(
+                  color: const Color(0xFF444C52),
+                  fontSize: MediaQuery.of(context).size.height * 0.030,
+                  fontWeight: FontWeight.w600,
+                  height: 1.5,
+                  letterSpacing: -0.01
+                )
+              ),
+            ),
+          Center(
+            child: Container(
+              margin: EdgeInsets.only(top: 20, left: MediaQuery.of(context).size.height * 0.050, right: MediaQuery.of(context).size.height * 0.050 ),
+              child: Text(
+                'Gracias por completar el formulario de crédito',
+                style: GoogleFonts.inter(
+                  color: const Color(0xFF817F7F),
+                  fontSize: MediaQuery.of(context).size.height * 0.020,
+                  fontWeight: FontWeight.w600,
+                  height: 1.5,
+                  letterSpacing: -0.01
+                )
+              ),
+            ),
+          ),
+          SizedBox(height: 50,),
+          Container(
+            margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.1 ),
+            child: Center(
+            child: Image.asset('assets/pulgarArriba.png'),
+          ),
+          ),
+            ],
+          ),
+        
+        ),
             ],
           ),
         ),
