@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class CustomDropdownWidget extends StatefulWidget {
+class CustomDropdownNumeroWidget extends StatefulWidget {
   final String value;
   final ValueChanged<String?> onChanged;
   final List<String> items;
 
-  const CustomDropdownWidget({
+  const CustomDropdownNumeroWidget({
     Key? key,
     required this.value,
     required this.onChanged,
@@ -13,10 +13,10 @@ class CustomDropdownWidget extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _CustomDropdownWidgetState createState() => _CustomDropdownWidgetState();
+  _CustomDropdownNumeroWidgetState createState() => _CustomDropdownNumeroWidgetState();
 }
 
-class _CustomDropdownWidgetState extends State<CustomDropdownWidget> {
+class _CustomDropdownNumeroWidgetState extends State<CustomDropdownNumeroWidget> {
   void handleValueChanged(String? newValue) {
     if (newValue != null) {
       widget.onChanged(newValue);
@@ -26,11 +26,10 @@ class _CustomDropdownWidgetState extends State<CustomDropdownWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width * 2,
+      width: MediaQuery.of(context).size.height * 0.13,
       margin: EdgeInsets.only(
         top: MediaQuery.of(context).size.height * 0.005,
-        left: MediaQuery.of(context).size.height * 0.045,
-        right: MediaQuery.of(context).size.height * 0.045,
+        left: MediaQuery.of(context).size.height * 0,
       ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
@@ -55,12 +54,11 @@ class _CustomDropdownWidgetState extends State<CustomDropdownWidget> {
                 value: value,
                 child: Padding(
                   padding: EdgeInsets.symmetric(
-                      horizontal: MediaQuery.of(context).size.height * 0.002),
+                      horizontal: MediaQuery.of(context).size.height * 0.000),
                   child: Text(
                     value,
                     style: const TextStyle(
                       color: Color(0xFFABB3B8),
-                      overflow: TextOverflow.ellipsis
                     ),
                   ),
                 ),

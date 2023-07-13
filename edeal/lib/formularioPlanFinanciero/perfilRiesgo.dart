@@ -11,6 +11,7 @@ import 'package:edeal/widgets/barraSeleccion.dart';
 import 'package:edeal/widgets/sliderPalabras.dart';
 import 'package:edeal/widgets/subtitulo.dart';
 import 'package:edeal/widgets/seleccion.dart';
+import 'package:edeal/widgets/dropDownNumero.dart';
 import 'package:edeal/widgets/sliderMeses.dart';
 import 'package:edeal/widgets/input.dart';
 import 'package:edeal/widgets/enumeracion.dart';
@@ -33,16 +34,18 @@ class _PerfilRiesgoState extends State<PerfilRiesgo> {
 
   String _experienciaInversiones= 'Cual es su nivel de experiencia';
   String _poseo = 'He invertido o poseo algun activo';
-  String _generarIngresos = 'Enumere la opcion';
-  String _arriesgarCapital = 'Enumere la opcion';
-  String _incrementarPatrimonio = 'Enumere la opcion';
-  String _protegerPatrimonio = 'Enumere la opcion';
+  String _generarIngresos = 'Enumere';
+  String _arriesgarCapital = 'Enumere';
+  String _incrementarPatrimonio = 'Enumere';
+  String _protegerPatrimonio = 'Enumere';
   String _perfil = 'Seleccione perfil';
   String _prioridades = 'Seleccione prioridades';
   String _anosRetiros = 'Seleccione años retiros';
   String _tiempoRetiros = 'Seleccione tiempo retiros';
   // String _valorAhorro = 'Valor del ahorro(millones):';
   String _plazo= 'Plazo(meses):';
+  String _prioridadFinancieraDrop = 'Prioridad financiera';
+
 
   double _importanciaGenerarIngresos = 1;
   double _importanciaArriesgarCapital = 1;
@@ -141,6 +144,14 @@ class _PerfilRiesgoState extends State<PerfilRiesgo> {
     });
   }
 
+  void updatePrioridadFInanciera(String? newPrioridadFinanciera) {
+    setState(() {
+      _prioridadFinancieraDrop= newPrioridadFinanciera!;
+    });
+  }
+
+
+
   void savePerfilRiesgo() async {
     // var newData = _newDataController.text;
 
@@ -149,10 +160,10 @@ class _PerfilRiesgoState extends State<PerfilRiesgo> {
       body: {
         'experienciaInversiones': _experienciaInversiones,
         'poseoAlgunActivo': _poseo,
-        'generarIngresos': _importanciaGenerarIngresos.toInt().toString(),
-        'arriesgarMiCapital': _importanciaArriesgarCapital.toInt().toString(),
-        'incrementarPatrimonio': _importanciaIncrementarPatrimonio.toInt().toString(),
-        'protegerPatrimonio': _importanciaProtegerPatrimonio.toInt().toString(),
+        'generarIngresos': _generarIngresos,
+        'arriesgarMiCapital': _arriesgarCapital,
+        'incrementarPatrimonio': _incrementarPatrimonio,
+        'protegerPatrimonio': _protegerPatrimonio,
         'perfilActitudInversionista': _perfilInversionista,
         'prioridadesFinancieras': _prioridadFinanciera,
         'iniciarRetiros': _iniciarRetiros,
@@ -326,70 +337,108 @@ class _PerfilRiesgoState extends State<PerfilRiesgo> {
                 )
               ),
             ),
-            CustomTextWidget(
+            Container(
+              child: Row(
+                children: [
+                  Container(
+                    width: MediaQuery.of(context).size.height * 0.278,
+                    child: CustomTextWidget(
               text: 'Arriesgar mi capital para tener posibiliades de altas ganancias', 
               fontSize: MediaQuery.of(context).size.height * 0.016, 
               fontWeight: FontWeight.w500
               ),
-            Enumeracion(
-              value: _importanciaArriesgarCapital, 
-              min: 1, 
-              max: 4, 
-              divisions: 3, 
-              onChanged: (value) {
-                    setState(() {
-                      _importanciaArriesgarCapital = value;
-                    });
-                }
+                  ),
+                  CustomDropdownNumeroWidget(
+                    value: _arriesgarCapital, 
+                    onChanged: updateArriesgarCapital, 
+                    items: const [
+                      'Enumere',
+                      '1',
+                      '2',
+                      '3',
+                      '4'                      
+                      ]
+                    )
+                ],
               ),
-            CustomTextWidget(
+            ),
+            Container(
+              margin: EdgeInsets.only(bottom:MediaQuery.of(context).size.height * 0.03 ),
+              child: Row(
+                children: [
+                  Container(
+                    width: MediaQuery.of(context).size.height * 0.278,
+                    child: CustomTextWidget(
               text: 'Generar ingresos', 
               fontSize: MediaQuery.of(context).size.height * 0.016, 
               fontWeight: FontWeight.w500
               ),
-            Enumeracion(
-              value: _importanciaGenerarIngresos, 
-              min: 1, 
-              max: 4, 
-              divisions: 3, 
-              onChanged: (value) {
-                    setState(() {
-                      _importanciaGenerarIngresos = value;
-                    });
-                }
+                  ),
+                  CustomDropdownNumeroWidget(
+                    value: _generarIngresos, 
+                    onChanged: updateGenrarIngresos, 
+                    items: const [
+                      'Enumere',
+                      '1',
+                      '2',
+                      '3',
+                      '4'                      
+                      ]
+                    )
+                ],
               ),
-            CustomTextWidget(
+            ),
+            Container(
+              margin: EdgeInsets.only(bottom:MediaQuery.of(context).size.height * 0.03 ),
+              child: Row(
+                children: [
+                  Container(
+                    width: MediaQuery.of(context).size.height * 0.278,
+                    child: CustomTextWidget(
               text: 'Incrementar mi patrimonio', 
               fontSize: MediaQuery.of(context).size.height * 0.016, 
               fontWeight: FontWeight.w500
               ),
-            Enumeracion(
-              value: _importanciaIncrementarPatrimonio, 
-              min: 1, 
-              max: 4, 
-              divisions: 3, 
-              onChanged: (value) {
-                    setState(() {
-                      _importanciaIncrementarPatrimonio = value;
-                    });
-                }
+                  ),
+                  CustomDropdownNumeroWidget(
+                    value: _incrementarPatrimonio, 
+                    onChanged: updateIncrementarPatrimonio, 
+                    items: const [
+                      'Enumere',
+                      '1',
+                      '2',
+                      '3',
+                      '4'                      
+                      ]
+                    )
+                ],
               ),
-            CustomTextWidget(
+            ),
+            Container(
+              child: Row(
+                children: [
+                  Container(
+                    width: MediaQuery.of(context).size.height * 0.278,
+                    child: CustomTextWidget(
               text: 'Proteger mi patrimonio', 
               fontSize: MediaQuery.of(context).size.height * 0.016, 
               fontWeight: FontWeight.w500
               ),
-            Enumeracion(
-              value: _importanciaProtegerPatrimonio, 
-              min: 1, 
-              max: 4, 
-              divisions: 3, 
-              onChanged: (value) {
-                    setState(() {
-                      _importanciaProtegerPatrimonio = value;
-                    });
-                }
+                  ),
+                  CustomDropdownNumeroWidget(
+                    value: _protegerPatrimonio, 
+                    onChanged: updateProtegerPatrimonio, 
+                    items: const [
+                      'Enumere',
+                      '1',
+                      '2',
+                      '3',
+                      '4'                      
+                      ]
+                    )
+                ],
               ),
+            ),
             Container(
               margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.040, left: MediaQuery.of(context).size.height * 0.050, right: MediaQuery.of(context).size.height * 0.050 ),
               child: Text(
@@ -417,6 +466,17 @@ class _PerfilRiesgoState extends State<PerfilRiesgo> {
                             });
                           },
             ),
+          Container(
+            margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.040),
+            child: Row(
+  children: [
+    Expanded(child: Text('Especulacion')),
+    Expanded(child: Text('Conservador')),
+    Expanded(child: Text('Moderado')),
+    Expanded(child: Text('Agresivo')),
+  ],
+),
+          ),
             Container(
               margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.020, left: MediaQuery.of(context).size.height * 0.050, right: MediaQuery.of(context).size.height * 0.050 ),
               child: Text(
@@ -435,15 +495,19 @@ class _PerfilRiesgoState extends State<PerfilRiesgo> {
               fontSize: MediaQuery.of(context).size.height * 0.016, 
               fontWeight: FontWeight.w500
               ),
-            CustomWordSliderWidget(
-            value: _prioridadFinanciera, 
-            words: const ['Como aumentar mi patrimonio', 'Como crear un Plan de ahorro para mi retiro', 'Generar Ingresos en USD', 'Como cubrir las necesidades de mi familia con un seguro de vida', 'Como invertir en bienes raices en USD', 'Filantropia'], 
-            onChanged: (value) {
-                            setState(() {
-                              _prioridadFinanciera = value;
-                            });
-                          },
-            ),
+              CustomDropdownWidget(
+                value: _prioridadFinancieraDrop, 
+                onChanged: updatePrioridadFInanciera, 
+                items: const [
+                  'Prioridad financiera',
+                  'Como aumentar mi patrimonio',
+                  'Como crear un plan para mi retiro',
+                  'Generar Ingresos en USD',
+                  'Como cubrir necesidades de mi familia',
+                  'Como invertir en bienes raices en USD',
+                  'Filantropia'
+                ]
+                ),
           Container(
               margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.020, left: MediaQuery.of(context).size.height * 0.050, right: MediaQuery.of(context).size.height * 0.050 ),
               child: Text(
@@ -472,6 +536,18 @@ class _PerfilRiesgoState extends State<PerfilRiesgo> {
                           },
             ),
           Container(
+            margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.020),
+            child: Row(
+  children: [
+    Expanded(child: Text('< 2 años')),
+    Expanded(child: Text('2-5 años')),
+    Expanded(child: Text('6-10 años')),
+    Expanded(child: Text('11-20 años')),
+    Expanded(child: Text('  > 20 años')),
+  ],
+),
+          ),
+          Container(
               margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.020, left: MediaQuery.of(context).size.height * 0.050, right: MediaQuery.of(context).size.height * 0.050 ),
               child: Text(
                 'Una vez que comience a retirar fondos para su necesidad financiera principal, ¿durante cuánto tiempo planea que continuarán los retiros?',
@@ -498,6 +574,18 @@ class _PerfilRiesgoState extends State<PerfilRiesgo> {
                             });
                           },
             ),
+            Container(
+            margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.020),
+            child: Row(
+  children: [
+    Expanded(child: Text('< 2 años')),
+    Expanded(child: Text('2-5 años')),
+    Expanded(child: Text('6-10 años')),
+    Expanded(child: Text('11-20 años')),
+    Expanded(child: Text('  > 20 años')),
+  ],
+),
+          ),
           Center(
                     child: Container(
                       margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.030, bottom:MediaQuery.of(context).size.height * 0.020,),

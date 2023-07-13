@@ -31,7 +31,7 @@ class _CustomWordSliderWidgetState extends State<CustomWordSliderWidget> {
       margin: EdgeInsets.only(
         left: MediaQuery.of(context).size.height * 0.035,
         right: MediaQuery.of(context).size.height * 0.035,
-        bottom: MediaQuery.of(context).size.height * 0.045,
+        bottom: MediaQuery.of(context).size.height * 0.005,
       ),
       child: Column(
         children: [
