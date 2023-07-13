@@ -73,9 +73,8 @@ class _HomeState extends State<Home> {
                   ),
                   ),
                   Container(
-                    
                     margin: EdgeInsets.only(left: MediaQuery.of(context).size.height * 0.01, right:MediaQuery.of(context).size.height * 0.01 ),
-                    child: ImageCarousel(imagePaths: imagePaths,)
+                    child: ImageCarousel(imagePaths: imagePaths, token: widget.token,)
                   ),
                 Center(
                   child: Container(

@@ -1,60 +1,74 @@
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
-import 'dart:math';
 
 class SalesData {
-  final String year;
+  final int year;
   final int dynamicValue;
 
   SalesData(this.year, this.dynamicValue);
 }
 
-List<charts.Series<SalesData, String>> getChartData(double montoInvertir) {
+List<charts.Series<dynamic, num>> getChartData(double montoInvertir) {
   final List<SalesData> chartData = [
-    SalesData('Hoy', montoInvertir.toInt()),
-    SalesData('Año 1', ((montoInvertir*0.06)+ montoInvertir).toInt()),
-    SalesData('Año 2', (((montoInvertir*0.06)+ montoInvertir) + montoInvertir*0.06).toInt()),
-    SalesData('Año 3', (((montoInvertir*0.06)+ montoInvertir) + montoInvertir*0.06 ).toInt()),
+    SalesData(0, montoInvertir.toInt()),
+    SalesData(1, ((montoInvertir * 0.06) + montoInvertir).toInt()),
+    SalesData(
+        2,
+        (((montoInvertir * 0.06) + montoInvertir) + montoInvertir * 0.06)
+            .toInt()),
+    SalesData(
+        3,
+        (((montoInvertir * 0.06) + montoInvertir) + montoInvertir * 0.06)
+            .toInt()),
   ];
 
- 
-
-  return [
-    charts.Series<SalesData, String>(
-      id: 'Sales',
+  final List<charts.Series<dynamic, num>> seriesList = [
+    charts.Series<SalesData, num>(
+      id: 'Saldo de la cuenta',
       data: chartData,
       domainFn: (SalesData sales, _) => sales.year,
       measureFn: (SalesData sales, _) => sales.dynamicValue,
       colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
     ),
   ];
+
+  return seriesList.cast<charts.Series<dynamic, num>>();
 }
 
-class BarChartWidget extends StatelessWidget {
-  final List<charts.Series<SalesData, String>> seriesList;
+class LineChartWidget extends StatelessWidget {
+  final List<charts.Series<dynamic, num>> seriesList;
   final bool animate;
   final double montoInvertir;
 
-  BarChartWidget(this.seriesList, {required this.animate, required this.montoInvertir});
+  LineChartWidget(this.seriesList, {required this.animate, required this.montoInvertir});
 
   @override
   Widget build(BuildContext context) {
-    final List<charts.Series<SalesData, String>> seriesList = getChartData(montoInvertir);
-    return charts.BarChart(
+    final List<charts.Series<dynamic, num>> seriesList =
+        getChartData(montoInvertir);
+    return charts.LineChart(
       seriesList,
       animate: animate,
-      domainAxis: charts.OrdinalAxisSpec(
-        renderSpec: charts.SmallTickRendererSpec(
-          labelRotation: 60, // Rotación de etiquetas del eje X
+      behaviors: [
+        charts.SeriesLegend(
+          position: charts.BehaviorPosition.bottom,
+          horizontalFirst: false,
+          desiredMaxRows: 2,
         ),
-      ),
-      primaryMeasureAxis: charts.NumericAxisSpec(
-        renderSpec: charts.GridlineRendererSpec(
-          labelStyle: charts.TextStyleSpec(
-            fontSize: 12, // Tamaño de fuente de las etiquetas del eje Y
-          ),
-        ),
+        charts.ChartTitle('Año',
+            behaviorPosition: charts.BehaviorPosition.bottom,
+            titleOutsideJustification:
+                charts.OutsideJustification.middleDrawArea),
+        charts.ChartTitle('Value',
+            behaviorPosition: charts.BehaviorPosition.start,
+            titleOutsideJustification:
+                charts.OutsideJustification.middleDrawArea),
+      ],
+      defaultRenderer: charts.LineRendererConfig(
+        includePoints: true,
+        radiusPx: 5.0,
       ),
     );
   }
 }
+

@@ -463,7 +463,7 @@ class FincaRaizScreenState extends State<FincaRaizScreen> {
                 Container(
               height: 400, 
               padding: EdgeInsets.all(16),
-              child: BarChartWidget(getChartData(_montoInvertir), animate: animate, montoInvertir: _montoInvertir,),
+              child: LineChartWidget(getChartData(_montoInvertir), animate: animate, montoInvertir: _montoInvertir,),
             ),
             Container(
               margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.height * 0.010),

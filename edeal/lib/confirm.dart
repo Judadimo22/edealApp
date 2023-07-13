@@ -167,7 +167,7 @@ class _ConfirmState extends State<Confirm> {
       appBar: AppBar(
         title: Text('Ingresar código'),
         centerTitle: true,
-        backgroundColor: Color(0XFF524898),
+        backgroundColor: const Color(0xFF0C67B0),
         toolbarHeight: 70,
       ),
       body: Center(
