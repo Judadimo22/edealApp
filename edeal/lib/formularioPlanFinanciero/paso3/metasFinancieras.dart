@@ -602,6 +602,33 @@ class _MetasFinancierasState extends State<MetasFinancieras> {
                       _plazoAutomovil = value;
                     });
                 },),
+              Container(
+                        margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.040, right: MediaQuery.of(context).size.height * 0.040  ),
+                        child: Row(
+                          children: [Expanded(
+                              child: Text(
+                              '1 mes', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                              ),
+                              Text(
+                              '24 meses', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+         
+                          ],
+                        ),
+                       ), 
                 CustomTextWidget(
                   text: 'Valor de la meta', 
                   fontSize: MediaQuery.of(context).size.height * 0.016 , 
@@ -694,6 +721,33 @@ class _MetasFinancierasState extends State<MetasFinancieras> {
                     });
                 },
                     ),
+                  Container(
+                        margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.040, right: MediaQuery.of(context).size.height * 0.040  ),
+                        child: Row(
+                          children: [Expanded(
+                              child: Text(
+                              '1 mes', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                              ),
+                              Text(
+                              '24 meses', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+         
+                          ],
+                        ),
+                       ), 
                   CustomTextWidget(
                     text: 'Valor de la meta', 
                     fontSize: MediaQuery.of(context).size.height * 0.016, 
@@ -786,6 +840,33 @@ class _MetasFinancierasState extends State<MetasFinancieras> {
                     });
                 },
                      ),
+                  Container(
+                        margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.040, right: MediaQuery.of(context).size.height * 0.040  ),
+                        child: Row(
+                          children: [Expanded(
+                              child: Text(
+                              '1 mes', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                              ),
+                              Text(
+                              '24 meses', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+         
+                          ],
+                        ),
+                       ), 
                   CustomTextWidget(
                     text: 'Valor de la meta', 
                     fontSize: MediaQuery.of(context).size.height * 0.016 , 
@@ -878,6 +959,33 @@ class _MetasFinancierasState extends State<MetasFinancieras> {
                     });
                 },
                     ),
+                Container(
+                        margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.040, right: MediaQuery.of(context).size.height * 0.040  ),
+                        child: Row(
+                          children: [Expanded(
+                              child: Text(
+                              '1 mes', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                              ),
+                              Text(
+                              '24 meses', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+         
+                          ],
+                        ),
+                       ), 
                   CustomTextWidget(
                     text: 'Valor de la meta', 
                     fontSize: MediaQuery.of(context).size.height * 0.016, 
@@ -971,6 +1079,33 @@ class _MetasFinancierasState extends State<MetasFinancieras> {
                     });
                 },
                   ),
+              Container(
+                        margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.040, right: MediaQuery.of(context).size.height * 0.040  ),
+                        child: Row(
+                          children: [Expanded(
+                              child: Text(
+                              '1 mes', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                              ),
+                              Text(
+                              '24 meses', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+         
+                          ],
+                        ),
+                       ), 
                 CustomTextWidget(
                   text: 'Valor de la meta', 
                   fontSize: MediaQuery.of(context).size.height * 0.016, 
@@ -1063,6 +1198,33 @@ class _MetasFinancierasState extends State<MetasFinancieras> {
                     });
                 },
                   ),
+              Container(
+                        margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.040, right: MediaQuery.of(context).size.height * 0.040  ),
+                        child: Row(
+                          children: [Expanded(
+                              child: Text(
+                              '1 mes', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                              ),
+                              Text(
+                              '24 meses', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+         
+                          ],
+                        ),
+                       ), 
                 CustomTextWidget(
                   text: 'Valor de la meta', 
                   fontSize: MediaQuery.of(context).size.height * 0.016, 
@@ -1155,6 +1317,33 @@ class _MetasFinancierasState extends State<MetasFinancieras> {
                     });
                 },
                   ),
+              Container(
+                        margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.040, right: MediaQuery.of(context).size.height * 0.040  ),
+                        child: Row(
+                          children: [Expanded(
+                              child: Text(
+                              '1 mes', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                              ),
+                              Text(
+                              '24 meses', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+         
+                          ],
+                        ),
+                       ), 
                 CustomTextWidget(
                   text: 'Valor de la meta', 
                   fontSize: MediaQuery.of(context).size.height * 0.016, 
@@ -1247,6 +1436,33 @@ class _MetasFinancierasState extends State<MetasFinancieras> {
                     });
                 },
                   ),
+              Container(
+                        margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.040, right: MediaQuery.of(context).size.height * 0.040  ),
+                        child: Row(
+                          children: [Expanded(
+                              child: Text(
+                              '1 mes', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                              ),
+                              Text(
+                              '24 meses', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+         
+                          ],
+                        ),
+                       ), 
                 CustomTextWidget(
                   text: 'Valor de la meta', 
                   fontSize: MediaQuery.of(context).size.height * 0.016, 
@@ -1340,6 +1556,33 @@ class _MetasFinancierasState extends State<MetasFinancieras> {
                     });
                 },
                   ),
+              Container(
+                        margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.040, right: MediaQuery.of(context).size.height * 0.040  ),
+                        child: Row(
+                          children: [Expanded(
+                              child: Text(
+                              '1 mes', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                              ),
+                              Text(
+                              '24 meses', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+         
+                          ],
+                        ),
+                       ), 
                 CustomTextWidget(
                   text: 'Valor de la meta', 
                   fontSize: MediaQuery.of(context).size.height * 0.016, 
@@ -1497,6 +1740,33 @@ class _MetasFinancierasState extends State<MetasFinancieras> {
                     });
                 }
                 ),
+              Container(
+                        margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.050, right: MediaQuery.of(context).size.height * 0.045, bottom: MediaQuery.of(context).size.height * 0.010   ),
+                        child: Row(
+                          children: [Expanded(
+                              child: Text(
+                              '10', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                              ),
+                              Text(
+                              '1', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+         
+                          ],
+                        ),
+                       ),
               CustomTextWidget(
                 text: 'Monto estimado anual', 
                 fontSize: MediaQuery.of(context).size.height * 0.016, 
@@ -1513,6 +1783,33 @@ class _MetasFinancierasState extends State<MetasFinancieras> {
                     });
                 }
                 ),
+              Container(
+                        margin: EdgeInsets.only(left:MediaQuery.of(context).size.height * 0.050, right: MediaQuery.of(context).size.height * 0.045, bottom: MediaQuery.of(context).size.height * 0.010   ),
+                        child: Row(
+                          children: [Expanded(
+                              child: Text(
+                              '0', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+                              ),
+                              Text(
+                              '20,000,000', 
+                              style: GoogleFonts.poppins(
+                                fontSize: MediaQuery.of(context).size.height * 0.012,
+                                fontWeight: FontWeight.w500,
+                                height: 1.5,
+                                letterSpacing: -0.01
+                              ),                   
+                            ),
+         
+                          ],
+                        ),
+                       ),
               CustomTextWidget(
                 text: 'Tipo de institucion educativa', 
                 fontSize: MediaQuery.of(context).size.height * 0.016, 
